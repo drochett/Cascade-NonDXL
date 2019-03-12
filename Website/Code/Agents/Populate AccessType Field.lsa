@@ -43,8 +43,8 @@ Dim accessCode As Variant
   <code event="initialize">
     <lotusscript>Sub Initialize
 	Dim st As String
-	On Error GoTo Error_Trap
-	st = CStr(GetThreadInfo(1)) + ":  " 
+	On Error Goto Error_Trap
+	st = Cstr(Getthreadinfo(1)) + ":  " 
 	Dim s As New NotesSession
 	Dim db As NotesDatabase
 	Dim a As NotesAgent
@@ -78,7 +78,7 @@ jdeLibraryAmericas:  | + jdeLibraryAmericas + |
 jdeLibraryEurope:  | + jdeLibraryEurope + |
 jdeDataSourceAmericas: | + jdeDataSourceAmericas + |
 jdeDataSourceEurope: | + jdeDataSourceEurope 
-	End if
+	End If
 	Call setImportLogMessage(logMsg ,"Info")
 '	GoTo End_Of_Code
 	'+++++++++++++END OF  Log Connection data+++++++++++++
@@ -111,11 +111,11 @@ jdeDataSourceEurope: | + jdeDataSourceEurope
 		
 		Exit Sub
 	End If 
-	Set db = s.Getdatabase(db.server,setupDoc.value(0), false)
+	Set db = s.Getdatabase(db.server,setupDoc.value(0), False)
 	If db Is Nothing Then
 		'major error - need to exit
 		
-		Exit sub
+		Exit Sub
 	End If
 	Set dc = db.Search( "", Nothing, 0 ) 'init the document collection
 	
@@ -126,14 +126,14 @@ jdeDataSourceEurope: | + jdeDataSourceEurope
 	Set doc = v.Getfirstdocument()
 	'add all documents in view to document collection. When we process them, they will be reoved
 	'from the view
-	Do until doc Is Nothing
+	Do Until doc Is Nothing
 '		If (doc.location(0) = "americas" And doc.AccessType(0) = "") Or doc.location(0) = "eme" then
 			Call dc.Adddocument(doc)
 '		End if
 		Set doc = v.Getnextdocument(doc)
 	Loop
 	totalCount = dc.Count
-	Call setImportLogMessage(Chr(10)+"Total Documents to work on: " + CStr(totalCount),"Info")
+	Call setImportLogMessage(Chr(10)+"Total Documents to work on: " + Cstr(totalCount),"Info")
 	
 '	Stop
 '	GoTo End_Of_Code
@@ -151,7 +151,7 @@ jdeDataSourceEurope: | + jdeDataSourceEurope
 		If doc.employeeID(0) = "" Then
 			errorMsg = st + "ERROR - document for " + doc.fullname(0) + " does not have an employeeID"
 			Call setImportLogMessage(errorMsg ,"Error")
-			GoTo Next_Doc
+			Goto Next_Doc
 		End If
 
 'REMOVING ORIGACCESSCODE CHECK - TAKES TOO LONG TO RUN -ASSUMING ORIGACCESSCODE CORRECT
@@ -173,7 +173,7 @@ jdeDataSourceEurope: | + jdeDataSourceEurope
 		If accessCode = "" Then  'JDE did not return an access code - log it and move on
 			logMsg = jdeDataString 
 			logMsg = logMsg + Chr(10) + "ACCESS CODE RETURNED FROM JDE IS EMPTY."
-			logmsg = logMsg + Chr(10) + "User Name: " + doc.fullName(0) + "|| Region: " + doc.location(0)+ "|| Account Nbr: " + doc.employeeID(0)+ "|| Company: " + FullTrim(doc.CompanyName(0))
+			logmsg = logMsg + Chr(10) + "User Name: " + doc.fullName(0) + "|| Region: " + doc.location(0)+ "|| Account Nbr: " + doc.employeeID(0)+ "|| Company: " + Fulltrim(doc.CompanyName(0))
 			logmsg = logMsg + Chr(10) + "##############################################################################"
 			If sqlCall &lt;&gt;  "" Then Call SetImportLogMessage(sqlCall,"Msg")
 			unchangedCount = unchangedCount + 1
@@ -191,9 +191,9 @@ NEXT_DOC:
 		Set doc = dc.getNextDocument(doc)
 	Loop
 	
-	GoTo End_Of_Code
+	Goto End_Of_Code
 ERROR_TRAP:
-	MsgBox st + CStr(Err) + " on line " + CStr(Erl) + ": " + Error
+	Msgbox st + Cstr(Err) + " on line " + Cstr(Erl) + ": " + Error
 	
 	If errorMsg &lt;&gt; "" Then 
 		Call setImportLogMessage(errorMsg,"Error")
@@ -201,9 +201,9 @@ ERROR_TRAP:
 	End If
 	Resume End_Of_Code
 END_OF_CODE:
-	importLogDoc.totalCOunt = CStr(totalCount)
-	importLogDoc.changeCount = CStr(changeCount)
-	importLogDoc.unchangedCount = CStr(unchangedCount)
+	importLogDoc.totalCOunt = Cstr(totalCount)
+	importLogDoc.changeCount = Cstr(changeCount)
+	importLogDoc.unchangedCount = Cstr(unchangedCount)
 	importLogDoc.errorCount = errorCount
 	Call importLogDoc.Replaceitemvalue("EndDate",  Now)
 	Call importLogDoc.Save(True,True)
@@ -219,9 +219,9 @@ End Sub
 	Dim s As New NotesSession
 	Dim richStyle As NotesRichTextStyle
 	Set richStyle = s.CreateRichTextStyle
-	st =  + CStr(GetThreadInfo(1)) + ": "
+	st =  + Cstr(Getthreadinfo(1)) + ": "
 	'msgBox st + "Entering Log Msg - " + msgType
-	On Error GoTo catch
+	On Error Goto catch
 	Select Case msgType
 		Case "Warning"
 			If importLogWarningRT.Values &lt;&gt; "" Then
@@ -248,7 +248,7 @@ End Sub
 			If message &lt;&gt; "" Then
 				Call importLogErrorRT.Appendtext(message)
 			Else
-				Call importLogErrorRT.Appendtext("Error Unknown " + CStr(unknownError))
+				Call importLogErrorRT.Appendtext("Error Unknown " + Cstr(unknownError))
 				unknownError = unknownError + 1
 			End If
 			importLogDoc.errorCount = errorCount
@@ -270,7 +270,7 @@ End Sub
 			If message = "" Then Exit Function
 			If errorMsg &lt;&gt; "" Or  accessCode = "" Then
 				richStyle.NotesColor = COLOR_RED
-			ElseIf origAccessCode &lt;&gt; "" Then
+			Elseif origAccessCode &lt;&gt; "" Then
 				richStyle.NotesColor = COLOR_CYAN
 			Else
 				richStyle.NotesColor = COLOR_BLACK
@@ -278,15 +278,15 @@ End Sub
 			Call importLogMsgRT.AppendStyle(richStyle)
 			Call importLogMsgRT.Appendtext(message)
 	End Select
-	importLogDoc.totalCOunt = CStr(totalCount)
-	importLogDoc.changeCount = CStr(changeCount)
-	importLogDoc.unchangedCount = CStr(unchangedCount)
+	importLogDoc.totalCOunt = Cstr(totalCount)
+	importLogDoc.changeCount = Cstr(changeCount)
+	importLogDoc.unchangedCount = Cstr(unchangedCount)
 	importLogDoc.errorCount = errorCount
 	Call importLogDoc.save(True,False)
 	Exit Function
 	
 catch:
-	MessageBox st + "Err nbr " + CStr(Err) + ":  Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ 
+	Messagebox st + "Err nbr " + Cstr(Err) + ":  Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ 
 '	Call setImportLogMessage ("Sub setImportLogMessage " + Error$ + ": " + Str$(Erl), "Error")
 	Call importLogDoc.Replaceitemvalue("Success", "No")
 

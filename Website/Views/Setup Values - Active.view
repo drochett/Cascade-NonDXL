@@ -5,7 +5,7 @@
   </code>
   <actionbar bgcolor="#f0f0f0" bordercolor="black">
     <actionbuttonstyle bgcolor="#f0f0f0"/>
-    <font color="system"/>
+    <font size="9pt" color="system"/>
     <border style="solid" width="0px 0px 1px"/>
     <action title="Categori_ze" showinbar="false" systemcommand="categorize"/>
     <action title="Create Config Setting">

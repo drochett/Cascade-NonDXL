@@ -12,7 +12,4 @@
   <item name="$PublicAccess" sign="true">
     <text>1</text>
   </item>
-  <item name="$Comment">
-    <text>Copy of server CK Editor config.js file</text>
-  </item>
 </note>

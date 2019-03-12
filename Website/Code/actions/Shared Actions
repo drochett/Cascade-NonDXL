@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<sharedactions xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.10'
- replicaid='882583B700602F38' hide='v3 v4strict' designerversion='8.5.3' maxid='2'>
-<noteinfo noteid='c42' unid='9C0DE0A335A6B5538825838B0050E59C' sequence='29'>
+<sharedactions xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.8'
+ replicaid='882583BB0076ED17' hide='v3 v4strict' designerversion='8.5.3' maxid='2'>
+<noteinfo noteid='a06' unid='9C0DE0A335A6B5538825838B0050E59C' sequence='3'>
 <created><datetime>20190123T064336,60-08</datetime></created>
-<modified><datetime>20190308T112746,31-08</datetime></modified>
-<revised><datetime>20190308T112746,30-08</datetime></revised>
-<lastaccessed><datetime>20190308T112746,30-08</datetime></lastaccessed>
-<addedtofile><datetime>20190308T093128,41-08</datetime></addedtofile></noteinfo>
-<updatedby><name>CN=Daryl Rochette/OU=PTL/O=CASCADE</name></updatedby>
-<wassignedby><name>CN=Daryl Rochette/OU=PTL/O=CASCADE</name></wassignedby>
+<modified><datetime dst='true'>20190312T144913,41-07</datetime></modified>
+<revised><datetime dst='true'>20190312T144913,40-07</datetime></revised>
+<lastaccessed><datetime dst='true'>20190312T144913,41-07</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20190312T143943,04-07</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Daryl Rochette/OU=PTL/O=CASCADE</name><name>CN=Daryl Rochette/O=MSC</name></updatedby>
+<wassignedby><name>CN=Daryl Rochette/O=MSC</name></wassignedby>
 <action title='Collapse' id='1'><imageref name='minus.gif'/><code event='click'><formula
 >@Command([ViewCollapseAll])</formula></code></action>
 <action title='Expand' id='2'><imageref name='plus.gif'/><code event='click'><formula

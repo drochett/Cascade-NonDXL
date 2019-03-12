@@ -41,7 +41,7 @@ Dim written As Integer
   </code>
   <code event="initialize">
     <lotusscript>Sub Initialize
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	Dim s As New NotesSession, w As New NotesUIWorkspace
 	Dim v As NotesView, vString As String
 	Dim dcSingle As NotesDocumentCollection, dcMulti As NotesDocumentCollection
@@ -100,9 +100,9 @@ PROCESS_COLLECTIONS:
 	
 	Set xlapp=Nothing   'stop OLE
 Set db=Nothing	
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Msgbox Cstr(Getthreadinfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
 	Resume EndOfCode
 ENDOFCODE:
 	
@@ -116,7 +116,7 @@ End Sub
 	Description: Create worksheet for single value documents
 %END REM
 Function a_singleLabelValSpreadsheet(dc As NotesDocumentCollection)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	Dim dcMenu As NotesDocumentCollection
 	Set dcMenu = db.Search("",Nothing,0)
 	cols = 0  'init the value to zero so code works
@@ -172,9 +172,9 @@ Function a_singleLabelValSpreadsheet(dc As NotesDocumentCollection)
 	formatSheet(range)
 	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	Call e_singleMenuValSpreadsheet(dcMenu)
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Msgbox Cstr(Getthreadinfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
 	Resume EndOfCode
 ENDOFCODE:
 	
@@ -188,7 +188,7 @@ End Function
 	Description: Comments for Function
 %END REM
 Function d_multiBarValSpreadsheet(dc As NotesDocumentCollection)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	cols = 0  'init the value to zero so code works
 	rows = 0  'init the value to zero so code works
 	Dim doc As NotesDocument, range As String
@@ -248,9 +248,9 @@ Function d_multiBarValSpreadsheet(dc As NotesDocumentCollection)
 	'MsgBox CStr(GetThreadInfo(1)) &amp; " A1:D"+Cstr(Rows)
 	formatSheet(range)
 	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Msgbox Cstr(Getthreadinfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
 	Resume EndOfCode
 ENDOFCODE:
 End Function
@@ -263,7 +263,7 @@ End Function
 	Description: Comments for Function
 %END REM
 Function formatSheet(range As String)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	xlApp.Range(range).Select
 	xlApp.Selection.Font.Name = "Arial"
 	xlApp.Selection.Font.Size = 9
@@ -272,9 +272,9 @@ Function formatSheet(range As String)
 	xlApp.Selection.Borders.LineStyle = 1
 	xlApp.Selection.Borders.Weight = 2
 
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Msgbox Cstr(Getthreadinfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
 	Resume EndOfCode
 ENDOFCODE:
 End Function
@@ -287,7 +287,7 @@ End Function
 	Description: Comments for Function
 %END REM
 Function e_singleMenuValSpreadsheet(dc As NotesDocumentCollection)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	cols = 0  'init the value to zero so code works
 	rows = 0  'init the value to zero so code works
 	Dim doc As NotesDocument, range As String
@@ -328,9 +328,9 @@ Function e_singleMenuValSpreadsheet(dc As NotesDocumentCollection)
 	'MsgBox CStr(GetThreadInfo(1)) &amp; " A1:D"+Cstr(Rows)
 	formatSheet(range)
 	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Msgbox Cstr(Getthreadinfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
 	Resume EndOfCode
 ENDOFCODE:
 End Function
@@ -343,7 +343,7 @@ End Function
 	Description: Comments for Function
 %END REM
 Function b_multiValSpreadsheet(dc As NotesDocumentCollection)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	cols = 0  'init the value to zero so code works
 	rows = 0  'init the value to zero so code works
 	Dim doc As NotesDocument, range As String
@@ -402,9 +402,9 @@ Function b_multiValSpreadsheet(dc As NotesDocumentCollection)
 	formatSheet(range)
 	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Msgbox Cstr(Getthreadinfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
 	Resume EndOfCode
 ENDOFCODE:
 	
@@ -418,7 +418,7 @@ End Function
 	Description: creates workSheet for those single values with Aliases (|)
 %END REM
 Function c_singleBarValSpreadsheet(dc As NotesDocumentCollection)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	cols = 0  'init the value to zero so code works
 	rows = 0  'init the value to zero so code works
 	Dim doc As NotesDocument, range As String
@@ -460,9 +460,9 @@ Function c_singleBarValSpreadsheet(dc As NotesDocumentCollection)
 	formatSheet(range)
 	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Msgbox Cstr(Getthreadinfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
 	Resume EndOfCode
 ENDOFCODE:
 End Function</lotusscript>

@@ -77,7 +77,8 @@ function ajaxPost() {
         <button width="2in" widthtype="maximum" maxlines="1" wraptext="true" bgcolor="system">
           <code event="onClick" for="web">
             <javascript>ajaxPost();</javascript>
-          </code>Test it!</button>
+          </code>
+          Test it!</button>
       </par>
     </richtext>
   </body>

@@ -49,8 +49,8 @@ Dim color As String
   <code event="initialize">
     <lotusscript>Sub Initialize
 	Dim st As String
-	On Error GoTo Error_Trap
-	st = CStr(GetThreadInfo(1)) + ":  " 
+	On Error Goto Error_Trap
+	st = Cstr(Getthreadinfo(1)) + ":  " 
 	Dim s As New NotesSession
 	Dim a As NotesAgent
 	Dim v As NotesView
@@ -98,7 +98,7 @@ Dim color As String
 	Set dc = db.Search( "", Nothing, 0 ) 'init the document collection
 	'get the view with the documents we are going  process
 	Set v = db.getview("To Be Deleted")
-	totalCount = CStr(v.entryCount)
+	totalCount = Cstr(v.entryCount)
 	Set doc = v.Getfirstdocument()
 	'Call todayDT.AdjustDay(10)  'testing only so that we can test to see if time diff works to decide if doc gets deleted
 	Do Until doc Is Nothing
@@ -111,7 +111,7 @@ Dim color As String
 		Dim dt2 As New NotesDateTime(doc.deletionDT(0))
 		
 		dtReturn = todayDT.TimeDifference(DT)
-		logMsg = "The document for " + doc.internetAddress(0) + " time difference is "+ CStr(dtReturn) + ".  DeleteionDT:  " + DT2.DateOnly
+		logMsg = "The document for " + doc.internetAddress(0) + " time difference is "+ Cstr(dtReturn) + ".  DeleteionDT:  " + DT2.DateOnly
 		Call setImportLogMessage(logMsg,"Msg")
 		
 '		If todayDT.TimeDifference(DT) &lt;= 0 Then
@@ -135,13 +135,13 @@ Dim color As String
 		
 	deleteCount = dc.Count
 	If dc.count = 0 Then
-		logmsg = |Document collection count for view |+v.name+| with "JO" as AccessType:  |+ CStr(dc.count)
+		logmsg = |Document collection count for view |+v.name+| with "JO" as AccessType:  |+ Cstr(dc.count)
 		Call setImportLogMessage(Chr(10)+logMsg,"Info")
 		logmsg = |No documents with "JO" as accessType will be deleted.|
 		Call setImportLogMessage(Chr(10)+logMsg,"Msg")
-		GoTo End_Of_Code 
+		Goto End_Of_Code 
 	Else
-		logMsg = "Total Documents to work on: " + CStr(totalCount)
+		logMsg = "Total Documents to work on: " + Cstr(totalCount)
 		Call setImportLogMessage(Chr(10)+logMsg,"Info")
 	End If
 	
@@ -157,17 +157,17 @@ Dim color As String
 		Set doc = docB
 	Loop
 	
-	GoTo End_Of_Code
+	Goto End_Of_Code
 ERROR_TRAP:
-	MsgBox st + CStr(Err) + " on line " + CStr(Erl) + ": " + Error
+	Msgbox st + Cstr(Err) + " on line " + Cstr(Erl) + ": " + Error
 
-	Call setImportLogMessage(st + CStr(Err) + " on line " + CStr(Erl) + ": " + Error,"Error")
+	Call setImportLogMessage(st + Cstr(Err) + " on line " + Cstr(Erl) + ": " + Error,"Error")
 
 	Resume End_Of_Code
 END_OF_CODE:
-	importLogDoc.totalCOunt = CStr(totalCount)
-	importLogDoc.deleteCount = CStr(deleteCount)
-	importLogDoc.unchangedCount = CStr(unchangedCount)
+	importLogDoc.totalCOunt = Cstr(totalCount)
+	importLogDoc.deleteCount = Cstr(deleteCount)
+	importLogDoc.unchangedCount = Cstr(unchangedCount)
 	importLogDoc.errorCount = errorCount
 	Call importLogDoc.Replaceitemvalue("EndDate",  Now)
 	Call importLogDoc.Save(True,True)
@@ -183,9 +183,9 @@ End Sub
 	Dim s As New NotesSession
 	Dim richStyle As NotesRichTextStyle
 	Set richStyle = s.CreateRichTextStyle
-	st =  + CStr(GetThreadInfo(1)) + ": "
+	st =  + Cstr(Getthreadinfo(1)) + ": "
 	'msgBox st + "Entering Log Msg - " + msgType
-	On Error GoTo catch
+	On Error Goto catch
 	Select Case msgType
 		Case "Warning"
 			If importLogWarningRT.Values &lt;&gt; "" Then
@@ -212,7 +212,7 @@ End Sub
 			If message &lt;&gt; "" Then
 				Call importLogErrorRT.Appendtext(message)
 			Else
-				Call importLogErrorRT.Appendtext("Error Unknown " + CStr(unknownError))
+				Call importLogErrorRT.Appendtext("Error Unknown " + Cstr(unknownError))
 				unknownError = unknownError + 1
 			End If
 			importLogDoc.errorCount = errorCount
@@ -235,7 +235,7 @@ End Sub
 				richStyle.NotesColor = COLOR_RED
 			Else
 				richStyle.NotesColor = COLOR_BLACK
-			End IF
+			End If
 			Call importLogMsgRT.AppendStyle(richStyle)
 			Call importLogMsgRT.Appendtext(message)
 	End Select
@@ -244,7 +244,7 @@ End Sub
 	Exit Function
 	
 catch:
-	MessageBox st + "Err nbr " + CStr(Err) + ":  Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ 
+	Messagebox st + "Err nbr " + Cstr(Err) + ":  Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ 
 '	Call setImportLogMessage ("Sub setImportLogMessage " + Error$ + ": " + Str$(Erl), "Error")
 	Call importLogDoc.Replaceitemvalue("Success", "No")
 

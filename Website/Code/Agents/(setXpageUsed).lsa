@@ -10,7 +10,7 @@
 %END REM
 Option Public
 Option Declare
-%Include "lsconst"
+%INCLUDE "lsconst"
 
 
 </lotusscript>
@@ -21,7 +21,7 @@ Option Declare
 	Dim location As String
 	location = "" 
 	Do While location = ""
-		location = InputBox("examples: Document.xsp, MyProfileView.xsp, XpageName.xsp", "set XPage  = " )	
+		location = Inputbox("examples: Document.xsp, MyProfileView.xsp, XpageName.xsp", "set XPage  = " )	
 	Loop 
 	
 	' === REQUIRED === Access the current database from the session
@@ -35,16 +35,16 @@ Option Declare
 	
 	' === Make sure the collection is not empty and then report the count in a messagebox
 	If collUnprocessed Is Nothing Then
-		MessageBox "Collection is empty!", MB_ICONEXCLAMATION, _
+		Messagebox "Collection is empty!", MB_ICONEXCLAMATION, _
 "AGENT: " &amp; session.CurrentAgent.Name
 	Else
 		Dim nContinue As Integer     
-		nContinue = MessageBox( "Set Xpage=" + location + " for " &amp; collUnprocessed.Count &amp;  " selected documents?", MB_YESNO, "AGENT: " &amp; session.CurrentAgent.Name)
+		nContinue = Messagebox( "Set Xpage=" + location + " for " &amp; collUnprocessed.Count &amp;  " selected documents?", MB_YESNO, "AGENT: " &amp; session.CurrentAgent.Name)
 		
 		If nContinue = IDYES Then 
 			Call collUnprocessed.Stampall("Xpage", location )		
 		Else
-			MessageBox "No documents updated" , MB_OK, "AGENT: " &amp; session.CurrentAgent.Name
+			Messagebox "No documents updated" , MB_OK, "AGENT: " &amp; session.CurrentAgent.Name
 		End If
 		
 	End If

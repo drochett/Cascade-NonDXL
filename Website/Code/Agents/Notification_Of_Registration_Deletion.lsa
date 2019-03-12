@@ -49,8 +49,8 @@ Dim emailSent As Boolean
   <code event="initialize">
     <lotusscript>Sub Initialize
 	Dim st As String
-	On Error GoTo Error_Trap
-	st = CStr(GetThreadInfo(1)) + ":  " 
+	On Error Goto Error_Trap
+	st = Cstr(Getthreadinfo(1)) + ":  " 
 	Dim s As New NotesSession
 	Dim a As NotesAgent
 	Dim v As NotesView
@@ -90,11 +90,11 @@ Dim emailSent As Boolean
 	Set v = db.getView("ActiveSetupValues")'reset the database to point to the cascweb addressbook
 	Set setupDoc = v.getDocumentByKey("Testing",True)
 	If setupDoc Is Nothing Then
-		logMsg = st + "ERROR on line " + CStr(GetThreadInfo(0)-2)+":  Setup documnet in "+db.title+" is missing for Testing" 
+		logMsg = st + "ERROR on line " + Cstr(Getthreadinfo(0)-2)+":  Setup documnet in "+db.title+" is missing for Testing" 
 		Call setImportLogMessage(Chr(10)+logMsg,"Error")
-		GoTo End_Of_Code
+		Goto End_Of_Code
 	End If
-	If setupDoc.value(0) = "Yes" Then testing = true
+	If setupDoc.value(0) = "Yes" Then testing = True
 	Set setupDoc = v.getDocumentByKey("EmailReturnAddress",True)
 	emailReturnAddress = setupDoc.value(0)
 	Set setupDoc = v.getDocumentByKey("UserDominoDirectoryPath",True)
@@ -121,21 +121,21 @@ Dim emailSent As Boolean
 '		If doc.fullname(0) = "elilly@vbsmhe.com" Then stop
 		If doc.accessType(0) = "JO" Then
 			Call dc.Adddocument(doc)
-		End if
+		End If
 		Set doc = v.Getnextdocument(doc)
 	Loop
 	totalCount = dc.Count
 	If dc.count = 0 Then
-		logmsg = |Document collection count for view |+v.name+| with "JO" as AccessType:  |+ CStr(dc.count)
+		logmsg = |Document collection count for view |+v.name+| with "JO" as AccessType:  |+ Cstr(dc.count)
 		Call setImportLogMessage(Chr(10)+logMsg,"Info")
 		logmsg = |No documents with "JO" as accessType exist.|
 		Call setImportLogMessage(Chr(10)+logMsg,"Msg")
-		GoTo End_Of_Code 
+		Goto End_Of_Code 
 	Else
-		logMsg = "Total Documents to work on: " + CStr(totalCount)
+		logMsg = "Total Documents to work on: " + Cstr(totalCount)
 		Call setImportLogMessage(Chr(10)+logMsg,"Info")
 	End If
-	Set doc = nothing
+	Set doc = Nothing
 	'work On the documents in collection - these are accounts which have been de-activateed
 	'we want to send emails to the people and let them know that they are being removed from our address book
 	Set doc = dc.Getfirstdocument()
@@ -159,17 +159,17 @@ Dim emailSent As Boolean
 	
 	
 	
-	GoTo End_Of_Code
+	Goto End_Of_Code
 ERROR_TRAP:
-	MsgBox st + CStr(Err) + " on line " + CStr(Erl) + ": " + Error
+	Msgbox st + Cstr(Err) + " on line " + Cstr(Erl) + ": " + Error
 
-	Call setImportLogMessage(st + CStr(Err) + " on line " + CStr(Erl) + ": " + Error,"Error")
+	Call setImportLogMessage(st + Cstr(Err) + " on line " + Cstr(Erl) + ": " + Error,"Error")
 
 	Resume End_Of_Code
 END_OF_CODE:
-	importLogDoc.totalCOunt = CStr(totalCount)
-	importLogDoc.changeCount = CStr(changeCount)
-	importLogDoc.unchangedCount = CStr(unchangedCount)
+	importLogDoc.totalCOunt = Cstr(totalCount)
+	importLogDoc.changeCount = Cstr(changeCount)
+	importLogDoc.unchangedCount = Cstr(unchangedCount)
 	importLogDoc.errorCount = errorCount
 	Call importLogDoc.Replaceitemvalue("EndDate",  Now)
 	Call importLogDoc.Save(True,True)
@@ -188,11 +188,11 @@ Function parseListItem(itemName As String, parseType As String, symbol As String
 	
 	Dim itemLen As Integer, pos As Integer
 	Dim st As String
-	st =  CStr(GetThreadInfo(1)) + ": " 'Used for error trapping
-	On Error GoTo error_handler
+	st =  Cstr(Getthreadinfo(1)) + ": " 'Used for error trapping
+	On Error Goto error_handler
 	itemLen = Len(itemName)
 	'		dflog.info(st + "langLen = " +CStr(langLen))
-	pos = InStr(itemName,symbol)
+	pos = Instr(itemName,symbol)
 	'		dfLog.info(st + "pos =" + CStr(pos))
 	'		dfLog.info(st + "langLen - pos =" + CStr(langLen -pos))
 	If parseType = "Right" Then
@@ -200,10 +200,10 @@ Function parseListItem(itemName As String, parseType As String, symbol As String
 	Else
 		parseListItem = Trim(Left(itemName,pos-1))
 	End If
-	GoTo End_Of_Code
+	Goto End_Of_Code
 ERROR_HANDLER:
-	Call setImportLogMessage(st + CStr(Err) + " on line " + CStr(Erl) + ": " + Error,"Error")
-		MsgBox (st &amp; " - Error in line "  &amp; Erl &amp; " (ERROR " &amp; Err &amp;" - "  &amp; Error &amp; ")")
+	Call setImportLogMessage(st + Cstr(Err) + " on line " + Cstr(Erl) + ": " + Error,"Error")
+		Msgbox (st &amp; " - Error in line "  &amp; Erl &amp; " (ERROR " &amp; Err &amp;" - "  &amp; Error &amp; ")")
 
 	Resume End_Of_Code
 END_OF_CODE:
@@ -220,15 +220,15 @@ End Function
 %END REM
 Function sendEmail()
 	Dim st As String
-	On Error GoTo Error_Trap
-	st = CStr(GetThreadInfo(1)) + ":  " 
+	On Error Goto Error_Trap
+	st = Cstr(Getthreadinfo(1)) + ":  " 
 	Dim docMemo As NotesDocument
 	Dim bodyField As NotesRichTextItem
 	Dim lang As String
 	Set docMemo = db.Createdocument()
 	Set bodyField = docMemo.createRichTextItem("Body")
 	lang = doc.preferredLanguage(0)
-	If InStr(lang,"-") Then
+	If Instr(lang,"-") Then
 		'parse out the dash (-) and replace with underscore (_)
 		lang = parseListItem(lang,"Left","-") + "_" + parseListItem(lang,"Right","-")
 	Else
@@ -295,11 +295,11 @@ Function sendEmail()
 	Call bodyField.APPENDTEXT("www.cascorp.com")
 	Call docMemo.Send(False)
 	emailSent = 1
-	GoTo End_Of_Code
+	Goto End_Of_Code
 ERROR_TRAP:
-	MsgBox st + CStr(Err) + " on line " + CStr(Erl) + ": " + Error
+	Msgbox st + Cstr(Err) + " on line " + Cstr(Erl) + ": " + Error
 
-	Call setImportLogMessage(st + CStr(Err) + " on line " + CStr(Erl) + ": " + Error,"Error")
+	Call setImportLogMessage(st + Cstr(Err) + " on line " + Cstr(Erl) + ": " + Error,"Error")
 
 	Resume End_Of_Code
 END_OF_CODE:
@@ -314,9 +314,9 @@ End Function
 	Dim s As New NotesSession
 	Dim richStyle As NotesRichTextStyle
 	Set richStyle = s.CreateRichTextStyle
-	st =  + CStr(GetThreadInfo(1)) + ": "
+	st =  + Cstr(Getthreadinfo(1)) + ": "
 	'msgBox st + "Entering Log Msg - " + msgType
-	On Error GoTo catch
+	On Error Goto catch
 	Select Case msgType
 		Case "Warning"
 			If importLogWarningRT.Values &lt;&gt; "" Then
@@ -343,7 +343,7 @@ End Function
 			If message &lt;&gt; "" Then
 				Call importLogErrorRT.Appendtext(message)
 			Else
-				Call importLogErrorRT.Appendtext("Error Unknown " + CStr(unknownError))
+				Call importLogErrorRT.Appendtext("Error Unknown " + Cstr(unknownError))
 				unknownError = unknownError + 1
 			End If
 			importLogDoc.errorCount = errorCount
@@ -368,15 +368,15 @@ End Function
 			Call importLogMsgRT.AppendStyle(richStyle)
 			Call importLogMsgRT.Appendtext(message)
 	End Select
-	importLogDoc.totalCOunt = CStr(totalCount)
-	importLogDoc.changeCount = CStr(changeCount)
-	importLogDoc.unchangedCount = CStr(unchangedCount)
+	importLogDoc.totalCOunt = Cstr(totalCount)
+	importLogDoc.changeCount = Cstr(changeCount)
+	importLogDoc.unchangedCount = Cstr(unchangedCount)
 	importLogDoc.errorCount = errorCount
 	Call importLogDoc.save(True,False)
 	Exit Function
 	
 catch:
-	MessageBox st + "Err nbr " + CStr(Err) + ":  Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ 
+	Messagebox st + "Err nbr " + Cstr(Err) + ":  Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ 
 '	Call setImportLogMessage ("Sub setImportLogMessage " + Error$ + ": " + Str$(Erl), "Error")
 	Call importLogDoc.Replaceitemvalue("Success", "No")
 
@@ -392,16 +392,16 @@ End Function
 %END REM
 Function getDocValue(lang As String, labelDoc As NotesDocument) As String
 	Dim st As String
-	On Error GoTo Error_Trap
-	st = CStr(GetThreadInfo(1)) + ":  " 
+	On Error Goto Error_Trap
+	st = Cstr(Getthreadinfo(1)) + ":  " 
 
 	getDocValue = labelDoc.getItemValue("val_"+lang)(0)
 
-	GoTo End_Of_Code
+	Goto End_Of_Code
 ERROR_TRAP:
-	MsgBox st + CStr(Err) + " on line " + CStr(Erl) + ": " + Error
+	Msgbox st + Cstr(Err) + " on line " + Cstr(Erl) + ": " + Error
 
-	Call setImportLogMessage(st + CStr(Err) + " on line " + CStr(Erl) + ": " + Error,"Error")
+	Call setImportLogMessage(st + Cstr(Err) + " on line " + Cstr(Erl) + ": " + Error,"Error")
 
 	Resume End_Of_Code
 END_OF_CODE:

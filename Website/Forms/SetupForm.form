@@ -2,7 +2,7 @@
 <form xmlns="http://www.lotus.com/dxl" name="SetupForm" publicaccess="false" renderpassthrough="true">
   <actionbar bgcolor="#f0f0f0" bordercolor="black">
     <actionbuttonstyle bgcolor="#f0f0f0"/>
-    <font color="system"/>
+    <font size="9pt" color="system"/>
     <border style="solid" width="0px 0px 1px"/>
     <action title="Edit" hide="edit previewedit">
       <code event="click">

@@ -62,7 +62,7 @@ Dim written As Integer
   </code>
   <code event="initialize">
     <lotusscript>Sub Initialize
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	Dim Field As String
 	Dim s As New NotesSession,db As NotesDatabase, w As New NotesUIWorkspace, a As NotesAgent, st As String, title As String
 	Dim v As NotesView, vString As String
@@ -76,25 +76,25 @@ Dim written As Integer
 	'Set profileDoc = db.GetProfileDocument("Settings") 
 	Set a = s.Currentagent
 	'setup other stuff
-	If InStr(a.name,"|") Then
-		aName = Left(a.name,InStr(a.name,"|")-1)
+	If Instr(a.name,"|") Then
+		aName = Left(a.name,Instr(a.name,"|")-1)
 	Else
 		aName = a.Name
 	End If
 	sName = db.server
-	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	st = aname + " / " + Cstr(Getthreadinfo(1)) + ":  " 
 	title =  db.title +" db | "+ aname +" agent"
 	'========================= set up logging ===============================
 	
 	'=========================================================================
 	'-------------- have user select view to get docs from  --------------
 	Vlist= db.views
-	K=UBound(Vlist)  'get size of list
-	ReDim Preserve ShowView(K)
+	K=Ubound(Vlist)  'get size of list
+	Redim Preserve ShowView(K)
 	N=-1
 	For i = 0 To K
 		If Len(Vlist(i).Name) &gt;0 Then	
-			If Not IsEmpty(vlist(i).aliases) Then
+			If Not Isempty(vlist(i).aliases) Then
 				AliasName=Trim(Vlist(i).Aliases(0))
 				'If Mid(AliasName,1,3) = "rpt" Then  'show only report views
 					FieldName=Trim(Vlist(i).Name)
@@ -106,11 +106,11 @@ Dim written As Integer
 	Next i	
 	
 	If N = -1 Then
-		MessageBox "there are no report views available for this database", 16, title
-		GoTo EndOfCode
+		Messagebox "there are no report views available for this database", 16, title
+		Goto EndOfCode
 	End If
 	
-	ReDim Preserve ShowView(N)
+	Redim Preserve ShowView(N)
 	'now sort the list - by default views are listing in the order that they were created
 	For i=0 To N
 		For K=i To N
@@ -124,9 +124,9 @@ Dim written As Integer
 GETVIEW:
 	vString= w.Prompt(PROMPT_OKCANCELLIST,title,"Choose a View","",ShowView )
 	 If vString = "" Then
-	 	MsgBox "View not selectect - aborting agent",16,title
-		msgBox"View not selected on line " + CStr(GetThreadInfo(0) - 3) +" - aborting agent",16, st
-	 	GoTo EndOfCode
+	 	Msgbox "View not selectect - aborting agent",16,title
+		Msgbox"View not selected on line " + Cstr(Getthreadinfo(0) - 3) +" - aborting agent",16, st
+	 	Goto EndOfCode
 	 End If
 	
 	
@@ -206,10 +206,10 @@ PROCESS_COLLECTIONS:
 	ProcessCollections("footerRTF")
 	
 	xlApp.StatusBar = "Importing Data from Lotus Notes Application completed."
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
 '	Call setLogMessage(st + "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ ,"Error")
-	MsgBox "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ ,16,st
+	Msgbox "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ ,16,st
 	Resume EndOfCode
 ENDOFCODE:
 '	Stop
@@ -227,8 +227,8 @@ End Sub
 	Description: multiValue - get array vals and add as one string with chr(10)
 %END REM
 Function z_getArrayValues(item As NotesItem) As String
-	Dim x As integer
-	ForAll a In item.values
+	Dim x As Integer
+	Forall a In item.values
 		If x = 0 Then
 			z_getArrayValues = a
 			x=x+1
@@ -236,7 +236,7 @@ Function z_getArrayValues(item As NotesItem) As String
 			z_getArrayValues = z_getArrayValues + Chr(10)+a
 			x=x+1
 		End If
-	End ForAll
+	End Forall
 		
 	
 End Function
@@ -249,9 +249,9 @@ End Function
 	Description: Comments for Function
 %END REM
 Function setUpAdditionalSheet(sheetName As String)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	Dim st As String, range As String, item As NotesItem
-	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	st = aname + " / " + Cstr(Getthreadinfo(1)) + ":  " 
 	wsNbr = 1
 	Set xlsheet = xlapp.Worksheets.Add()
 	Set xlsheet = xlapp.worksheets(wsNbr)
@@ -277,9 +277,9 @@ Function setUpAdditionalSheet(sheetName As String)
 	cols = cols+1
 	xlsheet.Cells(rows,cols).Value = "Translation"
 	
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	msgBox "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ ,16,st
+	Msgbox "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ ,16,st
 	Resume EndOfCode
 ENDOFCODE:
 	
@@ -294,9 +294,9 @@ End Function
 %END REM
 Function getRTText(Field As String, dc As NotesDocumentCollection)
 
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	Dim st As String, range As String, item As NotesItem, aliasVal As String, value As String
-	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	st = aname + " / " + Cstr(Getthreadinfo(1)) + ":  " 
 	Set doc = dc.getFirstDocument
 	Do Until doc Is Nothing
 		' it's a richText so we need just text
@@ -304,9 +304,9 @@ Function getRTText(Field As String, dc As NotesDocumentCollection)
 			Set item =doc.getFirstItem(Field)
 			value = item.text
 		Else
-			GoTo NextDoc
+			Goto NextDoc
 		End If
-		If Value = "" Then GoTo NextDoc
+		If Value = "" Then Goto NextDoc
 		cols = 0  'init the value to zero so code works
 		cols = cols+1
 		rows=rows+1
@@ -320,9 +320,9 @@ Function getRTText(Field As String, dc As NotesDocumentCollection)
 NEXTDOC:
 	Set doc = dc.Getnextdocument(doc)
 	Loop
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	msgBox "(" &amp; Field +") Error on line " &amp; Format$(Erl)&amp;":  "&amp;  Error$ &amp; Chr(10) + "&gt;&gt;&gt;&gt; " &amp;doc.type(0) + " - " &amp; doc.subject(0) ,16,st
+	Msgbox "(" &amp; Field +") Error on line " &amp; Format$(Erl)&amp;":  "&amp;  Error$ &amp; Chr(10) + "&gt;&gt;&gt;&gt; " &amp;doc.type(0) + " - " &amp; doc.subject(0) ,16,st
 	Resume EndOfCode
 ENDOFCODE:
 	
@@ -380,9 +380,9 @@ End Function
 	Description: Comments for Function
 %END REM
 Function ProcessCollections(Field As String)
-	On Error goTo ErrorTrap
+	On Error Goto ErrorTrap
 	Dim st As String, range As String
-	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	st = aname + " / " + Cstr(Getthreadinfo(1)) + ":  " 
 	'field = "subject"
 	Select Case Field
 		Case "subject", "metaTitle","metaDescr"
@@ -520,13 +520,13 @@ Function ProcessCollections(Field As String)
 			formatColumnColor(range)
 	End Select
 	
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	msgBox "Error on line " &amp; format$(Erl)&amp;":  " &amp;  Error$ ,16,st
+	Msgbox "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ ,16,st
 	Resume EndOfCode
 ENDOfCODE:
 	
-End function
+End Function
 
 </lotusscript>
   </code>
@@ -537,7 +537,7 @@ End function
 %END REM
 Function y_getArrayValues(item As NotesItem) As String
 	Dim x As Integer
-	ForAll a In item.values
+	Forall a In item.values
 		If x = 0 Then
 			y_getArrayValues = a
 			x=x+1
@@ -545,7 +545,7 @@ Function y_getArrayValues(item As NotesItem) As String
 			y_getArrayValues = y_getArrayValues + Chr(10)+a
 			x=x+1
 		End If
-	End ForAll
+	End Forall
 End Function
 
 </lotusscript>
@@ -556,9 +556,9 @@ End Function
 	Description: Comments for Function
 %END REM
 Function getFieldValue(Field As String, dc As NotesDocumentCollection)
-	On Error goTo ErrorTrap
+	On Error Goto ErrorTrap
 	Dim st As String, range As String, item As NotesItem, aliasVal As String, value As String
-	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	st = aname + " / " + Cstr(Getthreadinfo(1)) + ":  " 
 	Set doc = dc.getFirstDocument
 	
 	Do Until doc Is Nothing
@@ -570,7 +570,7 @@ Function getFieldValue(Field As String, dc As NotesDocumentCollection)
 			Set item =doc.getFirstItem(Field)
 			value = item.Values(0)
 			'check If it has an alias ie: the bar symbol "|" exists
-			If InStr(item.values(0),"|") Then
+			If Instr(item.values(0),"|") Then
 				'parse out alias and value
 				aliasVal = parseItem(value,"Right","|")
 				value = parseItem(value,"Left","|")
@@ -590,9 +590,9 @@ Function getFieldValue(Field As String, dc As NotesDocumentCollection)
 NEXTDOC:	
 		Set doc = dc.Getnextdocument(doc)
 	Loop
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox "(" &amp; Field +") Error on line " &amp; Format$(Erl)&amp;":  "&amp;  Error$ &amp; Chr(10) + "&gt;&gt;&gt;&gt; " &amp;doc.type(0) + " - " &amp; doc.subject(0) ,16, st
+	Msgbox "(" &amp; Field +") Error on line " &amp; Format$(Erl)&amp;":  "&amp;  Error$ &amp; Chr(10) + "&gt;&gt;&gt;&gt; " &amp;doc.type(0) + " - " &amp; doc.subject(0) ,16, st
 	Resume EndOfCode
 ENDOFCODE:
 	
@@ -606,9 +606,9 @@ End Function
 	Description: Comments for Function
 %END REM
 Function getArrayValue(Field As String, dc As NotesDocumentCollection)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	Dim st As String, range As String, item As NotesItem, aliasVal As String, value As String, x As Integer
-	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	st = aname + " / " + Cstr(Getthreadinfo(1)) + ":  " 
 	Set doc = dc.getFirstDocument
 	Do Until doc Is Nothing
 		x=0  'init it
@@ -624,14 +624,14 @@ Function getArrayValue(Field As String, dc As NotesDocumentCollection)
 		If doc.hasItem(Field) Then 
 			Set item =doc.getFirstItem(Field)
 			
-			If IsArray(item.values) Then 
-				If item.values(0) = "" Then GoTo NextDoc
+			If Isarray(item.values) Then 
+				If item.values(0) = "" Then Goto NextDoc
 				cols = cols+1
 				rows=rows+1
 				range = "A"+Cstr(rows)+":J"+Cstr(rows)
-				Do Until x = UBound(item.Values)+1
+				Do Until x = Ubound(item.Values)+1
 					'check If it has an alias ie: the bar symbol "|" exists
-					If InStr(item.values(x),"|") Then
+					If Instr(item.values(x),"|") Then
 						'parse out alias and value
 						value = item.values(x)
 						aliasVal = parseItem(value,"Right","|")
@@ -646,7 +646,7 @@ Function getArrayValue(Field As String, dc As NotesDocumentCollection)
 					xlSheet.cells(rows,4).value = Field
 					xlSheet.cells(rows,5).value = aliasVal
 					xlSheet.cells(rows,6).value = value
-					 If x+1 &lt;= UBound(item.values) Then rows = rows+1
+					 If x+1 &lt;= Ubound(item.values) Then rows = rows+1
 					x = x+1
 				Loop
 			End If
@@ -654,9 +654,9 @@ Function getArrayValue(Field As String, dc As NotesDocumentCollection)
 NEXTDOC:
 		Set doc = dc.Getnextdocument(doc)
 	Loop
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	msgBox "(" &amp; Field +") Error on line " &amp; Format$(Erl)&amp;":  "&amp;  Error$ &amp; Chr(10) + "&gt;&gt;&gt;&gt; " &amp;doc.type(0) + " - " &amp; doc.subject(0),16,st
+	Msgbox "(" &amp; Field +") Error on line " &amp; Format$(Erl)&amp;":  "&amp;  Error$ &amp; Chr(10) + "&gt;&gt;&gt;&gt; " &amp;doc.type(0) + " - " &amp; doc.subject(0),16,st
 	Resume EndOfCode
 ENDOFCODE:
 	
@@ -674,11 +674,11 @@ Function parseItem(value As String, parseType As String, symbol As String) As St
 	
 	Dim itemLen As Integer, pos As Integer
 	Dim st As String
-	st = aname +  " / "+ CStr(GetThreadInfo(1)) + ": " 'Used for error trapping
-	On Error GoTo error_handler
+	st = aname +  " / "+ Cstr(Getthreadinfo(1)) + ": " 'Used for error trapping
+	On Error Goto error_handler
 	itemLen = Len(value)
 	'		dflog.info(st + "langLen = " +CStr(langLen))
-	pos = InStr(value,symbol)
+	pos = Instr(value,symbol)
 	'		dfLog.info(st + "pos =" + CStr(pos))
 	'		dfLog.info(st + "langLen - pos =" + CStr(langLen -pos))
 	If parseType = "Right" Then
@@ -686,10 +686,10 @@ Function parseItem(value As String, parseType As String, symbol As String) As St
 	Else
 		parseItem = Trim(Left(value,pos-1))
 	End If
-	GoTo End_Of_Code
+	Goto End_Of_Code
 ERROR_HANDLER:
 
-		MsgBox (st &amp; " - Error in line "  &amp; Erl &amp; " (ERROR " &amp; Err &amp;" - "  &amp; Error &amp; ")")
+		Msgbox (st &amp; " - Error in line "  &amp; Erl &amp; " (ERROR " &amp; Err &amp;" - "  &amp; Error &amp; ")")
 
 	Resume End_Of_Code
 END_OF_CODE:

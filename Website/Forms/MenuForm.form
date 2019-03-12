@@ -15,7 +15,7 @@ Option Declare
   </code>
   <actionbar bgcolor="#f0f0f0" bordercolor="black">
     <actionbuttonstyle bgcolor="#f0f0f0"/>
-    <font color="system"/>
+    <font size="9pt" color="system"/>
     <border style="solid" width="0px 0px 1px"/>
     <action title="Edit" hide="edit previewedit">
       <code event="click">
@@ -115,21 +115,21 @@ Yg4BAIQAAAAAAAAAAAA=
         <tablecolumn width="3.4375in"/>
         <tablerow>
           <tablecell>
-            <pardef id="8" keepwithnext="true" keeptogether="true"/>
-            <par def="8">Key Name:</par>
-          </tablecell>
-          <tablecell>
             <pardef id="9" keepwithnext="true" keeptogether="true"/>
-            <par def="9">val_americas_en</par>
+            <par def="9">Key Name:</par>
           </tablecell>
           <tablecell>
             <pardef id="10" keepwithnext="true" keeptogether="true"/>
-            <par def="10">externalURL</par>
+            <par def="10">val_americas_en</par>
+          </tablecell>
+          <tablecell>
+            <pardef id="11" keepwithnext="true" keeptogether="true"/>
+            <par def="11">externalURL</par>
           </tablecell>
         </tablerow>
         <tablerow>
           <tablecell>
-            <par def="8">
+            <par def="9">
               <field type="text" kind="editable" name="key"/>
               <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
@@ -137,7 +137,7 @@ Yg4BAIQAAAAAAAAAAAA=
             </par>
           </tablecell>
           <tablecell>
-            <par def="9">
+            <par def="10">
               <field type="text" kind="editable" name="val_americas_en"/>
               <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
@@ -145,7 +145,7 @@ Yg4BAIQAAAAAAAAAAAA=
             </par>
           </tablecell>
           <tablecell>
-            <par def="10">
+            <par def="11">
               <field type="text" kind="editable" name="externalURL"/>
               <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
@@ -154,12 +154,12 @@ Yg4BAIQAAAAAAAAAAAA=
           </tablecell>
         </tablerow>
       </table>
-      <pardef id="11">
+      <pardef id="12">
         <code event="hidewhen">
           <formula>@IsNewDoc</formula>
         </code>
       </pardef>
-      <par def="11"/>
+      <par def="12"/>
       <table widthtype="fixedleft" rowspacing="0.0500in" columnspacing="0.0500in" refwidth="13.6125in">
         <tablecolumn width="1.5875in"/>
         <tablecolumn width="1.5625in"/>
@@ -171,12 +171,12 @@ Yg4BAIQAAAAAAAAAAAA=
         <tablecolumn width="1.8500in"/>
         <tablerow>
           <tablecell columnspan="8" bgcolor="#e1e1e1">
-            <pardef id="19" keepwithnext="true" keeptogether="true">
+            <pardef id="21" keepwithnext="true" keeptogether="true">
               <code event="hidewhen">
                 <formula>@IsNewDoc</formula>
               </code>
             </pardef>
-            <par def="19">
+            <par def="21">
               <run>
                 <font style="bold"/>EUROPE:</run>
             </par>
@@ -184,102 +184,102 @@ Yg4BAIQAAAAAAAAAAAA=
         </tablerow>
         <tablerow>
           <tablecell bgcolor="#ff9fa9">
-            <pardef id="12" keepwithnext="true" keeptogether="true">
+            <pardef id="22" keepwithnext="true" keeptogether="true">
               <code event="hidewhen">
                 <formula>@IsNewDoc</formula>
               </code>
             </pardef>
-            <par def="12">val_eme_de</par>
+            <par def="22">val_eme_de</par>
           </tablecell>
           <tablecell bgcolor="#ff9fa9">
-            <pardef id="13" keepwithnext="true" keeptogether="true">
+            <pardef id="23" keepwithnext="true" keeptogether="true">
               <code event="hidewhen">
                 <formula>@IsNewDoc</formula>
               </code>
             </pardef>
-            <par def="13">val_eme_en</par>
+            <par def="23">val_eme_en</par>
           </tablecell>
           <tablecell bgcolor="#ff9fa9">
-            <pardef id="14" keepwithnext="true" keeptogether="true">
+            <pardef id="24" keepwithnext="true" keeptogether="true">
               <code event="hidewhen">
                 <formula>@IsNewDoc</formula>
               </code>
             </pardef>
-            <par def="14">val_eme_es</par>
+            <par def="24">val_eme_es</par>
           </tablecell>
           <tablecell bgcolor="#ff9fa9">
-            <pardef id="15" keepwithnext="true" keeptogether="true">
+            <pardef id="25" keepwithnext="true" keeptogether="true">
               <code event="hidewhen">
                 <formula>@IsNewDoc</formula>
               </code>
             </pardef>
-            <par def="15">val_eme_fi</par>
+            <par def="25">val_eme_fi</par>
           </tablecell>
           <tablecell bgcolor="#ff9fa9">
-            <pardef id="16" keepwithnext="true" keeptogether="true">
+            <pardef id="26" keepwithnext="true" keeptogether="true">
               <code event="hidewhen">
                 <formula>@IsNewDoc</formula>
               </code>
             </pardef>
-            <par def="16">val_eme_fr</par>
+            <par def="26">val_eme_fr</par>
           </tablecell>
           <tablecell bgcolor="#ff9fa9">
-            <pardef id="17" keepwithnext="true" keeptogether="true">
+            <pardef id="27" keepwithnext="true" keeptogether="true">
               <code event="hidewhen">
                 <formula>@IsNewDoc</formula>
               </code>
             </pardef>
-            <par def="17">val_eme_it</par>
+            <par def="27">val_eme_it</par>
           </tablecell>
           <tablecell bgcolor="#ff9fa9">
-            <pardef id="18" keepwithnext="true" keeptogether="true">
+            <pardef id="28" keepwithnext="true" keeptogether="true">
               <code event="hidewhen">
                 <formula>@IsNewDoc</formula>
               </code>
             </pardef>
-            <par def="18">val_eme_nl</par>
+            <par def="28">val_eme_nl</par>
           </tablecell>
           <tablecell bgcolor="#ff9fa9">
-            <pardef id="20" keepwithnext="true" keeptogether="true">
+            <pardef id="29" keepwithnext="true" keeptogether="true">
               <code event="hidewhen">
                 <formula>@IsNewDoc</formula>
               </code>
             </pardef>
-            <par def="20">val_eme_se</par>
+            <par def="29">val_eme_se</par>
           </tablecell>
         </tablerow>
         <tablerow>
           <tablecell>
-            <par def="12">
+            <par def="22">
               <field type="text" kind="editable" name="val_eme_de"/>
-              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="7" containertype="65418" aftercontainercount="1" afterbegincount="3">
+              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
 </compositedata>
             </par>
           </tablecell>
           <tablecell>
-            <par def="13">
+            <par def="23">
               <field type="text" kind="editable" name="val_eme_en"/>
-              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="7" containertype="65418" aftercontainercount="1" afterbegincount="3">
+              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
 </compositedata>
             </par>
           </tablecell>
           <tablecell>
-            <par def="14">
+            <par def="24">
               <field type="text" kind="editable" name="val_eme_es"/>
-              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="7" containertype="65418" aftercontainercount="1" afterbegincount="3">
+              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
 </compositedata>
             </par>
           </tablecell>
           <tablecell>
-            <pardef id="21" keepwithnext="true" keeptogether="true">
+            <pardef id="30" keepwithnext="true" keeptogether="true">
               <code event="hidewhen">
                 <formula>@IsNewDoc</formula>
               </code>
             </pardef>
-            <par def="21">
+            <par def="30">
               <field type="text" kind="editable" name="val_eme_fi"/>
               <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="8" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
@@ -287,33 +287,33 @@ Yg4BAIQAAAAAAAAAAAA=
             </par>
           </tablecell>
           <tablecell>
-            <par def="16">
+            <par def="26">
               <field type="text" kind="editable" name="val_eme_fr"/>
-              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="7" containertype="65418" aftercontainercount="1" afterbegincount="3">
+              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
 </compositedata>
             </par>
           </tablecell>
           <tablecell>
-            <par def="17">
+            <par def="27">
               <field type="text" kind="editable" name="val_eme_it"/>
-              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="7" containertype="65418" aftercontainercount="1" afterbegincount="3">
+              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
 </compositedata>
             </par>
           </tablecell>
           <tablecell>
-            <par def="18">
+            <par def="28">
               <field type="text" kind="editable" name="val_eme_nl"/>
-              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="7" containertype="65418" aftercontainercount="1" afterbegincount="3">
+              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
 </compositedata>
             </par>
           </tablecell>
           <tablecell>
-            <par def="20">
+            <par def="29">
               <field type="text" kind="editable" name="val_eme_se"/>
-              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="7" containertype="65418" aftercontainercount="1" afterbegincount="3">
+              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
 </compositedata>
             </par>
@@ -321,83 +321,83 @@ Yg4BAIQAAAAAAAAAAAA=
         </tablerow>
         <tablerow>
           <tablecell columnspan="8" bgcolor="#e1e1e1">
-            <pardef id="29" keepwithnext="true" keeptogether="true"/>
-            <par def="29">AMERICAS:</par>
+            <pardef id="38" keepwithnext="true" keeptogether="true"/>
+            <par def="38">AMERICAS:</par>
           </tablecell>
         </tablerow>
         <tablerow>
           <tablecell bgcolor="#ff9fa9">
-            <pardef id="30" tabs="L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in" keepwithnext="true" keeptogether="true"/>
-            <par def="30">val_americas_es</par>
+            <pardef id="39" tabs="L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in" keepwithnext="true" keeptogether="true"/>
+            <par def="39">val_americas_es</par>
           </tablecell>
           <tablecell bgcolor="#ff9fa9">
-            <pardef id="31" tabs="L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in" keepwithnext="true" keeptogether="true"/>
-            <par def="31">val_americas_ca</par>
+            <pardef id="40" tabs="L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in" keepwithnext="true" keeptogether="true"/>
+            <par def="40">val_americas_ca</par>
           </tablecell>
           <tablecell bgcolor="#ff9fa9">
-            <pardef id="32" tabs="L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in" keepwithnext="true" keeptogether="true"/>
-            <par def="32">val_americas_fr</par>
+            <pardef id="41" tabs="L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in" keepwithnext="true" keeptogether="true"/>
+            <par def="41">val_americas_fr</par>
           </tablecell>
           <tablecell>
-            <par def="15"/>
+            <par def="25"/>
           </tablecell>
           <tablecell>
-            <par def="16"/>
+            <par def="26"/>
           </tablecell>
           <tablecell>
-            <par def="17"/>
+            <par def="27"/>
           </tablecell>
           <tablecell>
-            <par def="18"/>
+            <par def="28"/>
           </tablecell>
           <tablecell>
-            <par def="20"/>
+            <par def="29"/>
           </tablecell>
         </tablerow>
         <tablerow>
           <tablecell>
-            <par def="12">
+            <par def="22">
               <field type="text" kind="editable" name="val_americas_es"/>
-              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="7" containertype="65418" aftercontainercount="1" afterbegincount="3">
+              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
 </compositedata>
             </par>
           </tablecell>
           <tablecell>
-            <par def="13">
+            <par def="23">
               <field type="text" kind="editable" name="val_americas_ca"/>
-              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="7" containertype="65418" aftercontainercount="1" afterbegincount="3">
+              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
 </compositedata>
             </par>
           </tablecell>
           <tablecell>
-            <par def="14">
+            <par def="24">
               <field type="text" kind="editable" name="val_americas_fr"/>
-              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="7" containertype="65418" aftercontainercount="1" afterbegincount="3">
+              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
 </compositedata>
             </par>
           </tablecell>
           <tablecell>
-            <par def="15"/>
+            <par def="25"/>
           </tablecell>
           <tablecell>
-            <par def="16"/>
+            <par def="26"/>
           </tablecell>
           <tablecell>
-            <par def="17"/>
+            <par def="27"/>
           </tablecell>
           <tablecell>
-            <par def="18"/>
+            <par def="28"/>
           </tablecell>
           <tablecell>
-            <par def="20"/>
+            <par def="29"/>
           </tablecell>
         </tablerow>
         <tablerow>
           <tablecell columnspan="8" bgcolor="#e1e1e1">
-            <par def="19">
+            <par def="21">
               <run>
                 <font style="bold"/>ASIA OCEANIC:</run>
             </par>
@@ -405,68 +405,68 @@ Yg4BAIQAAAAAAAAAAAA=
         </tablerow>
         <tablerow>
           <tablecell bgcolor="#ff9fa9">
-            <par def="12">val_ao_jp</par>
+            <par def="22">val_ao_jp</par>
           </tablecell>
           <tablecell bgcolor="#ff9fa9">
-            <par def="13">val_ao_kr</par>
+            <par def="23">val_ao_kr</par>
           </tablecell>
           <tablecell>
-            <par def="14"/>
+            <par def="24"/>
           </tablecell>
           <tablecell>
-            <par def="15"/>
+            <par def="25"/>
           </tablecell>
           <tablecell>
-            <par def="16"/>
+            <par def="26"/>
           </tablecell>
           <tablecell>
-            <par def="17"/>
+            <par def="27"/>
           </tablecell>
           <tablecell>
-            <par def="18"/>
+            <par def="28"/>
           </tablecell>
           <tablecell>
-            <par def="20"/>
+            <par def="29"/>
           </tablecell>
         </tablerow>
         <tablerow>
           <tablecell>
-            <par def="12">
+            <par def="22">
               <field type="text" kind="editable" name="val_ao_jp"/>
-              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="7" containertype="65418" aftercontainercount="1" afterbegincount="3">
+              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
 </compositedata>
             </par>
           </tablecell>
           <tablecell>
-            <par def="13">
+            <par def="23">
               <field type="text" kind="editable" name="val_ao_kr"/>
-              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="7" containertype="65418" aftercontainercount="1" afterbegincount="3">
+              <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
 Yg4BAIQAAAAAAAAAAAA=
 </compositedata>
             </par>
           </tablecell>
           <tablecell>
-            <par def="14"/>
+            <par def="24"/>
           </tablecell>
           <tablecell>
-            <par def="15"/>
+            <par def="25"/>
           </tablecell>
           <tablecell>
-            <par def="16"/>
+            <par def="26"/>
           </tablecell>
           <tablecell>
-            <par def="17"/>
+            <par def="27"/>
           </tablecell>
           <tablecell>
-            <par def="18"/>
+            <par def="28"/>
           </tablecell>
           <tablecell>
-            <par def="20"/>
+            <par def="29"/>
           </tablecell>
         </tablerow>
       </table>
-      <par def="11"/>
+      <par def="12"/>
       <par def="1"/>
       <par def="1"/>
       <table widthtype="fixedleft" rowspacing="0.0500in" columnspacing="0.0500in" refwidth="7.4250in">
@@ -474,12 +474,12 @@ Yg4BAIQAAAAAAAAAAAA=
         <tablecolumn width="5.2250in"/>
         <tablerow>
           <tablecell>
-            <pardef id="33" keepwithnext="true" keeptogether="true"/>
-            <par def="33">Last Modified Date:</par>
+            <pardef id="50" keepwithnext="true" keeptogether="true"/>
+            <par def="50">Last Modified Date:</par>
           </tablecell>
           <tablecell>
-            <pardef id="34" keepwithnext="true" keeptogether="true"/>
-            <par def="34">
+            <pardef id="51" keepwithnext="true" keeptogether="true"/>
+            <par def="51">
               <field type="datetime" kind="computedfordisplay" name="LastMod">
                 <datetimeformat show="datetime" date="yearmonthday" fourdigityearfor21stcentury="true" time="hourminute" zone="never" dateformat="weekdaymonthdayyear" dayformat="twodigitday" monthformat="twodigitmonth" yearformat="fourdigityear" weekdayformat="shortname" dateseparator1=" " dateseparator2="/" dateseparator3="/" timeseparator=":" preference="usersetting"/>
                 <code event="defaultvalue">
@@ -491,10 +491,10 @@ Yg4BAIQAAAAAAAAAAAA=
         </tablerow>
         <tablerow>
           <tablecell>
-            <par def="33">Processed:</par>
+            <par def="50">Processed:</par>
           </tablecell>
           <tablecell>
-            <par def="34">
+            <par def="51">
               <field type="text" kind="computed" name="processed">
                 <code event="defaultvalue">
                   <formula>@If(processed = "";"No"; processed)</formula>
@@ -508,10 +508,10 @@ Yg4BAIQAAAAAAAAAAAA=
         </tablerow>
         <tablerow>
           <tablecell>
-            <par def="33">Creation Date:</par>
+            <par def="50">Creation Date:</par>
           </tablecell>
           <tablecell>
-            <par def="34">
+            <par def="51">
               <field type="datetime" kind="computedfordisplay" name="CreationDate">
                 <datetimeformat show="datetime" date="yearmonthday" fourdigityearfor21stcentury="true" time="hourminute" zone="never" dateformat="weekdaymonthdayyear" dayformat="twodigitday" monthformat="twodigitmonth" yearformat="fourdigityear" weekdayformat="shortname" dateseparator1=" " dateseparator2="/" dateseparator3="/" timeseparator=":" preference="usersetting"/>
                 <code event="defaultvalue">
@@ -523,10 +523,10 @@ Yg4BAIQAAAAAAAAAAAA=
         </tablerow>
         <tablerow>
           <tablecell>
-            <par def="33">Creator:</par>
+            <par def="50">Creator:</par>
           </tablecell>
           <tablecell>
-            <par def="34">
+            <par def="51">
               <field type="names" kind="computedwhencomposed" name="Creator">
                 <code event="defaultvalue">
                   <formula>@UserName</formula>
@@ -536,8 +536,8 @@ Yg4BAIQAAAAAAAAAAAA=
           </tablecell>
         </tablerow>
       </table>
-      <pardef id="3" firstlineleftmargin="1in"/>
-      <par def="3"/>
+      <pardef id="52" firstlineleftmargin="1in"/>
+      <par def="52"/>
     </richtext>
   </body>
   <item name="SortOrder" summary="false">

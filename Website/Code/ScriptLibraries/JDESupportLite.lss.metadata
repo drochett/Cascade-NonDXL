@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <note xmlns="http://www.lotus.com/dxl" class="filter">
-  <item name="$Language" sign="true">
+  <item name="$LANGUAGE" sign="true">
     <text>en-US</text>
   </item>
   <item name="$LastBuildTime" sign="true">

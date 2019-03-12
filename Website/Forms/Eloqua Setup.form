@@ -2,7 +2,7 @@
 <form xmlns="http://www.lotus.com/dxl" name="Eloqua Setup" alias="EloquaSetup" publicaccess="false" renderpassthrough="true">
   <actionbar bgcolor="#f0f0f0" bordercolor="black">
     <actionbuttonstyle bgcolor="#f0f0f0"/>
-    <font color="system"/>
+    <font size="9pt" color="system"/>
     <border style="solid" width="0px 0px 1px" color="system"/>
     <action title="Categori_ze" showinbar="false" systemcommand="categorize"/>
     <action title="_Edit Document" showinbar="false" systemcommand="edit"/>

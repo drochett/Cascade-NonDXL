@@ -30,11 +30,11 @@ Dim written As Integer
   </code>
   <code event="initialize">
     <lotusscript>Sub Initialize
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	Dim s As New NotesSession, w As New NotesUIWorkspace
 	Dim v As NotesView, a As NotesAgent
 	Dim dc As NotesDocumentCollection
-	Dim sname As String, title As String, vString As String, st As string
+	Dim sname As String, title As String, vString As String, st As String
 	Dim dcSingle As NotesDocumentCollection, dcMulti As NotesDocumentCollection
 	Dim dcBar As NotesDocumentCollection, dcBarMulti As NotesDocumentCollection 
 '	Dim doc As NotesDocument
@@ -44,13 +44,13 @@ Dim written As Integer
 	Set db = s.CurrentDatabase   'link to current database
 	Set a = s.Currentagent
 	'setup other stuff
-	If InStr(a.name,"|") Then
-		aName = Left(a.name,InStr(a.name,"|")-1)
+	If Instr(a.name,"|") Then
+		aName = Left(a.name,Instr(a.name,"|")-1)
 	Else
 		aName = a.Name
 	End If
 	sName = db.server
-	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	st = aname + " / " + Cstr(Getthreadinfo(1)) + ":  " 
 	title =  db.title +" db | "+ aname +" agent"
 	'initialize the documentcollection
 	VString = w.Currentview.ViewName '"AcitveLanguageMenu"
@@ -104,9 +104,9 @@ PROCESS_COLLECTIONS:
 	
 	Set xlapp=Nothing   'stop OLE
 Set db=Nothing	
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Msgbox Cstr(Getthreadinfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
 	Stop
 	Resume EndOfCode
 ENDOFCODE:
@@ -122,7 +122,7 @@ End Sub
 %END REM
 Function z_getArrayValues(item As NotesItem) As String
 	Dim x As Integer
-	ForAll a In item.values
+	Forall a In item.values
 		If x = 0 Then
 			z_getArrayValues = a
 			x=x+1
@@ -130,7 +130,7 @@ Function z_getArrayValues(item As NotesItem) As String
 			z_getArrayValues = z_getArrayValues + Chr(10)+a
 			x=x+1
 		End If
-	End ForAll
+	End Forall
 		
 	
 End Function
@@ -143,9 +143,9 @@ End Function
 	Description: Comments for Function
 %END REM
 Function setUpAdditionalSheet(sheetName As String)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	Dim st As String, range As String, item As NotesItem
-	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	st = aname + " / " + Cstr(Getthreadinfo(1)) + ":  " 
 	wsNbr = 1
 	Set xlsheet = xlapp.Worksheets.Add()
 	Set xlsheet = xlapp.worksheets(wsNbr)
@@ -171,9 +171,9 @@ Function setUpAdditionalSheet(sheetName As String)
 	cols = cols+1
 	xlsheet.Cells(rows,cols).Value = "Translation"
 	
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ ,16,st
+	Msgbox "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ ,16,st
 	Resume EndOfCode
 ENDOFCODE:
 	
@@ -187,7 +187,7 @@ End Function
 	Description: Comments for Function
 %END REM
 Function d_multiBarValSpreadsheet(dc As NotesDocumentCollection)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	cols = 0  'init the value to zero so code works
 	rows = 0  'init the value to zero so code works
 	Dim doc As NotesDocument, range As String
@@ -252,9 +252,9 @@ Function d_multiBarValSpreadsheet(dc As NotesDocumentCollection)
 	'MsgBox CStr(GetThreadInfo(1)) &amp; " A1:D"+Cstr(Rows)
 	formatSheet(range)
 	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Msgbox Cstr(Getthreadinfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
 	Resume EndOfCode
 ENDOFCODE:
 End Function
@@ -267,7 +267,7 @@ End Function
 	Description: Comments for Function
 %END REM
 Function formatSheet(range As String)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	xlApp.Range(range).Select
 	xlApp.Selection.Font.Name = "Arial"
 	xlApp.Selection.Font.Size = 9
@@ -275,9 +275,9 @@ Function formatSheet(range As String)
 	xlApp.Selection.VerticalAlignment = 1
 	xlApp.Selection.Borders.LineStyle = 1
 	xlApp.Selection.Borders.Weight = 2
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Msgbox Cstr(Getthreadinfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
 	Resume EndOfCode
 ENDOFCODE:
 End Function
@@ -290,7 +290,7 @@ End Function
 	Description: Comments for Function
 %END REM
 Function e_singleMenuValSpreadsheet(dc As NotesDocumentCollection)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	cols = 0  'init the value to zero so code works
 	rows = 0  'init the value to zero so code works
 	Dim doc As NotesDocument, range As String
@@ -360,9 +360,9 @@ Function e_singleMenuValSpreadsheet(dc As NotesDocumentCollection)
 	'MsgBox CStr(GetThreadInfo(1)) &amp; " A1:D"+Cstr(Rows)
 	formatSheet(range)
 	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Msgbox Cstr(Getthreadinfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
 	Resume EndOfCode
 ENDOFCODE:
 End Function
@@ -375,7 +375,7 @@ End Function
 	Description: Comments for Function
 %END REM
 Function b_multiValSpreadsheet(dc As NotesDocumentCollection)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	cols = 0  'init the value to zero so code works
 	rows = 0  'init the value to zero so code works
 	Dim doc As NotesDocument, range As String
@@ -444,9 +444,9 @@ Function b_multiValSpreadsheet(dc As NotesDocumentCollection)
 	formatSheet(range)
 	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Msgbox Cstr(Getthreadinfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
 	Resume EndOfCode
 ENDOFCODE:
 	
@@ -460,7 +460,7 @@ End Function
 	Description: Create worksheet for single value documents
 %END REM
 Function a_singleLabelValSpreadsheet(dc As NotesDocumentCollection)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	Dim dcMenu As NotesDocumentCollection
 	Dim value As String, aliasVal As String
 	Set dcMenu = db.Search("",Nothing,0)
@@ -538,14 +538,14 @@ Function a_singleLabelValSpreadsheet(dc As NotesDocumentCollection)
 			'breakout value and alias
 			value = "" 're-init it
 			aliasVal = "" 're-init it
-			If InStr(doc.val_americas_en(0),"|") Then
+			If Instr(doc.val_americas_en(0),"|") Then
 				value = parseItem(doc.val_americas_en(0),"Left","|")
 				aliasVal = parseItem(doc.val_americas_en(0),"Right","|")
 			Else
 				value = doc.val_americas_en(0)
 			End If
-			xlSheet.cells(rows,5).value = CStr(aliasVal) 'reserved for alias value
-			xlSheet.cells(rows,6).value = CStr(value)
+			xlSheet.cells(rows,5).value = Cstr(aliasVal) 'reserved for alias value
+			xlSheet.cells(rows,6).value = Cstr(value)
 		End If
 		Set doc = dc.getnextdocument(doc)
 	Loop
@@ -554,9 +554,9 @@ Function a_singleLabelValSpreadsheet(dc As NotesDocumentCollection)
 	formatSheet(range)
 	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	Call e_singleMenuValSpreadsheet(dcMenu)
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Msgbox Cstr(Getthreadinfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
 	Resume EndOfCode
 ENDOFCODE:
 	
@@ -571,7 +571,7 @@ End Function
 %END REM
 Function y_getArrayValues(item As NotesItem) As String
 	Dim x As Integer
-	ForAll a In item.values
+	Forall a In item.values
 		If x = 0 Then
 			y_getArrayValues = a
 			x=x+1
@@ -579,7 +579,7 @@ Function y_getArrayValues(item As NotesItem) As String
 			y_getArrayValues = y_getArrayValues + Chr(10)+a
 			x=x+1
 		End If
-	End ForAll
+	End Forall
 End Function
 
 </lotusscript>
@@ -590,9 +590,9 @@ End Function
 	Description: Comments for Function
 %END REM
 Function getFieldValue2(Field As String, dc As NotesDocumentCollection)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	Dim st As String, range As String, item As NotesItem, aliasVal As String, value As String
-	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	st = aname + " / " + Cstr(Getthreadinfo(1)) + ":  " 
 	Set doc = dc.getFirstDocument
 	
 	Do Until doc Is Nothing
@@ -604,7 +604,7 @@ Function getFieldValue2(Field As String, dc As NotesDocumentCollection)
 			Set item =doc.getFirstItem(Field)
 			value = item.Values(0)
 			'check If it has an alias ie: the bar symbol "|" exists
-			If InStr(item.values(0),"|") Then
+			If Instr(item.values(0),"|") Then
 				'parse out alias and value
 				aliasVal = parseItem(value,"Right","|")
 				value = parseItem(value,"Left","|")
@@ -624,9 +624,9 @@ Function getFieldValue2(Field As String, dc As NotesDocumentCollection)
 NEXTDOC:	
 		Set doc = dc.Getnextdocument(doc)
 	Loop
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox "(" &amp; Field +") Error on line " &amp; Format$(Erl)&amp;":  "&amp;  Error$ &amp; Chr(10) + "&gt;&gt;&gt;&gt; " &amp;doc.type(0) + " - " &amp; doc.subject(0) ,16, st
+	Msgbox "(" &amp; Field +") Error on line " &amp; Format$(Erl)&amp;":  "&amp;  Error$ &amp; Chr(10) + "&gt;&gt;&gt;&gt; " &amp;doc.type(0) + " - " &amp; doc.subject(0) ,16, st
 	Resume EndOfCode
 ENDOFCODE:
 	
@@ -640,25 +640,25 @@ End Function
 	Description: Comments for Function
 %END REM
 Function getArrayValue(Field As String, doc As NotesDocument)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	Dim st As String, range As String, item As NotesItem, aliasVal As String, value As String, x As Integer
-	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	st = aname + " / " + Cstr(Getthreadinfo(1)) + ":  " 
 '	Set doc = dc.getFirstDocument
 		x=0  'init it
 		cols = 0  'init the value to zero so code works
 		'get array values
 		If doc.hasItem(Field) Then 
 			Set item =doc.getFirstItem(Field)
-			If IsArray(item.values) Then 
-				If item.values(0) = "" Then GoTo EndOfCOde
+			If Isarray(item.values) Then 
+				If item.values(0) = "" Then Goto EndOfCOde
 				cols = cols+1
 				rows=rows+1
 				value = ""
 				aliasVal = ""
 				range = "A"+Cstr(rows)+":J"+Cstr(rows)
-				Do Until x = UBound(item.Values)+1
+				Do Until x = Ubound(item.Values)+1
 					'check If it has an alias ie: the bar symbol "|" exists
-					If InStr(item.values(x),"|") Then
+					If Instr(item.values(x),"|") Then
 						'parse out alias and value
 						value = item.values(x)
 						aliasVal = parseItem(value,"Right","|")
@@ -673,14 +673,14 @@ Function getArrayValue(Field As String, doc As NotesDocument)
 					xlSheet.cells(rows,4).value = Field
 					xlSheet.cells(rows,5).value = aliasVal
 					xlSheet.cells(rows,6).value = value
-					 If x+1 &lt;= UBound(item.values) Then rows = rows+1
+					 If x+1 &lt;= Ubound(item.values) Then rows = rows+1
 					x = x+1
 				Loop
 			End If
 		End If
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox "(" &amp; Field +") Error on line " &amp; Format$(Erl)&amp;":  "&amp;  Error$ &amp; Chr(10) + "&gt;&gt;&gt;&gt; " &amp;doc.type(0) + " - " &amp; doc.subject(0),16,st
+	Msgbox "(" &amp; Field +") Error on line " &amp; Format$(Erl)&amp;":  "&amp;  Error$ &amp; Chr(10) + "&gt;&gt;&gt;&gt; " &amp;doc.type(0) + " - " &amp; doc.subject(0),16,st
 	Resume EndOfCode
 ENDOFCODE:
 	value = ""
@@ -699,11 +699,11 @@ Function parseItem(value As String, parseType As String, symbol As String) As St
 	
 	Dim itemLen As Integer, pos As Integer
 	Dim st As String
-	st = aname +  " / "+ CStr(GetThreadInfo(1)) + ": " 'Used for error trapping
-	On Error GoTo error_handler
+	st = aname +  " / "+ Cstr(Getthreadinfo(1)) + ": " 'Used for error trapping
+	On Error Goto error_handler
 	itemLen = Len(value)
 	'		dflog.info(st + "langLen = " +CStr(langLen))
-	pos = InStr(value,symbol)
+	pos = Instr(value,symbol)
 	'		dfLog.info(st + "pos =" + CStr(pos))
 	'		dfLog.info(st + "langLen - pos =" + CStr(langLen -pos))
 	If parseType = "Right" Then
@@ -711,10 +711,10 @@ Function parseItem(value As String, parseType As String, symbol As String) As St
 	Else
 		parseItem = Trim(Left(value,pos-1))
 	End If
-	GoTo End_Of_Code
+	Goto End_Of_Code
 ERROR_HANDLER:
 
-		MsgBox (st &amp; " - Error in line "  &amp; Erl &amp; " (ERROR " &amp; Err &amp;" - "  &amp; Error &amp; ")")
+		Msgbox (st &amp; " - Error in line "  &amp; Erl &amp; " (ERROR " &amp; Err &amp;" - "  &amp; Error &amp; ")")
 
 	Resume End_Of_Code
 END_OF_CODE:
@@ -730,7 +730,7 @@ End Function
 	Description: creates workSheet for those single values with Aliases (|)
 %END REM
 Function c_singleBarValSpreadsheet(dc As NotesDocumentCollection)
-	On Error GoTo ErrorTrap
+	On Error Goto ErrorTrap
 	cols = 0  'init the value to zero so code works
 	rows = 0  'init the value to zero so code works
 	Dim doc As NotesDocument, range As String
@@ -805,9 +805,9 @@ Function c_singleBarValSpreadsheet(dc As NotesDocumentCollection)
 	formatSheet(range)
 	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	GoTo EndOfCode
+	Goto EndOfCode
 ERRORTRAP:
-	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Msgbox Cstr(Getthreadinfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
 	Resume EndOfCode
 ENDOFCODE:
 End Function</lotusscript>

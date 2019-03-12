@@ -5,7 +5,7 @@
   </code>
   <actionbar bgcolor="#f0f0f0" bordercolor="black">
     <actionbuttonstyle bgcolor="#f0f0f0"/>
-    <font color="system"/>
+    <font size="9pt" color="system"/>
     <border style="solid" width="0px 0px 1px"/>
     <action title="Categori_ze" showinbar="false" systemcommand="categorize"/>
     <action title="(Untitled)"/>
@@ -248,7 +248,7 @@ transam_es := @If(val_americas_es != val_americas_en;1;0);
       <formula>@If(val_americas_es != val_americas_en; "T";"F")</formula>
     </code>
   </column>
-  <column align="center" hidedetailrows="false" width="1.1250" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+  <column align="center" hidedetailrows="false" itemname="$0" width="1.1250" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
     <font size="8pt"/>
     <columnheader>
       <font size="9pt" style="bold"/>
@@ -266,7 +266,7 @@ transam_es := @If(val_americas_es != val_americas_en;1;0);
       <formula>@If(val_americas_ca != val_americas_en; "T";"F")</formula>
     </code>
   </column>
-  <column align="center" hidedetailrows="false" width="1.1250" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+  <column align="center" hidedetailrows="false" itemname="$1" width="1.1250" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
     <font size="8pt"/>
     <columnheader>
       <font size="9pt" style="bold"/>
@@ -284,7 +284,7 @@ transam_es := @If(val_americas_es != val_americas_en;1;0);
       <formula>@If(val_americas_fr != val_americas_en; "T";"F")</formula>
     </code>
   </column>
-  <column align="center" hidedetailrows="false" width="1.1250" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+  <column align="center" hidedetailrows="false" itemname="$2" width="1.1250" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
     <font size="8pt"/>
     <columnheader>
       <font size="9pt" style="bold"/>
@@ -299,7 +299,7 @@ transam_es := @If(val_americas_es != val_americas_en;1;0);
       <font size="9pt" style="bold"/>
     </columnheader>
   </column>
-  <column hidedetailrows="false" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+  <column hidedetailrows="false" itemname="$3" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
     <columnheader>
       <font size="9pt" style="bold"/>
     </columnheader>
@@ -326,7 +326,7 @@ transam_es := @If(val_americas_es != val_americas_en;1;0);
 val_eme_de;"")</formula>
     </code>
   </column>
-  <column hidedetailrows="false" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+  <column hidedetailrows="false" itemname="$4" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
     <columnheader>
       <font size="9pt" style="bold"/>
     </columnheader>
@@ -353,7 +353,7 @@ val_eme_de;"")</formula>
 val_eme_es;"")</formula>
     </code>
   </column>
-  <column hidedetailrows="false" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+  <column hidedetailrows="false" itemname="$5" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
     <columnheader>
       <font size="9pt" style="bold"/>
     </columnheader>
@@ -380,7 +380,7 @@ val_eme_es;"")</formula>
 val_eme_fi;"")</formula>
     </code>
   </column>
-  <column hidedetailrows="false" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+  <column hidedetailrows="false" itemname="$6" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
     <columnheader>
       <font size="9pt" style="bold"/>
     </columnheader>
@@ -403,7 +403,7 @@ val_eme_fi;"")</formula>
       <font size="9pt" style="bold"/>
     </columnheader>
   </column>
-  <column hidedetailrows="false" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+  <column hidedetailrows="false" itemname="$7" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
     <columnheader>
       <font size="9pt" style="bold"/>
     </columnheader>
@@ -430,7 +430,7 @@ val_eme_fi;"")</formula>
 val_eme_it;"")</formula>
     </code>
   </column>
-  <column hidedetailrows="false" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+  <column hidedetailrows="false" itemname="$8" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
     <columnheader>
       <font size="9pt" style="bold"/>
     </columnheader>
@@ -457,7 +457,7 @@ val_eme_it;"")</formula>
 val_eme_nl;"")</formula>
     </code>
   </column>
-  <column hidedetailrows="false" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+  <column hidedetailrows="false" itemname="$9" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
     <columnheader>
       <font size="9pt" style="bold"/>
     </columnheader>
@@ -484,7 +484,7 @@ val_eme_nl;"")</formula>
 val_eme_se;"")</formula>
     </code>
   </column>
-  <column hidedetailrows="false" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+  <column hidedetailrows="false" itemname="$11" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
     <columnheader>
       <font size="9pt" style="bold"/>
     </columnheader>
@@ -510,7 +510,7 @@ val_eme_se;"")</formula>
 val_americas_es;"")</formula>
     </code>
   </column>
-  <column hidedetailrows="false" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+  <column hidedetailrows="false" itemname="$17" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
     <columnheader>
       <font size="9pt" style="bold"/>
     </columnheader>
@@ -536,7 +536,7 @@ val_americas_es;"")</formula>
 val_americas_ca;"")</formula>
     </code>
   </column>
-  <column hidedetailrows="false" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+  <column hidedetailrows="false" itemname="$19" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
     <columnheader>
       <font size="9pt" style="bold"/>
     </columnheader>

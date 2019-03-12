@@ -17,7 +17,7 @@ SELECT Form = "LabelForm" &amp; Status = "Active" &amp; labelProc = 0</formula>
   </code>
   <actionbar bgcolor="#f0f0f0" bordercolor="black">
     <actionbuttonstyle bgcolor="#f0f0f0"/>
-    <font color="system"/>
+    <font size="9pt" color="system"/>
     <border style="solid" width="0px 0px 1px"/>
     <action title="Categori_ze" showinbar="false" systemcommand="categorize"/>
     <action title="_Edit Document" showinbar="false" systemcommand="edit"/>
@@ -59,7 +59,7 @@ SELECT Form = "LabelForm" &amp; Status = "Active" &amp; labelProc = 0</formula>
       <formula>@Modified</formula>
     </code>
   </column>
-  <column hidedetailrows="false" width="1" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+  <column hidedetailrows="false" itemname="$0" width="1" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
     <columnheader>
       <font size="9pt" style="bold"/>
     </columnheader>
