@@ -7,7 +7,7 @@
 	Agent Change deletionDate
 	Created Apr 14, 2017 by Michael Zens/PTL/CASCADE
 	Description: Comments for Agent
-%END REM
+%END REM 
 Option Public
 Option Declare
 
