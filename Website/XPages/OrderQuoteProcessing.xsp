@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+	<xc:ccLayout>
+		<xp:panel styleClass="container" id="main">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							value="${langBean.titleOrderProcessing}" styleClass="carousel-heading">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!--		breadcrumb row-->
+			<xp:panel styleClass="row" id="rowBreadcrumb1">
+				<xp:panel styleClass="col-xs-12" id="col11">
+					<xc:ccOrderProcessingBreadcrumbs></xc:ccOrderProcessingBreadcrumbs>
+				</xp:panel>
+			</xp:panel>
+			<!--	START dynamicViewPanel row-->
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-xs-12">
+					<xe:dynamicViewPanel id="dynamicViewPanel1"
+						pageName="#{empty sessionScope.formName ? 'CustomerFeedback.xsp' : sessionScope.formName}"
+						var="viewEntry"
+						customizerBean="com.cascorp.OrderProcessingViewCustomizer">
+						<xe:this.rowClasses><![CDATA[#{javascript:out = "";
+dBar.info(viewEntry.toString() + " --- " + viewEntry.getIndentLevel() + " -- " + viewEntry.isCategory());
+dBar.info("type of is " + typeof viewEntry.getIndentLevel());
+if (viewEntry.isCategory()){
+		dBar.info("is category");
+ 	if (viewEntry.getIndentLevel()==1){
+ 		
+		dBar.info("indenting " + viewEntry.toString() + " by one");
+		out =  "OrderProcessingView_Category1";
+	} else if (viewEntry.getIndentLevel()==2){
+		dBar.info("indenting " + viewEntry.toString() + " by two");
+		out =  "OrderProcessingView_Category2";
+	}
+}
+return out;
+}]]></xe:this.rowClasses>
+						<xp:this.facets>
+							<xp:pager layout="Previous Group Next"
+								partialRefresh="true" id="pager2" xp:key="footerPager">
+							</xp:pager>
+							<xe:pagerSaveState id="pagerSaveState1"
+								xp:key="viewTitle">
+							</xe:pagerSaveState>
+
+							<xp:pager layout="Previous Group Next"
+								partialRefresh="true" id="pager1" xp:key="headerPager">
+							</xp:pager>
+						</xp:this.facets>
+						<xe:this.data>
+							<xp:dominoView var="view1"
+								databaseName="#{configBean.OrdersDbPath}"
+								viewName="#{empty sessionScope.viewName ? 'customerfeedback' : sessionScope.viewName}">
+							</xp:dominoView>
+						</xe:this.data>
+						<xp:eventHandler event="onColumnClick"
+							submit="true" refreshMode="complete">
+							<xe:this.action>
+								<xp:actionGroup>
+									<xp:executeScript>
+										<xp:this.script><![CDATA[#{javascript:
+var ve:NotesXspViewEntry = viewEntry ;
+sessionScope.veID = ve.getDocument().getUniversalID();
+dBar.info("*** in column onclick event ***");
+dBar.info("veID=" + veID);}]]></xp:this.script>
+									</xp:executeScript>
+
+
+
+
+
+
+
+
+
+
+									<xp:openPage target="openDocument"
+										documentId="#{sessionScope.veID}">
+										<xp:this.name><![CDATA[#{javascript://println("^^^ in openPage:pageName property ^^^^^");
+println("sessionScope formName=="+ sessionScope.formName)
+println("sessionScope veiID: " + sessionScope.veID);
+dBar.info("^^^ in openPage:pageName property ^^^^^");
+if (sessionScope.formName == "QUOTETYPE") {
+		dBar.info(" if return sessionScope.formName === QUOTEFORK ");
+		var ve:NotesXspViewEntry = viewEntry;
+		var orderForm = ve.getDocument().getItemValueString("OrderForm");
+		dBar.info("ve.doc.OrderForm =" + orderForm );
+		println("ve.doc.OrderForm =" + orderForm);
+		var xspName = "CustomerFeedback.xsp";
+		switch (orderForm) {
+			case "quoterequestfork":
+				xspName = "QuoteForks.xsp"; 
+				break;
+			case "quoterequestsint":
+				xspName = "QuoteInt.xsp"; 
+				break;
+			case "quoterequestslp":
+				xspName = "QuoteLP.xsp"; 
+				break;
+			case "quoterequestssd":
+				xspName = "QuoteSD.xsp"; 
+				break;
+			default:
+				dBar.info("case default");
+				xspName = "CustomerFeedback.xsp"; 
+		};
+		dBar.info("xspName =" + xspName );
+		return xspName ;	
+		
+	} else if (!!sessionScope.formName) {
+		dBar.info(" elseif return sessionScope.formName ");
+		//println(" elseif return sessionScope.formName ");
+		return sessionScope.formName ;
+	} else {
+		dBar.info(" else CustomerFeedback.xsp ");
+		return "CustomerFeedback.xsp" ;
+}
+}]]></xp:this.name>
+									</xp:openPage>
+								</xp:actionGroup>
+							</xe:this.action>
+						</xp:eventHandler>
+					</xe:dynamicViewPanel>
+				</xp:panel>
+			</xp:panel>
+
+		</xp:panel>
+	</xc:ccLayout>
+	<xp:eventHandler event="onClientLoad" submit="true"
+		refreshMode="norefresh">
+		<xp:this.action><![CDATA[#{javascript:if(sessionScope.formName=="DealerClaim.xsp") {
+sessionScope.formName="DealerClaimProcessing.xsp";
+}}]]></xp:this.action>
+	</xp:eventHandler></xp:view>
+

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.afterPageLoad><![CDATA[#{javascript:sessionScope.remove("serialNbr");
+sessionScope.remove("mhpItem");
+sessionScope.remove("hideAdd")
+sessionScope.remove("serialNbr")
+sessionScope.remove("editAttachment")}]]></xp:this.afterPageLoad>
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+	<xc:ccLayout>
+		<!-- bootstrap 2 column -->
+		<xp:panel
+			id="main"
+			styleClass="container">
+			<!-- banner image -->
+			<xp:panel styleClass="row blue-header">
+				<xp:panel styleClass="col-xs-12">
+					<xp:image
+						url="/attachment_lineup1170.png"
+						id="image1"
+						styleClass="img-responsive">
+					</xp:image>
+				</xp:panel>
+			</xp:panel>
+			<!-- MAIN CONTENT -->
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="row">
+					<xp:panel
+						styleClass="col-sm-12"
+						id="panelTopLeft">
+						<xp:panel>
+							<xp:button
+								value="${langBean.btnLabelNewAttachment}"
+								id="addNewAttachment"
+								styleClass="btn btn-primary">
+								<xp:eventHandler
+									event="onclick"
+									submit="true"
+									refreshMode="complete">
+									<xp:this.action>
+										<xp:actionGroup>
+											<xp:executeScript>
+												<xp:this.script><![CDATA[#{javascript:sessionScope.newAttachment=true
+sessionScope.editAttachment=null
+sessionScope.mhpItem=null
+sessionScope.serialNbr=null}]]></xp:this.script>
+											</xp:executeScript>
+											<xp:openPage
+												name="/QuickResponseCode_2.xsp"
+												target="newDocument">
+											</xp:openPage>
+										</xp:actionGroup>
+									</xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</xp:panel>
+						<xp:panel id="panelMyProfileAttachmentView1">
+							<xc:ccMyAttachmentsRC></xc:ccMyAttachmentsRC>
+						</xp:panel>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+		<!-- bootstrap 2 column -->
+	</xc:ccLayout>
+
+</xp:view>

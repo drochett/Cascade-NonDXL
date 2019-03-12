@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="(set sortOder)" hide="v3" publicaccess="false">
+  <trigger type="agentlist"/>
+  <documentset type="selected"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent typeProduct
+	Created Aug 31, 2015 by Paul Della-Nebbia/TSPSDev
+	Description: Comments for Agent
+%END REM
+Option Public
+Option Declare
+%INCLUDE "lsconst"
+
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	
+	Dim sort As Variant
+	Do 
+		sort = Inputbox("examples: 10, 20, 30, 40 ...", "set sortOrder  = " )	
+	Loop Until Isnumeric(sort)
+	
+	' === REQUIRED === Access the current database from the session
+	Dim session As New NotesSession
+	Dim dbCur As NotesDatabase
+	Set dbCur = session.CurrentDatabase
+	
+	' === Access the unprocessed collection of selected documents in view
+	Dim collUnprocessed As NotesDocumentCollection
+	Set collUnprocessed = dbCur.UnprocessedDocuments
+	Dim doc As NotesDocument
+	
+	' === Make sure the collection is not empty and then report the count in a messagebox
+	If collUnprocessed Is Nothing Then
+		Messagebox "Collection is empty!", MB_ICONEXCLAMATION, _
+"AGENT: " &amp; session.CurrentAgent.Name
+	Else
+		'Dim nContinue As Integer     
+		'nContinue = MessageBox( "Set sortOrder=" + sort + " for first selected document?", MB_YESNO, "AGENT: " &amp; session.CurrentAgent.Name)
+
+			Set doc = collUnprocessed.Getfirstdocument()
+			With doc
+				.SortOrder = Int(sort)
+				.save True,True
+			End With		
+
+		
+	End If
+	
+End Sub</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101939,30-08</datetime>
+  </item>
+</agent>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<xp:panel styleClass="container" style="background: #E1E1E1;">
+
+		<xc:ccBlogAdminHeader></xc:ccBlogAdminHeader>
+		
+		<xp:this.data>
+			<xp:dominoView var="view1"
+				databaseName="#{javascript:configBean.BlogDbPath}"
+				viewName="BlogAdmin" expandLevel="1">
+			</xp:dominoView>
+		</xp:this.data>
+		<xp:button value="New" id="button1">
+			
+		<xp:eventHandler event="onclick" submit="true" refreshMode="complete">
+			<xp:this.action>
+				<xp:openPage name="/BlogPost.xsp"
+					target="newDocument">
+				</xp:openPage>
+			</xp:this.action></xp:eventHandler></xp:button>
+		<xp:button value="Delete" id="button2">
+			<xp:eventHandler event="onclick" submit="true"
+				refreshMode="complete">
+				<xp:this.action>
+					<xp:deleteSelectedDocuments view="viewPanel1"
+						message="Are you sure?">
+					</xp:deleteSelectedDocuments>
+				</xp:this.action>
+			</xp:eventHandler>
+		</xp:button>
+		
+		<xp:br></xp:br>
+		
+		<xp:viewPanel value="#{view1}" id="viewPanel1">
+			<xp:this.facets>
+				<xp:pager partialRefresh="true"
+					layout="Previous Group Next" xp:key="headerPager" id="pager1">
+				</xp:pager>
+			</xp:this.facets>
+			<xp:viewColumn columnName="ContentLanguage" id="viewColumn6">
+				<xp:this.facets>
+					<xp:viewColumnHeader xp:key="header"
+						id="viewColumnHeader6" value="Language">
+					</xp:viewColumnHeader>
+				</xp:this.facets>
+			</xp:viewColumn>
+			<xp:viewColumn columnName="PostedOn" id="viewColumn1"
+				showCheckbox="true">
+				<xp:this.facets>
+					<xp:viewColumnHeader value="Posted on"
+						xp:key="header" id="viewColumnHeader1">
+					</xp:viewColumnHeader>
+				</xp:this.facets>
+			</xp:viewColumn>
+			<xp:viewColumn columnName="Title" id="viewColumn2"
+				displayAs="link">
+				<xp:this.facets>
+					<xp:viewColumnHeader value="Title" xp:key="header"
+						id="viewColumnHeader2">
+					</xp:viewColumnHeader>
+				</xp:this.facets>
+			</xp:viewColumn>
+			<xp:viewColumn columnName="ShortText" id="viewColumn3">
+				<xp:this.facets>
+					<xp:viewColumnHeader value="Short text"
+						xp:key="header" id="viewColumnHeader3">
+					</xp:viewColumnHeader>
+				</xp:this.facets>
+			</xp:viewColumn>
+			<xp:viewColumn columnName="PostedBy" id="viewColumn4">
+				<xp:this.facets>
+					<xp:viewColumnHeader value="Posted  by"
+						xp:key="header" id="viewColumnHeader4">
+					</xp:viewColumnHeader>
+				</xp:this.facets>
+			</xp:viewColumn>
+		</xp:viewPanel>
+
+	</xp:panel>
+
+</xp:view>

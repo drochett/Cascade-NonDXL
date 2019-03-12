@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex" dojoParseOnLoad="true"
+	dojoTheme="true">
+	<xp:this.resources>
+		<xp:dojoModule name="dojox.widget.Standby"></xp:dojoModule>
+		<xp:script src="/waitFunctions.js" clientSide="true"></xp:script>
+	</xp:this.resources>
+	<xp:this.beforePageLoad><![CDATA[#{javascript:var lang = sessionScope.get("LanguageP");
+var dspLang;
+ if (lang == "americas-en") {
+ 	viewScope.put("dspLang","US");
+ } else if (lang == "eme-de"){
+ 	viewScope.put("dispLang", "")
+ 
+ 
+ 
+ 
+ }}]]></xp:this.beforePageLoad>
+	<xc:ccLayout>
+
+		<!--start container for page-->
+		<xp:panel styleClass="container" id="main">
+			<!--  new banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							value="${langBean.titleServiceLiterature}" styleClass="carousel-heading">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+
+			<!-- Panel at top with language -->
+			<xp:panel id="panel5" styleClass="row">
+				<xp:panel styleClass="col-sm-5 col-sm-push-7 panel-body" id="topRightPanel">
+					<div class="row">
+						<div class="col-xs-4">
+							<xp:text tagName="label" value="${langBean.labelSearchLanguage}: "
+								id="SearchLabel" styleClass="control-label text-right">
+							</xp:text>
+						</div>
+						<div class="col-xs-8">
+							<xp:comboBox id="selLang"
+								value="#{searchLiteratureBean.searchLanguage}">
+
+
+								<xp:this.defaultValue><![CDATA[#{javascript:var lang =sessionScope.get("LanguageP");
+if (lang == "americas-en") {
+	lang;
+} else {
+	"";
+}}]]></xp:this.defaultValue><xp:selectItems>
+									<xp:this.value><![CDATA[${javascript:langBean.SearchLanguages}]]></xp:this.value>
+								</xp:selectItems>
+							</xp:comboBox>
+						</div>
+					</div>
+				</xp:panel>
+				<xp:panel styleClass="col-sm-7 col-sm-pull-5 panel-body" id="topLeftPanel">
+					<xp:text escape="true" id="computedField1" tagName="label"
+						styleClass="control-label" value="#{langBean.SearchInstructionsMsg}"
+						style="font-size:120%;">
+					</xp:text>
+				</xp:panel>
+				
+			</xp:panel>
+
+
+			<!--      panel extra small device-->
+			<xp:panel id="panelPhone1" loaded="${deviceBean.mobile}"
+				styleClass="row">
+				<xp:panel styleClass="col-xs-12">
+					<xp:radioGroup id="radioGroup1" value="#{viewScope.mSearchSelector}"
+						defaultValue="PartsManual" layout="pageDirection">
+						<xp:selectItems value="${langBean.selSearchType}"></xp:selectItems>
+						<xp:eventHandler event="onchange" submit="true"
+							refreshMode="partial" refreshId="panelPhone1">
+						</xp:eventHandler>
+					</xp:radioGroup>
+					<xe:switchFacet id="switchFacetSearchType1"
+						selectedFacet="#{viewScope.mSearchSelector}" defaultFacet="PartsManual">
+						<xp:this.facets>
+							<xp:panel xp:key="PartsManual" id="panel6" style="margin:0px;margin-bottom:-20px;">
+								<xc:selPartsManual></xc:selPartsManual>
+							</xp:panel>
+							<xp:panel xp:key="ServiceOperatorInstall" id="panel9" style="margin:0px;margin-bottom:-20px;">
+								<xc:selServiceOperatorInstall></xc:selServiceOperatorInstall>
+							</xp:panel>
+							<xp:panel xp:key="KeywordsSeach" id="panel10" style="margin:0px;margin-bottom:-20px;">
+								<xc:selKeywordsSearch></xc:selKeywordsSearch>
+							</xp:panel>
+						</xp:this.facets>
+					</xe:switchFacet>
+				</xp:panel>
+			</xp:panel>
+
+			<!--     panel small/med/lg device-->
+			<xp:panel id="panelTabletDesktop1" loaded="${!deviceBean.mobile}"
+				styleClass="cascade-tab-panel">
+				<xp:tabbedPanel id="tabbedPanel1" styleClass="nav nav-tabs nav-justified cascade-tabs cascade-search-tabs"
+					selectedTab="tabPanel1" partialRefresh="true">
+					<xp:tabPanel style="margin:0px;margin-bottom:-20px;" id="tabPanel1">
+						<xp:this.label><![CDATA[${langBean.HeadingSearchParts}]]></xp:this.label>
+						<xc:selPartsManual></xc:selPartsManual>
+					</xp:tabPanel>
+					<xp:tabPanel
+						label="${langBean.HeadingSearchServiceOperatorInstall}"
+						id="tabPanel2" style="margin:0px;margin-bottom:-20px;">
+						<xc:selServiceOperatorInstall></xc:selServiceOperatorInstall>
+					</xp:tabPanel>
+					<xp:tabPanel style="margin:0px;margin-bottom:-20px;"
+						label="${langBean.HeadingKeywordSearch}" id="tabPanel3"
+						>
+						<xc:selKeywordsSearch></xc:selKeywordsSearch>
+					</xp:tabPanel>
+				</xp:tabbedPanel>
+				<!-- 
+				<xp:panel styleClass="col-sm-6  col-md-4" id="panel1">
+					<xc:selPartsManual></xc:selPartsManual>
+				</xp:panel>
+				<xp:panel styleClass="col-sm-6  col-md-4" id="panel2">
+					<xc:selServiceOperatorInstall></xc:selServiceOperatorInstall>
+				</xp:panel>
+				<xp:panel styleClass="col-sm-6  col-md-4" id="panel4">
+					<xc:selKeywordsSearch></xc:selKeywordsSearch>
+				</xp:panel>
+				
+				 -->
+			</xp:panel>
+
+			
+
+			<!--START SEARCH RESULTS-->
+			<xp:panel id="panelSearchResults1" styleClass="row">
+				<xp:panel styleClass="col-sm-12" id="panel3"
+					style="margin-top:10px;">
+					<xe:widgetContainer id="widgetResultsContainer"
+						titleBarText="${langBean.SiteSearchResultsWidgetHeading}"
+						styleClass="login-panel" >
+						<!-- Panel if no results -->
+						<xp:panel
+							rendered="#{javascript:return !searchLiteratureBean.hasResults();}">
+							<div class="panel-body">
+								<div class="form-group">
+									<div class="row">
+										<div class="col-sm-12">
+											<xp:text tagName="label"
+												id="NoResultsTextControl" styleClass="control-label"
+												value="${langBean.SiteSearchNoResultsMsg}">
+
+											</xp:text>
+										</div>
+									</div>
+								</div>
+							</div>
+						</xp:panel>
+						<!-- Panel for results -->
+						<xp:panel id="showResults"
+							rendered="#{javascript:searchLiteratureBean.hasResults();}">
+							<div class="panel-body">
+								<!-- START LEGEND -->
+								<xc:ccServiceSearchLegend_m
+									loaded="${deviceBean.mobile}">
+								</xc:ccServiceSearchLegend_m>
+								<xc:ccServiceSearchLegend
+									loaded="${!deviceBean.mobile}">
+								</xc:ccServiceSearchLegend>
+								<!-- END LEGEND -->
+								<div class="form-group">
+									<!-- Show pager controls at top-->
+									<xp:panel id="topControls"
+										styleClass="row topPager">
+										<div class="col-sm-5">
+											<!-- show result counts here -->
+											<xp:text escape="true"
+												id="searchResultsMsg" tagName="label">
+												<xp:this.value><![CDATA[#{javascript:var found  = searchLiteratureBean.getTotalResultsDisplay();
+var firstPart = langBean.getValue("SearchResultsMsg1");
+rtnString = found + " " + firstPart;
+return rtnString;}]]></xp:this.value>
+											</xp:text>
+											<xp:text escape="false"
+												id="maxResultsMsg" tagName="label"
+												style="color:rgb(255,0,0);font-weight:bold">
+												<xp:this.value><![CDATA[#{javascript:var found  = searchLiteratureBean.getTotalResultsDisplay();
+var max = searchLiteratureBean.getMaxResultsDisplay();
+
+var secondPart = langBean.getValue("SearchResultsMsg2");
+var thirdPart = langBean.getValue("SearchResultsMsg3");
+
+rtnString = "";
+
+foundInt = searchLiteratureBean.getTotalResults();
+dBar.info("foundInt: " + foundInt);
+maxInt = searchLiteratureBean.getMaxResults();
+dBar.info("maxInt: " + maxInt);
+if (foundInt == maxInt){
+	//the user reached their limit, add a message
+	rtnString = rtnString + "&nbsp;" +  secondPart + " " + max + " " + thirdPart;
+}
+
+return rtnString;}]]></xp:this.value>
+											</xp:text>
+											</div>
+											<div class="col-sm-2">
+<!-- Add control to let users sort -->
+
+											<xp:comboBox id="comboBox1"
+												value="#{searchLiteratureBean.sortOrder}">
+												<xp:selectItems>
+													<xp:this.value><![CDATA[${langBean.SortLabels}]]></xp:this.value>
+												</xp:selectItems>
+												<xp:eventHandler
+													onStart="requestStarted()" onComplete="requestCompleted()"
+													event="onchange" submit="true" refreshMode="partial"
+													refreshId="panelSearchResults1">
+													<xp:this.action><![CDATA[#{javascript://reset the pagers
+var pager1:com.ibm.xsp.component.xp.XspPager = getComponent("pager1");
+pager1.gotoFirst();
+searchLiteratureBean.reorderResults();}]]></xp:this.action>
+												</xp:eventHandler></xp:comboBox>
+
+										</div>
+										<div class="col-sm-5">
+											<xp:pager
+												layout="Previous Group Next" partialRefresh="true"
+												id="pager1" for="repeat1" styleClass="pull-right">
+											</xp:pager>
+										</div>
+									</xp:panel>
+
+
+									<!-- Show table with Data -->
+									<div id="resultsDiv"
+										>
+										<table
+											class="table table-condensed">
+											<thead>
+												<tr>
+													<th
+														style="min-width:26px; width: 5%;">
+														<!-- icon heading column-->
+													</th>
+													<th
+														style="width: 35%;">
+														<xp:text
+															escape="true" id="computedField18" tagName="label"
+															value="${langBean.SearchLiteratureHeadingSubject}">
+														</xp:text>
+													</th>
+													<th
+														style="width: 35%;">
+														<xp:text
+															escape="true" id="computedField5" tagName="label"
+															value="${langBean.SearchLiteratureHeadingProductFamily}">
+														</xp:text>
+													</th>
+
+													<th
+														style="width: 10%;">
+														<xp:text
+															escape="true" id="computedField19" tagName="label"
+															value="${langBean.SearchLiteratureHeadingLanguage}">
+														</xp:text>
+
+													</th>
+													<th
+														style="width: 15%;">
+														<xp:text
+															escape="true" id="computedField4" tagName="label"
+															value="${langBean.SearchLiteratureHeadingDate}">
+														</xp:text>
+
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<xp:repeat id="repeat1"
+													rows="${searchLiteratureBean.maxResultsPerPage}"
+													value="#{javascript:return searchLiteratureBean.getSearchResults();}"
+													var="col" indexVar="ind">
+													<tr>
+														<td>
+															<xp:image
+																url="#{col.iconURL}" id="image2" alt="#{col.mediaType}"
+																style="padding-top:3px;">
+															</xp:image>
+															<xe:tooltip
+																id="tooltip1" for="image1" label="#{col.mediaType}">
+															</xe:tooltip>
+
+														</td>
+														<td>
+															<xp:link
+																escape="true" text="#{col.subject}" id="link2"
+																value="#{col.url}">
+																<xp:this.target><![CDATA[#{javascript:return (col.isHomeDoc()? "" : "_blank");}]]></xp:this.target>
+															</xp:link>
+														</td>
+														<td>
+															<xp:text
+																escape="true" id="computedField6"
+																value="#{col.productFamily}">
+															</xp:text>
+														</td>
+														<td>
+															<xp:text
+																escape="true" id="computedField2"
+																value="#{col.language}">
+															</xp:text>
+														</td>
+														<td>
+															<xp:text
+																escape="true" id="computedField3"
+																value="#{col.lastModified}">
+																<xp:this.converter>
+																	<xp:convertDateTime
+																		type="date">
+																	</xp:convertDateTime>
+																</xp:this.converter>
+															</xp:text>
+														</td>
+
+													</tr>
+												</xp:repeat>
+											</tbody>
+
+										</table>
+									</div>
+
+
+									<!-- Footer row with pager -->
+									<xp:panel id="panel7"
+										styleClass="row">
+										<div class="col-sm-12">
+
+
+											<xp:pager
+												layout="Previous Group Next" partialRefresh="true"
+												id="pager2" for="repeat1" styleClass="pull-right">
+											</xp:pager>
+										</div>
+									</xp:panel>
+
+								</div>
+							</div>
+						</xp:panel>
+					</xe:widgetContainer>
+
+
+				</xp:panel>
+			</xp:panel>
+			<!--END search results-->
+
+		</xp:panel><!--end container for page-->
+	</xc:ccLayout>
+</xp:view>

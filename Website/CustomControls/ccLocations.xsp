@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<xp:panel id="panelDocumentNOTmigrated"
+		styleClass="container cascade-content cascade-content-blocks">
+		<xp:this.loaded><![CDATA[${document1.DocumentMigrated eq "No"}]]></xp:this.loaded>
+		<xp:table>
+			<xp:tr>
+				<xp:td style="background-color:rgb(128,128,255)">
+					<xp:label value="Type = " id="label1" style="font-weight:bold">
+					</xp:label>
+					<xp:text escape="true" id="computedField2" value="${document1.Type}"
+						style="font-weight:bold">
+					</xp:text>
+					&#160; &#160;
+					<xp:label value="DocumentMigrated = " id="label2"
+						style="font-weight:bold">
+					</xp:label>
+					<xp:text escape="true" id="computedField3" value="${document1.DocumentMigrated}"
+						style="font-weight:bold">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td>
+					<xp:text escape="false" id="computedField1" value="#{document1.Body}">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+		</xp:table>
+	</xp:panel>
+	<xp:panel id="panelDocumentISmigrated" styleClass="container ">
+		<xp:this.loaded><![CDATA[${document1.DocumentMigrated eq "Yes"}]]></xp:this.loaded>
+		<!--	new	banner row-->
+		<xp:panel styleClass="blue-header">
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-xs-12">
+					<h1>
+						<xp:text escape="false" id="computedField7" value="#{document1.Subject}"
+							styleClass="carousel-heading">
+						</xp:text>
+					</h1>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+		<!--	other location links -->
+		<xp:panel styleClass="row" id="panel4"
+			rendered="${sessionScope.isBrowserLocaleSupported}">
+			<xp:panel id="panel5" styleClass="col-xs-12">
+				<xp:text escape="false" id="computedField4" value="#{document1.TextBeforeLinks}">
+				</xp:text>
+				<xp:br></xp:br>
+				<xp:div styleClass="btn-group-vertical">
+					<xp:link escape="true" id="link1" text="${langBean.labelAmericas}"
+						value="${configBean.HostURL}${sessionScope.LanguageURL}americas"
+						styleClass="btn btn-link text-left" rendered="#{document1.Continent ne 'Americas'}">
+					</xp:link>
+					<xp:link escape="true" id="link2" text="${langBean.labelEurope}"
+						value="${configBean.HostURL}${sessionScope.LanguageURL}europe"
+						styleClass="btn btn-link text-left" rendered="#{document1.Continent ne 'Europe'}">
+					</xp:link>
+					<xp:link escape="true" id="link3" text="${langBean.labelAsiaPacific}"
+						value="${configBean.HostURL}${sessionScope.LanguageURL}asiapacific"
+						styleClass="btn btn-link text-left" rendered="#{document1.Continent ne 'Asia Pacific'}">
+					</xp:link>
+					<xp:link escape="true" id="link4" text="${langBean.labelAfrica}"
+						value="${configBean.HostURL}${sessionScope.LanguageURL}africa"
+						styleClass="btn btn-link text-left" rendered="#{document1.Continent ne 'Africa'}">
+					</xp:link>
+				</xp:div>
+			</xp:panel>
+		</xp:panel>
+
+		<!--		oneBodyField content row-->
+		<div class="row">
+			<xp:div styleClass="col-xs-12">
+				<xp:text escape="false" id="oneBodyField1" value="#{document1.OneBodyField}">
+				</xp:text>
+			</xp:div>
+		</div>
+	</xp:panel>
+</xp:view>

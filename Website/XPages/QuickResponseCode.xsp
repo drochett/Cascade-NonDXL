@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+
+	<xp:this.beforePageLoad><![CDATA[#{javascript:
+viewScope.QR = "Yes";
+viewScope.tabNbr="tab1";
+viewScope.hidePrint = "true";
+var url = facesContext.getExternalContext().getRequestPathInfo();
+var url1 = XSPUrl;
+var url = context.getUrl().toString();
+dBar.info("@@@@@@ " + url);
+if (sessionScope.serialNbr != null) {
+	dBar.info("XXXXXXX serial Number is " + sessionScope.serialNbr)
+	
+} else {
+	dBar.info("XXXXXXX NO SERIAL NUMBER HERE XXXXXXX")
+	var pos = url.indexOf("?");
+	dBar.info("XXXXXXX pos= "+ pos + " XXXXXXX")
+	if(pos > 0) {
+	var srlNbr = @Right(url, "?").toUpperCase();
+	viewScope.url = url;
+	sessionScope.serialNbr = srlNbr;
+	}
+}
+//viewScope.serialNbr = srlNbr;
+/*try {
+//	sessionScope.srlNbr = srlNbr;
+//	url1 = context.getUrl();
+	var n = url1.getParametersCount();
+	dBar.info("getParametersCount = " + n);
+	for(var i=0; i<n; i++) {
+		var name = url1.getParameterName(i);
+		dBar.info(name + " = " + url1.getParameter(name));
+	}
+	
+	viewScope.url1 = url1.getQueryString();
+} catch (e) {
+	dBar.error("Error = " + e);
+}*/}]]></xp:this.beforePageLoad>
+
+	<xp:this.afterPageLoad><![CDATA[#{javascript://getComponent("pssrl11").setValue(viewScope.serialNbr.toUpperCase());
+//println("Starting");
+try{
+	var searchLang = sessionScope.LanguageP;
+	//get model and revision numbers based on serial number
+	var mhpSerial = sessionScope.serialNbr;
+	var region = sessionScope.Region;
+	var revvar 
+	var mhpItem
+	var mhpRev
+	
+	if(sessionScope.mhpItem==null){
+		dBar.info("Going to jdeBean.getModelNbrData");
+		var modelNbr = jdeBean.getModelNbrData(mhpSerial,region, sessionScope.jdbcSNtable);
+		//dBar.info("done getting map")
+		//need to parse out mhpRev from serial number
+		//mhpRev is nbrs after the-R  ie for SPR2262987-1R3 it is 3 which is the 3 in -R3
+		mhpItem = modelNbr;
+		sessionScope.mhpItem = modelNbr;
+	}else{
+		dBar.info("We have mhpItem.  Going different route")
+		mhpItem = sessionScope.mhpItem;
+		mhpRev = sessionScope.mhpRev
+		dBar.info("1. mhpItem for serial Number ["+mhpSerial+"] is " + mhpItem)
+		dBar.info("1. mhpRev for serial Number ["+mhpSerial+"] is "+mhpRev)
+	}
+	if (mhpItem != ""){
+		var pos = mhpSerial.lastIndexOf("R");
+		//dBar.info("position of R is:  "+pos );
+		rev = mhpSerial.slice(pos+1);
+		//dBar.info("revision number is: " + rev);
+		mhpRev = rev;
+		//sessionScope.mhpItem = modelNbr;
+		sessionScope.mhpRev = mhpRev;
+	}
+	//dBar.info("++++++++++++++++++++++++++++")
+	dBar.info("mhpItem for serial Number ["+mhpSerial+"] is " + mhpItem)
+	dBar.info("mhpRev for serial Number ["+mhpSerial+"] is "+mhpRev)
+	//viewScope.mhpItem = modelNbr;
+	dBar.info("mhpItem:  " + mhpItem);
+	dBar.info("mhpRev:  " + mhpRev);
+	dBar.info("mhpSerial:  " + mhpSerial);
+	getComponent("pdlitm1").setValue(sessionScope.mhpItem);
+	getComponent("pdmerl1").setValue(sessionScope.mhpRev);
+	getComponent("pssrl11").setValue(sessionScope.serialNbr);
+	getComponent("selLang").setValue(searchLang)
+	var returnMap=new com.ibm.jscript.std.ObjectObject();
+	returnMap = jdeBean.getMHPdata(mhpItem.toUpperCase(),mhpRev,"americas", sessionScope.jdbcTable);
+	dBar.info("done getting map");
+	//dBar.info("++++++++++++++++++++++++++++")
+	var i;
+	for ( i in returnMap ){
+		var iLc = i.toUpperCase();
+		var value = returnMap[i];
+		if(iLc == "STATUS") { //do nothing
+		}else{  //divide by 100
+			viewScope.hidePrint="true";
+			value = Number(returnMap[i])/100;
+		}
+		switch(iLc.trim()){
+			case "STATUS":
+				//dBar.info("status is "+ value);
+				getComponent("errorDisplay").setValue(value);
+				viewScope.hidePrint="0";
+				break
+			case "POSITION1LOADCENTER-MM": //do nothing - it will be taken care of in the next round
+				break
+			case "POSITION1LOADCENTER-IN": //do nothing - it will be taken care of in the next round
+				break
+			case "POSITION2LOADCENTER-IN": //do nothing - it will be taken care of in the next round
+				break
+			case "POSITION2LOADCENTER-MM": //do nothing - it will be taken care of in the next round
+				break
+			default:
+				getComponent(i.toUpperCase()).setValue(value);
+		};
+	};
+// we will now set the values not set above.  what they gets set to depends on values set in other fields above
+//dBar.info("++++++++++++++++++++++++++++");
+	for ( i in returnMap ){
+		//var iLc = i.toUpperCase();
+		iLc = i.toUpperCase();
+		var value = returnMap[i];
+		value = Number(returnMap[i])/100;
+		var fieldVal;
+		switch(iLc.trim()){
+			case "POSITION1LOADCENTER-MM":
+			//println("we are here 1");
+				fieldVal = Number(getComponent("POSITION1CAPACITYONARMS-KG").getValue());
+				//println("<<<<<<<<<<<< value for POSITION1CAPACITYONARMS-KG is >>>>>>>> " + fieldVal.toString())
+				
+				if(fieldVal == 0) {
+				getComponent(iLc).setValue(0);
+				//println("set string 0 value for " + iLc);
+				}else{
+				getComponent(iLc).setValue(value);
+				//println("XXXXXXX set value for " + iLc + " to " + value + " XXXXXXXXX");
+				}
+				//sessionScope.put(iLc,value);
+				//println("we are here 2");
+				fieldVal = Number(getComponent("POSITION1CAPACITYBETWEENARMS-KG").getValue());
+				//println(">>>>>>>>>>>>> value for POSITION1CAPACITYBETWEENARMS-KG is <<<<<<<<<<<< " + fieldVal.toString());
+				if(fieldVal == 0) {
+				getComponent("POSITION1LOADCENTER2-MM").setValue(0);
+				//println("------------------ set 0 as a String value for " + iLc +" #2 to --------------");
+				}else{
+				getComponent("POSITION1LOADCENTER2-MM").setValue(value);
+				//println("set value for " + iLc +" #2");
+				}
+				//sessionScope.put(iLc,value);
+				break;
+				
+			case "POSITION1LOADCENTER-IN":
+				//println("we are here 3");
+				fieldVal = Number(getComponent("POSITION1CAPACITYONARMS-LB").getValue());
+				//println("value for XXXXX POSITION1CAPACITYONARMS-LB is XXXXX "  + fieldVal.toString())
+				if(fieldVal == 0) {
+				//println("setting 0 value for " + iLc);
+				getComponent(iLc).setValue(0);
+				}else{
+				//println("set value for " + iLc + " to " + value.toString());
+				getComponent(iLc).setValue(value);
+				}
+				//sessionScope.put(iLc,value);
+				
+				//println("we are here 4");
+				fieldVal = Number(getComponent("POSITION1CAPACITYBETWEENARMS-LB").getValue());
+				if(fieldVal == "0") {
+				getComponent("POSITION1LOADCENTER2-IN").setValue(0);
+				//println("set 0 value for " + iLc +" #2");
+				}else{
+				getComponent("POSITION1LOADCENTER2-IN").setValue(value);
+				//println("set value for " + iLc +" #2 to " + value.toString());
+				}
+				//sessionScope.put(iLc,value);
+				break;
+				
+			case "POSITION2LOADCENTER-MM":
+				//println("we are here 5");
+				fieldVal = Number(getComponent("POSITION2CAPACITYONARMS-KG").getValue());
+				//println("value for XXXXX POSITION2CAPACITYONARMS-LB is XXXXX "  + fieldVal.toString())
+				if(fieldVal == 0) { 
+				//println("setting 0 value for " + iLc);
+				getComponent(iLc).setValue(0);
+				}else{
+				//println("set value for " + iLc + " to " + value.toString());
+				getComponent(iLc).setValue(value);
+				}
+				//sessionScope.put(iLc,value);
+				
+				//println("we are here 6");
+				fieldVal = Number(getComponent("POSITION2CAPACITYBETWEENARMS-KG").getValue());
+				//println("value for VVVVV POSITION2CAPACITYBETWEENARMS-KG is VVVVV "  + fieldVal.toString())
+				if(fieldVal == 0) { 
+				//println("setting 0 value for " + iLc);
+				getComponent("POSITION2LOADCENTER2-MM").setValue(0);
+				}else{
+				//println("set value for " + iLc + " to " + value.toString());
+				getComponent(iLc).setValue(value);
+				}
+				//sessionScope.put(iLc,value);
+				break;
+				
+			case "POSITION2LOADCENTER-IN":
+				//println("we are here 7");
+				fieldVal = Number(getComponent("POSITION2CAPACITYONARMS-LB").getValue());
+				//println("value for XXXXX POSITION2CAPACITYONARMS-LB is XXXXX "  + fieldVal.toString())
+				if(fieldVal == 0) { 
+				//println("setting 0 value for " + iLc);
+				getComponent(iLc).setValue(0);
+				}else{
+				//println("set value for " + iLc + " to " + value.toString());
+				getComponent(iLc).setValue(value);
+				}
+				//sessionScope.put(iLc,value);
+				
+				//println("we are here 8");
+				fieldVal = Number(getComponent("POSITION2CAPACITYBETWEENARMS-LB").getValue());
+				//println("value for VVVVV POSITION2CAPACITYBETWEENARMS-LB is VVVVV "  + fieldVal.toString());
+				if(fieldVal == 0) { 
+				//println("setting 0 value for " + iLc);
+				getComponent("POSITION2LOADCENTER2-IN").setValue(0);
+				}else{
+				//println("set value for " + iLc + " to " + value.toString());
+				getComponent(iLc).setValue(value);
+				}
+				break;
+			default:
+				break;
+		};
+//++++++++++++++++++++ now need to get documentation docs +++++++++++++++++
+
+// the following code to be activated when marketing has documents ready for searching
+/*
+//reset the pagers
+//println("=+=+=+=+=+=+=+=+=")
+//println("Searching Keywords");
+//var lang = getComponent("searchLanguage").getValue();
+var lang = getComponent("selLang").getValue();
+var searchInput1 = sessionScope.mhpItem;
+var searchInput2 = "All Documents" //getComponent("selDocTypeOther").getValue();
+//sessionScope.remove("srlNbr"); //remove serial number in sessionScope
+//println("Checking searchInput")
+/*
+if(searchInput1!==null){
+	println("Keyword:  " + searchInput1);
+}else{
+	println("Keyword search term is NULL");
+}
+if(searchInput2!==null){
+	println("Document Type:  " + searchInput2);
+}else{
+	println("Document Type search term is NULL")
+}
+try{
+	var pager1:com.ibm.xsp.component.xp.XspPager = getComponent("pager1");
+	if(pager1!==null){
+		print("pager1 NOT NULL");
+		pager1.gotoFirst();
+	}else{
+		print("pager1 NULL");
+	}
+	searchLiteratureBean.processSearch4(lang);
+}catch(e){
+	print("ERROR Searching Keywords");
+	dBar.error("ERROR Searching Keywords")
+}
+*/
+	}
+} catch(e){
+	dBar.error("Error in tab1 afterPageLoad: " + e.toString());
+	println("ccDataEntry---username " + session.getEffectiveUserName() + "--> Error in tab1 afterPageLoad: " + e.toString());
+}
+//println("++++++++++++++++++++++++++++");
+;
+
+	}]]></xp:this.afterPageLoad>
+	<xc:ccLayout>
+
+		<xp:panel styleClass="container" id="main">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							styleClass="carousel-heading">
+							<xp:this.value><![CDATA[#{javascript:if(viewScope.tabNbr =="tab1" || viewScope.tabNbr =="tab5"){
+								langBean.getValue("titleQR") + " - " + langBean.getValue("mhp_btn_title")
+							}else if(viewScope.tabNbr =="tab2"){
+								langBean.getValue("titleQR") + " - "  + langBean.getValue("btnTechnical")
+							}else if(viewScope.tabNbr =="tab3"){
+								langBean.getValue("titleQR") + " - "  + langBean.getValue("btnMarketing")
+							}else if(viewScope.tabNbr =="tab4"){
+								langBean.getValue("titleQR") + " - "  + langBean.getValue("btnVideos")
+							} else {langBean.getValue("titleQR")}}]]></xp:this.value>
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!--		button/selector row-->
+			<xp:panel styleClass="row" id="rowButton1">
+				<xp:panel styleClass="col-xs-12" id="col11"
+					rendered="false">
+					<div class="btn-group btn-group-justified"
+						role="group">
+						<div class="btn-group" role="group">
+							<xp:button value="${langBean.mhp_btn_title}"
+								id="button1">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial" refreshId="main">
+									<xp:this.action><![CDATA[#{javascript:try{
+	viewScope.tabNbr="tab1";
+	var dc = getComponent("dcQRView")
+	dc.show("mhpSpecs")
+	getComponent("pssrl11").setValue(sessionScope.serialNbr.toUpperCase());
+} catch(e){
+	dBar.error("Error in tab button1: " + e.toString());
+	//println("Drawings.xsp---username " + session.getEffectiveUserName() + "--> Error in tab button1: " + e.toString());
+}
+getComponent("pssrl11").setValue(sessionScope.serialNbr.toUpperCase());
+//println("Starting");
+try{
+	//get model and revision numbers based on serial number
+	var mhpSerial = getComponent("pssrl11").getValue().toUpperCase();
+	var mhpItem = sessionScope.mhpItem;
+	var rev = viewScope.mhpRev;
+		//need to parse out mhpRev from serial number
+		//mhpRev is nbrs after the-R  ie for SPR2262987-1R3 it is 3 which is the 3 in -R3
+/*	if (mhpItem != ""){
+		var pos = mhpSerial.lastIndexOf("R");
+		//dBar.info("position of R is:  "+pos );
+		rev = mhpSerial.slice(pos+1);
+		//dBar.info("revision number is: " + rev);
+		mhpRev = rev;
+	}
+*/
+	//dBar.info("++++++++++++++++++++++++++++")
+	dBar.info("mhpItem for serial Number ["+mhpSerial+"] is " + mhpItem)
+//	viewScope.mhpItem = modelNbr;
+//	viewScope.mhpRev = rev;
+	getComponent("pdlitm1").setValue(viewScope.mhpItem);
+	getComponent("pdmerl1").setValue(viewScope.mhpRev);
+	dBar.info("mhpItem:  " + mhpItem);
+	dBar.info("mhpRev:  " + mhpRev);
+	dBar.info("mhpSerial:  " + mhpSerial);
+	getComponent("pdlitm1").setValue(viewScope.mhpItem);
+	getComponent("pdmerl1").setValue(viewScope.mhpRev);
+	getComponent("pssrl11").setValue(viewScope.srlNbr);
+	var returnMap=new com.ibm.jscript.std.ObjectObject();
+	returnMap = jdeBean.getMHPdata(viewScope.get("mhpItem").toUpperCase(),viewScope.get("mhpRev"),"americas", sessionScope.jdbcTable);
+	dBar.info("done getting map");
+	//dBar.info("++++++++++++++++++++++++++++")
+	var i;
+	for ( i in returnMap ){
+		var iLc = i.toUpperCase();
+		var value = returnMap[i];
+		if(iLc == "STATUS") { //do nothing
+		}else{  //divide by 100
+			viewScope.hidePrint="1";
+			value = Number(returnMap[i])/100;
+		}
+		switch(iLc.trim()){
+			case "STATUS":
+				//dBar.info("status is "+ value);
+				getComponent("errorDisplay").setValue(value);
+				viewScope.hidePrint="0";
+				break
+			case "POSITION1LOADCENTER-MM": //do nothing - it will be taken care of in the next round
+				break
+			case "POSITION1LOADCENTER-IN": //do nothing - it will be taken care of in the next round
+				break
+			case "POSITION2LOADCENTER-IN": //do nothing - it will be taken care of in the next round
+				break
+			case "POSITION2LOADCENTER-MM": //do nothing - it will be taken care of in the next round
+				break
+			default:
+				getComponent(i.toUpperCase()).setValue(value);
+		};
+	};
+// we will now set the values not set above.  what they gets set to depends on values set in other fields above
+//dBar.info("++++++++++++++++++++++++++++");
+	for ( i in returnMap ){
+		//var iLc = i.toUpperCase();
+		iLc = i.toUpperCase();
+		var value = returnMap[i];
+		value = Number(returnMap[i])/100;
+		var fieldVal;
+		switch(iLc.trim()){
+			case "POSITION1LOADCENTER-MM":
+			//println("we are here 1");
+				fieldVal = Number(getComponent("POSITION1CAPACITYONARMS-KG").getValue());
+				//println("<<<<<<<<<<<< value for POSITION1CAPACITYONARMS-KG is >>>>>>>> " + fieldVal.toString())
+				
+				if(fieldVal == 0) {
+				getComponent(iLc).setValue(0);
+				//println("set string 0 value for " + iLc);
+				}else{
+				getComponent(iLc).setValue(value);
+				//println("XXXXXXX set value for " + iLc + " to " + value + " XXXXXXXXX");
+				}
+				//sessionScope.put(iLc,value);
+				//println("we are here 2");
+				fieldVal = Number(getComponent("POSITION1CAPACITYBETWEENARMS-KG").getValue());
+				//println(">>>>>>>>>>>>> value for POSITION1CAPACITYBETWEENARMS-KG is <<<<<<<<<<<< " + fieldVal.toString());
+				if(fieldVal == 0) {
+				getComponent("POSITION1LOADCENTER2-MM").setValue(0);
+				//println("------------------ set 0 as a String value for " + iLc +" #2 to --------------");
+				}else{
+				getComponent("POSITION1LOADCENTER2-MM").setValue(value);
+				//println("set value for " + iLc +" #2");
+				}
+				//sessionScope.put(iLc,value);
+				break;
+				
+			case "POSITION1LOADCENTER-IN":
+				//println("we are here 3");
+				fieldVal = Number(getComponent("POSITION1CAPACITYONARMS-LB").getValue());
+				//println("value for XXXXX POSITION1CAPACITYONARMS-LB is XXXXX "  + fieldVal.toString())
+				if(fieldVal == 0) {
+				//println("setting 0 value for " + iLc);
+				getComponent(iLc).setValue(0);
+				}else{
+				//println("set value for " + iLc + " to " + value.toString());
+				getComponent(iLc).setValue(value);
+				}
+				//sessionScope.put(iLc,value);
+				
+				//println("we are here 4");
+				fieldVal = Number(getComponent("POSITION1CAPACITYBETWEENARMS-LB").getValue());
+				if(fieldVal == "0") {
+				getComponent("POSITION1LOADCENTER2-IN").setValue(0);
+				//println("set 0 value for " + iLc +" #2");
+				}else{
+				getComponent("POSITION1LOADCENTER2-IN").setValue(value);
+				//println("set value for " + iLc +" #2 to " + value.toString());
+				}
+				//sessionScope.put(iLc,value);
+				break;
+				
+			case "POSITION2LOADCENTER-MM":
+				//println("we are here 5");
+				fieldVal = Number(getComponent("POSITION2CAPACITYONARMS-KG").getValue());
+				//println("value for XXXXX POSITION2CAPACITYONARMS-LB is XXXXX "  + fieldVal.toString())
+				if(fieldVal == 0) { 
+				//println("setting 0 value for " + iLc);
+				getComponent(iLc).setValue(0);
+				}else{
+				//println("set value for " + iLc + " to " + value.toString());
+				getComponent(iLc).setValue(value);
+				}
+				//sessionScope.put(iLc,value);
+				
+				//println("we are here 6");
+				fieldVal = Number(getComponent("POSITION2CAPACITYBETWEENARMS-KG").getValue());
+				//println("value for VVVVV POSITION2CAPACITYBETWEENARMS-KG is VVVVV "  + fieldVal.toString())
+				if(fieldVal == 0) { 
+				//println("setting 0 value for " + iLc);
+				getComponent("POSITION2LOADCENTER2-MM").setValue(0);
+				}else{
+				//println("set value for " + iLc + " to " + value.toString());
+				getComponent(iLc).setValue(value);
+				}
+				//sessionScope.put(iLc,value);
+				break;
+				
+			case "POSITION2LOADCENTER-IN":
+				//println("we are here 7");
+				fieldVal = Number(getComponent("POSITION2CAPACITYONARMS-LB").getValue());
+				//println("value for XXXXX POSITION2CAPACITYONARMS-LB is XXXXX "  + fieldVal.toString())
+				if(fieldVal == 0) { 
+				//println("setting 0 value for " + iLc);
+				getComponent(iLc).setValue(0);
+				}else{
+				//println("set value for " + iLc + " to " + value.toString());
+				getComponent(iLc).setValue(value);
+				}
+				//sessionScope.put(iLc,value);
+				
+				//println("we are here 8");
+				fieldVal = Number(getComponent("POSITION2CAPACITYBETWEENARMS-LB").getValue());
+				//println("value for VVVVV POSITION2CAPACITYBETWEENARMS-LB is VVVVV "  + fieldVal.toString());
+				if(fieldVal == 0) { 
+				//println("setting 0 value for " + iLc);
+				getComponent("POSITION2LOADCENTER2-IN").setValue(0);
+				}else{
+				//println("set value for " + iLc + " to " + value.toString());
+				getComponent(iLc).setValue(value);
+				}
+				break;
+			default:
+				break;
+		};
+	}
+} catch(e){
+	dBar.error("Error in tab1 afterPageLoad: " + e.toString());
+	println("ccDataEntry---username " + session.getEffectiveUserName() + "--> Error in tab1 afterPageLoad: " + e.toString());
+}
+println("++++++++++++++++++++++++++++");
+;
+
+	}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</div>
+
+						<div class="btn-group" role="group">
+							<xp:button value="${langBean.btnTechnical}"
+								id="button2" rendered="false">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial" refreshId="main">
+
+									<xp:this.action><![CDATA[#{javascript:try{
+viewScope.tabNbr="tab2";
+var dc = getComponent("dcQRView")
+dc.show("docSearch")
+getComponent("searchEntry").setValue(viewScope.mhpItem.toUpperCase())
+} catch(e){
+	dBar.error("Error in tab button2: " + e.toString());
+	//println("Drawings.xsp---username " + session.getEffectiveUserName() + "--> Error in tab button2: " + e.toString());
+}}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</div>
+						<div class="btn-group" role="group">
+							<xp:button value="${langBean.btnMarketing}"
+								id="button3" rendered="false">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial" refreshId="main">
+									<xp:this.action><![CDATA[#{javascript:try{
+viewScope.tabNbr="tab3";
+var dc = getComponent("dcQRView")
+dc.show("itemVideos")
+} catch(e){
+	dBar.error("Error in tab button3: " + e.toString());
+	//println("Drawings.xsp---username " + session.getEffectiveUserName() + "--> Error in tab button3: " + e.toString());
+}}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</div>
+						<div class="btn-group" role="group">
+							<xp:button value="${langBean.btnVideos}"
+								id="button4" rendered="false">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial" refreshId="main">
+									<xp:this.action><![CDATA[#{javascript:try{
+viewScope.tabNbr="tab4";
+var dc = getComponent("dcQRView")
+dc.show("itemVideos")
+} catch(e){
+	dBar.error("Error in tab button4: " + e.toString());
+	//println("Drawings.xsp---username " + session.getEffectiveUserName() + "--> Error in tab button4: " + e.toString());
+}}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</div>
+					</div>
+				</xp:panel>
+			</xp:panel>
+			<!-- START search-group -->
+			<xp:panel styleClass="col-sm-5 col-sm-push-7 panel-body" id="topRightPanel">
+			<div class="input-group">
+				<xp:comboBox id="selLang" value="#{searchLiteratureBean.searchLanguage}">
+
+
+					<xp:this.defaultValue><![CDATA[#{javascript:var lang =sessionScope.get("LanguageP");
+if (lang == "americas-en") {
+	lang;
+} else {
+	"";
+}}]]></xp:this.defaultValue>
+						<xp:this.rendered><![CDATA[#{javascript:if(viewScope.tabNbr == "tab1"){false}else{true}}]]></xp:this.rendered>
+						<xp:selectItems>
+							<xp:this.value><![CDATA[${javascript:langBean.SearchLanguages}]]></xp:this.value>
+						</xp:selectItems>
+				</xp:comboBox>
+				<xp:inputText id="inputText1" styleClass="form-control"
+					value="#{viewScope.searchQuery}">
+					<xp:this.attrs>
+						<xp:attr name="placeholder" value="${langBean.searchPlaceholder}">
+						</xp:attr>
+					</xp:this.attrs>
+					<xp:this.rendered><![CDATA[#{javascript:if(viewScope.tabNbr == "tab1"){false}else{true}}]]></xp:this.rendered>
+					<xp:eventHandler event="onkeyup" submit="false">
+						<xp:this.script><![CDATA[if (thisEvent.keyCode == 13) {
+	btn = dojo.byId("#{id:SearchButton1}");
+	btn.click();
+}]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:inputText>
+	</div><!-- /search-group -->
+			</xp:panel>
+		<!--	START dynamicContent row-->
+		<xp:panel styleClass="row">
+			<xp:panel styleClass="col-xs-12">
+				<xe:dynamicContent id="dcQRView" defaultFacet="mhpSpecs">
+					<xp:this.facets>
+						<xc:ccQR_MHP_DataEntry xp:key="mhpSpecs"></xc:ccQR_MHP_DataEntry>
+						<xc:selKeywordsSearch xp:key="docSearch"></xc:selKeywordsSearch>
+						<xc:ccVaultDrawingsSS xp:key="itemVideos"></xc:ccVaultDrawingsSS>
+
+					</xp:this.facets>
+				</xe:dynamicContent>
+				<div class="col-sm-5">
+					<xp:pager layout="Previous Group Next" partialRefresh="true"
+						id="pager1" for="repeat1" styleClass="pull-right">
+					</xp:pager>
+				</div>
+
+			</xp:panel>
+		</xp:panel>
+
+	</xp:panel>
+	</xc:ccLayout>
+<xp:this.navigationRules><xp:navigationRule outcome="xsp-success" viewId="$$HomePage"></xp:navigationRule></xp:this.navigationRules></xp:view>
+

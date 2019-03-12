@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xp:this.beforePageLoad><![CDATA[#{javascript:
+// set viewScope.isMediaType values for panel rendering
+
+var aMT = ["bogus","Brochure","Installation Manual","MSDS","Operator Guide","Parts Manual","Price List","Recommended Spare Parts","Safety Decal","Service Manual","Specification Sheet","Technical Bulletin","User Manual (Op, Inst, Maint, Parts)","PreSaleWorksheet"];
+
+var db:NotesDatabase = session.getDatabase(session.getServerName(), configBean.getValue("DownloadsDbPath"));
+var vw:NotesView = db.getView("links2");
+
+
+var aBool:boolean = [];
+var i = 0;
+var key = "";
+for (i=0; i < aMT.length; i++ ) {
+	key = sessionScope.LanguageP+"~"+ document1.getItemValueString("DocumentURL") +"~" + aMT[i];
+	dBar.info("key" + i + ": " + key);
+	var docCol:NotesViewEntryCollection = vw.getAllEntriesByKey(key, true);
+	dBar.info("key "+key+" found "+docCol.getCount().toString()+" documents.")
+	if (docCol.getCount() > 0){
+		//found at least one for this media type 
+		aBool[i] = true;
+	} else {
+		aBool[i] = false;
+	}
+}
+
+viewScope.mt1 = aBool[1];
+viewScope.mt2 = aBool[2];
+viewScope.mt3 = aBool[3];
+viewScope.mt4 = aBool[4];
+viewScope.mt5 = aBool[5];
+viewScope.mt6 = aBool[6];
+viewScope.mt7 = aBool[7];
+viewScope.mt8 = aBool[8];
+viewScope.mt9 = aBool[9];
+viewScope.mt10 = aBool[10];
+viewScope.mt11 = aBool[11];
+viewScope.mt12 = aBool[12];
+viewScope.mt13 = aBool[13];
+}]]></xp:this.beforePageLoad>
+	<xp:panel id="panelAllMedia" styleClass="downloads">
+		<xp:panel id="panelLoginforPricelists1"
+			styleClass="alert alert-warning"
+			loaded="${userBean.commonName eq 'Anonymous'}">
+			<span class="glyphicon glyphicon-lock" aria-hidden="true">
+				&#160;
+			</span>
+			<xp:link escape="true" id="link7"
+				text="${langBean.msgLoginForPricelist}"
+				value="${configBean.HostURL}login">
+			</xp:link>
+			&#160;
+			<xp:text escape="true" id="computedField9" loaded="false"
+				value="#{langBean.msgLoginForPricelist}">
+			</xp:text>
+		</xp:panel>
+		<xp:panel id="panelBrochure" rendered="${viewScope.mt1}">
+			<xp:label value="${langBean.mtBrochure}" id="label1"
+				styleClass="subheading">
+			</xp:label>
+			<xc:ccDownloadsMediaView MediaType="Brochure"></xc:ccDownloadsMediaView>
+		</xp:panel>
+		<xp:panel id="panelInstallationManual"
+			rendered="${viewScope.mt2}">
+			<xp:br></xp:br>
+			<xp:label value="${langBean.mtInstallationManual}"
+				id="label2" styleClass="subheading">
+			</xp:label>
+			<xc:ccDownloadsMediaView MediaType="Installation Manual"></xc:ccDownloadsMediaView>
+		</xp:panel>
+		<xp:panel id="panelMSDS" rendered="${viewScope.mt3}">
+			<xp:br></xp:br>
+			<xp:label value="${langBean.mtMsds}" id="label3"
+				styleClass="subheading">
+			</xp:label>
+			<xc:ccDownloadsMediaView MediaType="MSDS"></xc:ccDownloadsMediaView>
+		</xp:panel>
+		<xp:panel id="panelOperatorGuide" rendered="${viewScope.mt4}">
+			<xp:br></xp:br>
+			<xp:label value="${langBean.mtOperatorGuide}" id="label4"
+				styleClass="subheading">
+			</xp:label>
+			<xc:ccDownloadsMediaView MediaType="Operator Guide"></xc:ccDownloadsMediaView>
+		</xp:panel>
+		<xp:panel id="panelPartsManual" rendered="${viewScope.mt5}">
+			<xp:br></xp:br>
+			<xp:label value="${langBean.mtPartsManual}" id="label5"
+				styleClass="subheading">
+			</xp:label>
+			<xc:ccDownloadsMediaView MediaType="Parts Manual"></xc:ccDownloadsMediaView>
+		</xp:panel>
+		<xp:panel id="panelPriceList">
+
+			<xp:this.rendered><![CDATA[${viewScope.mt6 && !(sessionScope.isVendor)}]]></xp:this.rendered>
+			<xp:br></xp:br>
+			<xp:label value="${langBean.mtPriceList}" id="label6"
+				styleClass="subheading">
+			</xp:label>
+			<xc:ccDownloadsMediaView MediaType="Price List"></xc:ccDownloadsMediaView>
+		</xp:panel>
+		<xp:panel id="panelRecommendedSpareParts"
+			rendered="${viewScope.mt7}">
+			<xp:br></xp:br>
+			<xp:label value="${langBean.mtRecommendedSpareParts}"
+				id="label7" styleClass="subheading">
+			</xp:label>
+			<xc:ccDownloadsMediaView
+				MediaType="Recommended Spare Parts">
+			</xc:ccDownloadsMediaView>
+		</xp:panel>
+		<xp:panel id="panelSafetyDecal" rendered="${viewScope.mt8}">
+			<xp:br></xp:br>
+			<xp:label value="${langBean.mtSafetyDecal}" id="label8"
+				styleClass="subheading">
+			</xp:label>
+			<xc:ccDownloadsMediaView MediaType="Safety Decal"></xc:ccDownloadsMediaView>
+		</xp:panel>
+		<xp:panel id="panelServiceManual" rendered="${viewScope.mt9}">
+			<xp:br></xp:br>
+			<xp:label value="${langBean.mtServiceManual}" id="label9"
+				styleClass="subheading">
+			</xp:label>
+			<xc:ccDownloadsMediaView MediaType="Service Manual"></xc:ccDownloadsMediaView>
+		</xp:panel>
+		<xp:panel id="panelSpecificationSheet"
+			rendered="${viewScope.mt10}">
+			<xp:br></xp:br>
+			<xp:label value="${langBean.mtSpecificationSheet}"
+				id="label10" styleClass="subheading">
+			</xp:label>
+			<xc:ccDownloadsMediaView MediaType="Specification Sheet"></xc:ccDownloadsMediaView>
+		</xp:panel>
+		<xp:panel id="panelTechnicalBulletin"
+			rendered="${viewScope.mt11}">
+			<xp:br></xp:br>
+			<xp:label value="${langBean.mtTechnicalBulletin}"
+				id="label11" styleClass="subheading">
+			</xp:label>
+			<xc:ccDownloadsMediaView MediaType="Technical Bulletin"></xc:ccDownloadsMediaView>
+		</xp:panel>
+		<xp:panel id="panelUserManual" rendered="${viewScope.mt12}">
+			<xp:br></xp:br>
+			<xp:label value="${langBean.mtUserManual}" id="label12"
+				styleClass="subheading">
+			</xp:label>
+			<xc:ccDownloadsMediaView
+				MediaType="User Manual (Op, Inst, Maint, Parts)">
+			</xc:ccDownloadsMediaView>
+		</xp:panel>
+		<xp:panel id="panelPreSaleWorksheet"
+			rendered="${viewScope.mt13}">
+			<xp:br></xp:br>
+			<xp:label value="${langBean.mtPreSaleWorksheet}"
+				id="label13" styleClass="subheading">
+			</xp:label>
+			<xc:ccDownloadsMediaView MediaType="PreSaleWorksheet"></xc:ccDownloadsMediaView>
+		</xp:panel>
+	</xp:panel>
+</xp:view>

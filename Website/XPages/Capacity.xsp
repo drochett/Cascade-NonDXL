@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+  xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+  <xc:ccLayout>
+    <xp:panel styleClass="container" id="main">
+      <xp:this.data>
+        <xp:dominoDocument var="document1" databaseName="${configBean.OrdersDbPath}"
+          formName="capacity">
+          <xp:this.querySaveDocument><![CDATA[#{javascript:return false;}]]></xp:this.querySaveDocument>
+        </xp:dominoDocument>
+      </xp:this.data>
+      <!--  new banner row-->
+      <xp:panel styleClass="blue-header">
+        <xp:panel styleClass="row">
+          <xp:panel styleClass="col-xs-12">
+            <xp:text escape="false" id="computedField7" value="${langBean.titleCapacityCalculation}"
+              styleClass="carousel-heading">
+            </xp:text>
+          </xp:panel>
+        </xp:panel>
+      </xp:panel>
+
+      <!-- units row-->
+      <xp:panel styleClass="row" id="panel10">
+        <xp:panel styleClass="col-xs-12" id="panel11">
+          <xp:table>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelInstructions}" id="label1"></xp:label>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelUnits}" id="label2"></xp:label>
+                <xp:radioGroup value="#{document1.WeightUnits}" id="weightUnits1">
+
+                  <xp:this.defaultValue><![CDATA[#{javascript:
+var weightUnits = "kg";
+var languageP = (!!sessionScope.LanguageP) ? sessionScope.LanguageP : "americas-en";
+
+switch (languageP) {
+		case "americas-en":
+		case "eme-en":
+			weightUnits = "lb"; 
+			break;
+		default:
+			dBar.info("case default");
+			weightUnits = "kg"; 
+	};
+return weightUnits ;}]]></xp:this.defaultValue>
+                  <xp:selectItem itemLabel="SAE (inch/lbs)" itemValue="lb"></xp:selectItem>
+                  <xp:selectItem itemLabel="Metric (cm/kg)" itemValue="kg"></xp:selectItem>
+                </xp:radioGroup>
+              </xp:td>
+            </xp:tr>
+          </xp:table>
+        </xp:panel>
+      </xp:panel><!--END units row -->
+
+      <!--  1st row and 2 columns-->
+      <xp:panel styleClass="row" id="panel4">
+        <xp:panel styleClass="col-xs-12 col-sm-5 col-sm-push-7" id="panel7">
+          <xp:image url="/CapacityABCD.png" id="image1"></xp:image>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-12 col-sm-7 col-sm-pull-5" id="panel6">
+          <xp:table styleClass="address-table">
+            <xp:tr>
+              <xp:td style="width:25.0px">
+                <xp:label value="A:" id="a_Label1" for="a1"></xp:label>
+              </xp:td>
+              <xp:td style="width:80.0px">
+                <xe:djNumberTextBox value="#{document1.A}" id="a1"
+                  promptMessage="${langBean.msgEnterNumber}" rangeMessage="${langBean.msgEnterPositiveNumber}"
+                  invalidMessage="${langBean.msgMustBeNumber}" required="true" tooltipPosition="above"
+                  style="width:80.0px">
+                  <xe:this.constraints>
+                    <xe:djNumberConstraints min="0"></xe:djNumberConstraints>
+                  </xe:this.constraints>
+                </xe:djNumberTextBox>
+              </xp:td>
+              <xp:td>
+                <xp:label value=" ${langBean.Adesc}"></xp:label>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="B:" id="b_Label1" for="b1"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xe:djNumberTextBox value="#{document1.B}" id="b1"
+                  promptMessage="${langBean.msgEnterNumber}" rangeMessage="${langBean.msgEnterPositiveNumber}"
+                  invalidMessage="${langBean.msgMustBeNumber}" required="true" tooltipPosition="above"
+                  style="width:80.0px">
+                  <xe:this.constraints>
+                    <xe:djNumberConstraints min="0"></xe:djNumberConstraints>
+                  </xe:this.constraints>
+                </xe:djNumberTextBox>
+              </xp:td>
+              <xp:td>
+                <xp:label value=" ${langBean.Bdesc}"></xp:label>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="C:" id="c_Label1" for="c1"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xe:djNumberTextBox value="#{document1.C}" id="c1"
+                  promptMessage="${langBean.msgEnterNumber}" rangeMessage="${langBean.msgEnterPositiveNumber}"
+                  invalidMessage="${langBean.msgMustBeNumber}" required="true" tooltipPosition="above"
+                  style="width:80.0px">
+                  <xe:this.constraints>
+                    <xe:djNumberConstraints min="0"></xe:djNumberConstraints>
+                  </xe:this.constraints>
+                </xe:djNumberTextBox>
+              </xp:td>
+              <xp:td>
+                <xp:label value=" ${langBean.Cdesc}" id="label3"></xp:label>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="D:" id="d_Label1" for="d1"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xe:djNumberTextBox value="#{document1.D}" id="d1"
+                  promptMessage="${langBean.msgEnterNumber}" rangeMessage="${langBean.msgEnterPositiveNumber}"
+                  invalidMessage="${langBean.msgMustBeNumber}" required="true" tooltipPosition="above"
+                  style="width:80.0px">
+                  <xe:this.constraints>
+                    <xe:djNumberConstraints min="0"></xe:djNumberConstraints>
+                  </xe:this.constraints>
+                </xe:djNumberTextBox>
+              </xp:td>
+              <xp:td>
+                <xp:label value=" ${langBean.Ddesc}" id="label4"></xp:label>
+              </xp:td>
+            </xp:tr>
+          </xp:table>
+        </xp:panel>
+      </xp:panel><!--END 1st row and 2 columns-->
+
+      <!--  2nd row and 2 columns-->
+      <xp:panel styleClass="row" id="panel1">
+        <xp:panel styleClass="col-xs-12 col-sm-5 col-sm-push-7" id="panel3">
+          <xp:image url="/CapacityEFGH.png" id="image2"></xp:image>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-12 col-sm-7 col-sm-pull-5" id="panel12">
+          <xp:table styleClass="address-table">
+            <xp:tr>
+              <xp:td style="width:25.0px">
+                <xp:label value="E:" id="e_Label1" for="e1"></xp:label>
+              </xp:td>
+              <xp:td style="width:80.0px">
+                <xe:djNumberTextBox value="#{document1.E}" id="e1"
+                  promptMessage="${langBean.msgEnterNumber}" rangeMessage="${langBean.msgEnterPositiveNumber}"
+                  invalidMessage="${langBean.msgMustBeNumber}" required="true" tooltipPosition="above"
+                  style="width:80.0px">
+                  <xe:this.constraints>
+                    <xe:djNumberConstraints min="0"></xe:djNumberConstraints>
+                  </xe:this.constraints>
+                </xe:djNumberTextBox>
+              </xp:td>
+              <xp:td>
+                <xp:label value=" ${langBean.Edesc}" id="label5"></xp:label>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="F:" id="f_Label1" for="f1"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xe:djNumberTextBox value="#{document1.F}" id="f1"
+                  promptMessage="${langBean.msgEnterNumber}" rangeMessage="${langBean.msgEnterPositiveNumber}"
+                  invalidMessage="${langBean.msgMustBeNumber}" required="true" tooltipPosition="above"
+                  style="width:80.0px">
+                  <xe:this.constraints>
+                    <xe:djNumberConstraints min="0"></xe:djNumberConstraints>
+                  </xe:this.constraints>
+                </xe:djNumberTextBox>
+              </xp:td>
+              <xp:td>
+                <xp:label value=" ${langBean.Fdesc}" id="label6"></xp:label>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="G:" id="g_Label1" for="g1"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xe:djNumberTextBox value="#{document1.G}" id="g1"
+                  promptMessage="${langBean.msgEnterNumber}" rangeMessage="${langBean.msgEnterPositiveNumber}"
+                  invalidMessage="${langBean.msgMustBeNumber}" required="true" tooltipPosition="above"
+                  style="width:80.0px">
+                  <xe:this.constraints>
+                    <xe:djNumberConstraints min="0"></xe:djNumberConstraints>
+                  </xe:this.constraints>
+                </xe:djNumberTextBox>
+              </xp:td>
+              <xp:td>
+                <xp:label value=" ${langBean.Gdesc}" id="label7"></xp:label>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="H:" id="h_Label1" for="h1"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xe:djNumberTextBox value="#{document1.H}" id="h1"
+                  promptMessage="${langBean.msgEnterNumber}" rangeMessage="${langBean.msgEnterPositiveNumber}"
+                  invalidMessage="${langBean.msgMustBeNumber}" required="true" tooltipPosition="above"
+                  style="width:80.0px">
+                  <xe:this.constraints>
+                    <xe:djNumberConstraints min="0"></xe:djNumberConstraints>
+                  </xe:this.constraints>
+                </xe:djNumberTextBox>
+              </xp:td>
+              <xp:td>
+                <xp:label value=" ${langBean.Hdesc}" id="label8"></xp:label>
+              </xp:td>
+            </xp:tr>
+          </xp:table>
+        </xp:panel>
+      </xp:panel><!--END 2nd row and 2 columns-->
+
+      <!--  button  and caution row-->
+      <xp:panel styleClass="row" id="panel5">
+        <xp:panel styleClass="col-xs-12" id="panel8">
+          <xp:table styleClass="address-table">
+            <xp:tr>
+              <xp:td style="width:25.0px">
+                <xp:image url="/empty.gif" id="image3"></xp:image>
+              </xp:td>
+              <xp:td style="width:80.0px">
+                <xp:inputText value="#{document1.NetCapacity}" id="netCapacity1"
+                  readonly="true" style="font-weight:bold">
+                  <xp:this.converter>
+                    <xp:convertNumber type="number" integerOnly="true"></xp:convertNumber>
+                  </xp:this.converter>
+                </xp:inputText>
+              </xp:td>
+              <xp:td style="width:35.0px">
+                <xp:text escape="true" id="computedField1" value=" #{document1.WeightUnits}"
+                  style="font-weight:bold">
+                </xp:text>
+              </xp:td>
+              <xp:td>
+                <xp:button value="${langBean.btnCalculate}" id="button1" styleClass="btn btn-primary">
+                  <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+                    immediate="false" save="true" refreshId="main">
+                    <xp:this.action><![CDATA[#{javascript:
+var A = document1.getItemValueDouble("A");
+var B = document1.getItemValueDouble("B");
+var C = document1.getItemValueDouble("C");
+var D = document1.getItemValueDouble("D");
+var E = document1.getItemValueDouble("E");
+var F = document1.getItemValueDouble("F");
+var G = document1.getItemValueDouble("G");
+var H = document1.getItemValueDouble("H");
+
+var tmpDenominator = E+G+H;
+var net = (tmpDenominator != 0) ? (A*(B+C)-D*(E+F))/tmpDenominator : 0;
+
+getComponent("netCapacity1").setValue(net);}]]></xp:this.action>
+                  </xp:eventHandler>
+                </xp:button>
+              </xp:td>
+
+            </xp:tr>
+          </xp:table>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-12" id="panel9">
+          <xp:label value="${langBean.caution1}"></xp:label>
+          <xp:br></xp:br>
+          <xp:label value="${langBean.caution2}"></xp:label>
+          <xp:br></xp:br>
+          <xp:label value="${langBean.caution3}"></xp:label>
+          <xp:br></xp:br>
+          <xp:label value="${langBean.caution4}" style="color:rgb(255,0,0);"></xp:label>
+          <xp:br></xp:br>
+          <xp:label value="${langBean.caution5}" style="color:rgb(255,0,0);"></xp:label>
+          <xp:br></xp:br>
+        </xp:panel>
+      </xp:panel><!--END 3rd row and 2 columns-->
+    </xp:panel>
+  </xc:ccLayout>
+</xp:view>

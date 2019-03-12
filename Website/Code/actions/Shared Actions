@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sharedactions xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.10'
+ replicaid='882583B700602F38' hide='v3 v4strict' designerversion='8.5.3' maxid='2'>
+<noteinfo noteid='c42' unid='9C0DE0A335A6B5538825838B0050E59C' sequence='29'>
+<created><datetime>20190123T064336,60-08</datetime></created>
+<modified><datetime>20190308T112746,31-08</datetime></modified>
+<revised><datetime>20190308T112746,30-08</datetime></revised>
+<lastaccessed><datetime>20190308T112746,30-08</datetime></lastaccessed>
+<addedtofile><datetime>20190308T093128,41-08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Daryl Rochette/OU=PTL/O=CASCADE</name></updatedby>
+<wassignedby><name>CN=Daryl Rochette/OU=PTL/O=CASCADE</name></wassignedby>
+<action title='Collapse' id='1'><imageref name='minus.gif'/><code event='click'><formula
+>@Command([ViewCollapseAll])</formula></code></action>
+<action title='Expand' id='2'><imageref name='plus.gif'/><code event='click'><formula
+>@Command([ViewExpandAll])</formula></code></action></sharedactions>
+

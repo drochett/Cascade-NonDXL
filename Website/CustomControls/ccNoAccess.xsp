@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	
+	<xp:div style="text-align:center">
+		<p style="text-align: center; font-size:16px; font-weight: bold; color: #00338d; font-family: Arial"><xp:text escape="true" id="computedField" value="#{langBean.errortitle}">
+			</xp:text>
+		</p>
+	</xp:div>
+	<xp:div style="text-align:center">
+		<p style="text-align: center; font-size:15px; color: #5f5f5f; font-family: Arial">
+			<xp:text escape="true" id="computedField1" value="#{langBean.NoAccessMsg}"></xp:text>
+			
+		</p>
+	</xp:div>
+	<xp:br></xp:br></xp:view>

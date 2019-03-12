@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xe:breadCrumbs id="breadCrumbs1">
+		<xe:this.treeNodes>
+			<xe:basicLeafNode label="${langBean.home}"
+				href="${configBean.HostURL}${sessionScope.LanguageURL}home">
+			</xe:basicLeafNode>
+			<xe:basicLeafNode label="${langBean.industry}"
+				href="${configBean.HostURL}${sessionScope.LanguageURL}industry">
+			</xe:basicLeafNode>
+			<xe:basicLeafNode label="#{document1.Subject}">
+			</xe:basicLeafNode>
+		</xe:this.treeNodes>
+	</xe:breadCrumbs>
+</xp:view>

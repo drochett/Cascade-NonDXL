@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+	
+	<xp:this.resources>
+		<xp:script src="/custom.jss" clientSide="false"></xp:script>
+	</xp:this.resources>
+	<xp:this.beforePageLoad><![CDATA[#{javascript:dBar.info("entering Document XPage beforePageLoad");
+setScpLanguage() ;
+}]]></xp:this.beforePageLoad>
+
+	<xc:ccMetaData metaRobots="index,follow">
+		<xc:this.pageTitle><![CDATA[#{javascript:viewScope.get("pageTitle")}]]></xc:this.pageTitle>
+		<xc:this.metaKeywords><![CDATA[#{javascript:viewScope.get("pageKeywords")}]]></xc:this.metaKeywords>
+		<xc:this.metaDescription><![CDATA[#{javascript:viewScope.get("pageDescription")}]]></xc:this.metaDescription>
+	</xc:ccMetaData>
+	
+	<xc:ccLayout>
+		<xp:panel styleClass="container" style="background: #E1E1E1;">
+			<xc:ccBlogHeader></xc:ccBlogHeader>
+			<xc:ccBlogView></xc:ccBlogView>	
+		</xp:panel>
+	</xc:ccLayout>	
+</xp:view>

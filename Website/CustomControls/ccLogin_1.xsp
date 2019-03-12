@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" dojoParseOnLoad="true"
+	dojoTheme="true" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.resources>
+		<xp:dojoModule name="dijit.form.TextBox" />
+		<xp:dojoModule name="dijit.form.CheckBox" />
+		<xp:dojoModule name="dijit.form.Button" />
+		<xp:dojoModule name="dojo.cookie"></xp:dojoModule>
+	</xp:this.resources>
+
+
+	<xp:scriptBlock id="scr_Caching"
+		rendered="#{javascript:return compositeData.allowBrowserCaching;}">
+		<xp:this.value><![CDATA["<meta http-equiv=\"pragma\" content=\"no-cache\" />"]]></xp:this.value>
+	</xp:scriptBlock>
+
+
+	<xe:widgetContainer id="widgetContainer1"
+		titleBarText="${javascript:return compositeData.loginMessage;}">
+		<xp:panel styleClass="login-panel">
+			<div class="panel-body">
+				<div class="form-group">
+					<xp:text styleClass="control-label" tagName="label" escape="false">
+						<xp:this.value><![CDATA[#{compositeData.labelName} <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value>
+					</xp:text>
+					<xp:inputText id="username">
+						<xp:eventHandler event="onkeyup" submit="false"
+							id="eventHandler1">
+							<xp:this.script><![CDATA[
+					if (thisEvent.keyCode == 13) {
+						login();
+						return true
+					}]]></xp:this.script>
+						</xp:eventHandler>
+					</xp:inputText>
+				</div>
+				<div class="form-group">
+					<xp:text styleClass="control-label" tagName="label" escape="false">
+						<xp:this.value><![CDATA[#{compositeData.labelPassword} <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value>
+					</xp:text>
+					<xp:inputText id="password" password="true">
+						<xp:eventHandler event="onkeyup" submit="false"
+							id="eventHandler2">
+							<xp:this.script><![CDATA[if (thisEvent.keyCode == 13) {
+	login();
+	return true;
+}]]></xp:this.script>
+						</xp:eventHandler>
+					</xp:inputText>
+				</div>
+			</div>
+			<div class="panel-footer clearfix">
+				<div name="divLoginMessage" id="divLoginMessage" class="alert alert-warning"
+					style="display:none">
+					<xp:text escape="true" id="computedField1"></xp:text>
+				</div>
+				<div class="pull-left">
+					<xp:checkBox text="#{javascript:compositeData.textRememberMe}"
+						id="checkRememberMe" rendered="#{javascript:return compositeData.showRememberMe}">
+						<xp:this.defaultChecked><![CDATA[#{javascript:return compositeData.showRememberMe
+	}]]></xp:this.defaultChecked>
+					</xp:checkBox>
+				</div>
+				<xp:link escape="true"
+					text="#{javascript:return compositeData.loginButtonText;}" id="loginButton"
+					styleClass="btn btn-primary pull-right">
+					<xp:eventHandler event="onclick" submit="false">
+						<xp:this.script><![CDATA[login();]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:link>
+			</div>
+
+		</xp:panel>
+
+
+
+
+	</xe:widgetContainer>
+
+
+	<xp:scriptBlock id="scr_Login">
+		<xp:this.value><![CDATA[function login(data){
+		//alert("entering Login code");
+		var loginurl = '#{javascript:compositeData.urlLoginNSF;}'; 
+		var expireCookie = '#{javascript:compositeData.xDaysRememberMe;}';
+		
+		// disable loginbutton when trying to log in
+		dojo.byId('#{id:loginButton}').disabled=true;
+		//alert('test');
+		loginurl = loginurl.split('.nsf')[0] + '.nsf?Login';
+		//alert(loginurl);
+        dojo.xhrPost({ 
+                url: loginurl,
+                handleAs: "text",
+                content: {
+					"username" : dojo.byId('#{id:username}').value,
+					"password" : dojo.byId('#{id:password}').value
+					},
+				load : function(response, data) {
+						var responseLogin = response;
+						responseLogin.toLowerCase();
+						
+                        if ( dojo.cookie('DomAuthSessId') != null || dojo.cookie('LtpaToken') != null ) {
+                        	// we are logged in, but do we have access to the next url?
+                        	// response could be to the same url, this code contains the same code 
+                       	//alert("getting " + "#{javascript:compositeData.urlAfterLogin}");
+                        	dojo.xhrGet({
+							        url: "#{javascript:compositeData.urlAfterLogin}", 
+							        preventCache: true,
+							        handleAs: "text",
+							        load: function(response){
+										var responseCheckURL = response;
+										
+			                     		// response could be to the same url, this code contains the same code 
+							            if (responseCheckURL.toLowerCase().indexOf('input name' + '=\"reasontype\"')==-1) { 
+							            	// ok, we have access, now continue
+							                                
+			                               	dojo.byId("divLoginMessage").style.display="block";
+			                              	//dojo.byId("divLoginMessage").style.color="green";
+											//dojo.byId("divLoginMessage").style.backgroundColor="transparent";
+			                                dojo.byId("divLoginMessage").innerHTML = '#{javascript:compositeData.loggedInMessage;}';
+											//alert("1.  " + compositeData.loginFailReason1Message)
+											if (dojo.byId('#{id:checkRememberMe}') == null) {
+												
+												dojo.cookie('username', null, { expires: -1, domain: '#{javascript:compositeData.cookieDomain;}' , path: '/' });
+											}else{
+												if (dojo.byId('#{id:checkRememberMe}').checked == true) {
+												
+												    // before version 1.4.2 password was stored in plain text, dojo does not a allow a default value for a password textinput
+													dojo.cookie('username', dojo.byId('#{id:username}').value, { expires: parseFloat(expireCookie), domain: '#{javascript:compositeData.cookieDomain;}', path: '/' });
+												}else{
+									
+													dojo.cookie('username', null, { expires: -1, domain: '#{javascript:compositeData.cookieDomain;}', path: '/' });
+												};											;
+											}
+			  								window.location.href = "#{javascript:compositeData.urlAfterLogin}";
+							            }else{
+							            	// no, user does not have access!
+								            dojo.byId("divLoginMessage").style.display="block";
+			                              	//dojo.byId("divLoginMessage").style.color="red";
+											//dojo.byId("divLoginMessage").style.backgroundColor="transparent";
+			                               
+			                             	var reasonFail = responseCheckURL.toLowerCase().substring(responseCheckURL.toLowerCase().indexOf('input name' +  '=\"reasontype\"'), (responseCheckURL.toLowerCase().indexOf('input name' +  '=\"reasontype\"') + 80));
+			                              	var reasonNr = reasonFail.substring(reasonFail.indexOf('value') + 7, (reasonFail.indexOf('value') + 8)) ; //last character will be the error
+									        //alert(compositeData.loginFailReason1Message)
+									        if ( reasonNr == "1") {
+			                                 	dojo.byId("divLoginMessage").innerHTML = '#{javascript:compositeData.loginFailReason1Message;}';
+			                        		}else{
+			                       			 	dojo.byId("divLoginMessage").innerHTML = "You are logged in, but do not have access (unknown reasonType " + reasonNr +  " )...";
+			                        		};
+							            
+							            };
+							            //dijit.byId('#{id:loginButton}').attr("disabled", true);
+							        }
+							        
+							        //added code here to trap for errors when accessing the desired page
+							        , 
+                error: function (error) {
+                		  dojo.byId("divLoginMessage").style.display="block";
+                		  dojo.byId("divLoginMessage").innerHTML = '#{javascript:compositeData.loginFailReason1Message;}';
+                        } 
+							        
+							        //end
+							  });
+                           } else {
+                           //alert("no access");
+                                dojo.byId("divLoginMessage").style.display="block";
+                              	//dojo.byId("divLoginMessage").style.color="red";
+								//dojo.byId("divLoginMessage").style.backgroundColor="transparent";
+                               
+                               	if (responseLogin.toLowerCase().indexOf('input name' + '=\"reasontype\"')==-1) { 
+                               		// response does not have a 'reasonType' field, display default FailMessage;
+                               	    dojo.byId("divLoginMessage").innerHTML = '#{javascript:compositeData.loginFailMessage;}';
+                               	}else{
+                               		//alert("else");
+                               		
+                               		var reasonFail = responseLogin.toLowerCase().substring(responseLogin.toLowerCase().indexOf('input name' + '=\"reasontype\"'), (responseLogin.toLowerCase().indexOf('input name' + '=\"reasontype\"') + 80));
+                               		//alert(reasonFail);
+                               		var reasonNr = reasonFail.substring(reasonFail.indexOf('value') + 7, (reasonFail.indexOf('value') + 8)) ; //last character will be the error
+                               	    //alert(reasonNr);
+                               	    if ( reasonNr == "2") {
+                                     	    dojo.byId("divLoginMessage").innerHTML = '#{javascript:compositeData.loginFailReason2Message;}';
+                               		}
+                               		if ( reasonNr == "3") {
+                                     	    dojo.byId("divLoginMessage").innerHTML = '#{javascript:compositeData.loginFailReason3Message;}';
+                               		}
+									if ( reasonNr == "4") {
+                                     	    dojo.byId("divLoginMessage").innerHTML = '#{javascript:compositeData.loginFailReason4Message;}';
+                               		}
+                               		if ( reasonNr == "5") {
+                                     	    dojo.byId("divLoginMessage").innerHTML = '#{javascript:compositeData.loginFailReason5Message;}';
+                               		}
+                               	}
+                               	// bug in 1.5.2, signin button was still disabled after a login fail 
+                                //dijit.byId('#{id:loginButton}').attr("disabled", false);
+
+                               } 
+                        }, 
+                error: function (error) {
+                		 dojo.byId("divLoginMessage").innerHTML = "Error in call" + error.responseText;
+                        } 
+                }); 
+                
+             
+};
+
+function returnCookieVal(cookiename){
+	var cookieval = dojo.cookie(cookiename);
+	if (cookieval != undefined) {
+		return cookieval;
+	}else{
+		return "";
+	}
+};
+
+ ]]></xp:this.value>
+	</xp:scriptBlock>
+	<xp:eventHandler event="onClientLoad" submit="false">
+		<xp:this.script><![CDATA[//alert("username is " + returnCookieVal('username'));
+if ('#{javascript:compositeData.showRememberMe}' == 'true') {
+	dojo.byId('#{id:username}').setAttribute("value", returnCookieVal('username'));
+}else{
+	dojo.cookie('username', null, { expires: -1, domain: '#{javascript:compositeData.cookieDomain;}' });
+	
+}
+]]></xp:this.script>
+	</xp:eventHandler>
+</xp:view>
+
+

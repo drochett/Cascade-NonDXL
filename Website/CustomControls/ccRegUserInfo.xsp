@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+<xe:widgetContainer id="userInfoWidget"
+						titleBarText="${langBean.HeadingUserInformation}"
+						styleClass="login-panel">
+						<div class="panel-body">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											id="FirstNameLabel" styleClass="control-label" escape="false">
+											<xp:this.value><![CDATA[${langBean.LabelFirstName}:  <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value>
+										</xp:text>
+									</div>
+									<div class="col-sm-8">
+										<xp:inputText
+											id="firstNameInput" required="true"
+											disableClientSideValidation="true"
+											value="#{regDoc.firstname}">
+											<xp:this.validators>
+												<xp:validateRequired
+													message="${langBean.msgIsRequired}">
+												</xp:validateRequired>
+											</xp:this.validators>
+										</xp:inputText>
+										<xp:message id="message2"
+											for="firstNameInput">
+										</xp:message>
+									</div>
+								</div>
+
+
+
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											id="LastNameLabel"
+											styleClass="control-label" escape="false">
+										<xp:this.value><![CDATA[${langBean.LabelLastName}:  <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value></xp:text>
+									</div>
+									<div class="col-sm-8">
+										<xp:inputText id="lastNameInput"
+											required="true" disableClientSideValidation="true"
+											value="#{regDoc.lastname}">
+											<xp:this.validators>
+												<xp:validateRequired
+													message="${langBean.msgIsRequired}">
+												</xp:validateRequired>
+											</xp:this.validators>
+										</xp:inputText>
+										<xp:message id="message1"
+											for="lastNameInput">
+										</xp:message>
+									</div>
+								</div>
+
+
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											value="${langBean.LabelJobTitle}:" id="JobTitleLabel"
+											styleClass="control-label" escape="true">
+										</xp:text>
+									</div>
+									<div class="col-sm-8">
+										<xp:inputText id="JobTitleInput"
+											value="#{regDoc.JobTitle}">
+										</xp:inputText>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											id="JobFunctionLabel"
+											styleClass="control-label" escape="false">
+										<xp:this.value><![CDATA[${langBean.LabelJobFunction}:  <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value></xp:text>
+									</div>
+									<div class="col-sm-8">
+										<xp:comboBox
+											id="jobFunctionSelect" disableClientSideValidation="true"
+											value="#{regDoc.JobFunctions}">
+											<xp:this.validators>
+												<xp:validateRequired
+													message="${langBean.msgIsRequired}">
+												</xp:validateRequired>
+											</xp:this.validators>
+											<xp:selectItems>
+												<xp:this.value><![CDATA[#{langBean.JobFunctions}]]></xp:this.value>
+											</xp:selectItems>
+										</xp:comboBox>
+										<xp:message id="message7"
+											for="jobFunctionSelect">
+										</xp:message>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											value="${langBean.LabelRegionReg}: " id="RegionLabel"
+											styleClass="control-label">
+										</xp:text>
+									</div>
+									<div class="col-sm-8">
+										<!--removed so it shows the proper region name using the combobox below
+											<xp:text escape="true" id="regionField"
+											value="#{regDoc.region}"> </xp:text>
+										-->
+										<xp:comboBox id="regionSelect"
+											styleClass="form-control" value="#{regDoc.region}"
+											disableClientSideValidation="true"
+											readonly="${javascript:return true;}">
+											<xp:selectItems
+												id="selectItems1">
+												<xp:this.value><![CDATA[#{langBean.RegionChoices}]]></xp:this.value>
+											</xp:selectItems>
+
+											<xp:this.validators>
+												<xp:validateRequired
+													message="${langBean.msgIsRequired}">
+												</xp:validateRequired>
+											</xp:this.validators>
+
+										</xp:comboBox>
+
+
+									</div>
+								</div>
+
+
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											id="WorkPhoneLabel"
+											styleClass="control-label" escape="false">
+										<xp:this.value><![CDATA[${langBean.LabelWorkPhone}:  <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value></xp:text>
+									</div>
+									<div class="col-sm-8">
+										<xp:inputText
+											id="WorkPhoneInput" required="true"
+											disableClientSideValidation="true"
+											value="#{regDoc.WorkPhone}">
+											<xp:this.validators>
+												<xp:validateRequired
+													message="Enter work phone">
+												</xp:validateRequired>
+											</xp:this.validators>
+										</xp:inputText>
+										<xp:message id="message15"
+											for="WorkPhoneInput">
+										</xp:message>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											value="${langBean.LabelWorkFax}:" id="WorkFaxLabel"
+											styleClass="control-label">
+										</xp:text>
+									</div>
+									<div class="col-sm-8">
+
+										<xp:inputText id="WorkFaxInput"
+											value="#{regDoc.WorkFax}">
+										</xp:inputText>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											value="${langBean.LabelCellPhone}:" id="CellPhoneLabel"
+											styleClass="control-label">
+										</xp:text>
+									</div>
+									<div class="col-sm-8">
+										<xp:inputText
+											id="CellPhoneInput" value="#{regDoc.CellPhone}">
+										</xp:inputText>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</xe:widgetContainer>
+</xp:view>

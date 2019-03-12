@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	 xmlns:xe="http://www.ibm.com/xsp/coreex">
+	
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+	<xc:ccLayout>
+		<!--	bootstrap 2 column-->
+		<xp:panel id="main"
+			styleClass="container">
+			<!--			banner image-->
+			<xp:panel styleClass="row blue-header">
+				<xp:panel styleClass="col-xs-12">
+					<xp:image url="/attachment_lineup1170.png"
+						id="image1" styleClass="img-responsive">
+					</xp:image>
+				</xp:panel>
+			</xp:panel>
+			<!--			MAIN CONTENT-->
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-sm-6" id="panelLeft1">
+					<xp:panel id="panelMyProfileView1">
+						<xp:panel  id="panelActionbar1">
+							<xp:button value="${langBean.btnLabelNewAddress}" id="button1"
+								styleClass="btn btn-primary">
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="complete">
+									<xp:this.action>
+										<xp:openPage name="/MyProfileAddress.xsp" target="newDocument">
+										</xp:openPage>
+									</xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</xp:panel>
+						<xp:panel id="panelView1">
+							<xe:dataView id="dataView1" pageName="/MyProfileAddress.xsp"
+								expandedDetail="true" var="viewEntry" rows="999"
+								openDocAsReadonly="false">
+								<xp:this.facets>
+									<xp:panel xp:key="detail" id="panelDetail1">
+										<xp:text escape="true" id="computedField1" value="#{viewEntry.Company}"></xp:text>
+										<xp:br></xp:br>
+										<xp:text escape="true" id="computedField2" value="#{viewEntry.Person}"></xp:text>
+										<xp:br></xp:br>
+										<xp:text escape="true" id="computedField3" value="#{viewEntry.Address}"></xp:text>
+										<xp:br></xp:br>
+										<xp:panel id="panelAddressLine2" rendered="#{viewEntry.Address_2 ne ''}">
+											<xp:text escape="true" id="computedField4" value="#{viewEntry.Address_2}">
+											</xp:text>
+											<xp:br></xp:br>
+										</xp:panel>
+										<xp:text escape="true" id="computedField5" value="#{viewEntry.City}"></xp:text>
+									</xp:panel>
+								</xp:this.facets>
+								<xe:this.data>
+									<xp:dominoView var="view1"
+										databaseName="${configBean.UserprofilesDbPath}" viewName="addressesbyowner2"
+										categoryFilter="#{javascript:@UserName()}">
+									</xp:dominoView>
+								</xe:this.data>
+								<xe:this.summaryColumn>
+									<xe:viewSummaryColumn columnName="AddressIdentifier">
+									</xe:viewSummaryColumn>
+								</xe:this.summaryColumn>
+							</xe:dataView>
+						</xp:panel>
+					</xp:panel>
+				</xp:panel>
+				<xp:panel styleClass="col-sm-6" id="panelRight1">
+					<xp:div styleClass="btn-group-vertical">
+						<xp:link escape="true"
+							text="${langBean.linkLabelMyAttachments}" id="link1"
+							styleClass="btn btn-link text-left">
+							<xp:eventHandler event="onclick"
+								submit="true" refreshMode="complete">
+								<xp:this.action>
+									<xp:openPage
+										name="/MyProfileAttachmentsView.xsp" target="newDocument">
+									</xp:openPage>
+								</xp:this.action>
+							</xp:eventHandler>
+						</xp:link>
+						<xp:link escape="true"
+							text="${langBean.linkLabelUpdateMyRegistration}" id="link2"
+							styleClass="btn btn-link text-left"
+							value="/updateRegistration.xsp">
+						</xp:link>
+						<xp:link escape="true"
+							text="${langBean.linkLabelSubscibeCascadeEmail}"
+							id="SubscribeToEmailsLink" styleClass="btn btn-link text-left"
+							value="#">
+							<xp:this.rendered><![CDATA[#{javascript:importPackage(com.cascorp);
+dBar.info("checking opt out for "+ session.getEffectiveUserName());
+rtn = RegistrationUtilities.isPersonSubscribedToEmails(session.getEffectiveUserName(), sessionAsSigner);
+dBar.info("rtn is "+ rtn);
+return (rtn)?false:true;}]]></xp:this.rendered>
+							<xp:eventHandler event="onclick"
+								submit="true" refreshMode="partial" refreshId="panelRight1">
+								<xp:this.action><![CDATA[#{javascript:importPackage(com.cascorp);
+RegistrationUtilities.flipEmailSubscribe(session.getEffectiveUserName(), sessionAsSigner);}]]></xp:this.action>
+							</xp:eventHandler>
+						</xp:link>
+						<xp:link escape="true"
+							text="${langBean.linkLabelUnsubscibeCascadeEmail}"
+							id="UnSubscribeToEmailsLink" styleClass="btn btn-link text-left"
+							value="#">
+							<xp:this.rendered><![CDATA[#{javascript:importPackage(com.cascorp);
+dBar.info("checking opt out for "+ session.getEffectiveUserName());
+rtn = RegistrationUtilities.isPersonSubscribedToEmails(session.getEffectiveUserName(), sessionAsSigner);
+return rtn;
+}]]></xp:this.rendered>
+							<xp:eventHandler event="onclick"
+								submit="true" refreshMode="partial" refreshId="panelRight1">
+								<xp:this.action><![CDATA[#{javascript:importPackage(com.cascorp);
+RegistrationUtilities.flipEmailSubscribe(session.getEffectiveUserName(), sessionAsSigner);}]]></xp:this.action>
+							</xp:eventHandler>
+						</xp:link>
+					</xp:div>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+		<!--	bootstrap 2 column-->
+	</xc:ccLayout>
+	
+</xp:view>

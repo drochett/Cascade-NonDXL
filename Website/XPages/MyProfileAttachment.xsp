@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+
+
+	<xp:this.afterPageLoad><![CDATA[#{javascript:dBar.info("Entering afterPageLoad");
+importPackage(com.cascorp);
+try{
+	var srlNbr = sessionScope.serialNbr;
+	var mhpItem = sessionScope.mhpItem;
+	var region = sessionScope.Region;
+	var hostURL = configBean.getValue("HostURL");
+	sessionScope.nextPage= hostURL+sessionScope.LanguageURL+"MyAttachments";
+	if (sessionScope.newAttachment!=true || sessionScope.viaQR!=true){
+		try{
+			var mhpItem = sessionScope.mhpItem;
+		//get iconData
+			var funct= mhpItem.slice(mhpItem.indexOf("-")+1,mhpItem.indexOf("-")+4);
+			var sizeGen = mhpItem.slice(0,mhpItem.indexOf("-"));
+			var fieldVal;
+			dBar.info("function="+funct+sizeGen);
+			dBar.info("srlNbr="+srlNbr);
+			getComponent("serialNumber").setValue(srlNbr);
+			getComponent("modelNbr").setValue(mhpItem);
+			getComponent("icon").setValue(funct+sizeGen);
+			//get ship to and ship date
+			dBar.info(">>>Getting Ship Account Number and Ship Date");
+			returnMap = jdeBean.getShipAcctNbr(srlNbr, region);
+			dBar.info("Got the returnMap.  Now Extracting Data");
+			acctNbr=returnMap.getAcctNumber().trim()
+			shipDate=returnMap.getShipDate().trim();
+			dBar.info("Got Account Number: "+ acctNbr);
+			dBar.info("Got ship date: "+ shipDate);
+			dBar.info("Ship to account Nbr for " + srlNbr + " is "+acctNbr)
+			dBar.info("Ship date for " + srlNbr + " is "+shipDate)
+			//need to get information regarding the dealer that attachment 
+			//was originally shipped to
+			/*
+			DealerNameField
+			DealerAddressField
+			DealerCityField
+			DealerStateField
+			DealerAddressZip
+			DealerCountryField
+			*/
+			returnList = jdeBean.getAcctDetails(acctNbr, region);
+			dBar.info("returnList.getCustName()= "+returnList.getCustName());
+			dBar.info("values are:" + returnList.getCustName() + ":["
+										+ returnList.getAcctType() + "]"
+										+ returnList.getCustLocation()+ "[1: "
+										+ returnList.getAddress1()+"] 2: "
+										+ returnList.getAddress2()+"[3:"
+										+ returnList.getAddress3()+"]"
+										+ returnList.getCustCity()
+										+ returnList.getCustState()
+										+ returnList.getCustZip()
+										+ "  CUST COUNTRY CODE  "
+										+ returnList.getCustCountryCode());
+			
+			if (returnList.getCustName() == null){
+				getComponent("DealerNameField").setValue("Dealer not found");
+			}else{
+				//need to bring all addresses together
+				var dealerAddress
+				if(returnList.getAddress2().trim() == "" + returnList.getAddress3().trim()==""){
+					dealerAddress = returnList.getAddress1();
+				}else if(returnList.getAddress3().trim()==""){
+					dealerAddress = returnList.getAddress1() +", "+ returnList.getAddress2();
+				} else {
+					dealerAddress = returnList.getAddress1() +", "+ returnList.getAddress2() +", "+ returnList.getAddress3();
+				}
+				getComponent("DealerNameField").setValue(returnList.getCustName());
+				getComponent("DealerAddressField").setValue(dealerAddress);
+				getComponent("DealerCityField").setValue(returnList.getCustCity());
+				getComponent("DealerStateField").setValue(returnList.getCustState());
+				getComponent("DealerAddressZip").setValue(returnList.getCustZip());
+				getComponent("DealerCountryField").setValue(returnList.getCustCountryCode());
+				getComponent("shipDate").setValue(shipDate);
+			}
+		} catch(e){
+			dBar.error("Error in tab1 afterPageLoad: " + e.toString());
+			println("ccDataEntry---username " + session.getEffectiveUserName() + "--> Error in tab1 afterPageLoad: " + e.toString());
+		}
+	}else{
+	
+	}
+} catch(e){
+	dBar.error("Error in tab1 afterPageLoad: " + e.toString());
+	println("ccDataEntry---username " + session.getEffectiveUserName() + "--> Error in tab1 afterPageLoad: " + e.toString());
+}}]]></xp:this.afterPageLoad>
+
+	<xp:this.data>
+		<xp:dominoDocument
+			var="document1"
+			databaseName="#{javascript:configBean.UserprofilesDbPath}"
+			formName="Attachment"
+			action="editDocument">
+		</xp:dominoDocument>
+	</xp:this.data>
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+	<xc:ccLayout>
+		<!-- bootstrap 2 column -->
+		<xp:panel
+			id="main"
+			styleClass="container">
+			<!-- banner image -->
+			<xp:panel styleClass="row blue-header">
+				<xp:panel styleClass="col-xs-12">
+					<xp:image
+						url="/attachment_lineup1170.png"
+						id="image1"
+						styleClass="img-responsive">
+					</xp:image>
+				</xp:panel>
+			</xp:panel>
+			<!-- MAIN CONTENT -->
+			<xp:panel styleClass="row">
+				<xp:panel
+					styleClass="col-xs-12 col-sm-10 col-md-8"
+					id="panel1">
+					<!-- address tables -->
+					<xp:panel id="panelAddress1">
+
+						<xp:table styleClass="address-table">
+							<xp:tr>
+								<xp:panel
+									tagName="th"
+									styleClass="tableHeading">
+									<xp:this.attrs>
+										<xp:attr
+											name="colspan"
+											value="2">
+										</xp:attr>
+									</xp:this.attrs>
+									<xp:text
+										value="${langBean.titleAttachmentInformation}"
+										id="label2">
+									</xp:text>
+								</xp:panel>
+							</xp:tr>
+
+						</xp:table>
+
+					</xp:panel>
+					<xp:panel id="panel2">
+
+						<xp:table styleClass="address-table">
+							<xp:tr>
+								<xp:td colspan="2">
+									<xp:label rendered="#{javascript:currentDocument.isEditable()}">
+										<span
+											class="required-icon glyphicon glyphicon-asterisk"
+											aria-hidden="true">
+										</span>
+									</xp:label>
+									<xp:label
+										value="${langBean.labelRequiredFields}"
+										id="label1"
+										rendered="#{javascript:currentDocument.isEditable()}"
+										style="color:rgb(255,0,0)">
+									</xp:label>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td style="width:40%">
+									<xp:label
+										value="${langBean.labelSerialNumber}:"
+										id="serialLabel"
+										for="seriaslNbr">
+									</xp:label>
+									<xp:label
+										rendered="#{javascript:currentDocument.isEditable()}"
+										id="label3">
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText
+										value="#{document1.serialNbr}"
+										id="serialNumber"
+										required="true"
+										readonly="true">
+										<xp:this.validators>
+											<xp:validateRequired message="${langBean.labelSerialNo} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td style="width:40%">
+									<xp:label
+										value="${langBean.labelModelNbr}:"
+										id="labelModelNbr"
+										for="modelNbr">
+									</xp:label>
+									&#160;&#160;
+
+								</xp:td>
+								<xp:td>
+									<xp:inputText
+										value="#{document1.modelNbr}"
+										id="modelNbr"
+										required="false"
+										readonly="true">
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label
+										value="${langBean.labelAddressIdentifier}:"
+										id="addressIdentifier_Label1"
+										for="addressIdentifier1">
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText
+										value="#{document1.attachmentIdentifier}"
+										id="attachmentIdentifier">
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label
+										value="${langBean.labelInstallationDate}: "
+										id="installationDate_Label1"
+										for="installationDate">
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText
+										value="#{document1.installationDate}"
+										id="installationDate">
+										<xp:dateTimeHelper id="dateTimeHelper1"></xp:dateTimeHelper>
+
+										<xp:this.converter>
+											<xp:convertDateTime
+												type="date"
+												dateStyle="short">
+											</xp:convertDateTime>
+										</xp:this.converter>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label
+										value="#{langBean.labelIndustry}"
+										id="industry">
+										<span
+											class="required-icon glyphicon glyphicon-asterisk"
+											aria-hidden="true">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:comboBox
+										id="IndusutryListSelect"
+										value="#{document1.Industry}">
+										<xp:this.validators>
+											<xp:validateRequired message="${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+										<xp:selectItems>
+											<xp:this.value><![CDATA[${langBean.IndustryList}]]></xp:this.value>
+										</xp:selectItems>
+
+									</xp:comboBox>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td></xp:td>
+								<xp:td>
+									<xp:checkBox
+										text="#{langBean.labelCheckToReceive}"
+										id="freeManualCheckBox"
+										value="#{document1.freeManual}">
+									</xp:checkBox>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+
+								<xp:td>
+									<xp:inputText
+										value="#{document1.icon}"
+										id="icon"
+										rendered="false">
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td></xp:td>
+								<xp:td></xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label
+										value="${langBean.HeadingUserName}:"
+										id="label4"
+										for="owner"
+										rendered="false">
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText
+										id="owner"
+										value="#{document1.owner}"
+										readonly="true"
+										defaultValue="#{javascript:	session.getEffectiveUserName()}"
+										rendered="false">
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+						</xp:table>
+
+						<xp:panel rendered="#{javascript:sessionScope.isEndUser==false}">
+							<xp:table>
+								<xp:panel
+									tagName="th"
+									styleClass="tableHeading">
+									<xp:this.attrs>
+										<xp:attr
+											name="colspan"
+											value="2">
+										</xp:attr>
+									</xp:this.attrs>
+									<xp:text
+										value="${langBean.labelCustomerName}"
+										id="computedField2">
+									</xp:text>
+								</xp:panel>
+							</xp:table>
+							<br></br>
+							<div class="col-sm-12"></div>
+							<xp:table styleClass="address-table">
+
+								<xp:tr>
+									<xp:td
+										style="width:40%"
+										rendered="true">
+										<xp:label
+											value="${langBean.name}: "
+											id="customerName_Label"
+											for="customerName">
+											<span
+												class="required-icon glyphicon glyphicon-asterisk"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+									</xp:td>
+									<xp:td rendered="true">
+										<xp:inputText
+											value="#{document1.CustomerName}"
+											id="customerName">
+										</xp:inputText>
+										<xp:message
+											id="csNameMsg"
+											for="customerName"></xp:message>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label
+											value="${langBean.labelCustomerCity}: "
+											id="customerCity_Label"
+											for="customerCity">
+											<span
+												class="required-icon glyphicon glyphicon-asterisk"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.CustomerCity}"
+											id="customerCity">
+										</xp:inputText>
+										<xp:message
+											id="custCityMsg"
+											for="customerCity"></xp:message>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label
+											value="${langBean.labelCustomerState}: "
+											id="customerState_Label"
+											for="customerState">
+										</xp:label>
+										<span
+											class="required-icon glyphicon glyphicon-asterisk"
+											aria-hidden="true">
+										</span>
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.CustomerState}"
+											id="customerState">
+										</xp:inputText>
+										<xp:message
+											id="custStateMsg"
+											for="customerState"></xp:message>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label
+											value="${langBean.labelPostalCode} "
+											id="customerZip_Label"
+											for="customerZip">
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.CustomerZip}"
+											id="customerZip">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+							</xp:table>
+							<br></br>
+						</xp:panel>
+						<xp:table>
+							<xp:panel
+								tagName="th"
+								styleClass="tableHeading">
+								<xp:this.attrs>
+									<xp:attr
+										name="colspan"
+										value="2">
+									</xp:attr>
+								</xp:this.attrs>
+								<xp:text
+									value="${langBean.labelOriginalDealer}"
+									id="computedField1">
+								</xp:text>
+							</xp:panel>
+						</xp:table>
+						<br></br>
+						<xp:table>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-9">
+										<xp:inputText
+											id="DealerNameField"
+											value="#{document1.dealerName}"
+											readonly="true">
+										</xp:inputText>
+										<xp:br></xp:br>
+										<xp:inputText
+											id="DealerAddressField"
+											value="#{document1.dealerAddress}"
+											readonly="true">
+										</xp:inputText>
+										<xp:inputText
+											id="DealerCityField"
+											value="#{document1.dealerCity}"
+											readonly="true">
+										</xp:inputText>
+										&#160;
+										<xp:inputText
+											id="DealerStateField"
+											value="#{document1.dealerState}"
+											readonly="true">
+										</xp:inputText>
+										&#160;&#160;
+										<xp:inputText
+											id="DealerAddressZip"
+											value="#{document1.dealerZip}"
+											readonly="true">
+										</xp:inputText>
+										<xp:br></xp:br>
+										<xp:inputText
+											id="DealerCountryField"
+											value="#{document1.dealerCountry}"
+											readonly="true">
+										</xp:inputText>
+										<xp:br></xp:br>
+										<xp:label
+											value="#{langBean.labelShipDate}"
+											id="label5">
+
+										</xp:label>
+										&#160;&#160;
+										<xp:inputText
+											id="shipDate"
+											value="#{document1.shipDate}"
+											readonly="true">
+										</xp:inputText>
+									</div>
+								</div>
+							</div>
+						</xp:table>
+						<br></br>
+						<!-- button table -->
+						<xp:table>
+							<xp:tr>
+								<xp:td></xp:td>
+								<xp:td style="width:10%">
+									<xp:image
+										url="/empty.gif"
+										id="image2"></xp:image>
+								</xp:td>
+								<xp:td>
+									<!-- Error message if quantity is zero for anything -->
+									<xp:panel
+										id="orderErrorMsg"
+										styleClass="orderErrorPanel">
+										<xp:message
+											id="message1"
+											for="orderTotalDisplay"></xp:message>
+									</xp:panel>
+								</xp:td>
+								<xp:td style="width:30%">
+
+									<!-- btn-group -->
+									<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+									<xp:link
+										escape="true"
+										text="#{langBean.btnLabelSave}"
+										id="link2"
+										styleClass="btn btn-primary"
+										rendered="#{javascript:sessionScope.newAttachment==true}">
+										<xp:eventHandler
+											event="onclick"
+											submit="true"
+											refreshMode="complete">
+											<xp:this.action><![CDATA[#{javascript:dBar.info("Entering Save button");
+importPackage(com.cascorp);
+dBar.info("Submit to Eloqua");
+Eloqua.submitToEloqua(document1.getDocument());	
+var rtn = true
+var util = new utilities()
+var hostURL = configBean.getValue("HostURL");
+var userAttachment;
+sessionScope.nextURL= hostURL+sessionScope.LanguageURL+"MyAttachments";
+dBar.info("newAttachment:---->>> " + sessionScope.newAttachment);
+//check for username~attachmentName duplication need to set some data here so it gets to proper field
+var msg=new javax.faces.application.FacesMessage();
+var attachmentIdentifier:com.ibm.xsp.component.xp.XspInputText = getComponent("attachmentIdentifier");
+var serialNumber:com.ibm.xsp.component.xp.XspInputText = getComponent("serialNumber");
+//Done setting the data
+//set up info needed for checking duplicates
+var user = getComponent("owner").getValue();
+var attachName=getComponent("attachmentIdentifier").getValue();
+var serialNbr = getComponent("serialNumber").getValue();
+if(attachName!=""||attachName!=null){
+	userAttachment = user+"~"+attachName;
+}else{
+	userAttachment = "notAvaiable";
+}
+var userSerial = user+"~"+serialNbr;
+//Done setting info needed
+//get iconData
+var mhpItem = document1.getItemValueString("modelNbr");
+var funct= mhpItem.slice(mhpItem.indexOf("-")+1,mhpItem.indexOf("-")+4);
+var sizeGen = mhpItem.slice(0,mhpItem.indexOf("-"));
+dBar.info("function="+funct+sizeGen);
+document1.replaceItemValue("icon",funct+sizeGen);
+currentDocument.replaceItemValue("icon",funct+sizeGen);
+//end of iconData
+//check for duplicates
+rtn = utilBean.checkAttachmentName(userAttachment, userSerial)
+dBar.info("message is: "+ utilBean.checkAttachmentName(userAttachment, userSerial))
+//done
+dBar.info("rtn=="+rtn);
+if(rtn==true){
+	var doc = document1.getDocument(true);
+	//doc.replaceItemValue("owner",user);
+	var authitem:NotesItem = doc.replaceItemValue("owner", user );
+	authitem.setAuthors(true);
+	
+	
+	doc.save()
+	dBar.info("ALL IS GOOD");
+	sessionScope.remove("serialNbr");
+	sessionScope.remove("mhpItem");
+	sessionScope.remove("serialNumber");
+	dBar.info("sesScp serialNbr="+sessionScope.serialNbr)
+	sessionScope.remove("newAttachment");
+	sessionScope.remove("viaQR");
+	return "xsp-success";
+	view.postScript("window.open('"+sessionScope.nextURL+"')")
+}else if (rtn==false){
+	dBar.info(utilBean.getErrorMessages());
+	errMsgArray = utilBean.getErrorMessages();
+	dBar.info(errMsgArray.size());
+	for(err in errMsgArray){
+	//for (i=0; i < errMsgArray.size(); i++){
+		dBar.info("err: "+ err.toString());
+		if (err== "nameUsed"){
+		 	//send message to XPXage
+		 	dBar.info("write to error display for attachmentIdentifier")
+			facesContext.addMessage(attachmentIdentifier.getClientId(facesContext) , msg(langBean.getValue("duplicateName")));
+		}
+			if(err=="serialUsed"){
+				//send message to XPXage
+				dBar.info("write to error display for serialNbr")
+				facesContext.addMessage(serialNumber.getClientId(facesContext) , msg(langBean.getValue("duplicateSerial")));
+		}
+	}
+	
+	return "xsp-failure";
+}
+}]]></xp:this.action>
+										</xp:eventHandler>
+									</xp:link>
+									<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+									<xp:button
+										id="button1"
+										styleClass="btn btn-primary"
+										value="#{langBean.btnLabelSave}"
+										rendered="#{javascript:sessionScope.newAttachment!=true }">
+										<xp:eventHandler
+											event="onclick"
+											submit="true"
+											refreshMode="complete"
+											immediate="false"
+											save="true">
+											<xp:this.action><![CDATA[#{javascript:importPackage(com.cascorp);
+dBar.info("Submit to Eloqua");
+Eloqua.submitToEloqua(document1.getDocument());				
+sessionScope.editAttachment=null
+sessionScope.mhpItem=null
+sessionScope.mhpRev=null
+sessionScope.serialNbr=null}]]></xp:this.action>
+										</xp:eventHandler>
+									</xp:button>
+
+									<xp:button
+										value="${langBean.btnLabelCancel}"
+										id="button2"
+										rendered="#{javascript:document1.isEditable()}"
+										styleClass="btn btn-primary">
+										<xp:eventHandler
+											event="onclick"
+											submit="true"
+											refreshMode="complete"
+											immediate="true"
+											save="false">
+											<xp:this.action>
+
+												<xp:actionGroup>
+
+
+
+
+
+
+													<xp:executeScript>
+														<xp:this.script><![CDATA[#{javascript:sessionScope.remove("serialNbr");
+sessionScope.remove("mhpItem");
+sessionScope.remove("serialNumber");
+sessionScope.remove("newAttachment");
+sessionScope.remove("viaQR");}]]></xp:this.script>
+													</xp:executeScript>
+													<xp:openPage name="/MyProfileAttachmentsView.xsp"></xp:openPage>
+
+
+												</xp:actionGroup>
+											</xp:this.action>
+										</xp:eventHandler>
+									</xp:button>
+
+									<xp:button
+										value="${langBean.btnLabelDelete}"
+										id="button3"
+										styleClass="btn btn-primary">
+										<xp:this.rendered><![CDATA[#{javascript:!document1.isNewNote() && document1.isEditable()}]]></xp:this.rendered>
+										<xp:eventHandler
+											event="onclick"
+											submit="true"
+											refreshMode="complete">
+
+											<xp:this.script><![CDATA[
+var confMsg = "#{javascript:langBean.btnDeleteConfirmAttach}" ;
+var contDelete = XSP.confirm(confMsg);
+return contDelete ;]]></xp:this.script>
+											<xp:this.action>
+
+												<xp:actionGroup>
+
+													<xp:deleteDocument
+														name="/MyProfileAttachmentsView.xsp"
+														message="#{langBean.btnDeleteConfirmAttach}">
+													</xp:deleteDocument>
+
+
+													<xp:executeScript>
+
+														<xp:this.script><![CDATA[#{javascript:sessionScope.remove("serialNbr");
+sessionScope.remove("mhpItem");
+sessionScope.remove("serialNumber");
+sessionScope.remove("newAttachment");
+}]]></xp:this.script>
+													</xp:executeScript>
+												</xp:actionGroup>
+											</xp:this.action>
+										</xp:eventHandler>
+									</xp:button>
+								</xp:td>
+							</xp:tr>
+						</xp:table>
+						<xp:br></xp:br>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+	</xc:ccLayout>
+	<xp:this.navigationRules>
+		<xp:navigationRule
+			outcome="xsp-success"
+			viewId="/MyProfileAttachmentsView.xsp"></xp:navigationRule>
+	</xp:this.navigationRules>
+</xp:view>

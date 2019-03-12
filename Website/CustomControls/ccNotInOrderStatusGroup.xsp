@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+<!-- This panel shows if they are not in the order status group -->
+	<xe:widgetContainer id="widgetContainer1"
+		titleBarText="${langBean.OrderStatusSearch1}"
+		styleClass="login-panel">
+				<div class="panel-body">
+					<div class="form-group">
+						<xp:text tagName="label" value="${langBean.OrderStatusNotAllowed}"
+							id="computedField6" styleClass="control-label">
+						</xp:text>&#160;&#160;&#160;&#160;
+						<xp:link escape="true"
+							text="${javascript:langBean.accessform}" id="link1"
+							target="_blank"
+							value="${configBean.HostURL}${sessionScope.LanguageURL}orderstatus_intro">
+						</xp:link>
+					</div>
+				</div>
+			</xe:widgetContainer>
+
+</xp:view>

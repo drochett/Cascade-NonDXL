@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+
+  <!--TITLE HEADING-->
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:panel styleClass="tableHeading" tagName="th">
+        <xp:this.attrs>
+          <xp:attr name="colspan" value="2"></xp:attr>
+        </xp:this.attrs>
+        <xp:label value="${langBean.title3cShaftPin}" id="label2"
+          style="font-weight:bold;color:rgb(255,255,255)">
+        </xp:label>
+      </xp:panel>
+    </xp:tr>
+  </xp:table>
+  <xp:panel id="panelInstructions2" styleClass="alert alert-info">
+    <xp:table>
+      <xp:tr>
+        <xp:td style="width:20px">
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        </xp:td>
+        <xp:td>
+          <xp:text escape="true" id="confirmMsg1" value="${langBean.noteShaftPin1}">
+          </xp:text>
+        </xp:td>
+      </xp:tr>
+    </xp:table>
+  </xp:panel>
+  <xp:br></xp:br>
+  <!-- START 1 row 2 column IMAGE FLIP -->
+  <xp:panel styleClass="row" id="panel4">
+    <xp:panel styleClass="col-xs-12 col-sm-7 col-sm-push-5" id="panel7">
+      <xp:image url="/Step3-ShaftPinBar.gif" id="image1"></xp:image>
+    </xp:panel>
+    <xp:panel styleClass="col-xs-12 col-sm-5 col-sm-pull-7" id="panel6">
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:td colspan="2">
+            <xp:label value="${langBean.labelPleaseEnterIn}:">
+            </xp:label>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td style="width:60.0%">
+            <xp:label value="${langBean.spb_W_Label1}:" for="spb_W1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.spb_W}" id="spb_W1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.spb_T_Label1}:" for="spb_T1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.spb_T}" id="spb_T1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.spb_BL_Label1}:" for="spb_BL1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.spb_BL}" id="spb_BL1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.spb_BH_Label1}:" for="spb_BH1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.spb_BH}" id="spb_BH1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.spb_CL_Label1}:" for="spb_CL1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.spb_CL}" id="spb_CL1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+      <!--      choose offset-->
+      <xp:table>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.offset_Inset_Inline_Label1}:" for="offset_Inset_Inline1">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:radioGroup value="#{document1.Offset_Inset_Inline}" id="offset_Inset_Inline1"
+              layout="pageDirection">
+              <xp:selectItems id="selectItems1">
+                <xp:this.value><![CDATA[${langBean.selOffsetInsetInline}]]></xp:this.value>
+              </xp:selectItems>
+              <xp:eventHandler event="onchange" submit="true" refreshMode="partial"
+                refreshId="panelOffsetFields1"></xp:eventHandler>
+            </xp:radioGroup>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+      <!--  offset field-->
+      <xp:panel id="panelOffsetFields1">
+        <xp:table>
+          <xp:tr rendered="#{document1.Offset_Inset_Inline eq 'Offset (OS)'}">
+            <xp:td>
+              <xp:label value="${langBean.spb_OS_Label1}:" for="spb_OS1"></xp:label>
+            </xp:td>
+            <xp:td>
+              <xp:inputText value="#{document1.spb_OS}" id="spb_OS1"></xp:inputText>
+            </xp:td>
+          </xp:tr>
+          <xp:tr rendered="#{document1.Offset_Inset_Inline eq 'Inset (IS)'}">
+            <xp:td>
+              <xp:label value="${langBean.spb_IS_Label1}:" for="spb_IS1"></xp:label>
+            </xp:td>
+            <xp:td>
+              <xp:inputText value="#{document1.spb_IS}" id="spb_IS1"></xp:inputText>
+            </xp:td>
+          </xp:tr>
+          <xp:tr rendered="#{document1.Offset_Inset_Inline eq 'RearShaft (RS)'}">
+            <xp:td>
+              <xp:label value="${langBean.spb_RS_Label1}:" for="spb_RS1"></xp:label>
+            </xp:td>
+            <xp:td>
+              <xp:inputText value="#{document1.spb_RS}" id="spb_RS1"></xp:inputText>
+            </xp:td>
+          </xp:tr>
+          <xp:tr rendered="#{document1.Offset_Inset_Inline eq 'Inline (IL)'}">
+            <xp:td>
+              <xp:label value="${langBean.spb_IL_Label1}:" for="spb_RS1"></xp:label>
+            </xp:td>
+            <xp:td>
+              <xp:text escape="true" id="computedField1">
+                <xp:this.value><![CDATA[#{javascript:return "0"}]]></xp:this.value>
+              </xp:text>
+            </xp:td>
+          </xp:tr>
+          <xp:tr>
+            <xp:td>
+              <xp:label value="${langBean.spb_stampInfo_Label1}:" for="spb_stampInfo1"></xp:label>
+            </xp:td>
+            <xp:td>
+              <xp:inputText value="#{document1.spb_stampInfo}" id="spb_stampInfo1"></xp:inputText>
+            </xp:td>
+          </xp:tr>
+        </xp:table>
+      </xp:panel>
+      <!--  stamping info -->
+    </xp:panel>
+  </xp:panel>
+  <!-- END 1 row 2 column IMAGE FLIP -->
+  <xp:br></xp:br>
+  <!--TITLE TUBE SPECIFICATION-->
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:panel styleClass="tableHeading" tagName="th">
+        <xp:this.attrs>
+          <xp:attr name="colspan" value="2"></xp:attr>
+        </xp:this.attrs>
+        <xp:label value="${langBean.titleTubeSpecification}" id="label1"
+          style="font-weight:bold;color:rgb(255,255,255)">
+        </xp:label>
+      </xp:panel>
+    </xp:tr>
+  </xp:table>
+  <xp:panel id="panel1" styleClass="alert alert-info">
+    <xp:table>
+      <xp:tr>
+        <xp:td style="width:20px">
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        </xp:td>
+        <xp:td>
+          <xp:text escape="true" id="computedField2" value="${langBean.noteTubeSpec1}">
+          </xp:text>
+        </xp:td>
+      </xp:tr>
+    </xp:table>
+  </xp:panel>
+  <!-- START 1 row 1 column  -->
+  <xp:panel styleClass="row" id="panel2">
+    <xp:panel styleClass="col-xs-12 col-sm-5" id="panel5">
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:td style="width:60.0%">
+            <xp:label value="${langBean.spb_BPDiam_Label1}:" for="spb_BPDiam1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.spb_BPDiam}" id="spb_BPDiam1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.spb_TIDiam_Label1}:" for="spb_TIDiam1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.spb_TIDiam}" id="spb_TIDiam1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.spb_TODiam_Label1}:" for="spb_TODiam1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.spb_TODiam}" id="spb_TODiam1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.tubeSloted_Label1}" for="tubeSloted1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:radioGroup value="#{document1.TubeSloted}" id="tubeSloted1">
+              <xp:selectItems id="selectItems2">
+                <xp:this.value><![CDATA[${langBean.selYesNo}]]></xp:this.value>
+              </xp:selectItems>
+              <xp:eventHandler event="onchange" submit="true" refreshMode="partial"
+                refreshId="panelTubeSlotted1"></xp:eventHandler>
+            </xp:radioGroup>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+    </xp:panel>
+  </xp:panel>
+  <!-- END 1 row 1 column  -->
+  
+  <!-- START 1 row 2 column IMAGE FLIP -->
+  <xp:panel id="panelTubeSlotted1">
+    <xp:panel styleClass="row" id="panel3" rendered="#{document1.TubeSloted eq 'Yes'}">
+      <xp:panel styleClass="col-xs-12 col-sm-7 col-sm-push-5" id="panel9">
+        <xp:image url="/Step3-ShaftPinBar_b.gif" id="image3"></xp:image>
+      </xp:panel>
+      <xp:panel styleClass="col-xs-12 col-sm-5 col-sm-pull-7" id="panel10">
+        <xp:table styleClass="address-table">
+          <xp:tr>
+            <xp:td style="width:60.0%">
+              <xp:label value="${langBean.spb_sa_Label1}:" for="spb_sa1"></xp:label>
+            </xp:td>
+            <xp:td>
+              <xp:inputText value="#{document1.spb_sa}" id="spb_sa1"></xp:inputText>
+            </xp:td>
+          </xp:tr>
+          <xp:tr>
+            <xp:td>
+              <xp:label value="${langBean.spb_sd_Label1}:" for="spb_sd1"></xp:label>
+            </xp:td>
+            <xp:td>
+              <xp:inputText value="#{document1.spb_sd}" id="spb_sd1"></xp:inputText>
+            </xp:td>
+          </xp:tr>
+          <xp:tr>
+            <xp:td>
+              <xp:label value="${langBean.spb_sl_Label1}:" for="spb_sl1"></xp:label>
+            </xp:td>
+            <xp:td>
+              <xp:inputText value="#{document1.spb_sl}" id="spb_sl1"></xp:inputText>
+            </xp:td>
+          </xp:tr>
+          <xp:tr>
+            <xp:td>
+              <xp:label value="${langBean.spb_sw_Label1}:" for="spb_sw1"></xp:label>
+            </xp:td>
+            <xp:td>
+              <xp:inputText value="#{document1.spb_sw}" id="spb_sw1"></xp:inputText>
+            </xp:td>
+          </xp:tr>
+          <xp:tr>
+            <xp:td>
+              <xp:label value="${langBean.spb_TU_Label1}:" for="spb_TU1"></xp:label>
+            </xp:td>
+            <xp:td>
+              <xp:inputText value="#{document1.spb_TU}" id="spb_TU1"></xp:inputText>
+            </xp:td>
+          </xp:tr>
+        </xp:table>
+      </xp:panel>
+    </xp:panel>
+  </xp:panel>
+  <!-- END 1 row 2 column IMAGE FLIP -->
+  <xp:br></xp:br>
+  <!-- START INSTRUCTIONS-->
+  <xp:panel id="panelInstructions1" styleClass="row" rendered="#{javascript:@IsNewDoc()}">
+    <xp:panel styleClass="col-xs-12" id="panel8">
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:this.attrs>
+              <xp:attr name="colspan" value="2"></xp:attr>
+            </xp:this.attrs>
+            <xp:label value="${langBean.titleNotes}" id="label10"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+      </xp:table>
+      <xp:panel id="panel11" styleClass="alert alert-info">
+        <xp:table>
+          <xp:tr>
+            <xp:td style="width:20px">
+              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            </xp:td>
+            <xp:td>
+              <xp:text escape="true" id="computedField4" value="${langBean.itaNote1}">
+              </xp:text>
+            </xp:td>
+          </xp:tr>
+          <xp:tr>
+            <xp:td style="width:20px">
+              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            </xp:td>
+            <xp:td>
+              <xp:text escape="true" id="computedField6" value="${langBean.itaNote3}">
+              </xp:text>
+            </xp:td>
+          </xp:tr>
+          <xp:tr>
+            <xp:td style="width:20px">
+              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            </xp:td>
+            <xp:td>
+              <xp:text escape="true" id="computedField3" value="${langBean.spNote1}">
+              </xp:text>
+            </xp:td>
+          </xp:tr>
+          <xp:tr>
+            <xp:td style="width:20px">
+              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            </xp:td>
+            <xp:td>
+              <xp:text escape="true" id="computedField5" value="${langBean.spNote2}">
+              </xp:text>
+            </xp:td>
+          </xp:tr>
+        </xp:table>
+      </xp:panel>
+    </xp:panel>
+  </xp:panel>
+  <!-- END INSTRUCTIONS-->
+
+  <xp:eventHandler event="onClientLoad" submit="false">
+  	<xp:this.script><![CDATA[dojo.query("input[id$='spb_W1']")[0].focus();]]></xp:this.script>
+  </xp:eventHandler></xp:view>

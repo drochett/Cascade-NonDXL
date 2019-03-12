@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databasescript xmlns="http://www.lotus.com/dxl">
+  <item name="$POID">
+    <datetime>20190124T101909,35-08</datetime>
+  </item>
+</databasescript>

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.beforePageLoad><![CDATA[#{javascript://setup the parts typeOrder
+viewScope.typeOrder = "parts";
+viewScope.prtNumFld = "partNumberInput";
+
+}]]></xp:this.beforePageLoad>
+	
+	<xc:ccOrderHeaderCommon></xc:ccOrderHeaderCommon>
+	<xp:br></xp:br>
+	<xp:panel styleClass="row" id="row" tagName="div">
+		<xp:panel styleClass="col-xs-12 col-md-10" id="POPanel">
+			<xe:widgetContainer id="widgetContainer1"
+				titleBarText="${langBean.PartsOrderPOHeading}" styleClass="login-panel">
+
+				<div class="panel-body">
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-4">
+								<xp:text tagName="label" value="${langBean.labelPurchaseOrder}:"
+									id="computedField2" styleClass="control-label">
+								</xp:text>
+								<xp:label>
+									<span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+								</xp:label>
+							</div>
+							<div class="col-sm-8">
+								<xp:inputText id="dealerPONumberInput" value="#{salesOrderBean.dealerPONumber}"
+									required="true">
+									<xp:this.validators>
+										<xp:validateRequired
+											message="${langBean.labelPurchaseOrder}: ${langBean.msgIsRequired}">
+										</xp:validateRequired>
+									</xp:this.validators>
+								</xp:inputText>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-4">
+								<xp:text tagName="label"
+									value="${langBean.labelEndUserPurchaseOrder}:" id="computedField6"
+									styleClass="control-label">
+								</xp:text>
+							</div>
+							<div class="col-sm-8">
+								<xp:inputText id="inputText2"
+									value="#{salesOrderBean.endUserPONumber}">
+								</xp:inputText>
+							</div>
+						</div>
+					</div>
+					<xp:text escape="true" id="PurchaseNote" tagName="p"
+						value="${langBean.PartsOrderNote}">
+					</xp:text>
+				</div>
+			</xe:widgetContainer>
+
+		</xp:panel>
+	</xp:panel>
+	<xp:panel styleClass="row" id="panelStep1">
+		<xp:panel styleClass="col-xs-12 col-md-10" id="panelForm1">
+			<!--  Area to input part number -->
+			<div class="form-group">
+				<div class="row">
+					<div class="col-sm-4">
+						<xp:text tagName="label" value="${langBean.labelEnterPartNumber}:"
+							id="computedField1" styleClass="control-label">
+						</xp:text>
+						<xp:label>
+							<span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+						</xp:label>
+					</div>
+					<div class="col-sm-6">
+						<xp:inputText id="partNumberInput"
+							disableClientSideValidation="true">
+
+							<xp:this.validators>
+								<xp:validateConstraint
+									message="${langBean.msgBadPartNumber}">
+									<xp:this.regex><![CDATA[([A-Za-z0-9\-]+)]]></xp:this.regex>
+								</xp:validateConstraint>
+							</xp:this.validators>
+							
+							<xp:eventHandler event="onkeypress"
+								submit="true" refreshMode="complete">
+								<xp:this.action><![CDATA[#{javascript:var partNumberInput:com.ibm.xsp.component.xp.XspInputText = getComponent("partNumberInput");
+var partNum = partNumberInput.getValue();
+//setup error messgae object
+var msg=new javax.faces.application.FacesMessage();
+if (!!partNum) {
+	var rtn = salesOrderBean.addPartItem(partNum);
+	if (rtn != "added"){
+	//see what error message to show
+		if (rtn == "badpartnumber"){
+ 			//put up error message
+ 			facesContext.addMessage(partNumberInput.getClientId(facesContext) ,  msg(langBean.getValue("msgBadPartNumber")));
+ 		} else if (rtn == "duplicate"){
+ 			facesContext.addMessage(partNumberInput.getClientId(facesContext) ,  msg(langBean.getValue("msgDuplicatePartNumber")));
+ 		}
+ 	} else {
+ 		//clear out input field
+ 		partNumberInput.setValue("");
+ 	}
+ } else {
+	//part number is empty
+	facesContext.addMessage(partNumberInput.getClientId(facesContext) ,  msg(langBean.getValue("msgBadPartNumber")));
+ }}]]></xp:this.action>
+								<xp:this.script><![CDATA[if (thisEvent.keyCode==13) {
+	dojo.query("input[id$='partNumberInput']")[0].focus();
+	return true;
+}else{
+	return false;
+}]]></xp:this.script>
+							</xp:eventHandler></xp:inputText>
+					</div>
+					<div class="col-sm-2">
+						<xp:button value="${langBean.labelAddPart}"
+							id="button1" styleClass="btn btn-primary">
+							<xp:eventHandler event="onclick"
+								submit="true" refreshMode="complete">
+								<xp:this.action><![CDATA[#{javascript:var partNumberInput:com.ibm.xsp.component.xp.XspInputText = getComponent("partNumberInput");
+var partNum = partNumberInput.getValue();
+//setup error messgae object
+var msg=new javax.faces.application.FacesMessage();
+if (!!partNum) {
+	var rtn = salesOrderBean.addPartItem(partNum);
+	if (rtn != "added"){
+	//see what error message to show
+		if (rtn == "badpartnumber"){
+ 			//put up error message
+ 			facesContext.addMessage(partNumberInput.getClientId(facesContext) ,  msg(langBean.getValue("msgBadPartNumber")));
+ 		} else if (rtn == "duplicate"){
+ 			facesContext.addMessage(partNumberInput.getClientId(facesContext) ,  msg(langBean.getValue("msgDuplicatePartNumber")));
+ 		}
+ 	} else {
+ 		//clear out input field
+ 		partNumberInput.setValue("");
+ 		var poNumberInput:com.ibm.xsp.component.xp.XspInputText = getComponent("dealerPONumberInput");
+		var poNum = poNumberInput.getValue();
+		viewScope.put("poNum",poNum);
+ 	}
+ } else {
+	//part number is empty
+	facesContext.addMessage(partNumberInput.getClientId(facesContext) ,  msg(langBean.getValue("msgBadPartNumber")));
+ }}]]></xp:this.action>
+
+							</xp:eventHandler>
+						</xp:button>
+					</div>
+
+				</div>
+			</div>
+			<!-- Error messages about part number -->
+			<div class="form-group">
+				<div class="row">
+					<xp:panel id="panel1" styleClass="orderErrorPanel">
+						<xp:message id="emailMsg" for="partNumberInput"></xp:message>
+					</xp:panel>
+				</div>
+			</div>
+
+
+			<!-- Build table for headings -->
+			<xp:table styleClass="tableColumnHeadings">
+				<xp:tr>
+					<xp:td style="width:20%">
+						<xp:label value="${langBean.labelPartNumber}"
+							id="label1">
+						</xp:label>
+					</xp:td>
+					<xp:td>
+						<xp:label value="${langBean.labelDescription}"
+							id="label2">
+						</xp:label>
+					</xp:td>
+					<xp:td style="width:10%" styleClass="text-right">
+						<xp:label value="${langBean.labelQuantity}"
+							id="label3">
+						</xp:label>
+					</xp:td>
+					<xp:td style="width:15%" styleClass="text-right">
+						<xp:label value="${langBean.labelPrice}" id="label6">
+						</xp:label>
+					</xp:td>
+					<xp:td style="width:5%">
+
+					</xp:td>
+				</xp:tr>
+			</xp:table>
+
+			<!-- This table is for the order items -->
+
+			<xp:table styleClass="order-table" id="partsItemsTable">
+				<!-- Repeat over the rows to show the items to order -->
+				<xp:repeat id="OrderItemRepeat" rows="30" var="lineItem"
+					indexVar="indLineItem" value="#{javascript:salesOrderBean.getOrderedParts();}">
+
+					<xp:tr>
+						<xp:td style="width:20%">
+							<xp:inputText id="inputText4" readonly="true"
+								value="#{lineItem.partNumber}">
+							</xp:inputText>
+						</xp:td>
+						<xp:td>
+							<xp:inputText value="#{lineItem.description}" id="inputText7"
+								readonly="true">
+							</xp:inputText>
+
+						</xp:td>
+						<xp:td style="width:10%">
+							<span style="float:right">
+								<xe:djNumberTextBox id="djNumberTextBox1"
+									value="#{lineItem.orderQty}" maxLength="4"
+									rangeMessage="#{langBean.OrderQtyWarning} #{lineItem.maxQty}"
+									javaType="double" invalidMessage="#{langBean.OrderQtyWarning} #{lineItem.maxQty}"
+									style="width:45.0px" required="true">
+									<xe:this.dojoAttributes>
+										<xp:dojoAttribute name="missingMessage"
+											value="${langBean.QtyRequiredMsg}">
+										</xp:dojoAttribute>
+									</xe:this.dojoAttributes>
+									<xe:this.constraints>
+										<xe:djNumberConstraints max="#{lineItem.maxQty}"
+											min="1" places="0">
+										</xe:djNumberConstraints>
+									</xe:this.constraints>
+
+								</xe:djNumberTextBox>
+								<xp:td style="width:15%">
+									<span style="float:right">
+										<xp:inputText id="inputText3" readonly="true">
+											<xp:this.value><![CDATA[#{javascript:var price = lineItem.getPrice();
+var qty = lineItem.getOrderQty();
+var total = price * qty;
+return total;}]]></xp:this.value>
+											<xp:this.converter>
+												<xp:convertNumber pattern=" #,##0.00">
+												</xp:convertNumber>
+											</xp:this.converter>
+										</xp:inputText>
+									</span>
+								</xp:td>
+
+
+							</span>
+
+						</xp:td>
+						<!--  Setup a Remove link to remove the item from the partsItem Map -->
+						<xp:td style="width:5%">
+							<xp:link escape="true"
+								text="#{langBean.labelRemove}" id="link1">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial" refreshId="partsItemsTable"
+									disableValidators="true">
+									<xp:this.action><![CDATA[#{javascript:salesOrderBean.removePartItem(lineItem.getPartNumber());}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:link>
+						</xp:td>
+
+					</xp:tr>
+					<!-- End repeat over the item rows -->
+				</xp:repeat>
+
+				<!-- add in a row for the total and calculate button -->
+
+				<xp:tr>
+
+					<xp:td style="width:20%">
+						<xp:image url="/empty.gif" id="image2"></xp:image>
+					</xp:td>
+					<xp:td>
+						<xp:image url="/empty.gif" id="image3"></xp:image>
+					<xp:label value="${langBean.labelTotal}" id="TotalLabel"></xp:label></xp:td>
+					<xp:td style="width:10%">
+						<xp:button id="button2" value="${langBean.labelCalculate}" styleClass="btn btn-primary">
+							<xp:eventHandler event="onclick" submit="true"
+								refreshMode="partial" refreshId="partsItemsTable" disableValidators="true">
+								<xp:this.action><![CDATA[#{javascript://recalc total}]]></xp:this.action>
+							</xp:eventHandler>
+						</xp:button>
+					</xp:td>
+					<xp:td style="width:15%">
+						<span style="float:right">
+							<xp:text escape="true" id="orderTotalDisplay" value="#{javascript:return salesOrderBean.getOrderTotal(viewScope.typeOrder );}">
+								<xp:this.converter>
+									<xp:convertNumber pattern=" #,##0.00"></xp:convertNumber>
+								</xp:this.converter>
+							</xp:text>
+						</span>
+					</xp:td>
+					<xp:td style="width:5%">
+					<xp:label value="#{salesOrderBean.custCurrency}"
+						id="label4">
+					</xp:label>
+
+					</xp:td>
+
+				</xp:tr>
+
+			</xp:table>
+
+
+
+
+
+
+			<!--			button table-->
+			<xp:table>
+				<xp:tr>
+					<xp:td></xp:td>
+					<xp:td style="width:10%">
+						<xp:image url="/empty.gif" id="image1"></xp:image>
+					</xp:td>
+					<xp:td>
+						<!-- Error message if quantity is zero for anything -->
+						<xp:panel id="orderErrorMsg" styleClass="orderErrorPanel">
+							<xp:message id="message1" for="orderTotalDisplay"></xp:message>
+						</xp:panel>
+					</xp:td>
+					<xp:td style="width:10%">
+						<xp:button id="buttonNext1"
+							value="${langBean.btnNextStep}" styleClass="btn btn-primary">
+							<xp:eventHandler event="onclick"
+								submit="true" refreshMode="partial" refreshId="main">
+								<xp:this.action><![CDATA[#{javascript:dBar.info("Starting Next button");
+
+try{
+	if (salesOrderBean.checkQtyInput(viewScope.typeOrder)){
+		viewScope.orderStep = "step_2";
+		var dc = getComponent("dcOrderStep");
+		dc.show("step_2")
+	} else {
+	dBar.info("throw error!");
+	
+	//throw an error	
+	var msg=new javax.faces.application.FacesMessage( langBean.getValue("OrderQtyErrorMsg"));
+ 	var orderTotalDisplay:com.ibm.xsp.component.xp.XspOutputText = getComponent("orderTotalDisplay");
+
+ 	facesContext.addMessage( orderTotalDisplay.getClientId(facesContext) , msg);
+	}
+} catch(e){
+	dBar.error("Error in Next button: " + e.toString());
+}
+
+
+}]]></xp:this.action>
+							</xp:eventHandler>
+						</xp:button>
+					</xp:td>
+				</xp:tr>
+			</xp:table>
+		</xp:panel>
+	</xp:panel>
+	</xp:view>

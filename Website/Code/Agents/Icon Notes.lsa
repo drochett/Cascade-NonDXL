@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="Icon Notes" hide="v3" publicaccess="false">
+  <trigger type="actionsmenu"/>
+  <documentset type="runonce"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent Icon Notes
+	Created Mar 18, 2016 by Michael Zens/PTL/CASCADE
+	Description: Comments for Agent
+%END REM
+Option Public
+Option Declare
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	Dim sess As New NotesSession
+	Dim db As NotesDatabase
+	Dim doc As NotesDocument
+	Dim item As NotesItem
+	Dim newFF As String, FlagFldStr As String
+	Dim itemFF As NotesItem
+	Dim x As Integer
+	Dim ans As Variant
+	Dim msg As String
+	Set db = sess.CurrentDatabase
+	Dim session As New NotesSession
+
+	Dim n As String
+	Set db = session.CurrentDatabase
+	n = "FFFF0010"
+'	n = "476" 'db2.jdbc - WYATT
+'	n = "472" ' db-eme.jdbc - HOLLIDAY
+	n = Inputbox("Enter the noteId of the document you want yo work on:", "Update Note Icon Values", n)
+	If n = "" Then
+		Msgbox ("Request to update Icon Note has been cancelled.")
+		Exit Sub
+	End If
+	Set doc = db.GetDocumentByID (n)
+	Set item = doc.getFirstItem("$TITLE")
+	msg = "The following are Icon Notes in this database for " + item.values(0) + ":"
+	Forall i In doc.Items
+		msg = msg + Chr(10) + Chr(9) + i.name
+	End Forall
+		Msgbox msg
+	FlagFldStr = Inputbox("Enter Icon Note field to work on", "Update Note Icon Values", "$Flags")
+	If FlagFldStr = "" Then
+		Msgbox ("Request to update Icon Note has been cancelled.")
+		Exit Sub
+	End If
+	Set itemFF = doc.GetFirstItem(FlagFldStr)
+	If itemFF Is Nothing Then
+		'		msg = FlagFldStr + " does Not exist in this database.  Do you want to create a new Icon Note?"
+'		ans = MsgBox (msg, 36, FlagFldStr)
+		Msgbox FlagFldStr + " does not exist.  Exiting process."
+		Exit Sub
+	End If
+	Forall v In itemFF.Values
+		Msgbox FlagFldStr +"(" + Cstr(x) + ")" + " is " + itemFF.values(x)
+		x = x+1
+	End Forall
+	newFF = Inputbox("Enter new values:", "Change " &amp; FlagFldStr + " Value", itemFF.values(0))
+	'ie:  iNotes/CALForms85.nsf
+	'If user hits cancel or returns an empty value, we want to not change the original value
+	'this will prevent losing data if someone runs the agent by mistake 
+	If Not newff = "" Then
+		'give the user a chance to opt out
+		msg = |By selecting "Yes", you will change the value for the "| + FlagFldStr + |" to
+| &amp; newff &amp; |
+This may cause erratic behavior of the application.
+
+Do you want to do this?|
+		ans = Msgbox(msg,36,"Change "+ FlagFldStr + " Field?")
+		If ans = 6 Then
+			Set item = doc.ReplaceItemValue(FlagFldStr, newFF)
+			Call doc.save(True,True)
+		Else
+			'action aborted, let user know that
+			msg = |"| + FlagFldStr +|" value not changed. It kept original value of:
+| &amp; itemff.values(0)
+			Msgbox msg,64,"Action aborted"
+		End If
+	End If
+End Sub</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101933,13-08</datetime>
+  </item>
+</agent>

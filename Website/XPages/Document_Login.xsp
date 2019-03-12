@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+	<xp:this.resources>
+		<xp:script src="/custom.jss" clientSide="false"></xp:script>
+	</xp:this.resources>
+	<xp:this.beforePageLoad><![CDATA[#{javascript:dBar.info("entering Document_Login XPage beforePageLoad");
+setScpLanguage() ;
+setScpUnid() ;
+
+/* added by mdz 4/15/2016
+Code intended to add data to view scope so it can be
+grabbed for metaData info
+*/
+var unid = viewScope.get("unid")
+var pageName = view.getPageName();
+viewScope.put("pageName",pageName);
+
+var db = session.getDatabase("","web2/home.nsf",false)
+var doc = db.getDocumentByUNID(unid);
+//set pageTitle
+var thisPageTitle =  doc.getItemValue("Subject");
+var thisPageSEOdata = doc.getItemValue("SEO");
+var SEOtext;
+var thisPageSEO;
+var  seoLen = thisPageSEOdata.length
+for (i=0; i< seoLen; i++){
+	if (i== 0) {
+		SEOtext = thisPageSEOdata[i];
+	} else {
+		SEOtext += "," +thisPageSEOdata[i];
+	}	
+}
+if (SEOtext == null || SEOtext == ""){
+	viewScope.put("SEOtext","EMPTY");
+	thisPageSEO = "";
+} else {
+	viewScope.put("SEOtext",SEOtext);
+	thisPageSEO = " - " + SEOtext
+}
+
+viewScope.put("pageTitle","Cascade - " + thisPageTitle[0] + thisPageSEO);
+//set docType
+var thisType = doc.getItemValue("Type");
+//dBar.info("thisType: " + thisType);
+//dBar.info("thisType.length: " + thisType.length);
+if (thisType.length > 0) {
+viewScope.put("docType",thisType[0]);
+}
+//set description	
+var thisPageDescr =  doc.getItemValue("description");
+//create single expression out of array
+var dText
+var dLen = thisPageDescr.length
+for (i=0; i< dLen; i++){
+	if (i== 0) {
+		dText = thisPageDescr[i];
+	} else { 
+		dText += "," + thisPageDescr[i];
+	}
+}
+if (dText == null || dText == ""){
+	viewScope.put("pageDescription","")
+} else {
+	viewScope.put("pageDescription",thisPageDescr[0]);
+}
+//set keywords	
+var thisPageKeyArray =  doc.getItemValue("keywords");
+var thisPageKeywords = thisPageKeyArray.toString;
+//create single expression out of array
+var kLen = thisPageKeywords.length;
+var text;
+for (i=0; i< kLen; i++){
+	if (i== 0) {
+		text = thisPageKeywords[i];
+	} else { 
+		text += "," + thisPageKeywords[i];
+	}
+}
+	if (text == null || text == "" ){
+		viewScope.put("pageKeywords","")
+	} else {
+		viewScope.put("pageKeywords",text);
+}
+}]]></xp:this.beforePageLoad>
+
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+	<xc:ccMetaData metaRobots="none">
+		<xc:this.pageTitle><![CDATA[#{javascript:viewScope.get("pageTitle")}]]></xc:this.pageTitle>
+		<xc:this.metaKeywords><![CDATA[#{javascript:viewScope.get("pageKeywords")}]]></xc:this.metaKeywords>
+		<xc:this.metaDescription><![CDATA[#{javascript:viewScope.get("pageDescription")}]]></xc:this.metaDescription>
+
+	</xc:ccMetaData>
+	
+	<xc:ccLayout>
+		<xp:panel id="badUrlPanel1"
+			rendered="${javascript:return (!viewScope.unid)?true:false;}"
+			styleClass="container">
+			<!--  new banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							value="${langBean.hdgPageNotFound}"
+							styleClass="carousel-heading">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<xp:panel id="panelOrderCacelled1"
+				styleClass="alert alert-error">
+				<xp:table>
+					<xp:tr>
+						<xp:td style="width:8%">
+							<span
+								class="glyphicon glyphicon-exclamation-sign"
+								aria-hidden="true">
+							</span>
+						</xp:td>
+						<xp:td>
+							<xp:text escape="true" id="cancelMsg1"
+								value="${langBean.msgPageNotFound}">
+							</xp:text>
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+			</xp:panel>
+		</xp:panel>
+		<!--    document unid found-->
+		<xp:panel id="panel1"
+			rendered="${javascript:return (!!viewScope.unid)?true:false;}">
+			<xp:panel id="panelDocument1">
+				<xp:this.data>
+					<xp:dominoDocument var="document1"
+						databaseName="${configBean.HomeDbPath}" formName="Document"
+						action="openDocument" documentId="${viewScope.unid}">
+					</xp:dominoDocument>
+				</xp:this.data>
+				
+				
+				<xc:ccProduct>
+					<xc:this.loaded><![CDATA[${document1.Type eq "Product"}]]></xc:this.loaded>
+				</xc:ccProduct>
+				
+				
+				
+				
+				
+				
+			</xp:panel>
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

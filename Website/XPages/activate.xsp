@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xp:this.beforePageLoad><![CDATA[#{javascript:importPackage(com.cascorp);
+if (@UserName()== "Anonymous"){
+	//process only if they are not logged in
+	var unid = context.getUrlParameter("unid");
+	var rtn = "";
+	dBar.info("unid is " + unid);
+	dBar.info("sessionScope.LanguageP is " + sessionScope.LanguageP);
+	var lang = (!!sessionScope.LanguageP ? sessionScope.LanguageP : "americas-en");
+	var rtn = RegistrationUtilities.activateRegistration(lang, unid, sessionAsSigner);
+	dBar.info("user name from beforePageLoad: " + viewScope.userName);
+	dBar.info("rtn is " + rtn);
+	viewScope.show = rtn;
+} else {
+	//redirect to home page if they are logged in
+	var homePage = configBean.getValue("HostURL");
+	facesContext.getExternalContext().redirect(homePage);
+}}]]></xp:this.beforePageLoad>
+	<xc:ccLayout>
+		<xp:panel id="main" disableOutputTag="true">
+			<div class="container" id="div1">
+				<!-- BLUE HEADER -->
+				<div class="blue-header">
+					<xp:text escape="true" id="computedField1"
+						value="${langBean.PageHeadingRegistrationPhase2}" styleClass="carousel-heading"
+						tagName="span">
+					</xp:text>
+				</div>
+				<xp:panel styleClass="row" id="row" tagName="div">
+
+					<xe:switchFacet id="switchFacet1"
+						selectedFacet="#{javascript:return viewScope.show;}">
+						<xp:this.facets>
+							<xp:panel xp:key="success" id="SucccessfulRegistration"
+								disableOutputTag="true">
+								<xe:widgetContainer id="widgetContainer1"
+									titleBarText="${langBean.HeadingRegistrationActivated}"
+									styleClass="login-panel">
+
+									<div class="panel-body">
+										<div class="form-group">
+											<xp:text tagName="label" value="${langBean.AccountActivated}"
+												id="label1" styleClass="control-label">
+											</xp:text>
+											<p>
+												<xp:text escape="true" id="computedField2"
+													value="${langBean.AccountActivateMsg1}" tagName="span">
+												</xp:text>
+												<xp:text value="#{viewScope.userName}" id="userNameDisp"
+													tagName="span">
+												</xp:text>
+												<xp:text escape="true" id="computedField5"
+													value="${langBean.AccountActivateMsg2}" tagName="span">
+												</xp:text>
+											</p>
+											<xp:text tagName="label" value="${javascript:langBean.RegThankYou}"
+												id="computedField3" styleClass="control-label">
+											</xp:text>
+
+											<p>
+												<xp:panel
+													rendered="#{javascript:return (!!viewScope.originalPage) ? true : false;}"
+													disableOutputTag="true">
+													<xp:link escape="true" id="link4"
+														text="${langBean.AfterRegistrationOrigPageLink}" value="${viewScope.originalPage}">
+													</xp:link>
+													<xp:br></xp:br>
+
+												</xp:panel>
+
+												<xp:link escape="true" id="link1"
+													text="${langBean.AfterRegistrationHomeLink}" value="${configBean.HostURL}">
+												</xp:link><xp:br></xp:br>
+												<xp:link escape="true" id="link3"
+													text="${langBean.AfterRegistrationLoginLink}"
+													value="/${configBean.WebsiteURL}/${configBean.RegistrationHomeXPage}">
+												</xp:link>
+											</p>
+
+										</div>
+									</div>
+
+
+								</xe:widgetContainer>
+							</xp:panel>
+
+
+							<xp:panel xp:key="failure-baddoc">
+								<xe:widgetContainer id="widgetContainer2"
+									titleBarText="${langBean.HeadingErrorInActivation}" styleClass="login-panel">
+
+									<div class="panel-body">
+										<div class="form-group">
+											<xp:text tagName="label" value="${langBean.AccountNotActivated}"
+												id="computedField6" styleClass="control-label">
+											</xp:text>
+
+											<xp:text escape="true" id="computedField7"
+												value="${langBean.AccountActivateMsgBadDoc}" tagName="p">
+											</xp:text>
+
+
+											<p>
+												<xp:link escape="true" id="link5"
+													text="${langBean.AfterRegistrationLoginLink}"
+													value="/${configBean.WebsiteURL}/${configBean.RegistrationHomeXPage}">
+												</xp:link>
+												<xp:br></xp:br>
+												<xp:link escape="true" id="link2"
+													text="${langBean.AfterRegistrationHomeLink}" value="${configBean.HostURL}">
+												</xp:link>
+
+											</p>
+										</div>
+									</div>
+
+
+								</xe:widgetContainer>
+
+							</xp:panel>
+							
+							<xp:panel xp:key="failure-dupemail">
+								<xe:widgetContainer id="widgetContainer3"
+									titleBarText="${langBean.HeadingErrorInActivation}" styleClass="login-panel">
+
+									<div class="panel-body">
+										<div class="form-group">
+											<xp:text tagName="label" value="${langBean.AccountNotActivated}"
+												id="computedField4" styleClass="control-label">
+											</xp:text>
+
+											<xp:text escape="true" id="computedField8"
+												value="${langBean.AccountActivateMsgDupEmail}" tagName="p">
+											</xp:text>
+
+
+											<p>
+												<xp:link escape="true" id="link6"
+													text="${langBean.AfterRegistrationLoginLink}"
+													value="/${configBean.WebsiteURL}/${configBean.RegistrationHomeXPage}">
+												</xp:link>
+												<xp:br></xp:br>
+												<xp:link escape="true" id="link7"
+													text="${langBean.AfterRegistrationHomeLink}" value="${configBean.HostURL}">
+												</xp:link>
+
+											</p>
+										</div>
+									</div>
+
+
+								</xe:widgetContainer>
+
+							</xp:panel>
+							
+							
+							
+						</xp:this.facets>
+					</xe:switchFacet>
+
+
+				</xp:panel>
+
+
+
+			</div>
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

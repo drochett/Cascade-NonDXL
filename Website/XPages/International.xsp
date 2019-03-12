@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex" xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+	
+	<xc:ccHeadCode></xc:ccHeadCode>
+	<xc:ccCompatibility></xc:ccCompatibility>
+	<xp:this.resources>
+		<xp:script src="/custom.jss" clientSide="false"></xp:script>
+	</xp:this.resources>
+	
+	
+	<xc:ccTrackingCode></xc:ccTrackingCode>
+	<xc:ccDebug>
+	<debug:this.loaded><![CDATA[${javascript:if (requestScope.session=="CN=PTL-WWWPROD-02/O=PTLWWWPD"){
+	return false;
+} else {
+return true;}}]]></debug:this.loaded></xc:ccDebug>
+	<xc:ccInternationalHeader></xc:ccInternationalHeader>
+
+	<div class="container">
+		<div class="banner-image banner-image-international">
+			<xp:image url="/attachment_lineup1170.png" id="image1"></xp:image>
+			<div>
+				<xp:label id="label4" value="${langBean.yourregion}">
+				</xp:label>
+			</div>
+		</div>
+	</div>
+
+	<xp:scriptBlock id="scriptBlock1">
+		<xp:this.value><![CDATA[function setCookie(cname,cvalue,exdays) {
+	var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname+"="+cvalue+"; "+expires+";path=/";
+	}
+	
+	function getCookie(cname) {
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i=0; i<ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') c = c.substring(1);
+	        if (c.indexOf(name) == 0) {
+	            return c.substring(name.length, c.length);
+	        }
+	    }
+	    return "";
+	}
+	]]></xp:this.value>
+	</xp:scriptBlock>
+
+	<div class="container cascade-content cascade-content-blocks">
+
+		<div class="row">
+			<!--******************  AMERICAS *******************-->
+
+			<div class="col-sm-3 international-links">
+				<xp:label id="label2" value="North America" styleClass="region-title">
+				</xp:label>
+				<xp:link escape="true" text="USA (English)" id="link10"
+					value="${configBean.HostURL}americas/en/home" styleClass="region-name">
+					<xp:eventHandler event="onclick" submit="false">
+						<xp:this.script><![CDATA[setCookie("languagePref","americas-en",2000);
+							]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:link>
+				<xp:link escape="true" text="Canada (English)" id="link4"
+					value="${configBean.HostURL}americas/ca/home" styleClass="region-name">
+					<xp:eventHandler event="onclick" submit="false">
+						<xp:this.script><![CDATA[setCookie("languagePref","americas-ca",2000);
+							]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:link>
+				<xp:br></xp:br>
+				<xp:label id="label6" styleClass="region-title">
+				<xp:this.value><![CDATA[Central & South America]]></xp:this.value></xp:label>
+				<xp:link escape="true" text="Latin America (Spanish)"
+					id="link2" value="${configBean.HostURL}${configBean.link_SouthAmericaSite}" 
+					styleClass="region-name">
+					<xp:eventHandler event="onclick" submit="false">
+						<xp:this.script><![CDATA[setCookie("languagePref","americas-es",2000);
+							]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:link>
+
+				<xp:link escape="true" text="Brazil (Portuguese)"
+					id="link1" value="http://www.cascadedobrasil.com.br"
+					target="_blank" styleClass="region-name">
+				</xp:link>
+			</div>
+
+			<!--******************  EUROPE & MIDDLE EAST *******************-->
+
+			<div class="col-sm-3 international-links">
+				<xp:label id="label3" value="Europe &amp; Middle East"
+					styleClass="region-title">
+				</xp:label>
+				<xp:link escape="true" text="UK (English)" id="link11"
+					value="${configBean.HostURL}eme/en/home" styleClass="region-name">
+					<xp:eventHandler event="onclick" submit="false">
+						<xp:this.script><![CDATA[setCookie("languagePref","eme-en",2000);
+			]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:link>
+				<xp:link escape="true" text="Netherlands" id="link12"
+					value="${configBean.HostURL}eme/nl/home" styleClass="region-name">
+					<xp:eventHandler event="onclick" submit="false">
+						<xp:this.script><![CDATA[setCookie("languagePref","eme-nl",2000);
+				]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:link>
+				<xp:link escape="true" text="Germany" id="link13"
+					value="${configBean.HostURL}eme/de/home" styleClass="region-name">
+					<xp:eventHandler event="onclick" submit="false">
+						<xp:this.script><![CDATA[setCookie("languagePref","eme-de",2000);
+				]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:link>
+				<xp:link escape="true" text="Italy" id="link14"
+					value="${configBean.HostURL}eme/it/home" styleClass="region-name">
+					<xp:eventHandler event="onclick" submit="false">
+						<xp:this.script><![CDATA[setCookie("languagePref","eme-it",2000);
+				]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:link>
+				<xp:link escape="true" text="Spain" id="link15"
+					value="${configBean.HostURL}eme/es/home" styleClass="region-name">
+					<xp:eventHandler event="onclick" submit="false">
+						<xp:this.script><![CDATA[setCookie("languagePref","eme-es",2000);
+				]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:link>
+				<xp:link escape="true" text="France" id="link16"
+					value="${configBean.HostURL}eme/fr/home" styleClass="region-name">
+					<xp:eventHandler event="onclick" submit="false">
+						<xp:this.script><![CDATA[setCookie("languagePref","eme-fr",2000);
+				]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:link>
+				<xp:link escape="true" text="Sweden" id="link17"
+					value="${configBean.HostURL}eme/se/home" styleClass="region-name">
+					<xp:eventHandler event="onclick" submit="false">
+						<xp:this.script><![CDATA[setCookie("languagePref","eme-se",2000);
+				]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:link>
+				<xp:link escape="true" text="Finland" id="link18"
+					value="${configBean.HostURL}eme/fi/home" styleClass="region-name">
+					<xp:eventHandler event="onclick" submit="false">
+						<xp:this.script><![CDATA[setCookie("languagePref","eme-fi",2000);
+				]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:link>
+			</div>
+
+			<!--******************  ASIA PACIFIC *******************-->
+
+			<div class="col-sm-3 international-links">
+				<xp:label id="label5" value="Asia Pacific" styleClass="region-title">
+				</xp:label>
+				<xp:link escape="true" text="Australia" id="link19"
+					value="http://www.cascadeaustralia.com.au" target="_blank" styleClass="region-name">
+				</xp:link>
+				<xp:link escape="true" text="China" id="link20"
+					value="http://www.cascorp.com.cn/" target="_blank" styleClass="region-name">
+				</xp:link>
+				<xp:link escape="true" text="India" id="link21" styleClass="region-name">
+					<xp:this.value><![CDATA[#{javascript:
+langurl = ( !sessionScope.isBrowserLocaleSupported ) ? "americas/en/" : sessionScope.LanguageURL ;
+return configBean.getValue("HostURL") + configBean.getValue("WebsiteURL") + "/Locations.xsp/" + langurl + "asiapacific#IN" ;}]]>
+					</xp:this.value>
+				</xp:link>
+				<xp:link escape="true" text="Japan" id="link22"
+					value="http://www.cascadejapan.com/" target="_blank" styleClass="region-name">
+				</xp:link>
+				<xp:link escape="true" text="Korea" id="link3" styleClass="region-name">
+					<xp:this.value><![CDATA[#{javascript:
+langurl = ( !sessionScope.isBrowserLocaleSupported ) ? "americas/en/" : sessionScope.LanguageURL ;
+return configBean.getValue("HostURL") + configBean.getValue("WebsiteURL") + "/Locations.xsp/" + langurl + "asiapacific#SK" ;}]]>
+					</xp:this.value>
+				</xp:link>
+
+				<xp:link escape="true" text="New Zealand" id="link23"
+					styleClass="region-name">
+					<xp:this.value><![CDATA[#{javascript:
+langurl = ( !sessionScope.isBrowserLocaleSupported ) ? "americas/en/" : sessionScope.LanguageURL ;
+return configBean.getValue("HostURL") + configBean.getValue("WebsiteURL") + "/Locations.xsp/" + langurl + "asiapacific#NZ" ;}]]>
+					</xp:this.value>
+				</xp:link>
+				<xp:link escape="true" text="Singapore" id="link24"
+					styleClass="region-name">
+					<xp:this.value><![CDATA[#{javascript:
+langurl = ( !sessionScope.isBrowserLocaleSupported ) ? "americas/en/" : sessionScope.LanguageURL ;
+return configBean.getValue("HostURL") + configBean.getValue("WebsiteURL") + "/Locations.xsp/" + langurl + "asiapacific#SI" ;}]]>
+					</xp:this.value>
+				</xp:link>
+			</div>
+
+			<!--******************  AFRICA *******************-->
+
+			<div class="col-sm-3 international-links">
+				<xp:label id="label1" value="Africa" styleClass="region-title">
+				</xp:label>
+				<xp:link escape="true" text="Africa" id="link25"
+					styleClass="region-name">
+					<xp:this.value><![CDATA[#{javascript:
+langurl = ( !sessionScope.isBrowserLocaleSupported ) ? "americas/en/" : sessionScope.LanguageURL ;
+return configBean.getValue("HostURL") + configBean.getValue("WebsiteURL") + "/Locations.xsp/" + langurl + "africa" ;}]]>
+					</xp:this.value>
+				</xp:link>
+
+			</div>
+		</div>
+	</div>
+
+	<!--
+		************** DEBUG ***************** <div class="container
+		cascade-content cascade-content-blocks"> <div class="row"> <div
+		class="col-sm-12"> <xp:button id="button3">
+		<xp:this.value><![CDATA[default "en"]]></xp:this.value>
+		<xp:eventHandler event="onclick" submit="true" refreshMode="complete">
+		<xp:this.action><![CDATA[#{javascript:sessionScope.Language =
+		"en";}]]></xp:this.action> </xp:eventHandler> </xp:button> </div>
+		</div> </div> **********************************************
+	-->
+
+	<xc:commonfooter></xc:commonfooter>
+
+
+
+</xp:view>

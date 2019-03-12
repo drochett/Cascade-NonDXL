@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">  
+	<xe:widgetContainer id="widgetContainer1"
+		titleBarText="${langBean.OrderStatusSearch1}"
+		styleClass="login-panel">
+		<div class="panel-body">
+			<div class="form-group">
+				<div class="row">
+				<div class="col-sm-12">
+					<xp:text escape="true" id="computedField1"
+						value="${langBean.OrderStatusUpdateMsg}" tagName="p">
+					</xp:text>
+					</div>
+					<div class="col-sm-3">
+						<xp:text tagName="label"
+							value="${langBean.LabelSearchOrderStatus}: " id="SearchLabel"
+							styleClass="control-label">
+						</xp:text>
+					</div>
+					<div class="col-sm-9">
+						<xp:comboBox id="comboBox1"
+							value="#{orderStatusBean.searchSelection}">
+							<xp:selectItems>
+								<xp:this.value><![CDATA[${langBean.OrderStatusSearchList}]]></xp:this.value>
+							</xp:selectItems>
+						</xp:comboBox>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-sm-3">
+
+						<xp:text tagName="label"
+							value="${langBean.LabelOrderStatusDate}: " id="RangeLabel"
+							styleClass="control-label">
+						</xp:text>
+					</div>
+					<div class="col-sm-9">
+						<xp:comboBox id="dateRangeSel"
+							value="#{orderStatusBean.dateSelection}">
+
+
+
+
+							<xp:selectItems>
+								<xp:this.value><![CDATA[${langBean.OrderStatusDateList}]]></xp:this.value>
+							</xp:selectItems>
+						</xp:comboBox>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="row">
+					<div class="col-sm-3">
+						<xp:text tagName="Label"
+							value="${langBean.LabelOrderStatusSort}: " id="SortLabel"
+							styleClass="control-label">
+						</xp:text>
+					</div>
+					<div class="col-sm-9">
+						<xp:comboBox id="SortBySel"
+							value="#{orderStatusBean.sortSelection}">
+							<xp:selectItems>
+								<xp:this.value><![CDATA[${langBean.OrderStatusSortList}]]></xp:this.value>
+							</xp:selectItems>
+						</xp:comboBox>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-sm-3">
+						<xp:text tagName="label"
+							value="${langBean.LabelOrderStatusShipTo}: " id="ShipToLabel"
+							styleClass="control-label">
+						</xp:text>
+					</div>
+					<div class="col-sm-9">
+						<xp:comboBox id="selectShipAddress"
+							style="width:100%;"
+							value="#{orderStatusBean.shipToNumberSelection}">
+
+
+							<xp:selectItems>
+								<xp:this.value><![CDATA[${langBean.OrderStatusAll}]]></xp:this.value>
+							</xp:selectItems>
+							<xp:selectItems>
+								<xp:this.value><![CDATA[#{javascript:
+importPackage(com.cascorp);
+jde = new JDESupport();
+var arr = jde.getShipToInformation(orderStatusBean.getAcctNumber(), orderStatusBean.getRegion(), 180);
+return arr;
+}]]></xp:this.value>
+							</xp:selectItems>
+						</xp:comboBox>
+					</div>
+				
+				</div>
+			</div>
+
+		</div>
+
+		<div class="panel-footer">
+			<xp:link escape="true"
+				text="${langBean.BtnOrderStatusSearch}" id="SearchButton1"
+				styleClass="btn btn-primary">
+
+				<xp:eventHandler event="onclick" submit="true"
+					refreshMode="partial" refreshId="resultsArea"
+					onStart="requestStarted()" 
+                       onComplete="requestCompleted()">
+					<xp:this.action><![CDATA[#{javascript:orderStatusBean.performQuery1();}]]></xp:this.action>
+				</xp:eventHandler>
+			</xp:link>
+		</div>
+	</xe:widgetContainer>
+</xp:view>

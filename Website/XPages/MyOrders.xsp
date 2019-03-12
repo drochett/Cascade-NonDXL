@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+  xmlns:debug="http://www.openntf.org/xsp/debugtoolbar" xmlns:xe="http://www.ibm.com/xsp/coreex">
+  
+  
+  <xc:ccRestrictAccess></xc:ccRestrictAccess>
+ <xc:ccLayout>
+		<xp:panel styleClass="container" id="main">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+			 		<xp:panel styleClass="col-xs-12">
+						<xp:inputText id="username" value="#{javascript:session.getEffectiveUserName();}" rendered="false"></xp:inputText>
+						<xp:text escape="false" id="computedField7"
+							value="${langBean.titleOrderProcessing}" styleClass="carousel-heading">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!--		breadcrumb row-->
+			<xp:panel styleClass="row" id="rowBreadcrumb1">
+				<xp:panel styleClass="col-xs-12" id="col11">
+					
+				</xp:panel>
+			</xp:panel>
+			<!--	START dynamicViewPanel row-->
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-xs-12">
+					<xe:dynamicViewPanel id="dynamicViewPanel2"
+						pageName="#{empty sessionScope.formName ? 'ProcessOrders.xsp' : sessionScope.formName}"
+						var="viewEntry"
+						customizerBean="com.cascorp.OrderProcessingViewCustomizer">
+						<xe:this.rowClasses><![CDATA[#{javascript:out = "";
+dBar.info(viewEntry.toString() + " --- " + viewEntry.getIndentLevel() + " -- " + viewEntry.isCategory());
+dBar.info("type of is " + typeof viewEntry.getIndentLevel());
+if (viewEntry.isCategory()){
+		dBar.info("is category");
+ 	if (viewEntry.getIndentLevel()==1){
+ 		
+		dBar.info("indenting " + viewEntry.toString() + " by one");
+		out =  "OrderProcessingView_Category1";
+	} else if (viewEntry.getIndentLevel()==2){
+		dBar.info("indenting " + viewEntry.toString() + " by two");
+		out =  "OrderProcessingView_Category2";
+	}
+}
+return out;
+}]]></xe:this.rowClasses>
+						<xp:this.facets>
+							<xp:pager layout="Previous Group Next"
+								partialRefresh="true" id="pager2" xp:key="footerPager">
+							</xp:pager>
+							<xe:pagerSaveState id="pagerSaveState1"
+								xp:key="viewTitle">
+							</xe:pagerSaveState>
+
+							<xp:pager layout="Previous Group Next"
+								partialRefresh="true" id="pager1" xp:key="headerPager">
+							</xp:pager>
+						</xp:this.facets>
+						<xe:this.data>
+							<xp:dominoView var="view1"
+								databaseName="#{configBean.OrdersDbPath}"
+								viewName="#{empty sessionScope.viewName ? 'myOrders' : sessionScope.viewName}"
+								keys="#{javascript:session.getEffectiveUserName();}">
+
+							</xp:dominoView>
+						</xe:this.data>
+
+						
+					</xe:dynamicViewPanel>
+				</xp:panel>
+			</xp:panel>
+
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>
+

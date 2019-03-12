@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xp:panel id="main" styleClass="container">
+		
+		<!--		main content row	-->
+		<xp:panel styleClass="row contacts">
+			<xp:panel id="panelContactsListing" styleClass="col-md-5 ">
+				<xe:widgetContainer id="widgetContainer1"
+					titleBar="true" titleBarText="${langBean.titleOfficers}">
+					<xe:dataView id="dataView1" var="viewEntry"
+						openDocAsReadonly="true" rows="999" indexVar="idxVar">
+						<xp:this.facets>
+							<xp:panel xp:key="summary"
+								id="panelDetail1">
+								<xp:link escape="true" id="link1">
+									<xp:eventHandler event="onclick"
+										submit="true" refreshMode="partial" refreshId="details">
+										<xp:this.action><![CDATA[#{javascript:
+var ve:NotesXspViewEntry = viewEntry;
+viewScope.unid = ve.getUniversalID();
+viewScope.photoURL = ve.getColumnValue("Photo");}]]></xp:this.action>
+									</xp:eventHandler>
+									<xp:image
+										styleClass="img-rounded pull-left avatar"
+										url="#{configBean.HostURL}#{configBean.HomeURL}/#{viewEntry.Photo}"
+										id="image1">
+									</xp:image>
+									<xp:text escape="true"
+										id="computedField2" value="#{viewEntry.Subject}"
+										styleClass="list-group-item-heading" tagName="h4">
+									</xp:text>
+									<xp:text escape="true"
+										id="computedField3" value="#{viewEntry.Title}"
+										styleClass="list-group-item-text text-muted" tagName="p">
+									</xp:text>
+								</xp:link>
+							</xp:panel>
+						</xp:this.facets>
+						<xp:this.data>
+							<xp:dominoView var="view1"
+								databaseName="${configBean.HomeDbPath}"
+								viewName="WebCorpOfficers"
+								categoryFilter="${sessionScope.LanguageP}">
+							</xp:dominoView>
+						</xp:this.data>
+					</xe:dataView>
+				</xe:widgetContainer>
+			</xp:panel>
+			<!--	databaseName="${configBean.HomeDbPath}"		start details-->
+			<xp:panel id="details" styleClass="col-md-7">
+				<xp:this.data>
+					<xp:dominoDocument var="person1" action="openDocument"
+						formName="Person" documentId="#{javascript:viewScope.unid}"
+						databaseName="${configBean.HomeDbPath}">
+					</xp:dominoDocument>
+				</xp:this.data>
+				<xe:widgetContainer id="widgetContainer2"
+					titleBar="true" titleBarText="${langBean.titleDetails}" rendered="#{javascript:!!(viewScope.photoURL)}"
+					styleClass="">
+					<xp:panel id="list-group" styleClass="panel">
+						<div class="list-group">
+							<div class="list-group-item Cascade">
+								<xp:image styleClass="img-rounded pull-left avatar-big" id="image2"
+									url="#{configBean.HostURL}#{configBean.HomeURL}/#{viewScope.photoURL}">
+								</xp:image>
+								<xp:text id="fullname" tagName="h3" styleClass="list-group-item-heading">
+									<xp:this.value><![CDATA[#{person1.Subject}]]></xp:this.value>
+								</xp:text>
+								<xp:text id="computedField1" tagName="p" styleClass="list-group-item-text text-muted">
+									<xp:this.value><![CDATA[#{person1.Title}]]></xp:this.value>
+								</xp:text>
+							</div>
+							<div class="list-group-item">
+								<xp:text id="comments" value="#{person1.Comments}"
+									escape="false" tagName="p" styleClass="list-group-item-text">
+								</xp:text>
+							</div>
+						</div>
+					</xp:panel>
+				</xe:widgetContainer>
+			</xp:panel>
+		</xp:panel>
+	</xp:panel>
+</xp:view>

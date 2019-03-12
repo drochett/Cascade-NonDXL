@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex"
+  xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+  <xp:this.data>
+    <xp:dominoDocument var="person1" databaseName="${configBean.HomeDbPath}"
+      action="openDocument" formName="Person" documentId="#{viewScope.unidPerson}"
+      ignoreRequestParams="true">
+    </xp:dominoDocument>
+  </xp:this.data>
+  <xp:this.beforePageLoad><![CDATA[#{javascript:
+var urlText = "/rtf_PersonGraphic/0.84?OpenElement&FieldElemFormat=jpg" ;
+viewScope.photoURL = "0/" + person1.getDocument().getUniversalID() + urlText ;}]]>
+  </xp:this.beforePageLoad>
+  <xp:panel id="panelDocumentISmigrated">
+    <xp:panel styleClass="row" style="padding-top:70.0px">
+      <xp:panel id="details" styleClass="col-md-12">
+        <xe:widgetContainer id="widgetContainer2" titleBar="true"
+          titleBarText="${langBean.titleDetails}" rendered="#{javascript:!!(viewScope.photoURL)}">
+          <xp:table>
+            <xp:tr>
+              <xp:td rowspan="9" style="width:110px">
+                <xe:multiImage id="multiImage2" styleClass="img-rounded avatar-big">
+                  <xe:this.icons>
+                    <xe:iconEntry url="/noPhoto.png" selectedValue="noPhoto"></xe:iconEntry>
+                    <xe:iconEntry selectedValue="yesPhoto"
+                      url="#{configBean.HostURL}#{configBean.HomeURL}/#{viewScope.photoURL}">
+                    </xe:iconEntry>
+                    <xe:iconEntry url="/.ibmxspres/.extlib/icons/noPhoto.png"
+                      selectedValue="notUsed">
+                    </xe:iconEntry>
+                  </xe:this.icons>
+                  <xe:this.value><![CDATA[#{javascript:
+importPackage(com.cascorp);
+var doc:NotesDocument = person1.getDocument();
+var HTMLfromRT:String = RegistrationUtilities.getHTMLfromRT(doc, "rtf_PersonGraphic");
+//if (HTMLfromRT.contains("<img") && HTMLfromRT.contains(".jpg") ) {
+if (HTMLfromRT.contains("<img") ) {
+	 	return "yesPhoto";
+ 	}else{
+		return "noPhoto";
+}
+}]]></xe:this.value>
+                </xe:multiImage>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{person1.Name}" id="name1"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:inputText value="#{person1.Title}" id="title1"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:inputText value="#{person1.Address}" id="address1">
+                  <xp:this.multipleSeparator><![CDATA[#{javascript:"\n"}]]></xp:this.multipleSeparator>
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:inputText value="#{person1.StateRegion}" id="stateRegion1">
+                  <xp:this.multipleSeparator><![CDATA[#{javascript:"\n"}]]></xp:this.multipleSeparator>
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:inputText value="#{person1.Phone}" id="phone1"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:this.rendered><![CDATA[#{javascript:
+var fax = person1.getItemValueString("Fax");
+return !!fax ;
+}]]></xp:this.rendered>
+              <xp:td>
+                <xp:inputText value="Fax: #{person1.Fax}" id="inputText1"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:link escape="true" text="#{person1.Email}" id="link2"
+                  value="mailto:#{person1.Email}">
+                </xp:link>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:this.rendered><![CDATA[#{javascript:
+var val = person1.getItemValueString("Comments");
+return !!val ;
+}]]></xp:this.rendered>
+              <xp:td>
+                <xp:inputText value="#{person1.Comments}" id="comments1"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:fileDownload rows="30" id="fileDownload1" displayLastModified="false"
+                  value="#{person1.Body}" hideWhen="true" fileNameTitle="${langBean.vCardLabel}"
+                  displaySize="false" displayType="false" displayCreated="false">
+                </xp:fileDownload>
+              </xp:td>
+            </xp:tr>
+          </xp:table>
+        </xe:widgetContainer>
+      </xp:panel>
+    </xp:panel>
+  </xp:panel>
+</xp:view>

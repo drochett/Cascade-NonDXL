@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<xp:this.navigationRules>
+		<xp:navigationRule outcome="xsp-success"
+			viewId="/afterRegistration.xsp">
+		</xp:navigationRule>
+	</xp:this.navigationRules>
+
+	
+	<xp:panel id="pagePanel">
+
+		<xp:this.data>
+			<xp:dominoDocument var="regDoc"
+				databaseName="#{configBean.RegistrationDbPath}"
+				formName="registration">
+
+				<xp:this.postNewDocument><![CDATA[#{javascript://for testing ui only
+/*
+registrationBean.getPerson().setEmail("testman@test.com");
+registrationBean.getPerson().setRegion("americas");
+registrationBean.getPerson().setZipCode("33333");
+registrationBean.getPerson().setAcctNumber("567899000");
+registrationBean.getPerson().setCompanyAddress1("34 Main St");
+registrationBean.getPerson().setCompanyAddress2("Floor 4");
+registrationBean.getPerson().setCompanyAddress3("Office 123");
+registrationBean.getPerson().setCompanyName("Acme Fork Sales");
+registrationBean.getPerson().setCompanyCity("Boca Raton");
+registrationBean.getPerson().setCompanyState("FL");
+registrationBean.getPerson().setCompanyCountry("US");
+registrationBean.getPerson().setCompanyZip("45345");
+*/
+//start real code
+regDoc.setValue("fullname", registrationBean.getPerson().getEmail());
+var formName = sessionScope.LanguageP + "-registration";
+
+dBar.info("lang scope is " +  sessionScope.LanguageP);
+dBar.info("formName is " + formName);
+regDoc.setValue("form", formName);
+regDoc.setValue("status", "Pending");
+regDoc.setValue("region", registrationBean.getPerson().getRegion());
+
+regDoc.setValue("accountnumber", registrationBean.getPerson().getAcctNumber());
+regDoc.setValue("cName", registrationBean.getPerson().getCompanyName());
+//save values for company address
+regDoc.setValue("caddress",registrationBean.getPerson().getCompanyAddress1());
+regDoc.setValue("caddress2",registrationBean.getPerson().getCompanyAddress2());
+regDoc.setValue("caddress3",registrationBean.getPerson().getCompanyAddress3()); 
+regDoc.setValue("cCity", registrationBean.getPerson().getCompanyCity());
+regDoc.setValue("cState", registrationBean.getPerson().getCompanyState());
+regDoc.setValue("cCountry", registrationBean.getPerson().getCompanyCountry());
+regDoc.setValue("cZip", registrationBean.getPerson().getCompanyZip());
+regDoc.setValue("DestinationURL", registrationBean.getPerson().getUrlToGoTo());
+regDoc.setValue("accessType",registrationBean.getPerson().getAcctType());
+var lang = (!!sessionScope.LanguageP ? sessionScope.LanguageP : "americas-en");
+regDoc.setValue("LanguageP", lang);
+
+}]]></xp:this.postNewDocument>
+			</xp:dominoDocument>
+		</xp:this.data>
+		<div class="container" id="main">
+
+			<!-- BLUE HEADER -->
+			<div class="blue-header">
+				<xp:text escape="true" id="computedField1"
+					value="${langBean.PageHeadingRegistrationPhase2}"
+					styleClass="carousel-heading" tagName="span">
+				</xp:text>
+			</div>
+
+			<xp:panel styleClass="row" id="row" tagName="div">
+				<xp:panel id="leftSide" styleClass="col-sm-6"
+					tagName="div">
+
+					<xe:widgetContainer id="userNameWidget"
+						titleBarText="${langBean.HeadingUserName}"
+						styleClass="login-panel">
+
+						<div class="panel-body">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-3">
+										<xp:text tagName="label"
+											value="${javascript:langBean.LabelUserName}: " id="label1"
+											styleClass="control-label">
+										</xp:text>
+									</div>
+									<div class="col-sm-9">
+										<xp:text escape="true"
+											id="fullNameField" value="#{regDoc.fullname}">
+										</xp:text>
+									</div>
+								</div>
+							</div>
+						</div>
+					</xe:widgetContainer>
+
+					<xc:ccRegUserInfo></xc:ccRegUserInfo>
+					<xc:ccRegCompanyAddress></xc:ccRegCompanyAddress>
+					<xc:ccRegMailingAddress></xc:ccRegMailingAddress>
+				</xp:panel>
+
+				<!-- Start of second column -->
+
+				<xp:panel id="rightSide" styleClass="col-sm-6"
+					tagName="div">
+					
+					<xc:ccRegOtherInfo></xc:ccRegOtherInfo>
+					<xe:widgetContainer id="passwordWidget"
+						titleBarText="${langBean.HeadingPassword}"
+						styleClass="login-panel">
+						<div class="panel-body">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-5">
+										<xp:text tagName="label"
+											id="PasswordLabel"
+											styleClass="control-label" escape="false">
+										<xp:this.value><![CDATA[${langBean.LabelPassword}:  <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value></xp:text>
+									</div>
+									<div class="col-sm-7">
+										<xp:inputText id="PasswordInput"
+											required="true" disableClientSideValidation="true"
+											password="true" value="#{regDoc.newPassword}"
+											redisplay="true">
+											<xp:this.validators>
+												<xp:validateConstraint
+													message="${langBean.errorPassword}" regex="^.{8,128}$">
+
+												</xp:validateConstraint>
+												<xp:validateRequired
+													message="${langBean.errorPassword}">
+												</xp:validateRequired>
+											</xp:this.validators>
+										</xp:inputText>
+										<xp:message
+											id="PasswordErrorMsg" for="PasswordInput">
+										</xp:message>
+										<xp:text escape="true"
+											id="MsgPasswordRequirements"
+											value="${langBean.MsgPasswordRequirements}">
+										</xp:text>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-5">
+										<xp:text tagName="label"
+											id="PasswordReEnterLabel" styleClass="control-label" escape="false">
+										<xp:this.value><![CDATA[${langBean.LabelPasswordReEntry}:  <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value></xp:text>
+									</div>
+									<div class="col-sm-7">
+										<xp:inputText
+											id="PasswordReEnterInput" required="true"
+											disableClientSideValidation="true" password="true"
+											redisplay="true" value="#{regDoc.newPasswordConfirm}">
+											<xp:this.validators>
+
+												<xp:validateRequired
+													message="${langBean.msgIsRequired}">
+												</xp:validateRequired>
+												<xp:validateExpression
+													message="${langBean.errorPasswordMatch}">
+													<xp:this.expression><![CDATA[#{javascript:var PasswordInput:com.ibm.xsp.component.xp.XspInputText = getComponent("PasswordInput");
+var firstPW = PasswordInput.getValue();
+if (value != firstPW){
+	return false;
+} else {
+	return true;
+}
+}]]></xp:this.expression>
+												</xp:validateExpression>
+											</xp:this.validators>
+										</xp:inputText>
+										<xp:message
+											id="PasswordReEnterInputErrorMsg"
+											for="PasswordReEnterInput">
+										</xp:message>
+									</div>
+								</div>
+
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-5">
+										<xp:text tagName="label"
+											id="QuestionLabel"
+											styleClass="control-label" escape="false">
+										<xp:this.value><![CDATA[${langBean.LabelQuestion}:  <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value></xp:text>
+									</div>
+									<div class="col-sm-7">
+										<xp:inputText id="QuestionInput"
+											required="true" disableClientSideValidation="true"
+											value="#{regDoc.ChallengeQuestion}">
+											<xp:this.validators>
+												<xp:validateRequired
+													message="${langBean.msgIsRequired}">
+												</xp:validateRequired>
+											</xp:this.validators>
+										</xp:inputText>
+										<xp:message
+											id="ChallengeQuestionErrorMsg" for="QuestionInput">
+										</xp:message>
+										<xp:text escape="true"
+											id="msgQuestionReg" value="${langBean.msgQuestionReg}">
+										</xp:text>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-5">
+										<xp:text tagName="label"
+											id="AnswerLabel"
+											styleClass="control-label" escape="false">
+										<xp:this.value><![CDATA[${langBean.LabelAnswer}:  <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value></xp:text>
+									</div>
+									<div class="col-sm-7">
+										<xp:inputText id="AnswerInput"
+											required="true" disableClientSideValidation="true"
+											value="#{regDoc.ChallengeAnswer}">
+											<xp:this.validators>
+												<xp:validateRequired
+													message="${langBean.msgIsRequired}">
+												</xp:validateRequired>
+											</xp:this.validators>
+										</xp:inputText>
+										<xp:message id="AnswerErrorMsg"
+											for="AnswerInput">
+										</xp:message>
+										<xp:text escape="true"
+											id="msgChallengeAnswer"
+											value="${langBean.msgChallengeAnswer}">
+										</xp:text>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+
+								<xp:text escape="true"
+									id="msgIdentityInfo" value="${langBean.msgIdentityInfo}">
+								</xp:text>
+
+								<xp:checkBoxGroup
+									id="PrintLiteratureOptOutCheckBox"
+									value="#{regDoc.MailLiterature}">
+									<xp:selectItems>
+										<xp:this.value><![CDATA[${langBean.LabelPrintOptOut}]]></xp:this.value>
+									</xp:selectItems>
+								</xp:checkBoxGroup>
+								
+<xp:checkBoxGroup id="EmailOptOut"
+									value="#{regDoc.MktgOptOut}">
+										<xp:this.validators>
+											<xp:validateExpression
+											message="${langBean.msgRequiredAgreements}">
+			
+									<xp:this.expression><![CDATA[#{javascript:try{
+									  	if (getComponent("ProcessPersonalData").getSubmittedValue() == "") {
+									  		return false;
+										} else if (getComponent("TransferPersonalData").getSubmittedValue() =="") {
+											return false;
+										} else {
+											return true;
+										}
+									} catch(e) {
+										return false;
+									}}]]>
+									</xp:this.expression>
+										</xp:validateExpression>
+									</xp:this.validators>
+
+									<xp:selectItems>
+										<xp:this.value><![CDATA[${langBean.LabelMktgOptOut}]]></xp:this.value>
+									</xp:selectItems>
+								</xp:checkBoxGroup>
+
+								<xp:message id="EmailOptOutErrorMsg"
+									for="EmailOptOut">
+								</xp:message>
+
+								<xp:checkBoxGroup
+									id="ProcessPersonalData"
+									value="#{regDoc.ProcessPersonalData}">
+									<xp:selectItems>
+										<xp:this.value><![CDATA[${langBean.LabelProcessPersonalData}]]></xp:this.value>
+									</xp:selectItems>
+								</xp:checkBoxGroup>
+								
+								<xp:checkBoxGroup
+									id="TransferPersonalData"
+									value="#{regDoc.TransferPersonalData}">									
+							
+									<xp:selectItems>
+										<xp:this.value><![CDATA[${langBean.LabelTransferPersonalData}]]></xp:this.value>
+									</xp:selectItems>
+								</xp:checkBoxGroup>
+
+
+								<xp:text escape="false"
+									id="computedField7"
+									styleClass="required-icon glyphicon glyphicon-asterisk"
+									tagName="span">
+									<xp:this.value><![CDATA[#{javascript:return "";}]]></xp:this.value>
+
+									
+
+									<xp:this.attrs>
+										<xp:attr name="aria-hidden"
+											value="true">
+										</xp:attr>
+									</xp:this.attrs>
+								</xp:text>
+								<xp:text escape="true"
+									id="computedField2">
+									<xp:this.value><![CDATA[ ${langBean.LabelRespNoticeText}"]]></xp:this.value>
+								</xp:text>
+
+
+								<xp:link escape="true"
+									text="${langBean.LabelRespLinkText}" id="TermsOfUseLink"
+									target="_blank"
+									value="${configBean.HostURL}${sessionScope.LanguageURL}terms">
+								</xp:link>
+								<xp:checkBoxGroup
+									id="PrivacyAcceptCheckBox"
+									value="#{regDoc.AcceptResponsibility}">
+									<xp:this.validators>
+										<xp:validateRequired
+											message="${langBean.msgIsRequired}">
+										</xp:validateRequired>
+									</xp:this.validators>
+									<xp:selectItems>
+										<xp:this.value><![CDATA[${langBean.LabelAcceptResponsibility}]]></xp:this.value>
+									</xp:selectItems>
+								</xp:checkBoxGroup>
+								<xp:message id="PrivacyCheckBoxErrorMsg"
+									for="PrivacyAcceptCheckBox">
+								</xp:message>
+								<xp:link escape="true"
+									text="${langBean.LabelPrivacyLink}" id="SitePrivacyPolicyLink"
+									target="_blank"
+									value="${configBean.HostURL}${sessionScope.LanguageURL}privacy">
+
+								</xp:link>
+							</div>
+
+							<div class="panel-footer">
+								<xp:link escape="true"
+									text="${langBean.continueNewReg}" id="loginButton"
+									styleClass="btn btn-primary">
+
+
+									<xp:eventHandler event="onclick"
+										submit="true" refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:importPackage(com.cascorp);
+var lang = (!!sessionScope.LanguageP)? sessionScope.LanguageP : "americas-en";
+dBar.info("lang in button is :" + lang);
+if (regDoc.save()){
+	dBar.info("send email");
+	RegistrationUtilities.sendRegActivateEmail(regDoc.getDocument().getUniversalID(),
+	 regDoc.getItemValueString("FirstName"),
+	regDoc.getItemValueString("fullName"),
+	 lang,
+	 sessionAsSigner);
+	 //invalidate the personbean
+	 registrationBean.invalidatePerson();
+	return "xsp-success";
+} else {
+	return "xsp-failure";
+}}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+							</div>
+						</div>
+					</xe:widgetContainer>
+
+
+				</xp:panel>
+			</xp:panel>
+		</div>
+		<xp:eventHandler event="onClientLoad" submit="true"
+			refreshMode="norefresh">
+			<xp:this.action><![CDATA[#{javascript://for testing
+dBar.info("url is :" +regDoc.getItemValueString("DestinationURL"));}]]></xp:this.action>
+		</xp:eventHandler>
+	</xp:panel>
+</xp:view>

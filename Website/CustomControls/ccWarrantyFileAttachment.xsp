@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+	<!-- START FILE ATTACHMENTS-->
+	
+	<xc:ccWarrantyClaimAttachedFilesHeader></xc:ccWarrantyClaimAttachedFilesHeader>
+	<xp:br></xp:br>
+<xp:panel id="panelFileAttachments1">
+        <xp:table styleClass="address-table">
+          <xp:tr>
+            <xp:panel styleClass="tableHeading" tagName="th">
+              <xp:this.attrs>
+                <xp:attr name="colspan" value="2"></xp:attr>
+              </xp:this.attrs>
+              <xp:label value="File Attachments" id="label9"
+                style="font-weight:bold;color:rgb(255,255,255)">
+              </xp:label>
+            </xp:panel>
+          </xp:tr>
+        </xp:table>
+        <xp:panel id="panel8" styleClass="alert alert-info" rendered="#{javascript:@IsNewDoc()}">
+          <xp:table>
+            <xp:tr>
+              <xp:td style="width:20px">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              </xp:td>
+              <xp:td>
+                <xp:text escape="true" id="computedField5"
+                  value="Attach pre-repair photos and work orders to help expedite warranty processing.">
+                </xp:text>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              </xp:td>
+              <xp:td>
+                <xp:text escape="true" id="computedField6"
+                  value="Attach up to three supporting documents or photos here.">
+                </xp:text>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              </xp:td>
+              <xp:td>
+                <xp:text escape="true" id="computedField2"
+                  value="Total size of all uploads can not exceed 10 MB (10,000 KB).">
+                </xp:text>
+              </xp:td>
+            </xp:tr>
+          </xp:table>
+        </xp:panel>
+        <xp:panel id="panelUpload1" rendered="#{javascript:@IsNewDoc()}">
+          <xp:fileUpload id="fileUpload1" value="#{document1.Body}">
+          	<xp:eventHandler event="onchange" submit="false">
+          		<xp:this.script><![CDATA[if (typeof FileReader !== "undefined") {
+    // get the file size from the file input field
+    var fsize
+    if (dojo.byId(fileupload1) && dojo.byId(fileupload1).files) {
+        fsize = dojo.byId(fileupload1).files[0].size / 1024 / 1024;
+    }
+    alert(fsize)
+}]]></xp:this.script>
+          	</xp:eventHandler></xp:fileUpload>
+          <xp:br></xp:br>
+          <xp:fileUpload id="fileUpload2" value="#{document1.Body}"></xp:fileUpload>
+          <xp:br></xp:br>
+          <xp:fileUpload id="fileUpload3" value="#{document1.Body}"></xp:fileUpload>
+          <xp:br></xp:br>
+        </xp:panel>
+        <xp:panel id="panelDownload1">
+          <xp:this.rendered><![CDATA[#{javascript:if(@IsNewDoc()){
+	return false
+}else if(document1.getItemValue("AttachedFiles")==null){
+	return false
+}else if(document1.getItemValue("AttachedFiles")!=""){
+	return false
+}else{
+	return true
+}
+}]]></xp:this.rendered>
+          <xc:ccWarrantyAttachedFiles></xc:ccWarrantyAttachedFiles></xp:panel>
+      </xp:panel>
+	
+	<!-- END file attachments-->
+	<xp:br></xp:br>
+	<xp:panel id="panelInstructions2" styleClass="alert alert-info">
+		<xp:table>
+			<xp:tr>
+				<xp:td style="width:20px">
+					<span class="glyphicon glyphicon-ok"
+						aria-hidden="true">
+					</span>
+				</xp:td>
+				<xp:td>
+					<xp:text escape="true" id="confirmMsg1"
+						value="File claims within 30 days of completion of repair.">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td>
+					<span class="glyphicon glyphicon-ok"
+						aria-hidden="true">
+					</span>
+				</xp:td>
+				<xp:td>
+					<xp:text escape="true" id="computedField1"
+						value="Identify product by Cascade Serial Number. (Only those properly identified can be considered for warranty.)">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td style="width:20px">
+					<span class="glyphicon glyphicon-ok"
+						aria-hidden="true">
+					</span>
+				</xp:td>
+				<xp:td>
+					<xp:text escape="true" id="computedField3"
+						value="Cascade new product warranted for 36 months from the date of installation. Cascade Remanufactured product warranted for 12 months from the date of installation. Cascade Certified Used product are warranted for 6 months from date of installation. Please limit claims to the warranty period.">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td style="width:20px">
+					<span class="glyphicon glyphicon-ok"
+						aria-hidden="true">
+					</span>
+				</xp:td>
+				<xp:td>
+					<xp:text escape="true" id="computedField4"
+						value="Retain all parts until you receive an RGA (return goods authorization) from Cascade.">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+		</xp:table>
+	</xp:panel>
+	<xp:br></xp:br><xp:button value="${langBean.btnLabelSubmit}" id="button3" styleClass="btn btn-primary pull-right" rendered="#{javascript:@IsNewDoc()}">
+        <xp:eventHandler event="onclick" submit="true"
+        	refreshMode="partial" immediate="false" save="true"
+        	refreshId="main">
+        	<xp:this.action><![CDATA[#{javascript:viewScope.orderPlaced = "1";
+viewScope.orderStep = "step_6";
+var dc = getComponent("dcClaimStep");
+dc.show("step_6")
+}]]></xp:this.action>
+
+        </xp:eventHandler>
+</xp:button>
+</xp:view>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+	
+	
+	
+	<xc:ccHeadCode></xc:ccHeadCode>
+	<xc:ccAddToHomeScreen></xc:ccAddToHomeScreen>
+	<xc:ccCompatibility></xc:ccCompatibility>
+	<xp:this.beforePageLoad><![CDATA[#{javascript:
+setScpLanguage() ; 
+setOrderProcessingRoles() ; 
+setOtherProcessingRoles() ; //added 06/29/2018 by mdz - MCR WSCR-AZWMDQ - Add blog....
+setRoles() ; //added 09/12/2018 by mdz  .....used on dispalying debug toolbar
+dBar.info("ran setOtherProcessingRoles");
+var url = facesContext.getExternalContext().getRequestPathInfo() ; 
+if (url==null) { 
+        url = facesContext.getExternalContext().getRequest().getRequestURL().toString() ; 
+        dBar.info("url was null"); 
+} 
+dBar.info("prev url TWO is " + url); 
+ if (view.getPageName().indexOfIgnoreCase("login.xsp")<0 && 
+         view.getPageName().indexOfIgnoreCase("activate.xsp")<0 && 
+         view.getPageName().indexOfIgnoreCase("Phase2NewRegistration.xsp")<0 && 
+         view.getPageName().indexOfIgnoreCase("updateRegistration.xsp")<0 && 
+         view.getPageName().indexOfIgnoreCase("passwordReset.xsp")<0 && 
+         view.getPageName().indexOfIgnoreCase("afterRegistration.xsp")<0 && 
+         view.getPageName().indexOfIgnoreCase("RemanRental.xsp")<0)         { 
+                if (@UserName() == "Anonymous") { 
+                //set url 
+                                   sessionScope.prevPage = url; 
+                } 
+} 
+
+}]]></xp:this.beforePageLoad>
+	<xp:this.resources>
+		<xp:script src="/custom.jss" clientSide="false"></xp:script>
+		<xp:styleSheet href="/dbootstrap.css"></xp:styleSheet>
+	</xp:this.resources>
+
+
+
+
+	<debug:toolbar defaultCollapsed="true" collapseTo="left"
+		toolbarColor="purple">
+
+		<debug:this.loaded><![CDATA[${javascript:if (requestScope.session=="CN=PTL-WWWPROD-02/O=PTLWWWPD"){
+	return false;
+} else {
+return true;}}]]></debug:this.loaded>
+	</debug:toolbar>
+	<xc:ccTrackingCode></xc:ccTrackingCode>
+
+	<xc:ccEuropeanCookieCode>
+
+		<xc:this.loaded><![CDATA[${javascript:sessionScope.Region == "Europe"}]]></xc:this.loaded>
+	</xc:ccEuropeanCookieCode>
+	<xc:commonheader></xc:commonheader>
+
+
+	<xp:callback id="callback1"></xp:callback>
+
+
+
+	<xc:commonfooter></xc:commonfooter>
+</xp:view>

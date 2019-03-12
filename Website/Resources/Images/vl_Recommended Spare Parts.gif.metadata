@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imageresource xmlns="http://www.lotus.com/dxl" comment="Common Design Element" language="en-US" name="vl_Recommended Spare Parts.gif" publicaccess="true">
+  <item name="$LastBuildTime" sign="true">
+    <datetime dst="true">20080424T084917,97-07</datetime>
+  </item>
+  <item name="$BabelInfo" sign="true">
+    <textlist>
+      <text>BBA72A8E75BA545B8825741D006C3CC9P</text>
+      <text>en-US</text>
+    </textlist>
+  </item>
+</imageresource>

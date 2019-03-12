@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+		<div class="panel-body">
+				<p>
+				<span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+				<xp:text value=" ${langBean.reqfields}"></xp:text>
+			</p>
+			<div class="form-group">
+			<div class="row">
+  <div class="col-sm-4">
+	<xp:text id="emailLabel" styleClass="control-label" tagName="label" escape="false">
+				<xp:this.value><![CDATA[${langBean.labelEmail}: <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value></xp:text>
+  </div>
+  <div class="col-sm-8">
+				<xp:inputText id="emailInput" value="#{registrationBean.person.email}"
+					required="true" disableClientSideValidation="true">
+					<xp:this.validators>
+						<xp:validateConstraint message="${langBean.errorMsgEmail}">
+							<xp:this.regex><![CDATA[\b[A-Za-z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b]]></xp:this.regex>
+						</xp:validateConstraint>
+						<xp:validateRequired message="${langBean.msgIsRequired}">
+						</xp:validateRequired>
+					</xp:this.validators>
+				</xp:inputText>
+				<xp:message id="emailMsg" for="emailInput"></xp:message>
+  </div>
+</div>
+			
+			</div>
+			<div class="form-group">
+			<div class="row">
+  <div class="col-sm-4">
+<xp:text id="DupEmailLabel"
+					styleClass="control-label" tagName="label" escape="false">
+				<xp:this.value><![CDATA[${langBean.labelDupEmail}: <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value></xp:text>
+  </div>
+  <div class="col-sm-8">
+
+				<xp:inputText id="dupEmailInput" required="true"
+					disableClientSideValidation="true">
+					<xp:this.validators>
+						<xp:validateConstraint message="${langBean.errorMsgEmail}">
+							<xp:this.regex><![CDATA[\b[A-Za-z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b]]></xp:this.regex>
+						</xp:validateConstraint>
+						<xp:validateRequired message="${langBean.msgIsRequired}">
+						</xp:validateRequired>
+						<xp:validateExpression message="${langBean.BadDupEmailMsg}">
+							<xp:this.expression><![CDATA[#{javascript:var firstEmail = getComponent("emailInput").getValue();
+if (value != firstEmail){
+	return false;
+} else {
+	return true;
+}}]]></xp:this.expression>
+						</xp:validateExpression>
+					</xp:this.validators>
+				</xp:inputText>
+				<xp:message id="dupemailMsg" for="dupEmailInput"></xp:message>
+  </div>
+</div>
+				
+			</div>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-sm-4">
+						<xp:text id="acctNumberLabel"
+							styleClass="control-label" tagName="label" escape="false" value="${langBean.labelAcctNumber}">
+						</xp:text>
+						<xp:text escape="false" id="computedField1" tagName="span"
+							rendered="#{javascript:return !registrationBean.getPerson().isValidAcctNumber();}">
+							
+						<xp:this.value><![CDATA[#{javascript:return " <span aria-hidden=\"true\" class=\"required-icon glyphicon glyphicon-asterisk\"></span>";}]]></xp:this.value></xp:text>
+					</div>
+					<div class="col-sm-8">
+						<xp:inputText id="acctNumberInput"
+							value="#{registrationBean.person.acctNumber}"
+							disableClientSideValidation="true"
+							readonly="#{javascript:registrationBean.getPerson().isValidAcctNumber();}">
+							<xp:this.validators>
+								<xp:validateRequired message="${langBean.msgIsRequired}">
+								</xp:validateRequired>
+								<xp:validateConstraint message="#{javascript:langBean.AcctNumberMsg}">
+									<xp:this.regex><![CDATA[^[0-9]+$]]></xp:this.regex>
+								</xp:validateConstraint>
+							</xp:this.validators>
+						</xp:inputText>
+						<xp:message id="acctNumberMsg" for="acctNumberInput"></xp:message>
+					</div>
+				</div>
+
+
+
+			</div>
+			<div class="form-group">
+			<div class="row">
+  <div class="col-sm-4">
+<xp:text id="regionLabel"
+					styleClass="control-label" tagName="label" escape="false">
+				<xp:this.value><![CDATA[${langBean.LabelRegionReg} <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value></xp:text>
+  </div>
+  <div class="col-sm-8">
+<xp:comboBox id="regionSelect" styleClass="form-control"
+					value="#{registrationBean.person.region}"
+					disableClientSideValidation="true"
+					readonly="#{javascript:registrationBean.getPerson().isValidAcctNumber();}">
+					<xp:selectItems id="selectItems1">
+						<xp:this.value><![CDATA[#{langBean.RegionChoices}]]></xp:this.value>
+					</xp:selectItems>
+
+					<xp:this.validators>
+						<xp:validateRequired message="${langBean.msgIsRequired}">
+						</xp:validateRequired>
+					</xp:this.validators>
+
+				</xp:comboBox>
+				<xp:message id="regionMsg" for="regionSelect"></xp:message>
+  </div>
+</div>
+				
+				
+			</div>
+			<xp:panel id="showZip" disableOutputTag="true" 
+				 rendered="#{registrationBean.person.showZip}">
+				<div class="form-group">
+				<div class="row">
+  <div class="col-sm-4">
+					<xp:text tagName="label" id="zipCodeLabel" escape="false">
+					<xp:this.value><![CDATA[${langBean.labelPostalCode}: <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value></xp:text>
+  </div>
+  <div class="col-sm-8">
+<xp:inputText id="zipCodeInput" value="#{registrationBean.person.zipCode}"
+						disableClientSideValidation="true">
+						<xp:this.validators>
+							<xp:validateRequired message="${langBean.msgIsRequired}">
+							</xp:validateRequired>
+						</xp:this.validators>
+					</xp:inputText>
+					<xp:message id="zipCodeMsg" for="zipCodeInput"></xp:message>
+  </div>
+</div>
+				</div>
+			</xp:panel>
+
+			<xp:panel id="showCountry" disableOutputTag="true"
+				
+				rendered="#{registrationBean.person.showCountry}">
+				<div class="form-group">
+				<div class="row">
+  <div class="col-sm-4">
+<xp:text tagName="label" id="label2" escape="false">
+					<xp:this.value><![CDATA[${langBean.LabelSelCountry}: <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value></xp:text>
+  </div>
+  <div class="col-sm-8">
+
+					<xp:comboBox id="selCountryComboBox"
+						disableClientSideValidation="true" value="#{registrationBean.person.country}">
+						<xp:this.validators>
+							<xp:validateRequired message="${langBean.msgIsRequired}">
+							</xp:validateRequired>
+						</xp:this.validators>
+						<xp:selectItems>
+							<xp:this.value><![CDATA[${langBean.regCountryListNoZip}]]></xp:this.value>
+						</xp:selectItems>
+					</xp:comboBox>
+					<xp:message id="message2" for="selCountryComboBox">
+					</xp:message>
+  </div>
+</div>
+					
+				</div>
+			</xp:panel>
+		</div>
+		<div class="panel-footer">
+			<xp:link escape="true" text="${langBean.continueNewReg}" id="continueButton"
+				rendered="#{javascript:return !registrationBean.getPerson().isValidAcctNumber();}"
+				styleClass="btn btn-primary">
+				<xp:eventHandler event="onclick" submit="true"
+					refreshMode="complete">
+					<xp:this.action><![CDATA[#{javascript:importPackage(com.cascorp);
+var region = getComponent("regionSelect").getValue();
+if (region!=null || region != ""){
+	var jde = new JDESupport();
+	var serverValid = jde.testJDE(region);
+	if (!serverValid){
+	//put up serverdown msg
+	var msg=new javax.faces.application.FacesMessage();
+ 	var acctNumberInput:com.ibm.xsp.component.xp.XspInputText = getComponent("acctNumberInput");
+ 	facesContext.addMessage(acctNumberInput.getClientId(facesContext) , msg(langBean.getValue("serverdown")));
+	} else {
+
+		var rtn = registrationBean.lookupAccountInfo();
+		if (!rtn){
+ 			//put up error message
+ 			var msg=new javax.faces.application.FacesMessage();
+ 			var acctNumberInput:com.ibm.xsp.component.xp.XspInputText = getComponent("acctNumberInput");
+ 			facesContext.addMessage(acctNumberInput.getClientId(facesContext) , msg(langBean.getValue("invalidAcctNumber")));
+ 		}
+ 	}
+ }}]]></xp:this.action>
+				</xp:eventHandler>
+			</xp:link>
+			<xp:panel
+				rendered="#{javascript:return registrationBean.getPerson().isValidAcctNumber();}"
+				disableOutputTag="true">
+				<xp:link escape="true" text="${langBean.submitNewReg}" id="submitButton"
+					styleClass="btn btn-primary">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete">
+						<xp:this.action><![CDATA[#{javascript:
+
+var rtn = registrationBean.submitPhase1();
+dBar.info("return value" + rtn);
+dBar.info("messages are" + registrationBean.getErrorMessages());
+if (rtn){
+	//ok to move on
+	//save url that they were on
+	var urlString = sessionScope.prevPage;
+	if (!!urlString){
+		dBar.info("setting url to go to :" + urlString);
+		registrationBean.getPerson().setUrlToGoTo(urlString);
+	}
+	return "xsp-success";
+} else {
+	//got an error, get the error message and put in displayerror control
+	
+	var msg=new javax.faces.application.FacesMessage();
+	var emailInput:com.ibm.xsp.component.xp.XspInputText = getComponent("emailInput");
+	var acctNumberInput:com.ibm.xsp.component.xp.XspInputText = getComponent("acctNumberInput");
+	//var zipCodeInput:com.ibm.xsp.component.xp.XspInputText = getComponent("zipCodeInput").getValue().toUpperCase();
+	var zipCodeInput:com.ibm.xsp.component.xp.XspInputText = getComponent("zipCodeInput");
+	var selCountryComboBox:com.ibm.xsp.component.xp.XspSelectOneMenu = getComponent("selCountryComboBox");
+	dBar.info("uCase zipCode " + getComponent("zipCodeInput").getValue().toUpperCase());
+
+	dBar.info(registrationBean.getErrorMessages());
+	var errMsgArray = registrationBean.getErrorMessages();
+	dBar.info(errMsgArray.size());
+	for (err in errMsgArray){
+	 dBar.info("value is " + err);
+	 //check for duplicate email
+	 if (err =="duplicateemail"){
+	 	//send message to XPage
+	  	dBar.info("write to error display for email");
+	  	facesContext.addMessage(emailInput.getClientId(facesContext) , msg(langBean.getValue("duplicateEmail")));
+	  }
+	  if (err =="deniedaccount"){
+	 	//send message to XPage
+	  	dBar.info("write to error display for acct number");
+	  	facesContext.addMessage(acctNumberInput.getClientId(facesContext) , msg(langBean.getValue("deniedAccount")));
+	  }
+	  if (err =="zipcodemismatch"){
+	 	//send message to XPage
+	  	dBar.info("write to error display for zip code mismatch");
+	  	facesContext.addMessage(zipCodeInput.getClientId(facesContext) , msg(langBean.getValue("errorMsgBadZip")));
+	  }
+	  if (err =="countrycodemismatch"){
+		//send message to XPage
+	  	dBar.info("write to error display for country code mismatch");
+	  	facesContext.addMessage(selCountryComboBox.getClientId(facesContext) , msg(langBean.getValue("errorMsgBadCountry")));
+	  }
+	}
+	return "xsp-failure";
+}}]]></xp:this.action>
+					</xp:eventHandler>
+				</xp:link>
+				<xp:link escape="true" text="${langBean.resetNewReg}" id="resetButton"
+					styleClass="btn btn-primary">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete" disableValidators="true">
+						<xp:this.action><![CDATA[#{javascript:registrationBean.resetNewRegistration();}]]></xp:this.action>
+					</xp:eventHandler>
+				</xp:link>
+			</xp:panel>
+		</div>
+	
+	<xp:this.navigationRules>
+		<xp:navigationRule outcome="xsp-success"
+			viewId="/Phase2NewRegistration.xsp">
+		</xp:navigationRule>
+	</xp:this.navigationRules>
+
+</xp:view>

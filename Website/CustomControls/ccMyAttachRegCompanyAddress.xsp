@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+<xe:widgetContainer id="companyAddressWidget"
+						titleBarText="#{javascript:langBean.HeadingDealer}"
+						styleClass="login-panel">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-9">
+										<xp:text escape="true"
+											id="DealerNameField" value="">
+										</xp:text>
+
+										<xp:br></xp:br>
+										<xp:text escape="false"
+											id="DealerAddressField">
+											<xp:this.value></xp:this.value>
+										</xp:text>
+										<xp:br></xp:br>
+										<xp:text escape="true"
+											id="DealerCityField" value="">
+										</xp:text>
+										,
+
+										&#160;
+										<xp:text escape="true"
+											id="DealerStateField" value="">
+										</xp:text>
+										&#160;&#160;
+										<xp:text escape="true"
+											id="DealerAddressZip" value="">
+										</xp:text>
+										<xp:br></xp:br>
+										<xp:text escape="true"
+											id="DealerCountryField" value="">
+										</xp:text>
+									</div>
+								</div>
+							</div>
+
+
+					</xe:widgetContainer>
+</xp:view>

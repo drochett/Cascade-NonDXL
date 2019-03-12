@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:panel styleClass="tableHeading" tagName="th">
+        <xp:this.attrs>
+          <xp:attr name="colspan" value="2"></xp:attr>
+        </xp:this.attrs>
+        <xp:label value="${langBean.title3aITA}" id="label2"
+          style="font-weight:bold;color:rgb(255,255,255)">
+        </xp:label>
+      </xp:panel>
+    </xp:tr>
+  </xp:table>
+
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:td style="width:50.0%">
+        <xp:label value="${langBean.labelCarriageHeight}:" id="std_CarriageHeight_Label1"
+          for="std_CarriageHeight1">
+        </xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.std_CarriageHeight}" id="std_CarriageHeight1"
+           readonly="true">
+        </xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.labelHookDistance1}:" id="std_HookDistance1_Label1"
+          for="std_HookDistance11">
+        </xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.std_HookDistance1}" id="std_HookDistance11"
+          readonly="true">
+        </xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.labelHookDistance2}:" id="std_HookDistance2_Label1"
+          for="std_HookDistance21">
+        </xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.std_HookDistance2}" id="std_HookDistance21"
+          readonly="true">
+        </xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.labelForkThickness}:" id="std_ForkThickness_Label1"
+          for="std_ForkThickness1">
+        </xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.std_ForkThickness}" id="std_ForkThickness1"
+          readonly="true">
+        </xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.labelForkWidth}:" id="std_ForkWidth_Label1" for="std_ForkWidth1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.std_ForkWidth}" id="std_ForkWidth1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.labelForkLength}:" id="std_ForkLength_Label1" for="std_ForkLength1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.std_ForkLength}" id="std_ForkLength1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.labelBackHeight}:" id="std_BackHeight_Label1" for="std_BackHeight1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.std_BackHeight}" id="std_BackHeight1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.labelstampInfo}:" id="std_stampInfo_Label1" for="std_stampInfo1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.std_stampInfo}" id="std_stampInfo1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.labelSelectMountingClass}:" id="label1" for="computedField1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text escape="true" value="#{document1.StandardITAForks}" id="computedField1"></xp:text>
+      </xp:td>
+    </xp:tr>
+  </xp:table>
+
+</xp:view>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xc:ccLayout>
+		<xp:panel id="main" styleClass="container">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7" value="Safety Decals"
+							styleClass="carousel-heading">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!--			MAIN CONTENT-->
+			<!-- safety decals view -->
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-xs-12">
+					<xe:dataView id="dataView1" rows="30" columnTitles="true"
+						collapsibleCategory="true" var="viewEntry" openDocAsReadonly="true">
+						<xe:this.data>
+							<xp:dominoView var="view1"
+								databaseName="#{configBean.DownloadsDbPath}"
+								viewName="safetydecals2" expandLevel="1">
+							</xp:dominoView>
+						</xe:this.data>
+						<xe:this.categoryColumn>
+							<xe:viewCategoryColumn columnName="ProductCategory"
+								style="font-weight:bold">
+							</xe:viewCategoryColumn>
+						</xe:this.categoryColumn>
+						<xe:this.extraColumns>
+							<xe:viewExtraColumn columnName="ProductFamily"
+								columnTitle="Product Family" >
+							</xe:viewExtraColumn>
+							<xe:viewExtraColumn columnName="SizeKB"
+								columnTitle="Size" >
+							</xe:viewExtraColumn>
+							<xe:viewExtraColumn columnName="Modified"
+								columnTitle="Modified" >
+							</xe:viewExtraColumn>
+						</xe:this.extraColumns>
+						<xp:this.facets>
+							<xp:pager layout="Previous Group Next" partialRefresh="true"
+								id="pager1" xp:key="pagerBottomRight">
+							</xp:pager>
+							<xp:panel xp:key="summary" id="panelSummary1">
+								<xp:link escape="true" text="#{viewEntry.Description}"
+									id="link1" target="_blank"
+									value="#{configBean.HostURL}#{configBean.DownloadsURL}/#{viewEntry.href}">
+								</xp:link>
+							</xp:panel>
+							<xp:pager layout="Previous Group Next" partialRefresh="true"
+								id="pager2" xp:key="pagerTopRight">
+							</xp:pager>
+							<xe:pagerExpand id="pagerExpand1" xp:key="pagerTopLeft"
+								collapseText="${langBean.pgrCollapseAll}" expandText="${langBean.pgrExpandAll}">
+							</xe:pagerExpand>
+						</xp:this.facets>
+					</xe:dataView>
+
+				</xp:panel>
+			</xp:panel>
+
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

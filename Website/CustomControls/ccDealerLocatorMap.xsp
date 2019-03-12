@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<xp:this.resources>
+		<xp:styleSheet href="/maps.css"></xp:styleSheet>
+		<xp:styleSheet href="/gstyle_buttons.css"></xp:styleSheet>
+		<xp:script
+			src="https://maps.google.com/maps/api/js?client=gme-cascadecorporation&amp;sensor=false&amp;channel=Dealer-Locator-Public"
+			clientSide="true">
+		</xp:script>
+		<xp:script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+			clientSide="true">
+		</xp:script>
+	</xp:this.resources>
+
+	<!-- template START
+		<link rel="stylesheet" href="/template/styles/main.css"
+		media="screen and (min-width: 801px)" />
+		<link rel="stylesheet" href="/template/styles/mobile.css"
+		media="screen and (max-width: 800px)" />
+		<! template END -->
+
+	<!-- START DEALER LOCATOR -->
+	<div class="detailArea cascade-dealer-locator">
+		<div class="row">
+
+			<div class="col-sm-3">
+				<div id="SearchPanel2"
+					class="cascade-dealer-locator-search">
+					<div id="searchBox">
+						<input id="address" type="text"
+							placeholder="Any Place"
+							onkeypress="handleKeyPress(event,this.form)"
+							class="lineheight form-control" />
+						<br />
+						- Des Moines, Iowa (city, state)
+						<br />
+						- 97219 (zip code)
+						<br />
+						- Summerfield Golf Course, Tigard, OR
+						<br />
+						- 2201 NE 201st Ave, 97024 (full address)
+					</div>
+					<hr></hr>
+					<div id="ft-data"></div>
+				</div>
+			</div>
+			<div class="col-sm-9">
+
+		<xc:ccGoogleMaps map_height="400" map_width="839"
+			map_width_measurement="px" map_height_measurement="px" map_zoom="10"
+			map_type="ROADMAP" map_center_type="Address"
+			map_center_address="2201 NE 201st Ave, 97024">
+		<xc:this.circle>
+			<xc:circle center_type="Address" radius="10000"
+				strokeColor="#FF0000" strokeOpacity="0.5" strokeWeight="1"
+				visible="true" center_address="2201 NE 201st, 97024">
+			</xc:circle>
+		</xc:this.circle>
+		<xc:this.marker>
+			<xc:marker location_type="Address"
+				location_address="2201 NE 201st Ave, 97024"
+				title="Cascade Corporation - Headquarters">
+			</xc:marker>
+		</xc:this.marker></xc:ccGoogleMaps>
+			</div>
+		</div>
+		</div>
+
+</xp:view>

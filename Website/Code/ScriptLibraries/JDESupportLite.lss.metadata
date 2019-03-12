@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<note xmlns="http://www.lotus.com/dxl" class="filter">
+  <item name="$Language" sign="true">
+    <text>en-US</text>
+  </item>
+  <item name="$LastBuildTime" sign="true">
+    <datetime>20061208T022033,27+01</datetime>
+  </item>
+  <item name="$BabelInfo" sign="true">
+    <textlist>
+      <text>12C27BEA7EA906B5C12571E300523FA1P</text>
+      <text>en-US</text>
+    </textlist>
+  </item>
+  <item name="$PublicAccess" sign="true">
+    <text>1</text>
+  </item>
+  <item name="$Flags">
+    <text>s34Q</text>
+  </item>
+  <item name="$TITLE" sign="true">
+    <text>JDESupportLite</text>
+  </item>
+  <item name="$POID">
+    <datetime>20190124T101947,25-08</datetime>
+  </item>
+</note>

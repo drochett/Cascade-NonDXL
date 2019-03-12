@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	
+			<xp:panel id="panelTabletDesktop1" loaded="${!deviceBean.mobile}"
+				styleClass="mycascade-tab-panel">
+	
+				<xp:tabbedPanel id="tabbedPanel1" styleClass="nav nav-tabs nav-justified cascade-tabs" selectedTab="tabPanel1" partialRefresh="true">
+					<xp:tabPanel id="tabPanel1" label="Resources By Type">
+
+						<xp:viewPanel rows="10" id="viewPanel1"
+							viewStyle="width:100%">
+							<xp:this.data>
+								<xp:dominoView var="view1"
+									databaseName="#{javascript:configBean.DownloadsDbPath}"
+									viewName="linksP" expandLevel="1">
+									<xp:this.categoryFilter><![CDATA[#{javascript:sessionScope.get('LanguageP') + "~" + compositeData.portalType}]]></xp:this.categoryFilter>
+								</xp:dominoView>
+							</xp:this.data>
+
+							<xp:viewColumn columnName="Type"
+								id="viewColumn1" expandedImage="/expand.png"
+								collapsedImage="/collapse.png" styleClass="catButton">
+								<xp:this.facets>
+									<xp:viewColumnHeader
+										style="width:25%" xp:key="header" id="viewColumnHeader1"
+										value="${langBean.colLabelType}">
+									</xp:viewColumnHeader>
+								</xp:this.facets>
+							</xp:viewColumn>
+
+							<xp:viewColumn columnName="Description"
+								id="viewColumn2" contentType="html">
+								<xp:this.facets>
+									<xp:viewColumnHeader
+										style="width:75%" value="${langBean.MyAttachTableNickName}"
+										xp:key="header" id="viewColumnHeader2">
+									</xp:viewColumnHeader>
+								</xp:this.facets>
+							</xp:viewColumn>
+
+							<xp:this.facets>
+								<xp:pager partialRefresh="true"
+									layout="Previous Group Next" xp:key="footerPager" id="pager3"
+									styleClass="pull-right">
+								</xp:pager>
+							</xp:this.facets>
+						</xp:viewPanel>
+
+					</xp:tabPanel>
+					<xp:tabPanel label="Resources By Product Family" id="tabPanel2">
+				
+				<xp:viewPanel rows="10" id="viewPanel2">
+			<xp:this.facets>
+				<xp:pager partialRefresh="true" layout="Previous Group Next" xp:key="headerPager" id="pager2">
+				</xp:pager>
+			</xp:this.facets>
+			<xp:this.data>
+				<xp:dominoView var="view2" databaseName="#{javascript:configBean.DownloadsDbPath}" viewName="linksPF" expandLevel="1">
+					<xp:this.categoryFilter><![CDATA[#{javascript:sessionScope.get('LanguageP') + "~" + compositeData.portalType}]]></xp:this.categoryFilter>
+				</xp:dominoView>
+			</xp:this.data>
+			
+			
+			<xp:viewColumn columnName="Product Family" id="viewColumn3" expandedImage="/expand.png" collapsedImage="/collapse.png" styleClass="catButton">
+				<xp:this.facets>
+					<xp:viewColumnHeader xp:key="header" id="viewColumnHeader3" value="${langBean.labelProductFamily}">
+					</xp:viewColumnHeader>
+				</xp:this.facets>
+			</xp:viewColumn>
+
+			<xp:viewColumn columnName="Description" id="viewColumn4" contentType="html">
+				<xp:this.facets>
+					<xp:viewColumnHeader value="${langBean.MyAttachTableNickName}" xp:key="header" id="viewColumnHeader4">
+					</xp:viewColumnHeader>
+				</xp:this.facets>
+			</xp:viewColumn>
+
+		</xp:viewPanel>
+				
+		
+						
+					</xp:tabPanel>
+					
+				</xp:tabbedPanel>
+				
+			</xp:panel>
+</xp:view>

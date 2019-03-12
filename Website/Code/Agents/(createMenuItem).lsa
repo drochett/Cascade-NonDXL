@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="(createMenuItem)" hide="v3" publicaccess="false">
+  <trigger type="agentlist"/>
+  <documentset type="selected"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent createMenuItem
+	Created Aug 31, 2015 by Paul Della-Nebbia/TSPSDev
+	Description: copies a labels doc into a menu item doc
+%END REM
+Option Public
+Option Declare
+%INCLUDE "lsconst"
+
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	
+	Dim menu As String
+	menu = "" 
+	Do While menu = ""
+		menu = Inputbox("menus: products, forkspage, order, support, aboutcascade, contactus", "set menu  = " )	
+	Loop 
+	
+	' === REQUIRED === Access the current database from the session
+	Dim session As New NotesSession
+	Dim dbCur As NotesDatabase
+	Set dbCur = session.CurrentDatabase
+	Dim doc As NotesDocument
+	Dim docMenu As NotesDocument
+	Dim keyCopy As String
+	Dim valCopy, valCopy_es_na, valCopy_ca_na, valCopy_fr_na, valCopy_en, valCopy_de, valCopy_es, valCopy_fi, valCopy_fr, valCopy_it, valCopy_nl, valCopy_se As String
+	
+	' === Access the unprocessed collection of selected documents in view
+	Dim collUnprocessed As NotesDocumentCollection
+	Set collUnprocessed = dbCur.UnprocessedDocuments
+	
+	' === Make sure the collection is not empty and then report the count in a messagebox
+	If collUnprocessed Is Nothing Then
+		Messagebox "Collection is empty!", MB_ICONEXCLAMATION, _
+"AGENT: " &amp; session.CurrentAgent.Name
+	Else
+		Dim nContinue As Integer     
+		nContinue = Messagebox( "Create corresponding menu documents for " &amp; collUnprocessed.Count &amp;  " selected documents?", MB_YESNO, "AGENT: " &amp; session.CurrentAgent.Name)
+		
+		If nContinue = IDYES Then 
+			Set doc = collUnprocessed.Getfirstdocument()
+			Do Until doc Is Nothing
+				Set docMenu = dbCur.Createdocument()
+				keyCopy = doc.GetItemValue("key")(0)
+				valCopy = doc.GetItemValue("val_americas_en")(0)
+				valCopy_es_na = doc.GetItemValue("val_americas_es")(0)
+				valCopy_ca_na = doc.GetItemValue("val_americas_ca")(0)
+				valCopy_fr_na = doc.GetItemValue("val_americas_fr")(0)
+				valCopy_de = doc.GetItemValue("val_eme_de")(0)
+				valCopy_en = doc.GetItemValue("val_eme_en")(0)
+				valCopy_es = doc.GetItemValue("val_eme_es")(0)
+				valCopy_fi = doc.GetItemValue("val_eme_fi")(0)
+				valCopy_fr = doc.GetItemValue("val_eme_fr")(0)
+				valCopy_it = doc.GetItemValue("val_eme_it")(0)
+				valCopy_nl = doc.GetItemValue("val_eme_nl")(0)
+				valCopy_se = doc.GetItemValue("val_eme_se")(0)
+				
+				docMenu.Replaceitemvalue "key", keyCopy			
+				With docMenu
+					.Form = "MenuForm"
+					.SortOrder = 0 
+					.Menu = menu
+					'.key = keyCopy
+					.val_americas_en = valCopy				
+					.val_americas_es = valCopy_es_na				
+					.val_americas_ca = valCopy_ca_na				
+					.val_americas_fr = valCopy_fr_na				
+					.val_eme_de = valCopy_de
+					.val_eme_en = valCopy_en
+					.val_eme_es = valCopy_es
+					.val_eme_fi = valCopy_fi
+					.val_eme_fr = valCopy_fr
+					.val_eme_it = valCopy_it
+					.val_eme_nl = valCopy_nl
+					.val_eme_se = valCopy_se
+					.save True,True 
+				End With	
+				Set doc = collUnprocessed.Getnextdocument(doc)
+			Loop
+		Else
+			Messagebox "No menu documents created" , MB_OK, "AGENT: " &amp; session.CurrentAgent.Name
+		End If
+		
+		
+	End If
+End Sub</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101915,82-08</datetime>
+  </item>
+</agent>

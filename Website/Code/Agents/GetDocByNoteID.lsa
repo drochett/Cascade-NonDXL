@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="GetDocByNoteID" hide="v3" publicaccess="false">
+  <trigger type="actionsmenu"/>
+  <documentset type="selected"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent GetDocByNoteID
+	Created Jan 23, 2018 by Michael Zens/PTL/CASCADE
+	Description: Given NOTE ID of a document, this code retrieves the document and displays it using
+	simple form that shows form name.
+%END REM
+Option Public
+Option Declare
+
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	On Error Goto Error_Trap
+	Dim s As New NotesSession
+	Dim ws As New NotesUIWorkspace
+	Dim a As NotesAgent
+	Dim db As NotesDatabase
+	Dim uid As NotesUIDocument
+	Dim doc As NotesDocument
+	Dim noteID As String
+	
+	noteid = Inputbox("EnterNoteID","Need NoteID")
+	
+	Set db = s.currentDatabase
+	
+	Set doc = db.Getdocumentbyid(noteID)
+	
+	
+	Goto End_Of_Code
+ERROR_TRAP:
+	Messagebox "Error" &amp; Str(Err) &amp; ": " &amp; Error$ + " on line " + Format$(Erl)
+	Resume End_Of_Code
+END_OF_CODE:
+	
+End Sub</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101950,83-08</datetime>
+  </item>
+</agent>

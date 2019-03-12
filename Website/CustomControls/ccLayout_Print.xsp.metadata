@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<note xmlns="http://www.lotus.com/dxl" class="form">
+  <item name="$Comment">
+    <text>Common Layout Design for all Cascade Websites</text>
+  </item>
+  <item name="$TITLE">
+    <text>ccLayout_Print.xsp</text>
+  </item>
+  <item name="$Flags">
+    <text>gC~4;</text>
+  </item>
+  <item name="$FileNames" sign="true">
+    <text>ccLayout_Print.xsp</text>
+  </item>
+</note>

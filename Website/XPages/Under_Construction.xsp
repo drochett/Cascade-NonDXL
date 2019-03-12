@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xc:ccMetaData></xc:ccMetaData>
+
+	<xc:ccLayout>
+		<div class="container" id="div1">
+		<!--		banner row-->
+		<xp:panel styleClass="banner-image">
+			<xp:image id="image2" url="/attachment_lineup1170.png"></xp:image>
+		</xp:panel>
+		
+		<xp:panel id="error" styleClass="col-sm-7"
+					tagName="div">
+			This site is currently under construction. Pleae select another language.
+		</xp:panel>
+		</div>
+	</xc:ccLayout>
+	
+</xp:view>

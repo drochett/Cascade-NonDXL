@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+
+
+	<xp:this.resources>
+		<xp:script src="/custom.jss" clientSide="false"></xp:script>
+	</xp:this.resources>
+	<xp:this.beforePageLoad><![CDATA[#{javascript:setScpLanguage() ;
+
+getOrderData();
+//following code added for testing only
+//doTestContext();
+// end of code added for testing}]]></xp:this.beforePageLoad>
+	<xc:ccLayout>
+		<xp:panel styleClass="container" id="main">
+			<xp:this.data>
+				<xp:dominoDocument var="document1"
+					databaseName="${configBean.OrdersDbPath}" action="openDocument"
+					formName="orderforkkit">
+				</xp:dominoDocument>
+			</xp:this.data>
+			<!--      header-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							value="${langBean.titleOrder} #{currentDocument.OrderType}"
+							styleClass="carousel-heading">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!-- End Panel Header -  -->
+
+			<!--      Start ORDER details-->
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-xs-12 col-md-10">
+					<xc:ccOrderProcessInformation></xc:ccOrderProcessInformation>
+					<xp:br></xp:br>
+					<xc:ccOrderProcessAddress></xc:ccOrderProcessAddress>
+					<xp:br></xp:br>
+					<xc:ccOrderProcessSummary></xc:ccOrderProcessSummary>
+					
+					<xc:ccOrderPrintButtons>
+
+
+
+
+						<xc:this.rendered><![CDATA[#{sessionScope.isEditRole eq "false"}]]></xc:this.rendered>
+					</xc:ccOrderPrintButtons>
+					<xc:ccOrderProcessButtons rendered="#{sessionScope.roles.isEditParts eq true || sessionScope.roles.isEditForks eq true}"></xc:ccOrderProcessButtons>
+					<xp:br></xp:br>
+				</xp:panel>
+			</xp:panel>
+			<!--      END ODER details-->
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

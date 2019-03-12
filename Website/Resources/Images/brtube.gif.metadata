@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imageresource xmlns="http://www.lotus.com/dxl" language="en-US" name="brtube.gif" publicaccess="true">
+  <item name="$LastBuildTime" sign="true">
+    <datetime>20061106T223324,32+01</datetime>
+  </item>
+  <item name="$BabelInfo" sign="true">
+    <textlist>
+      <text>E35C60B9855CEE6488256CFD0056BA8DP</text>
+      <text>en-US</text>
+    </textlist>
+  </item>
+</imageresource>

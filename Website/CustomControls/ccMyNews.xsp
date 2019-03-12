@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+  <xe:widgetContainer id="companyAddressWidget"
+		titleBarText="${langBean.MyNews}" styleClass="portal-panel">
+
+	<div class="panel-body">
+		
+		<xp:panel styleClass="form-group" tagName="div">
+
+
+<xe:dataView id="dataView1" rows="4" var="viewEntry"
+							styleClass="news-table" expandedDetail="true">
+							<xe:this.data>
+								<xp:dominoView
+									databaseName="${configBean.BlogDbPath}"
+									viewName="BlogByLanguage" var="view1"
+									categoryFilter="#{sessionScope.LanguageP}">
+
+								</xp:dominoView>
+							</xe:this.data>
+							
+							<xp:this.facets>
+								<xp:panel id="detailPanel"
+									xp:key="detail">
+
+									<xp:link escape="true" id="link1"
+										value="#{configBean.HostURL}#{viewEntry.Link}">
+
+										<xp:table
+											styleClass="news-story">
+											<xp:tr>
+												
+												<xp:td
+													styleClass="description">
+													<xp:text
+														value="#{viewEntry.Title}" id="computedField5"
+														styleClass="newsfeedtitle" escape="false">
+													</xp:text>
+													<xp:br></xp:br>
+													<xp:text
+														id="computedField6" escape="false"
+														value="#{viewEntry.ShortText} #{langBean.readMore}">
+													</xp:text>
+												</xp:td>
+											</xp:tr>
+										</xp:table>
+									</xp:link>
+								</xp:panel>
+							</xp:this.facets>
+						</xe:dataView>
+
+
+		</xp:panel>
+
+	</div>
+  </xe:widgetContainer>
+</xp:view>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.resources>
+		<xp:styleSheet href="/cascade.css"></xp:styleSheet>
+	</xp:this.resources>
+	<xp:panel>
+		<div style="text-align:left">
+			<xp:text escape="true" id="computedField1"
+				value="#{langBean.mhp_SpecTitle}">
+			</xp:text>
+		</div>
+	</xp:panel>
+</xp:view>

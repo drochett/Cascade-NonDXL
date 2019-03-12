@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="(generateLabels)" hide="v3" publicaccess="false">
+  <trigger type="agentlist"/>
+  <documentset type="selected"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent generateLabels
+	Created Jun 29, 2015 by Paul Della-Nebbia/TSPSDev
+	Description: Comments for Agent
+%END REM
+Option Public
+Option Declare
+%INCLUDE "lsconst"
+
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	
+	' === REQUIRED === Access the current database from the session
+	Dim session As New NotesSession
+	Dim dbCur As NotesDatabase
+	Set dbCur = session.CurrentDatabase
+	Dim doc As NotesDocument
+	Dim valCopy As String
+	Dim valList As Variant
+	Dim leftVal As String
+	Dim rightVal As String
+	' === Access the unprocessed collection of selected documents in view
+	Dim collUnprocessed As NotesDocumentCollection
+	Set collUnprocessed = dbCur.UnprocessedDocuments
+	
+	' === Make sure the collection is not empty and then report the count in a messagebox
+	If collUnprocessed Is Nothing Then
+		Messagebox "Collection is empty!", MB_ICONEXCLAMATION, _
+"AGENT: " &amp; session.CurrentAgent.Name
+	Else
+		Dim nContinue As Integer     
+		nContinue = Messagebox( "Generate/OVERWRITE eme-yy language labels for " &amp; collUnprocessed.Count &amp;  " selected documents?", MB_YESNO, "AGENT: " &amp; session.CurrentAgent.Name)
+		
+		If nContinue = IDYES Then 
+			Set doc = collUnprocessed.Getfirstdocument()
+			
+			Do Until doc Is Nothing
+				If doc.Getitemvalue("isMultiValue")(0) = "Yes" Then
+					'have to add to the left of the | only
+					valList = doc.GetItemValue("val_americas_en")
+					
+					
+						With doc
+							.val_eme_de =  generateNewList(valList, "") '  " (de)")
+							.val_eme_en = generateNewList(valList, "") '   "(en)")
+							.val_eme_es = generateNewList(valList, "") '  " (es)")
+							.val_eme_fi = generateNewList(valList, "") ' " (fi)")
+							.val_eme_fr = generateNewList(valList, "") '  " (fr)")
+							.val_eme_it = generateNewList(valList, "") ' valCopy + " (it)")
+							.val_eme_nl = generateNewList(valList, "") '  " (nl)")
+							.val_eme_se = generateNewList(valList, "") '  "  (se)")
+							.val_americas_es = generateNewList(valList, "") '  " (es)")
+							.val_americas_ca = generateNewList(valList, "") '  " (ca)")
+							.val_americas_fr = generateNewList(valList, "") '   " (fr)")
+							
+						End With	
+				
+			Else
+				valCopy = doc.GetItemValue("val_americas_en")(0)
+				With doc
+							.val_eme_de = valCopy' + " (de)"
+							.val_eme_en = valCopy' + " (en)"
+					.val_eme_es = valCopy' + " (es)"
+					.val_eme_fi = valCopy' + " (fi)"
+					.val_eme_fr = valCopy' + " (fr)"
+					.val_eme_it = valCopy' + " (it)"
+					.val_eme_nl = valCopy' + " (nl)"
+					.val_eme_se = valCopy' + " (se)"
+					.val_americas_es = valCopy' + " (es)"
+					.val_americas_ca = valCopy' + " (ca)"
+					.val_americas_fr = valCopy' + " (fr)"
+					.processed_de = "False"
+					.processed_es = "False"
+					.processed_fi = "False"
+					.processed_fr = "False"
+							.processed_it = "False"
+							.processed_nl = "False"
+					.processed_se = "False"
+					.processed = "No"
+					
+					'.save True,True 
+				End With	
+				End If
+				Call doc.save(True, True)
+				Set doc = collUnprocessed.Getnextdocument(doc)
+			Loop
+		Else
+			Messagebox "No documents updated" , MB_OK, "AGENT: " &amp; session.CurrentAgent.Name
+		End If
+		
+		
+	End If
+	
+End Sub
+
+</lotusscript>
+  </code>
+  <code event="generateNewList">
+    <lotusscript>Function generateNewList(vList As Variant , appStr As String) As Variant
+'Dim newList(0) As String
+Redim newList(0 To Ubound(vList)) As String
+Dim i As Integer
+Dim leftStr As String
+Dim rightStr As String
+For i = 0 To Ubound(vlist)
+	leftStr = ""
+	rightStr = ""
+	If (Instr (vList(i), "|") ) Then
+		'has vertical bar
+		leftStr = Strleft(vList(i), "|", 5)
+		rightStr = Strrightback(vList(i), "|", 5)
+		newList(i) = leftStr + appStr + "|" + rightStr
+		
+	Else
+		'no vertical bar
+		newList(i)  = vList(i) + appStr
+	End If
+	
+Next
+	generateNewList = Newlist
+	
+End Function </lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101914,28-08</datetime>
+  </item>
+</agent>

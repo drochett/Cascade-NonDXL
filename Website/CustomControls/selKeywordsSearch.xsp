@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+
+	<xp:panel id="widgetContainer1" styleClass="panel login-panel ServiceLitInputBox">
+
+		<div class="panel-body">
+			<div class="form-group">
+				<p class="ServiceLitText">
+
+					<xp:text escape="false" id="computedField2" tagName="span"
+						value="${langBean.labelSearchInst3}">
+					</xp:text>
+				</p>
+			</div>
+
+
+			<div class="form-group">
+				<div class="row">
+					<div class="col-sm-3 col-md-2">
+						<xp:text tagName="label" value="${langBean.labelKeywordEntry}: "
+							id="SearchLabel" styleClass="control-label">
+						</xp:text>
+					</div>
+					<div class="col-sm-6">
+						<xp:inputText id="searchEntry"
+							value="#{searchLiteratureBean.searchInputKeyword}"></xp:inputText>
+						<p class="ServiceLitText">
+							<xp:text escape="false" id="computedField3" tagName="span"
+								value="${langBean.labelExampleKeywords1}:&#160;" style="font-weight:bold;">
+							</xp:text>
+							<xp:text escape="false" id="computedField1" tagName="span"
+								value="${langBean.labelExampleKeywords2}">
+							</xp:text>
+						</p>
+
+					</div>
+				</div>
+			</div>
+			
+			
+				<div class="form-group">
+				<div class="row">
+					<div class="col-sm-3 col-md-2">
+						<xp:text tagName="label" value="${langBean.labelKeywordFilter}: "
+							id="computedField4" styleClass="control-label">
+						</xp:text>
+					</div>
+					<div class="col-sm-9">
+						<xp:comboBox id="selDocTypeOther"
+							styleClass="auto-width" value="#{searchLiteratureBean.selKeywordFilter}">
+							<xp:selectItems>
+								<xp:this.value><![CDATA[${langBean.selKeywordFilter}]]></xp:this.value>
+							</xp:selectItems>
+						</xp:comboBox>
+
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="panel-footer clearfix">
+			<xp:link escape="true" text="${langBean.BtnSiteSearch}" id="SearchButton1"
+				styleClass="btn btn-primary pull-right">
+
+				<xp:eventHandler event="onclick" submit="true"
+					onStart="requestStarted()" onComplete="requestCompleted()"
+					refreshMode="partial" refreshId="main">
+
+					<xp:this.action><![CDATA[#{javascript://reset the pagers
+//println("=+=+=+=+=+=+=+=+=")
+//println("Searching Keywords");
+var searchInput1 = getComponent("searchEntry").getValue();
+var searchInput2 = getComponent("selDocTypeOther").getValue();
+//println("Checking searchInput")
+if(searchInput1!==null){
+	println("Keyword:  " + searchInput1);
+}else{
+	println("Keyword search term is NULL");
+}
+if(searchInput2!==null){
+	println("Document Type:  " + searchInput2);
+}else{
+	println("Document Type search term is NULL")
+}
+try{
+	var pager1:com.ibm.xsp.component.xp.XspPager = getComponent("pager1");
+	if(pager1!==null){
+		print("pager1 NOT NULL");
+		pager1.gotoFirst();
+	}else{
+		print("pager1 NULL");
+	}
+	searchLiteratureBean.processSearch3();
+}catch(e){
+	print("ERROR Searching Keywords");
+}
+//println("=+=+=+=+=+=+=+=+=")}]]></xp:this.action>
+				</xp:eventHandler>
+			</xp:link>
+		</div>
+
+	</xp:panel>
+</xp:view>

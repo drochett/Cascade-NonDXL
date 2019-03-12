@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xe:breadCrumbs id="breadCrumbs2">
+		<xe:this.treeNodes>
+			<xe:basicLeafNode label="${langBean.home}"
+				href="${configBean.HostURL}${sessionScope.LanguageURL}home">
+			</xe:basicLeafNode>
+			<xe:basicLeafNode label="${langBean.attachments}"
+				href="${configBean.HostURL}${sessionScope.LanguageURL}products">
+				<xe:this.rendered><![CDATA[#{document1.ChoiceForMenu eq "products"}]]></xe:this.rendered>
+			</xe:basicLeafNode>
+			<xe:basicLeafNode label="${langBean.forkspage}"
+				href="${configBean.HostURL}${sessionScope.LanguageURL}forkspage">
+				<xe:this.rendered><![CDATA[#{document1.ChoiceForMenu eq "forkspage"}]]></xe:this.rendered>
+			</xe:basicLeafNode>
+			<xe:basicLeafNode label="${langBean.attachments}"
+				href="${configBean.HostURL}${sessionScope.LanguageURL}products">
+				<xe:this.rendered><![CDATA[#{document1.ProductFamilyMenu eq "products"}]]></xe:this.rendered>
+			</xe:basicLeafNode>
+			<xe:basicLeafNode label="${langBean.forkspage}"
+				href="${configBean.HostURL}${sessionScope.LanguageURL}forkspage">
+				<xe:this.rendered><![CDATA[#{document1.ProductFamilyMenu eq "forkspage"}]]></xe:this.rendered>
+			</xe:basicLeafNode>
+			<xe:basicLeafNode label="${document1.ProductFamilyName}"
+				href="${configBean.HostURL}${sessionScope.LanguageURL}${document1.ProductFamily}">
+				<xe:this.rendered><![CDATA[#{not empty document1.ProductFamily}]]></xe:this.rendered>
+			</xe:basicLeafNode>
+			<xe:basicLeafNode label="#{document1.Subject}">
+			</xe:basicLeafNode>
+		</xe:this.treeNodes>
+	</xe:breadCrumbs>
+</xp:view>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom">
+
+
+	<xp:this.beforePageLoad><![CDATA[#{javascript:setScpLanguage() ;
+setScpUnid() ;
+//setDealerRole();
+/* added by mdz 03/01/2017
+Code intended to add ACL data to sessionScope so it can be
+referred to later
+*/
+setOrderProcessingRoles();
+}]]></xp:this.beforePageLoad>
+
+	<xp:this.resources>
+		<xp:script src="/custom.jss" />
+	</xp:this.resources>
+	<xc:ccRestrictAccess />
+	<xc:ccLayout>
+			<!--start container for page-->
+		<xp:panel styleClass="container" id="main">
+			<!--  new banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+							<!-- the following will only appear if user DOES have the [Dealer] role in the home.nsf database -->
+						<xp:text escape="false" id="computedField7" value="${langBean.titleDealers}"
+							styleClass="carousel-heading" rendered="#{sessionScope.isDealerRole eq true}" />
+							<!-- the following will only appear if user DOES NOT have the [Dealer] role in the home.nsf database -->
+						<xp:text escape="false" id="computedField1" value="${langBean.msgUserAccessError}" 
+							 rendered="#{sessionScope.isDealerRole eq false}" 
+							styleClass="carousel-heading"/>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+		<xp:panel id="badUrlPanel1"
+			rendered="${javascript:return (!viewScope.unid)?true:false;}"
+			styleClass="container">
+			<!--  new banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField2" value="${langBean.hdgPageNotFound}"
+							styleClass="carousel-heading" />
+
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<xp:panel id="panelNotADealer1" styleClass="alert alert-error">
+				<xp:table>
+					<xp:tr>
+						<xp:td style="width:8%">
+							<span class="glyphicon glyphicon-exclamation-sign"
+								aria-hidden="true" />
+
+						</xp:td>
+						<xp:td>
+							<xp:text escape="true" id="computedField3" value="${langBean.msgPageNotFound}" />
+
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+			</xp:panel>
+		</xp:panel>
+		<!-- main pane hidden if user is not a dealer -->
+		<xp:panel id="panelDisplayDealerPage" loaded="${sessionScope.isDealerRole eq true}">
+			<!--    document unid found-->
+			<xp:panel id="panelDisplayDocument">
+				<xp:panel id="panelDocument1">
+					<xp:this.data>
+						<xp:dominoDocument var="document1"
+							databaseName="${configBean.HomeDbPath}" formName="Document"
+							action="openDocument" documentId="${viewScope.unid}" />
+
+					</xp:this.data>
+					<xc:ccDocument>
+						This is the document
+
+					</xc:ccDocument>
+					<xp:br />
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

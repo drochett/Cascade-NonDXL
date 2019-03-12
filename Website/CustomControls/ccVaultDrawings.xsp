@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+  <!--view title-->
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:panel styleClass="tableHeading" tagName="th">
+        <xp:label value="${langBean.titleDrawings}" id="label33"
+          style="font-weight:bold;color:rgb(255,255,255)">
+        </xp:label>
+      </xp:panel>
+    </xp:tr>
+  </xp:table>
+  <!--data view-->
+  <xe:dataView id="dataView1" rows="30" openDocAsReadonly="true" var="viewEntry"
+    collapsibleCategory="true" columnTitles="true">
+    <xe:this.categoryColumn>
+      <xe:viewCategoryColumn columnName="ProductFamily" style="font-weight:bold"></xe:viewCategoryColumn>
+    </xe:this.categoryColumn>
+    <xe:this.summaryColumn>
+      <xe:viewSummaryColumn columnTitle="${langBean.colModel}">
+      </xe:viewSummaryColumn>
+    </xe:this.summaryColumn>
+    <xe:this.extraColumns>
+      <xe:viewExtraColumn columnName="DrawingNumber" columnTitle="${langBean.colDrawingNo}"
+        style="width:auto">
+      </xe:viewExtraColumn>
+      <xe:viewExtraColumn columnTitle="${langBean.colSheet}" columnName="Sheet"
+        style="width:auto">
+      </xe:viewExtraColumn>
+      <xe:viewExtraColumn columnName="Rev" columnTitle="${langBean.colRevision}"
+        style="width:auto">
+      </xe:viewExtraColumn>
+      <xe:viewExtraColumn columnName="CascadePartNumbers" columnTitle="${langBean.colCascadePartNo}"
+        style="width:auto" contentType="html">
+        <xe:this.converter>
+          <xp:customConverter getAsObject="#{javascript:return value;}">
+            <xp:this.getAsString><![CDATA[#{javascript:return @Implode(value, "<br/>")}]]></xp:this.getAsString>
+          </xp:customConverter>
+        </xe:this.converter>
+      </xe:viewExtraColumn>
+      <xe:viewExtraColumn columnName="OEMPartNumbers" columnTitle="${langBean.colOemPartNo}"
+        style="width:auto" contentType="html">
+        <xe:this.converter>
+          <xp:customConverter getAsObject="#{javascript:return value;}">
+            <xp:this.getAsString><![CDATA[#{javascript:return @Implode(value, "<br/>")}]]></xp:this.getAsString>
+          </xp:customConverter>
+        </xe:this.converter>
+      </xe:viewExtraColumn>
+      <xe:viewExtraColumn columnName="SalesQuoteNumbers" columnTitle="${langBean.colSalesQuoteNo}"
+        style="width:auto" contentType="html">
+        <xe:this.converter>
+          <xp:customConverter getAsObject="#{javascript:return value;}">
+            <xp:this.getAsString><![CDATA[#{javascript:return @Implode(value, "<br/>")}]]></xp:this.getAsString>
+          </xp:customConverter>
+        </xe:this.converter>
+      </xe:viewExtraColumn>
+      <xe:viewExtraColumn columnName="Current" columnTitle="${langBean.colCurrent}"
+        style="width:auto">
+      </xe:viewExtraColumn>
+      <xe:viewExtraColumn columnName="OEM" columnTitle="${langBean.colOem}"
+        style="width:auto">
+      </xe:viewExtraColumn>
+      <!--			<xe:viewExtraColumn columnName="ReferenceNumbers"-->
+      <!--				columnTitle="${langBean.colRefNo}" style="width:auto">-->
+      <!--			</xe:viewExtraColumn>-->
+    </xe:this.extraColumns>
+    <xp:this.facets>
+      <xp:pager layout="Previous Group Next" partialRefresh="true" id="pager1" xp:key="pagerBottomRight">
+      </xp:pager>
+      <xp:panel xp:key="summary" id="panelSummary1">
+        <xp:link escape="true" text="#{viewEntry.Description}" id="link1" target="_blank"
+          value="#{configBean.HostURL}#{configBean.VaultDbURL}/#{viewEntry.href}">
+        </xp:link>
+      </xp:panel>
+      <xp:pager layout="Previous Group Next" partialRefresh="true" id="pager2" xp:key="pagerTopRight">
+      </xp:pager>
+      <xe:pagerExpand id="pagerExpand1" xp:key="pagerTopLeft" collapseText="${langBean.pgrCollapseAll}"
+        expandText="${langBean.pgrExpandAll}">
+      </xe:pagerExpand>
+    </xp:this.facets>
+    <xe:this.data>
+      <xp:dominoView var="view2" databaseName="${configBean.VaultDbPath}" viewName="viewDrawings"
+        expandLevel="1" search="#{viewScope.searchQuery}">
+      </xp:dominoView>
+    </xe:this.data>
+  </xe:dataView>
+</xp:view>

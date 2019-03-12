@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="(Fix label values with xxxxxxxxxx)" hide="v3" publicaccess="false">
+  <trigger type="agentlist"/>
+  <documentset type="runonce"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent Fix label values with xxxxxxxxxx
+	Created Jul 18, 2016 by Michael Zens/PTL/CASCADE
+	Description: This agennt fixes label values ith multiple x's incoorected placed in field
+%END REM
+Option Public
+Option Declare
+
+
+</lotusscript>
+  </code>
+  <code event="declarations">
+    <lotusscript>
+Dim importLogSet As Boolean
+Dim importLogDoc As NotesDocument
+Dim importLogMsgRT As NotesRichTextItem
+'added to seperate the error messages
+Dim importLogErrorRT As NotesRichTextItem
+Dim importLogWarningRT As NotesRichTextItem
+Dim importLogInfoRT As NotesRichTextItem
+Dim changeCount As Long
+Dim deleteCount As Long
+Dim errorCount As Integer
+Dim warningcount As Long
+Dim infoCount As Long
+Dim unknownError As Long
+Dim thisServer As String
+Dim lastLogMessage As Boolean
+Dim written As Integer
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	Dim s As New NotesSession
+	Dim db As NotesDatabase
+	Dim dbPD As notesDatabase
+	Dim docPY As NotesDocument
+	Dim docPD As NotesDocument
+	Dim v As NotesView, vPD As NotesView
+	Dim dc As NotesDocumentCollection
+	Dim fieldList(9) As String, x As Integer
+	Dim item As NotesItem, itemPD As NotesItem, keyPY As String, unid As String
+	On Error Goto HANDLE_ERROR
+	If Err = 4091 Then Stop
+	'set up Notes Stuff
+	Set db = s.Currentdatabase
+	Set v = db.getView("ActiveLabelValues")
+	
+	Set importLogDoc = db.Createdocument()
+	'set up Agent log stuff
+	Call importLogDoc.Replaceitemvalue("Form", "ImportLog")
+	Call importLogDoc.Replaceitemvalue("Server", db.Server)
+	Call importLogDoc.Replaceitemvalue("StartDate",  Now)
+	Call importLogDoc.Replaceitemvalue("Success", "Yes") 'Default to yes. Code will change to no if there is a problem.
+	Set importLogMsgRT = New NotesRichTextItem (importLogDoc, "Message")
+	'added code to point to errors field
+	Set importLogErrorRT = New NotesRichTextItem (importLogDoc, "Errors")
+	'added code to point to warnings field
+	Set importLogWarningRT = New NotesRichTextItem (importLogDoc, "Warnings")
+	'added code to point to Info field
+	Set importLogInfoRT = New NotesRichTextItem (importLogDoc, "Info")
+	importLogDoc.name = s.Currentagent.Name
+	Call importLogDoc.Save(True,True)
+	Call setImportLogMessage("View Name is..." + v.Name,"Msg")
+	
+	'set up more Notes Stuff
+	Set dc = db.Search( "", Nothing, 0 )
+	'set up fieldList array
+	fieldList(0) = "val_americas_en"
+	fieldList(1) = "val_eme_de"
+	fieldList(2) = "val_eme_en"
+	fieldList(3) = "val_eme_es"
+	fieldList(4) = "val_eme_fi"
+	fieldList(5) = "val_eme_fr"
+	fieldList(6) = "val_eme_it"
+	fieldList(7) = "val_eme_nl"
+	fieldList(8) = "val_eme_se"
+	fieldList(9) = "val_americas_es"
+	Goto ProcessDocs
+	'find docs with offending field values
+	Set docPY=v.getFirstDocument
+	
+	Do Until docPY Is Nothing
+		x = 0 'reinit x
+		Do Until x = 8
+			If docPY.isMultiValue(0) = "Yes" Then
+				'Call setImportLogMessage(docPY.getItemValue("key")(0)+" is multiValue. - DID NOT PROCESS","Warning")
+				Goto NEXT_DOC
+			End If
+			x = x+1 'do not need to check val_americas_en
+			Set item = docPY.getFirstItem(fieldList(x))
+			If item.Values(0) = "xxxxxxxxxx" Or item.Values(0) = ""  Then
+				Call dc.addDocument(docPY)
+				Call setImportLogMessage(docPY.getItemValue("key")(0),"Info")
+				Call setImportLogMessage(Chr(9) + item.Name + " value is - " + item.Values(0) ,"Info")
+				Goto next_doc
+			End If
+		Loop
+NEXT_DOC:
+		Set item = Nothing
+		Set docPY = v.GetNextDocument(docPY)
+	Loop
+	'we have a list of documents with improper values in them.
+	' Need to get the document in PROD and copy over the values from that doc
+	'back to the PY doc
+	Call setImportLogMessage("Document to be processed:  " + Cstr(dc.count),"Msg")
+	Exit Sub
+	'===========================================================================
+PROCESSDOCS:
+	Set dbPD = s.Getdatabase("PTL-WWWPROD-02/PTLWWWPD", "web3/website.nsf")
+	Set vPD = dbPD.getView("ActiveLabelValues")
+	Call setImportLogMessage("Processing documents","Msg")
+	Set docPY = v.getFirstDocument
+	Do Until docPY Is Nothing
+		Set docPD = Nothing
+		x = 0 'reinit x
+		keyPY = ""  're-init UNID
+		unid = ""
+		keyPY = docPY.getItemValue("key")(0)
+		unid = docPY.Universalid
+		Stop
+		Set docPD = vPD.Getdocumentbykey(keyPY, True)
+		If docPD Is Nothing Then
+			Call setImportLogMessage(Ucase("Unable to find document in PROD for " + keyPY),"Error")
+			Goto NextPYDoc0
+		Else
+			'			Call setImportLogMessage(UCase(keyPY),"Warning")
+			If docPD.UniversalID &lt;&gt; unid Then
+				
+				Call setImportLogMessage(Ucase(keyPY) + " - Invalid UNID in PROD.", "Warning")
+			End If
+		End If
+NEXTPYDOC0:
+		Set docPY = v.getNextDocument(docPY)
+	Loop
+	
+	%REM
+	Set docPY = dc.getFirstDocument
+	Do Until docPY Is Nothing
+		Set docPD = Nothing
+		x = 0 'reinit x
+		keyPY = ""  're-init UNID
+		unid = ""
+		keyPY = docPY.getItemValue("key")(0)
+		unid = docPY.Universalid
+		Stop
+		Set docPD = vPD.Getdocumentbykey(keyPY, True)
+		If docPD Is Nothing Then
+			Call setImportLogMessage(UCase("Unable to find document in PROD for " + keyPY),"Error")
+			GoTo NextPYDoc
+		Else
+'			Call setImportLogMessage(UCase(keyPY),"Warning")
+			If docPD.UniversalID &lt;&gt; unid Then
+				
+				Call setImportLogMessage(UCase(keyPY) + " - Invalid UNID in PROD.", "Warning")
+			End If
+		End If
+		GoTo NextPYDoc
+		Do Until x = 8
+			x = x+1 'do not need to check val_americas_en
+			Set item = docPY.getFirstItem(fieldList(x))
+			Set itemPD = docPD.getFirstItem(fieldList(x))
+			Stop
+			If itemPD.Values(0) = ""  Then
+				'we are replacing the item value
+				Call setImportLogMessage(itemPD.Name,"Warning")
+				GoTo Next_Item
+			Else
+				Call setImportLogMessage(Chr(9) + itemPD.Name+ " value: " + item.Values(0),"Warning")
+				GoTo Next_Item
+				'Call docPY.replaceItemValue(fieldList(x),docPD.getItemValue(fieldList(x)))
+			End If
+next_item:
+		Loop
+NEXTPYDOC:
+		'Call docPY.save(True,False)
+		Set docPY = dc.getNextDocument(docPY)
+	Loop
+	%END REM
+'===========================================================================
+	
+	Goto End_Of_Code
+HANDLE_ERROR:	
+	If Err = 4091 Then
+		Call setImportLogMessage ("Err nbr " + Cstr(Err) + " - Line " &amp; Format$(Erl)&amp; " - " &amp; Error$,"Error")
+		Call setImportLogMessage ("Invalid UNID for "+keyPY,"Error")
+		Set DocPD = Nothing
+		'GoTo NextPyDoc
+	Else
+		Call setImportLogMessage ("Err nbr " + Cstr(Err) + " - Line " &amp; Format$(Erl)&amp; " - " &amp; Error$,"Error")
+		Call ImportLogDoc.Replaceitemvalue("Success", "No")
+		
+	End If
+	Resume End_Of_Code
+END_OF_CODE:
+	Call importLogDoc.save(True,False)
+End Sub
+
+</lotusscript>
+  </code>
+  <code event="setImportLogCount">
+    <lotusscript>Sub setImportLogCount
+' this function sets counts for whatever
+	Dim st As String
+	st =  Cstr(Getthreadinfo(1)) + ": "
+
+	On Error Goto catch
+
+	Call importLogDoc.Replaceitemvalue("EndDate",  Now)
+	Call importLogDoc.Replaceitemvalue("unknownErrorCount", unknownError)
+	Call importLogDoc.Replaceitemvalue("errorCount", errorCount)
+	Call importLogDoc.Replaceitemvalue("warningCount", warningCount)
+	Call importLogDoc.Replaceitemvalue("infoCount", infoCount)
+Exit Sub
+	
+catch:
+	Call setImportLogMessage (st + "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ ,"Error")
+	Call importLogDoc.Replaceitemvalue("Success", "No")
+
+	Exit Sub
+	
+End Sub
+
+</lotusscript>
+  </code>
+  <code event="setImportLogMessage">
+    <lotusscript>Function setImportLogMessage (message As String, msgType As String)
+	'changed code to seperate issues MCR: WSCR-99MNNE – 09/26/14 - mdz
+	Dim st As String
+	Dim s As New NotesSession
+	Dim richStyle As NotesRichTextStyle
+	Set richStyle = s.CreateRichTextStyle
+	st =  + Cstr(Getthreadinfo(1)) + ": "
+	On Error Goto catch
+	Select Case msgType
+		Case "Warning"
+			If importLogWarningRT.Values &lt;&gt; "" Then
+				Call importLogWarningRT.Addnewline(1)
+			End If
+			If message = "" Then Exit Function
+			richStyle.NotesColor = COLOR_DARK_MAGENTA
+			'added code below to catch errors in seperate field
+			warningCount = warningCount + 1
+			Call importLogWarningRT.AppendStyle(richStyle)
+			Call importLogWarningRT.Appendtext(message)
+			importLogDoc.warningCount = warningCount
+			'Exit Function
+		Case "Error"
+			If importLogErrorRT.Values &lt;&gt; "" Then
+				Call importLogErrorRT.Addnewline(1)
+			End If
+			richStyle.NotesColor = COLOR_RED
+			'added code below to catch errors in seperate field
+			ErrorCount = ErrorCount + 1
+			Call importLogErrorRT.AppendStyle(richStyle)
+			If message &lt;&gt; "" Then
+				Call importLogErrorRT.Appendtext(message)
+			Else
+				Call importLogErrorRT.Appendtext("Error Unknown " + Cstr(unknownError))
+				unknownError = unknownError + 1
+			End If
+			'Exit Function
+		Case "Info"
+			If importLogInfoRT.Values &lt;&gt; "" Then
+				Call importLogInfoRT.Addnewline(1)
+			End If
+			'added code below to catch information in seperate field
+			If message = "" Then Exit Function
+			infoCount = infoCount+1
+			richStyle.NotesColor = COLOR_BLUE
+			Call importLogInfoRT.AppendStyle(richStyle)
+			Call importLogInfoRT.Appendtext(message)
+		Case "Msg"	
+			If importLogMsgRT.Values &lt;&gt; "" Then
+				Call importLogMsgRT.Addnewline(1)
+			End If
+			If message = "" Then Exit Function
+			richStyle.NotesColor = COLOR_BLACK
+			Call importLogMsgRT.AppendStyle(richStyle)
+			Call importLogMsgRT.Appendtext(message)
+	End Select
+	Call importLogDoc.save(True,False)
+	Exit Function
+	
+catch:
+	Messagebox st + "Err nbr " + Cstr(Err) + ":  Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ 
+'	Call setImportLogMessage ("Sub setImportLogMessage " + Error$ + ": " + Str$(Erl), "Error")
+	Call importLogDoc.Replaceitemvalue("Success", "No")
+
+	Exit Function	
+End Function</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T102010,60-08</datetime>
+  </item>
+</agent>

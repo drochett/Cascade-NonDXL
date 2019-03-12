@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+  <xp:panel id="panelClaimInfo1">
+    <xp:table styleClass="address-table">
+      <xp:tr>
+        <xp:panel styleClass="tableHeading" tagName="th">
+          <xp:label value="Claim Information" id="label6" style="font-weight:bold;color:rgb(255,255,255)">
+          </xp:label>
+        </xp:panel>
+      </xp:tr>
+      <xp:tr>
+        <xp:td>
+          <xp:label value="Customers Complaint:" id="claimComplaint_Label1" for="claimComplaint1"></xp:label>
+        </xp:td>
+      </xp:tr>
+      <xp:tr>
+        <xp:td>
+          <xe:djTextarea rows="2" value="#{document1.ClaimComplaint}" id="claimComplaint1"></xe:djTextarea>
+        </xp:td>
+      </xp:tr>
+    </xp:table>
+
+    <xp:table styleClass="address-table">
+      <xp:tr>
+        <xp:td style="width:50%">
+          <xp:label value="Was this issue discussed with a Cascade Technician:" id="claimTechnicianDiscussed_Label1"
+            for="claimTechnicianDiscussed1">
+          </xp:label>
+          <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+        </xp:td>
+        <xp:td>
+          <xp:comboBox value="#{document1.ClaimTechnicianDiscussed}" id="claimTechnicianDiscussed1"
+            required="true">
+            <xp:this.validators>
+              <xp:validateRequired message="Issue discussed with a Cascade Technician question is required"></xp:validateRequired>
+            </xp:this.validators>
+            <xp:selectItem itemLabel="" itemValue=""></xp:selectItem>
+            <xp:selectItem itemLabel="Yes"></xp:selectItem>
+            <xp:selectItem itemLabel="No"></xp:selectItem>
+            <xp:eventHandler event="onchange" submit="true" refreshMode="partial"
+              refreshId="panelClaimInfo1" disableValidators="true">
+            </xp:eventHandler>
+          </xp:comboBox>
+        </xp:td>
+      </xp:tr>
+    </xp:table>
+
+    <xp:table styleClass="address-table" rendered="#{document1.ClaimTechnicianDiscussed eq 'Yes'}">
+      <xp:tr>
+        <xp:td style="width:50%">
+          <xp:label value="If yes, name of the Cascade Service Technician:" id="claimTechnician_Label1"
+            for="claimTechnician1">
+          </xp:label>
+          <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ClaimTechnician}" id="claimTechnician1">
+            <xp:this.validators>
+              <xp:validateRequired message="Name of the Cascade Service Technician is required"></xp:validateRequired>
+            </xp:this.validators>
+          </xp:inputText>
+        </xp:td>
+      </xp:tr>
+      <xp:tr>
+        <xp:td>
+          <xp:label value="Did your service technician issue an RGA or Service Ticket?:" id="claimProvidePartsRGA_Label1"
+            for="claimProvidePartsRGA1">
+          </xp:label>
+          <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+        </xp:td>
+        <xp:td>
+          <xp:comboBox value="#{document1.ClaimProvidePartsRGA}" id="claimProvidePartsRGA1"
+            required="true">
+            <xp:this.validators>
+              <xp:validateRequired message="Technician issue an RGA question is required"></xp:validateRequired>
+            </xp:this.validators>
+            <xp:selectItem itemLabel="" itemValue=""></xp:selectItem>
+            <xp:selectItem itemLabel="Yes"></xp:selectItem>
+            <xp:selectItem itemLabel="No"></xp:selectItem>
+            <xp:eventHandler event="onchange" submit="true" refreshMode="partial"
+              refreshId="panelClaimInfo1" disableValidators="true">
+            </xp:eventHandler>
+          </xp:comboBox>
+        </xp:td>
+      </xp:tr>
+    </xp:table>
+
+    <xp:table styleClass="address-table" rendered="#{document1.ClaimProvidePartsRGA eq 'Yes'}">
+      <xp:tr>
+        <xp:td style="width:50%">
+          <xp:label value="What is the RGA or Service Ticket number?:" id="claimInvoiceRGANum_Label1" for="claimInvoiceRGANum1">
+          </xp:label>
+          <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ClaimInvoiceRGANum}" id="claimInvoiceRGANum1">
+            <xp:this.validators>
+              <xp:validateRequired message="RGA number is required"></xp:validateRequired>
+            </xp:this.validators>
+          </xp:inputText>
+        </xp:td>
+      </xp:tr>
+    </xp:table>
+
+    <xp:table styleClass="address-table">
+      <xp:tr>
+        <xp:td>
+          <xp:label value="Cause of problem:" id="claimCauseOfProblem_Label1" for="claimCauseOfProblem1">
+          </xp:label>
+        </xp:td>
+      </xp:tr>
+      <xp:tr>
+        <xp:td>
+          <xe:djTextarea rows="2" value="#{document1.ClaimCauseOfProblem}" id="claimCauseOfProblem1"></xe:djTextarea>
+        </xp:td>
+      </xp:tr>
+      <xp:tr>
+        <xp:td>
+          <xp:label value="Repair work performed:" id="claimRepairWorkPerformed_Label1"
+            for="claimRepairWorkPerformed1">
+          </xp:label>
+        </xp:td>
+      </xp:tr>
+      <xp:tr>
+        <xp:td>
+          <xe:djTextarea rows="2" value="#{document1.ClaimRepairWorkPerformed}" id="claimRepairWorkPerformed1">
+          </xe:djTextarea>
+        </xp:td>
+      </xp:tr>
+    </xp:table>
+  </xp:panel>
+
+</xp:view>

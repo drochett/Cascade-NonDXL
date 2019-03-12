@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+	<xp:panel id="panelDocumentNOTmigrated"
+		styleClass="container cascade-content cascade-content-blocks">
+		<xp:this.loaded><![CDATA[${document1.DocumentMigrated eq "No"}]]></xp:this.loaded>
+		<xp:table>
+			<xp:tr>
+				<xp:td style="background-color:rgb(255,128,64)">
+					<xp:label value="Type = " id="label1" style="font-weight:bold">
+					</xp:label>
+					<xp:text escape="true" id="computedField2" value="${document1.Type}"
+						style="font-weight:bold">
+					</xp:text>
+					&#160; &#160;
+					<xp:label value="DocumentMigrated = " id="label2"
+						style="font-weight:bold">
+					</xp:label>
+					<xp:text escape="true" id="computedField3" value="${document1.DocumentMigrated}"
+						style="font-weight:bold">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td>
+					<xp:text escape="false" id="computedField1" value="#{document1.Body}">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+		</xp:table>
+	</xp:panel>
+	<!--	panelDocumentISmigrated 	-->
+	<xp:panel id="panelDocumentISmigrated" styleClass="container">
+		<xp:this.loaded><![CDATA[${document1.DocumentMigrated eq "Yes"}]]></xp:this.loaded>
+		<!--		banner row-->
+		<!--		<xp:panel styleClass="row">-->
+		<!--
+			<xp:this.loaded><![CDATA[${(document1.Image eq "" || document1.Image
+			eq null) ? false : true}]]></xp:this.loaded>
+		-->
+		<!--			<xp:panel styleClass="col-xs-12">-->
+		<!--				<xp:image id="image2" style="border:0px;"-->
+		<!--
+			url="${configBean.HostURL}${configBean.HomeURL}/files/${document1.Image}/$FILE/${document1.Image}">
+		-->
+		<!--				</xp:image>-->
+		<!--			</xp:panel>-->
+		<!--		</xp:panel>-->
+		<!--	new	banner row-->
+		<xp:panel styleClass="blue-header">
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-md-6">
+					<h1>
+						<xp:text escape="false" id="computedField7" value="${document1.Subject}"
+							styleClass="carousel-heading">
+						</xp:text>
+					</h1>
+					<h2>
+						<xp:text escape="false" id="computedField8" value="${document1.Description}"
+							styleClass="carousel-text">
+						</xp:text>
+					</h2>
+				</xp:panel>
+				<xp:panel styleClass="col-md-6">
+					<xp:image id="image1" styleClass="img-responsive"
+						url="${configBean.HostURL}${configBean.HomeURL}/files/${document1.Image}/$FILE/${document1.Image}"
+						alt="${document1.AltText}" title="${document1.TitleText}">
+					</xp:image>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+
+		<!--		breadcrumb row-->
+		<!--		<xp:panel styleClass="row" id="rowBootStrap">-->
+		<!--			<xp:panel id="menuPanel1" styleClass="col-xs-12">-->
+		<!--				<xe:breadCrumbs id="breadCrumbs1">-->
+		<!--					<xe:this.treeNodes>-->
+		<!--						<xe:basicLeafNode label="${langBean.home}"-->
+		<!--
+			href="${configBean.HostURL}${sessionScope.LanguageURL}home">
+		-->
+		<!--						</xe:basicLeafNode>-->
+		<!--						<xe:basicLeafNode label="#{document1.Subject}">-->
+		<!--						</xe:basicLeafNode>-->
+		<!--					</xe:this.treeNodes>-->
+		<!--				</xe:breadCrumbs>-->
+		<!--			</xp:panel>-->
+		<!--		</xp:panel>-->
+		<!--		main content row-->
+		<xp:panel styleClass="row" id="panelmain1">
+			<xp:panel id="panel3" styleClass="col-sm-8">
+				<xp:panel styleClass="row" id="panelRichText">
+					<xp:text escape="false" id="computedField4" value="${document1.SpecialText}"></xp:text>
+				</xp:panel>
+				<!--				dataView-->
+				<xe:dataView id="dataView2" var="menuItem" rows="100"
+					styleClass="categories-list" indexVar="idxVar"
+					multiColumnCount="#{javascript:return (deviceBean.isMobile()) ? '1' : '2' ;}">
+					<xp:this.value><![CDATA[#{javascript:
+var xdoc:NotesXspDocument = document1 ;
+return menuBean.getMenuChildren(xdoc.getItemValueString("DocumentURL"));}]]></xp:this.value>
+					<xp:this.facets>
+						<xp:panel xp:key="summary">
+							<xp:link escape="true" text="#{menuItem.value}" id="link2"
+								value="#{javascript:configBean.HostURL + sessionScope.LanguageURL + menuItem.getKey();}"
+								rendered="#{!menuItem.external}">
+							</xp:link>
+							<xp:link escape="true" target="_blank" text="#{menuItem.value}"
+								id="link1" value="#{menuItem.key}" rendered="#{menuItem.external}">
+							</xp:link>
+						</xp:panel>
+					</xp:this.facets>
+				</xe:dataView>
+				<xp:panel styleClass="row" id="panel2">
+					<xp:text escape="false" id="computedField5" value="${document1.SpecialText_2}"></xp:text>
+				</xp:panel>
+			</xp:panel>
+			<xp:panel id="panel1" styleClass="col-sm-4">
+
+				<xc:ccDownloads></xc:ccDownloads>
+			</xp:panel>
+		</xp:panel>
+	</xp:panel>
+</xp:view>

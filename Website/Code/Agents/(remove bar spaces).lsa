@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="(remove bar spaces)" alias="remove bar spaces" hide="v3" publicaccess="false" comment="This agent removes spaces before and after the bar Symbol &quot;|&quot;" restrictions="unrestricted">
+  <trigger type="agentlist"/>
+  <documentset type="all"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent remove bar spaces
+	Created Jun 20, 2016 by Michael Zens/PTL/CASCADE
+	Description: If document has the bar symbol (alias separater) then
+	any spaces before or after it are removed.
+%END REM
+Option Public
+Option Declare
+
+
+</lotusscript>
+  </code>
+  <code event="declarations">
+    <lotusscript>Dim importLogDoc As NotesDocument
+Dim a As NotesAgent
+Dim importLogMsgRT As NotesRichTextItem
+Dim importLogErrorRT As NotesRichTextItem
+Dim importLogWarningRT As NotesRichTextItem
+Dim importLogInfoRT As NotesRichTextItem
+Dim errorCount As Integer
+Dim warningcount As Long
+Dim infoCount As Long
+Dim unknownError As Long
+Dim written As Integer
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	Dim rightStr As String, leftStr As String,dataStr As Variant
+	Dim arrayVal As String
+	Dim c As Integer
+	Dim s As New NotesSession
+	Dim db As NotesDatabase
+	Dim v As NotesView
+	Dim doc As NotesDocument
+	Dim item As NotesItem
+	Dim st As String, fn As String
+	Dim langField(7) As String
+	Dim newItemValue() As String, origValue As Variant
+	Dim key As String, x As Integer,langValue As String
+	
+	On Error Goto Error_Trap
+	Set db = s.Currentdatabase	
+	Set a = s.Currentagent
+	st = a.name +  " / " + Cstr(Getthreadinfo(1)) + ": "
+	
+	Set v = db.getView("multiValueDocs")
+	
+	Set importLogDoc = db.Createdocument()
+	
+	Call importLogDoc.Replaceitemvalue("Form", "ImportLog")
+	Call importLogDoc.Replaceitemvalue("Server", db.Server)
+	Call importLogDoc.Replaceitemvalue("StartDate",  Now)
+	Call importLogDoc.Replaceitemvalue("Success", "Yes") 'Default to yes. Code will change to no if there is a problem.
+	Set importLogMsgRT = New NotesRichTextItem (importLogDoc, "Message")
+	'added code to point to errors field
+	Set importLogErrorRT = New NotesRichTextItem (importLogDoc, "Errors")
+	'added code to point to warnings field
+	Set importLogWarningRT = New NotesRichTextItem (importLogDoc, "Warnings")
+	'added code to point to Info field
+	Set importLogInfoRT = New NotesRichTextItem (importLogDoc, "Info")
+	importLogDoc.name = a.Name
+	Call importLogDoc.Save(True,True)
+	
+	langField(0) = "val_eme_de"
+	langField(1) = "val_eme_es"
+	langField(2) = "val_eme_fi"
+	langField(3) = "val_eme_fr"
+	langField(4) = "val_eme_it"
+	langField(5) = "val_eme_nl"
+	langField(6) = "val_eme_se"
+	langField(7) = "val_eme_en"
+	
+	Set doc = v.getFirstDocument
+	Do Until doc Is Nothing
+		
+		Set item = doc.getFirstItem("key")
+		key = item.values(0)
+		Call setImportLogMessage ("Key: " &amp; key,"Info")
+		Set item = Nothing
+		Forall f In langField
+			Call setImportLogMessage (Chr(9) &amp; "Field: " &amp; f,"Info")
+			Redim newItemValues(0)  'set it to  nothing to clear any earlier data
+			'fn = parseData(f,"Left",",")
+			Set item = doc.getFirstItem(f)
+			Dim strLen As Integer
+			'init the variables To nothing
+			leftStr = ""
+			rightStr = ""
+			dataStr = ""
+			strLen = 0
+			origValue = ""
+			arrayVal = ""
+			'set the variables
+			origValue = item.values
+			If Ubound(origValue) &gt; 0 Then 'truly a multi value field
+				For x=0 To Ubound(origValue)
+					Redim Preserve newItemValue(x) As String
+					If Instr(origValue(x), "|") Then
+					'check to make sure there are no spaces before or after the bar symbol "|"{
+						leftStr=parseData(origValue(x),"Left","|")
+						rightStr = parseData(origValue(x),"Right","|")
+						newItemValue(x) = Trim(leftStr) + "|" + Trim(rightStr)
+					Else
+						'no need To Do anything - just bring values over
+						newItemValue(x) = origValue(x) 
+					End If
+NEXTLANGUAGE:
+				Next
+
+			End If
+			Print key
+%REM
+			Call setImportLogMessage (Chr(9)&amp; "---------------" , "Info")
+			ForAll i In newItemValue
+				Call setImportLogMessage (Chr(9)&amp; i, "Info")
+			End ForAll
+			Call setImportLogMessage ( "===============" , "Info")
+%END REM
+			Call doc.replaceItemValue(f,newItemValue)
+		End Forall		
+		Call doc.Save(True,False)
+		written = written+1
+NEXTDOCUMENT:
+		
+		Set doc = v.getNextDocument(doc)
+	Loop
+	
+	Goto End_Of_Code
+ERROR_TRAP:
+	Call setImportLogMessage ("Error on line " &amp; Format$(Erl)&amp; ": " &amp; Error$,"Error")
+	Call ImportLogDoc.Replaceitemvalue("Success", "No")
+	Resume End_Of_Code
+END_OF_CODE:
+	Call setimportLogMessage("Modified " + Cstr(written) + " documents", "Msg")
+End Sub
+
+</lotusscript>
+  </code>
+  <code event="setImportLogCount">
+    <lotusscript>Sub setImportLogCount
+' this function sets counts for whatever
+	Dim st As String
+	st = a.Name +  " / " + Cstr(Getthreadinfo(1)) + ": "
+
+	On Error Goto catch
+
+	Call importLogDoc.Replaceitemvalue("EndDate",  Now)
+	Call importLogDoc.Replaceitemvalue("unknownErrorCount", unknownError)
+	Call importLogDoc.Replaceitemvalue("errorCount", errorCount)
+	Call importLogDoc.Replaceitemvalue("warningCount", warningCount)
+	Call importLogDoc.Replaceitemvalue("infoCount", infoCount)
+Exit Sub
+	
+catch:
+	Call setImportLogMessage (st + "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ ,"Error")
+	Call importLogDoc.Replaceitemvalue("Success", "No")
+	Exit Sub
+	
+End Sub
+
+</lotusscript>
+  </code>
+  <code event="setImportLogMessage">
+    <lotusscript>Function setImportLogMessage (message As String, msgType As String)
+	'changed code to seperate issues MCR: WSCR-99MNNE – 09/26/14 - mdz
+	Dim st As String
+	Dim s As New NotesSession
+	Dim richStyle As NotesRichTextStyle
+	Set richStyle = s.CreateRichTextStyle
+	st = a.name +  " / " + Cstr(Getthreadinfo(1)) + ": "
+	On Error Goto catch
+	Select Case msgType
+		Case "Warning"
+			If importLogWarningRT.Values &lt;&gt; "" Then
+				Call importLogWarningRT.Addnewline(1)
+			End If
+			If message = "" Then Exit Function
+			richStyle.NotesColor = COLOR_DARK_MAGENTA
+			'added code below to catch errors in seperate field
+			warningCount = warningCount + 1
+			Call importLogWarningRT.AppendStyle(richStyle)
+			Call importLogWarningRT.Appendtext(message)
+			importLogDoc.warningCount = warningCount
+			Exit Function
+		Case "Error"
+			If importLogErrorRT.Values &lt;&gt; "" Then
+				Call importLogErrorRT.Addnewline(1)
+			End If
+			richStyle.NotesColor = COLOR_RED
+			'added code below to catch errors in seperate field
+			ErrorCount = ErrorCount + 1
+			Call importLogErrorRT.AppendStyle(richStyle)
+			If message &lt;&gt; "" Then
+				Call importLogErrorRT.Appendtext(message)
+			Else
+				Call importLogErrorRT.Appendtext("Error Unknown " + Cstr(unknownError))
+				unknownError = unknownError + 1
+			End If
+			importLogDoc.errorCount = errorCount
+			Exit Function
+		Case "Info"
+			If importLogInfoRT.Values &lt;&gt; "" Then
+				Call importLogInfoRT.Addnewline(1)
+			End If
+			'added code below to catch information in seperate field
+			If message = "" Then Exit Function
+			infoCount = infoCount+1
+			richStyle.NotesColor = COLOR_BLUE
+			Call importLogInfoRT.AppendStyle(richStyle)
+			Call importLogInfoRT.Appendtext(message)
+		Case "Msg"	
+			If importLogMsgRT.Values &lt;&gt; "" Then
+				Call importLogMsgRT.Addnewline(1)
+			End If
+			If message = "" Then Exit Function
+			richStyle.NotesColor = COLOR_BLACK
+			Call importLogMsgRT.AppendStyle(richStyle)
+			Call importLogMsgRT.Appendtext(message)
+	End Select
+	Call importLogDoc.save(True,False)
+	Exit Function
+	
+catch:
+	Messagebox st + "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ 
+'	Call setImportLogMessage ("Sub setImportLogMessage " + Error$ + ": " + Str$(Erl))
+	Call importLogDoc.Replaceitemvalue("Success", "No")
+
+	Exit Function	
+End Function
+
+</lotusscript>
+  </code>
+  <code event="parseData">
+    <lotusscript>Function parseData(dataStr As String, parseType As String, symbol As String) As String
+	Dim itemLen As Integer, pos As Integer
+	Dim st As String
+	st = a.name +  " / "+ Cstr(Getthreadinfo(1)) + ": " 'Used for error trapping
+	On Error Goto error_handler
+	itemLen = Len(dataStr)
+			'Call setImportLogMessage(st + "itemLen = " +CStr(itemLen), "Info")
+	If symbol &lt;&gt; "" Then
+	pos = Instr(datastr,symbol)'
+	End If
+	
+	If parseType = "Right" Then
+		parseData = Trim(Right(dataStr,itemLen - (Pos)))
+	
+	Else
+		parseData = Trim(Left(dataStr,pos-1))
+	End If
+	Goto End_Of_Code
+ERROR_HANDLER:
+	Call setImportLogMessage(st &amp; " - Error in line "  &amp; Erl &amp; " ERROR " &amp; Err &amp;" - "  &amp; Error,"Error")
+
+	Resume End_Of_Code
+END_OF_CODE:
+	
+	
+End Function</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101934,51-08</datetime>
+  </item>
+</agent>

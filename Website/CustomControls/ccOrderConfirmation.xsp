@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xp:this.beforePageLoad><![CDATA[#{javascript://print("=+=+=+=+=+=+=");
+//println("ccOrderConfirmation----user name: "+session.getEffectiveUserName());
+//print("Opened Order Confirmed Page:");
+//print("=+=+=+=+=+=+=");}]]></xp:this.beforePageLoad>
+	<xc:ccOrderConfirmationHeader></xc:ccOrderConfirmationHeader>
+	<xp:br></xp:br>
+	<xp:panel styleClass="row" id="panelStep4">
+		<xp:panel styleClass="col-xs-12 col-md-10" id="panelConfirmAll1">
+			<xp:br></xp:br>
+			<!--			panelOrderCacelled1-->
+			<xp:panel id="panelOrderCacelled1" styleClass="alert alert-warning"
+				loaded="${viewScope.orderPlaced eq '0'}">
+				<xp:table>
+					<xp:tr>
+						<xp:td style="width:8%">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true">
+							</span>
+						</xp:td>
+						<xp:td>
+							<xp:text escape="true" id="cancelMsg1" value="${langBean.msgOrderCancelled}"></xp:text>
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+			</xp:panel>
+			<!--			panelOrderConfirmed1-->
+			<xp:panel id="panelOrderConfirmed1" loaded="${viewScope.orderPlaced eq '1'}">
+				<xp:panel styleClass="alert alert-info">
+					<xp:table>
+						<xp:tr>
+							<xp:td style="width:8%">
+								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+							</xp:td>
+							<xp:td>
+								<xp:text escape="true" id="confirmMsg1" value="${langBean.msgOrderConfirmed}">
+								</xp:text>
+								<xp:br></xp:br>
+								<xp:text escape="true"
+									id="computedField1" value="#{salesOrderBean.orderEmail}">
+								</xp:text>
+							</xp:td>
+						</xp:tr>
+					</xp:table>
+				</xp:panel>
+				<xp:br></xp:br>
+				<xp:table styleClass="address-table">
+					<xp:tr>
+						<xp:panel styleClass="tableHeading" tagName="th">
+							<xp:this.attrs>
+								<xp:attr name="colspan" value="2">
+								</xp:attr>
+							</xp:this.attrs>
+							<xp:label value="${langBean.titleOrderConfirmation}" id="label1">
+							</xp:label>
+						</xp:panel>
+					</xp:tr>
+					<xp:tr>
+						<xp:td style="width:35%">
+							<xp:label value="${langBean.labelOrderDate}: " id="orderDate_Label1"
+								for="orderDate1">
+							</xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:text id="orderDate1"
+								value="#{javascript:return @Now();}">
+								<xp:this.converter>
+									<xp:convertDateTime type="both"
+										dateStyle="long" timeStyle="long">
+									</xp:convertDateTime>
+								</xp:this.converter>
+							</xp:text>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="${langBean.labelPriceTotal}: " id="priceTotal_Label1"
+								for="priceTotal1">
+							</xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:inputText id="priceTotal1"
+								readonly="true" defaultValue="0">
+								<xp:this.converter>
+									<xp:convertNumber
+										pattern=" #,##0.00">
+									</xp:convertNumber>
+								</xp:this.converter>
+								<xp:this.value><![CDATA[#{javascript:salesOrderBean.getGrandTotalPrice();
+}]]></xp:this.value>
+							</xp:inputText>
+							<xp:label
+								value="#{salesOrderBean.custCurrency}" id="currencyLabel"
+								rendered="#{javascript:return salesOrderBean.getCustCurrency() != null;}"
+								style="margin-left:5.0px">
+							</xp:label></xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="${langBean.labelPromoCode}: " id="promoCode_Label1"
+								for="promoCode1">
+							</xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:inputText id="promoCode1"
+								readonly="true" value="#{salesOrderBean.promoCode}">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+
+				</xp:table>
+				<xc:ccOrderConfSummary loaded="false"></xc:ccOrderConfSummary>
+				<xp:br></xp:br>
+				<xp:br></xp:br>
+			</xp:panel>
+		</xp:panel>
+	</xp:panel>
+</xp:view>

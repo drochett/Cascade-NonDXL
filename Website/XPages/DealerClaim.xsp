@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+
+	
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+
+	<xp:this.beforePageLoad><![CDATA[#{javascript:if (viewScope.claimStep == "" || viewScope.claimStep == null) {
+	viewScope.claimStep = "step_1";
+	sessionScope.BillingAddressRequired = "1";
+}
+
+}]]></xp:this.beforePageLoad>
+
+	<xc:ccLayout>
+		<xp:panel styleClass="container" id="main">
+
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							value="${langBean.titleDealerClaim}"
+							styleClass="carousel-heading">
+						</xp:text>
+						<!--<xp:text escape="false" id="computedField8"
+							value=" Attach photos for faster warranty processing."
+							styleClass="carousel-text">
+							<span class="glyphicon glyphicon-camera" aria-hidden="true">
+							</span>
+							</xp:text>   -->
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+
+			<xe:dynamicContent id="dcClaimStep" defaultFacet="step_1">
+				<xp:this.facets>
+					<xc:ccDealerClaimAddress xp:key="step_1"></xc:ccDealerClaimAddress>
+					<xc:ccDealerClaim xp:key="step_2"></xc:ccDealerClaim>
+					<!-- NOT USED <xc:ccAttachFiles xp:key="step_a"></xc:ccAttachFiles>  -->
+					<xc:ccDealerClaimSummary xp:key="step_3"></xc:ccDealerClaimSummary>
+					<xc:ccDealerClaimConfirmation xp:key="step_4"></xc:ccDealerClaimConfirmation>
+				</xp:this.facets>
+			</xe:dynamicContent>
+
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

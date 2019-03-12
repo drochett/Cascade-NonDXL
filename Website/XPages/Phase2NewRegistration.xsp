@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+	
+	<xp:this.beforePageLoad><![CDATA[#{javascript:
+if (registrationBean == null){
+	dBar.info("registrationBean is null");
+	context.redirectToPage("login.xsp");
+}
+else if (!registrationBean.getPerson().isValidated()){
+	//redirect to newRegistration page
+	dBar.info("person object is not valid");
+	context.redirectToPage("login.xsp");
+}}]]></xp:this.beforePageLoad>
+
+	<xc:ccLayout>
+		<xc:ccPhase2NewRegistration>
+			<xc:this.rendered><![CDATA[#{javascript:registrationBean.person.regType=="oem"}]]></xc:this.rendered>
+		</xc:ccPhase2NewRegistration>
+		<xc:ccPhase2NewRegistration_End>
+			<xc:this.rendered><![CDATA[#{javascript:registrationBean.person.regType=="end"}]]></xc:this.rendered>
+		</xc:ccPhase2NewRegistration_End>
+	</xc:ccLayout>
+</xp:view>

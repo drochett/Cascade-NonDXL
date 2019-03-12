@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:panel styleClass="tableHeading" tagName="th">
+        <xp:this.attrs>
+          <xp:attr name="colspan" value="2"></xp:attr>
+        </xp:this.attrs>
+        <xp:label value="${langBean.title3dBoltOn}" id="label2"
+          style="font-weight:bold;color:rgb(255,255,255)">
+        </xp:label>
+      </xp:panel>
+    </xp:tr>
+  </xp:table>
+
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:td style="width:60.0%">
+        <xp:label value="${langBean.bof_w_Label1}:" for="bof_w1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text value="#{document1.bof_w}" id="bof_w1"></xp:text>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.bof_T_Label1}:" for="bof_T1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text value="#{document1.bof_T}" id="bof_T1"></xp:text>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.bof_BL_Label1}:" for="bof_BL1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text value="#{document1.bof_BL}" id="bof_BL1"></xp:text>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.bof_BH_Label1}:" for="bof_BH1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text value="#{document1.bof_BH}" id="bof_BH1"></xp:text>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.bof_d1_Label1}:" for="bof_d11"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text value="#{document1.bof_d1}" id="bof_d11"></xp:text>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.bof_d2_Label1}:" for="bof_d21"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text value="#{document1.bof_d2}" id="bof_d21"></xp:text>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.bof_d3_Label1}:" for="bof_d31"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text value="#{document1.bof_d3}" id="bof_d31"></xp:text>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.bof_d4_Label1}:" for="bof_d41"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text value="#{document1.bof_d4}" id="bof_d41"></xp:text>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.bof_stampInfo_Label1}:" for="bof_stampInfo1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text value="#{document1.bof_stampInfo}" id="bof_stampInfo1"></xp:text>
+      </xp:td>
+    </xp:tr>
+  </xp:table>
+
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:td style="width:60.0%">
+        <xp:label value="${langBean.bof_e1_Label1}:" for="bof_e11"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text value="#{document1.bof_e1}" id="bof_e11"></xp:text>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.bof_e2_Label1}:" for="bof_e21"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text value="#{document1.bof_e2}" id="bof_e21"></xp:text>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.bof_e3_Label1}:" for="bof_e31"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text value="#{document1.bof_e3}" id="bof_e31"></xp:text>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.bof_e4_Label1}:" for="bof_e41"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text value="#{document1.bof_e4}" id="bof_e41"></xp:text>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.boreType_Label1}:" for="boreType1"></xp:label>
+      </xp:td>
+      <xp:td>
+      <xp:text value="#{document1.BoreType}" id="boreType1"></xp:text>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.threadSize_Label1}:" for="threadSize1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text value="#{document1.ThreadSize}" id="threadSize1"></xp:text>
+      </xp:td>
+    </xp:tr>
+  </xp:table>
+
+</xp:view>

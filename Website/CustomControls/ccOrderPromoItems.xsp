@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.beforePageLoad><![CDATA[#{javascript://initialize the promotional items
+viewScope.typeOrder = "promoitems";
+importPackage(com.cascorp);
+//if (salesOrderBean.isTypeEmpty(viewScope.typeOrder) ){
+	dBar.info("initializing salesOrderBean for promoItems");
+	//setup promoitems
+ 	salesOrderBean.initializeDocuments(viewScope.typeOrder, session);
+//}}]]></xp:this.beforePageLoad>
+	<xc:ccOrderHeaderCommon></xc:ccOrderHeaderCommon>
+
+	<xp:panel styleClass="row" id="panelStep1">
+		<xp:panel styleClass="col-xs-12 col-md-10" id="panelForm1">
+			<xp:br></xp:br>
+
+			<xp:br></xp:br>
+			<!-- Build table for headings -->
+			<xp:table styleClass="tableColumnHeadings">
+				<xp:tr>
+					<xp:td style="width:9.0%">
+						<xp:label value="${langBean.labelQuantity}" id="label8">
+						</xp:label>
+					</xp:td>
+					<xp:td style="width:12%" styleClass="text-left">
+						<xp:label value="${langBean.labelPartNumber}" id="label1">
+						</xp:label>
+					</xp:td>
+					<xp:td style="width:56%" styleClass="text-left">
+						<xp:label value="${langBean.labelDescription}" id="label2">
+						</xp:label>
+					</xp:td>
+					<xp:td style="width:4%" styleClass="text-left">
+						<xp:label value="${langBean.thPrice}" id="label5">
+						</xp:label>
+					</xp:td>
+					<xp:td style="width:15%" styleClass="text-right">
+						<xp:label value="${langBean.labelPrice}" id="label6">
+						</xp:label>
+					</xp:td>
+					<xp:td style="width:5%">
+						<xp:image url="/empty.gif" id="image1"></xp:image>
+					</xp:td>
+				</xp:tr>
+			</xp:table>
+
+			<xp:panel id="panelItemsAndTotal1">
+				<!--  repeat over the categories -->
+				<xp:repeat id="CategoryRepeat" rows="30" var="categoryVar"
+					indexVar="indCategory">
+					<xp:this.value><![CDATA[#{javascript:salesOrderBean.getPromoOrderByType(viewScope.typeOrder);}]]></xp:this.value>
+					<!-- This table builds the category heading -->
+					<xp:table styleClass="tableSectionHeading">
+						<xp:tr>
+							<xp:td align="center">
+								<xp:label value="#{categoryVar}" id="label4">
+								</xp:label>
+							</xp:td>
+						</xp:tr>
+					</xp:table> <!-- end table with category heading -->
+					<!-- This table is for the order items -->
+
+
+					<xp:table styleClass="order-table">
+						<!-- Repeat over the rows to show the items to order -->
+						<xp:repeat id="OrderItemRepeat" rows="30" var="lineItem"
+							indexVar="indLineItem">
+							<xp:this.value><![CDATA[#{javascript:salesOrderBean.getPromoLineItems(viewScope.typeOrder , categoryVar);}]]></xp:this.value>
+							<xp:tr>
+								<xp:td style="width:5.0%" styleClass="text-left">
+									<xe:djNumberTextBox id="quantityInput"
+										value="#{lineItem.orderQty}" maxLength="2"
+										rangeMessage="#{langBean.OrderQtyWarning} #{lineItem.maxQty}"
+										javaType="double" invalidMessage="#{langBean.OrderQtyWarning} #{lineItem.maxQty}"
+										style="width:40.0px" required="true">
+										<xe:this.constraints>
+											<xe:djNumberConstraints max="#{lineItem.maxQty}"
+												min="0" places="0">
+											</xe:djNumberConstraints>
+										</xe:this.constraints>
+										
+										</xe:djNumberTextBox>
+								</xp:td>
+								<xp:td style="width:45.0%">
+									<xp:inputText id="inputText4"
+										readonly="true" value="#{lineItem.partNumber}" disabled="true"
+										rendered="false">
+									</xp:inputText>
+									&#160;<xp:inputText value="#{lineItem.description}" id="inputText7"
+										readonly="true">
+									</xp:inputText>
+									 <!-- add in special description -->
+                <xp:label value="#{lineItem.specialMsgDesc}" id="label3" styleClass="orderSpecialMsg"
+                  rendered="#{lineItem.specMsgDisp}">
+                </xp:label>
+								</xp:td>
+								<xp:td style="width:5.0%">
+									<xp:inputText id="price"
+										readonly="true">
+										<xp:this.value><![CDATA[#{lineItem.price}]]></xp:this.value>
+										<xp:this.converter>
+											<xp:convertNumber pattern=" #,##0.00">
+											</xp:convertNumber>
+										</xp:this.converter>
+									</xp:inputText>
+								</xp:td>
+								
+								<xp:td style="width:5%">
+										<span style="float:right">
+										<xp:inputText id="priceExt" readonly="true">
+											<xp:this.value><![CDATA[#{javascript:var price = lineItem.getPrice();
+var qty = lineItem.getOrderQty();
+var total = price * qty;
+return total;}]]></xp:this.value>
+											<xp:this.converter>
+												<xp:convertNumber pattern=" #,##0.00">
+												</xp:convertNumber>
+											</xp:this.converter>
+										</xp:inputText>
+									</span></xp:td><xp:td style="width:5%"><xp:image url="/empty.gif" id="image4"></xp:image>
+								</xp:td>
+							</xp:tr>
+							<!-- End repeat over the item rows -->
+						</xp:repeat>
+					</xp:table> <!-- -End table for the order items -->
+					<!-- End repeat over the categories -->
+				</xp:repeat>
+
+				<!-- add in a row for the total and calculate button -->
+				<xp:table styleClass="order-table">
+					<xp:tr>
+						<xp:td style="width:20%">
+							<xp:image url="/empty.gif" id="image2"></xp:image>
+						</xp:td>
+						<xp:td>
+							<xp:image url="/empty.gif" id="image3"></xp:image>
+							<xp:label value="${langBean.labelTotal}" id="TotalLabel"></xp:label>
+						</xp:td>
+						<xp:td style="width:10%">
+							<xp:button id="button2" value="${langBean.labelCalculate}"
+								styleClass="btn btn-primary pull-right">
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="partial" refreshId="panelItemsAndTotal1"
+									disableValidators="true">
+									<xp:this.action><![CDATA[#{javascript://recalc total}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</xp:td>
+						<xp:td style="width:15%">
+							<span style="float:right">
+								<xp:text escape="true" id="orderTotalDisplay"
+									value="#{javascript:return salesOrderBean.getPromoOrderTotal(viewScope.typeOrder );}">
+									<xp:this.converter>
+										<xp:convertNumber pattern=" #,##0.00"></xp:convertNumber>
+									</xp:this.converter>
+								</xp:text>
+							</span>
+						</xp:td>
+						<xp:td style="width:5%">
+							<xp:label value="#{salesOrderBean.custCurrency}" id="label7">
+							</xp:label>
+
+						</xp:td>
+
+					</xp:tr>
+				</xp:table>
+			</xp:panel>
+
+
+			<!--      orderErrorPanel -->
+			<xp:panel id="orderErrorMsg" styleClass="orderErrorPanel">
+				<xp:messages id="messages1"></xp:messages>
+			</xp:panel>
+
+		</xp:panel>
+	</xp:panel>
+	<!--  END ORDER FORM-->
+
+
+	<!--panel buttons-->
+	<xp:panel styleClass="row" id="panel2">
+		<xp:panel styleClass="col-xs-12 col-md-10" id="panel3">
+			<hr></hr>
+			<xp:button id="buttonNext1" value="${langBean.btnNextStep}"
+				styleClass="btn btn-primary pull-right">
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<xp:eventHandler event="onclick" submit="true"
+					refreshMode="partial" refreshId="main">
+					<xp:this.action><![CDATA[#{javascript:dBar.info("Starting Next button");
+
+try{
+	if (salesOrderBean.checkPromoQtyInput(viewScope.typeOrder)){
+		viewScope.orderStep = "step_2.xsp";
+		sessionScope.orderStep = "step_2.xsp";
+		var dc = getComponent("dcOrderStep");
+		dc.show("step_2.xsp")
+	} else {
+	dBar.info("throw error!");
+	var msg=new javax.faces.application.FacesMessage( langBean.getValue("OrderQtyErrorMsg"));
+ 	
+ 	facesContext.addMessage( "ErrorQty" , msg);
+	}
+} catch(e){
+	dBar.error("Error in Next button: " + e.toString());
+}
+}]]></xp:this.action>
+				</xp:eventHandler>
+			</xp:button>
+		</xp:panel>
+	</xp:panel>
+	<!--END panel buttons-->
+
+</xp:view>

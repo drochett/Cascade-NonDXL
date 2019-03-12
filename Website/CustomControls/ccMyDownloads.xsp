@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"> 
+	<xp:this.data>
+		<xp:dominoView databaseName="${configBean.DownloadsDbPath}"
+			viewName="links2" var="view2"
+			categoryFilter="${sessionScope.LanguageP}~~Brochure">
+
+		</xp:dominoView>
+	</xp:this.data>
+	
+	<xe:widgetContainer id="widgetContainer1" styleClass="login-panel"  style="height:100%;"
+		titleBarText="Brochures">
+		<div class="panel-body">
+		
+		
+		<xp:repeat id="repeat1" value="#{view2}" var="viewEntry"
+			rows="4">
+
+			<xp:panel id="panel1"
+				styleClass="blog-avoidbreak blog-table-cell">
+
+				<xp:link escape="true" id="link2"
+					value="#{viewEntry.linkURL}">
+
+					<xp:text escape="true" id="computedField1"
+						value="#{viewEntry.Description}" styleClass="title"
+						disableTheme="true">
+					</xp:text>
+
+				</xp:link>
+
+			</xp:panel>
+
+		</xp:repeat>
+		
+		</div>
+		
+	</xe:widgetContainer>
+</xp:view>

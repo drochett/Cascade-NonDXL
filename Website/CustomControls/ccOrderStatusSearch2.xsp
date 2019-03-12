@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+ 
+	
+	<xe:widgetContainer id="widgetContainer2"
+		titleBarText="${langBean.OrderStatusSearch2}"
+		styleClass="login-panel">
+		<div class="panel-body">
+			<div class="form-group">
+				<div class="row">
+				<div class="col-sm-12">
+	<xp:text escape="true" id="computedField2"
+						value="${langBean.OrderStatusUpdateMsg}" tagName="p">
+					</xp:text>
+					</div>
+					<div class="col-sm-3">
+						<xp:text tagName="Label"
+							value="${langBean.LabelOrderStatusSearchBy}: " id="SearchByLabel"
+							styleClass="control-label">
+						</xp:text>
+
+					</div>
+					<div class="col-sm-9">
+						<xp:comboBox id="searchBySel"
+							style="width:100%;" value="#{orderStatusBean.searchByList}">
+
+
+							<xp:selectItems>
+								<xp:this.value><![CDATA[${langBean.OrderStatusSearchByList}]]></xp:this.value>
+							</xp:selectItems>
+
+						</xp:comboBox>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="row">
+
+					<div class="col-sm-3">
+						<xp:text tagName="Label"
+							value="${langBean.LabelOrderStatusEnterNumber}: "
+							id="EnterNumLabel" styleClass="control-label">
+						</xp:text>
+					</div>
+					<div class="col-sm-9">
+						<xp:inputText id="searchInput"
+							value="#{orderStatusBean.searchInput}">
+
+						</xp:inputText>
+						<xp:message id="message1" for="searchInput"></xp:message>
+					</div>
+					
+				</div>
+				<xp:text escape="true" id="computedField1"
+					value="${langBean.OrderStatusNumberHelpMsg}" tagName="p">
+				</xp:text>
+			</div>
+
+
+		</div>
+		<div class="panel-footer">
+			<xp:link escape="true"
+				text="${langBean.BtnOrderStatusSearch}" id="SearchButton2"
+				styleClass="btn btn-primary">
+
+				<xp:eventHandler event="onclick" submit="true"
+					refreshMode="partial" refreshId="resultsArea"
+					onStart="requestStarted()" onComplete="requestCompleted()">
+					<xp:this.action><![CDATA[#{javascript:var searchInput:com.ibm.xsp.component.xp.XspInputText = getComponent("searchInput");
+var searchValue = searchInput.getValue();
+var patt = new RegExp("^[a-zA-Z0-9_-]+$");
+var res = patt.test(searchValue);
+dBar.info("test is " + res + "  " + langBean.getValue("OrderStatusInvalidSearchNumberMsg"));
+
+if (res==false){
+ 	//put up error message since the input field is not valid
+ 	var msg=new javax.faces.application.FacesMessage();
+ 	facesContext.addMessage(searchInput.getClientId(facesContext) , msg(langBean.getValue("OrderStatusInvalidSearchNumberMsg")));
+ }  else {
+ 	//do the search
+ 	orderStatusBean.performQuery2();
+ }}]]></xp:this.action>
+					<xp:this.script><![CDATA[var myField = dojo.byId('#{id:searchInput}');
+var value = myField.value;
+var msg =  '#{javascript:langBean.getValue("OrderStatusInvalidSearchNumberMsg")}';
+//alert(msg);
+var patt = new RegExp("^[a-zA-Z0-9_-]+$");
+var test = patt.test(value);
+if (test){
+	return true;
+} else {
+	alert(msg);
+	myField.focus();
+	return false;
+}]]></xp:this.script>
+				</xp:eventHandler>
+			</xp:link>
+		</div>
+	</xe:widgetContainer>
+</xp:view>

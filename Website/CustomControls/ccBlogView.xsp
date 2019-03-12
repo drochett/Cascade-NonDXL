@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xp:this.data>
+		<xp:dominoView databaseName="${configBean.BlogDbPath}"
+			categoryFilter="${sessionScope.LanguageP}" viewName="BlogByLanguage"
+			var="view2">
+		</xp:dominoView>
+	</xp:this.data>
+
+	
+	<xp:panel id="panel2" styleClass="col-sm-12">
+	
+	<xp:panel>
+		<xp:this.rendered><![CDATA[#{javascript:if (view.getPageName()=="/BlogPost.xsp") {
+	return true;
+} else {
+	return false;
+}}]]></xp:this.rendered>
+		<xp:this.style><![CDATA[#{javascript:try {
+	var temp = configBean.BlogMorePostsStyle;
+	var retString = "";
+	for (var i = 0; i < temp.length; i++) {
+		retString = retString + ";" + temp[i];
+	}
+	return retString
+} catch(e) {
+	return "text-align:center;width:100%;font-size:24pt;font-weight:bold;margin-bottom:10px";
+}}]]></xp:this.style>
+
+		<xp:label id="label1">
+			<xp:this.value><![CDATA[#{javascript:try {
+	return langBean.blog_more_posts;
+} catch(e) {
+	return "More From Cascade"
+}}]]></xp:this.value>
+		</xp:label>
+	</xp:panel>
+
+	<xp:panel styleClass="product-master-tables blog-table">
+		<xp:repeat id="repeat1" value="#{view2}" var="viewEntry"
+			rows="12">
+
+			<xp:panel id="panel1"
+				styleClass="blog-avoidbreak blog-table-cell">
+
+
+
+				<xp:this.rendered><![CDATA[#{javascript:if (view.getPageName()=="/BlogPost.xsp") {
+	if (currentDocument.getNoteID() == viewEntry.getColumnValue('NoteID')) {
+		return false;
+	} else {
+		return true;
+	}
+} else {
+	return true;
+}}]]></xp:this.rendered>
+				<xp:link escape="true" id="link2" value="#{configBean.HostURL}#{viewEntry.Link}">
+
+
+					<xp:image id="image1" width="100%">
+						<xp:this.url><![CDATA[#{javascript:varLink = viewEntry.getColumnValue("Thumbnail");
+varUNID = viewEntry.getColumnValue("UNID");
+varHostURL = configBean.HostURL;
+varBlogURL = configBean.BlogURL;
+varURL = varHostURL + varBlogURL + "/0/" + varUNID + "/$FILE/" + varLink;
+print(varURL);
+return varURL;
+}]]></xp:this.url>
+					</xp:image>
+
+					<xp:text escape="true" id="computedField1"
+						value="#{viewEntry.Title}" styleClass="title"
+						disableTheme="true">
+					</xp:text>
+					<xp:text escape="true" id="computedField2"
+						styleClass="capacity"
+						value="#{viewEntry.ShortText} #{langBean.readMore} ">
+					</xp:text>
+
+
+				</xp:link>
+			</xp:panel>
+
+		</xp:repeat>
+	</xp:panel>
+</xp:panel>
+		
+</xp:view>

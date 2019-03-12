@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar" xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xp:this.resources>
+		<xp:script src="/SnippetCopy.js" clientSide="true"></xp:script>
+		<xp:script src="/custom.jss" clientSide="false"></xp:script>
+		<xp:styleSheet href="/dbootstrap.css"></xp:styleSheet>
+	</xp:this.resources>
+	<xp:this.beforePageLoad><![CDATA[#{javascript://dBar.info("entering Error404 XPage beforePageLoad");
+setScpLanguage() ;
+setScpUnid() ;
+/* added by mdz 4/15/2016
+Code intended to add data to view scope so it can be
+grabbed for metaData info
+*/
+var unid = viewScope.get("unid")
+var pageName = view.getPageName();
+viewScope.put("pageName",pageName);
+
+var dbName = configBean.getValue("HomeDbPath");
+var db = session.getDatabase(session.getServerName(),dbName,false)
+//var doc = db.getDocumentByUNID(unid);
+//set pageTitle
+var thisPageTitle =  "Error 404";
+viewScope.put("pageTitle",thisPageTitle);
+}]]></xp:this.beforePageLoad>
+	<div id="dbar">
+		<xc:ccHeadCode></xc:ccHeadCode>
+		<xc:ccCompatibility></xc:ccCompatibility>
+		<debug:toolbar defaultCollapsed="false" collapseTo="left">
+			<debug:this.loaded><![CDATA[${javascript:if (requestScope.session=="CN=PTL-WWWPROD-02/O=PTLWWWPD"){
+	return false;
+} else {
+return true;}}]]></debug:this.loaded>
+		</debug:toolbar>
+	</div>
+	<div class="containter" id="main">
+		<xp:panel styleClass="container">
+			<xp:panel styleClass="banner-image">
+				<xc:ccTrackingCode></xc:ccTrackingCode>
+				<xc:ccError404Header></xc:ccError404Header>
+				<!--		banner row-->
+				<xp:image id="image2" url="/attachment_lineup1170.png"></xp:image>
+				<xp:text escape="true" id="computedField2" value="#{requestScope.error}"
+					style="color:rgb(255,0,0)">
+				</xp:text>
+			</xp:panel>
+			<xp:panel style="container">
+				<xp:panel style="padding-left:32.0px;padding-right:32.0px">
+					
+					<xp:label style="font-weight:bold;font-size:11pt;color:rgb(255,0,0)"
+						value="#{langBean.errorHeaderMsg1}" loaded="true">
+					</xp:label>
+					<xp:br></xp:br>
+					<xp:br></xp:br></xp:panel>
+
+
+				
+				</xp:panel></xp:panel>
+			<xp:panel styleClass="banner-image">
+			<xc:commonfooter></xc:commonfooter>
+			</xp:panel>
+	</div>
+</xp:view>

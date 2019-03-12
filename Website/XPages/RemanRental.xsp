@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.beforePageLoad><![CDATA[#{javascript:
+// GET TRANSLATED CATEGORY AND TYPE VIA language index
+viewScope.translatedCategory = document1.getItemValueString("txt_category") ;
+viewScope.translatedType = document1.getItemValueString("txt_type") ;
+
+var langList:java.util.Vector = document1.getItemValue("txt_languageListAll");
+if (langList.isEmpty()) {
+	//dBar.info("*** in langList if");
+	return ;
+	}
+//dBar.info("*** after langList if");
+var idx:integer = langList.indexOf(sessionScope.LanguageP);
+//dBar.info(idx);
+
+var categoryList:java.util.Vector = document1.getItemValue("txt_categoryList");
+if (categoryList.isEmpty()) {
+	//dBar.info("*** in categoryList if");
+	return ;
+	}
+//dBar.info("after categoryList if");
+viewScope.translatedCategory = categoryList.elementAt(idx) ;
+
+var typeList:java.util.Vector = document1.getItemValue("txt_typeList");
+if (typeList.isEmpty()) {
+	//dBar.info("*** in typeList if");
+	return ;
+	}
+//dBar.info("after typeList if");
+//dBar.info(langList);
+//dBar.info(categoryList);
+//dBar.info(typeList);
+viewScope.translatedType = typeList.elementAt(idx) ;
+
+	}]]></xp:this.beforePageLoad>
+	<xp:this.data>
+		<xp:dominoDocument var="document1" formName="RentalFleet"
+			databaseName="${configBean.RemanrentalDbPath}">
+		</xp:dominoDocument>
+	</xp:this.data>
+
+	<xc:ccLayout>
+		<xp:panel id="docPanel1">
+			<xp:panel id="main" styleClass="container">
+				<!--	new	banner row-->
+				<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField1" value="${langBean.rent}"
+							styleClass="carousel-heading">
+						</xp:text>
+						<xp:text escape="true" id="computedField14" value="${langBean.msgPrePhoneText}"
+							styleClass="carousel-text">
+						</xp:text>
+						&#160;
+						<xp:text escape="false" id="computedField15"
+							value="${langBean.phoneNumberCustomerSupport}" styleClass="carousel-text"
+							loaded="${!deviceBean.mobile}">
+						</xp:text>
+						<xp:link escape="true"
+							text="${langBean.phoneNumberCustomerSupport}" id="link1"
+							loaded="${deviceBean.mobile}" styleClass="carousel-text">
+							<xp:this.value><![CDATA[#{javascript:
+var phoneNum = langBean.getValue("phoneNumberCustomerSupport")
+return "tel:"+ phoneNum ;}]]></xp:this.value>
+						</xp:link>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+				<!--			MAIN CONTENT-->
+				<xp:panel styleClass="row">
+					<!--	product info col -->
+					<xp:panel styleClass="col-sm-6" id="panelLeft1">
+						<xp:table styleClass="address-table">
+							<xp:tr>
+								<xp:panel styleClass="tableHeading" tagName="th">
+									<xp:this.attrs>
+										<xp:attr name="colspan" value="2">
+										</xp:attr>
+									</xp:this.attrs>
+									<xp:label value="${langBean.labelProductInfo}" id="label33"
+										style="font-weight:bold;color:rgb(255,255,255)">
+									</xp:label>
+								</xp:panel>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelRegion}: " id="label2"></xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:text escape="true" id="computedField2">
+										<xp:this.value><![CDATA[#{javascript:return @ProperCase(document1.getItemValueString("txt_region"));}]]></xp:this.value>
+									</xp:text>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelCategory}: " id="label3"></xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:text escape="true" id="computedField3"
+										value="${viewScope.translatedCategory}" style="font-weight:bold">
+									</xp:text>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelProduct}: " id="label4"></xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:text escape="true" id="computedField4" value="${document1.txt_titleList}">
+									</xp:text>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelType}: " id="label5"></xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:text escape="true" id="computedField5" value="${viewScope.translatedType}"
+										style="font-weight:bold">
+									</xp:text>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelCatalogNo}: " id="label10"></xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:text escape="true" id="computedField9" value="${document1.txt_catalogno}">
+									</xp:text>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelMountingClass}: " id="label11"></xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:text escape="true" id="computedField10" value="${document1.txt_mtgclass}">
+									</xp:text>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value=" " id="label12"></xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:text escape="true" id="computedField11" value=" ">
+									</xp:text>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelOpeningRange}: " id="label13"></xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:text escape="true" id="computedField12" value="${document1.txt_range}">
+									</xp:text>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelPadForkDimensions}: "
+										id="label14"></xp:label>
+								</xp:td>
+								<xp:td>
+								<xp:inputTextarea 
+									   id="inputTextarea1" value="#{document1.txt_dimensions}"> 
+								</xp:inputTextarea>
+								</xp:td>
+							</xp:tr>
+						</xp:table>
+						<xp:br></xp:br>
+						<xp:button value="${langBean.btnLabelBack}"
+							id="button1" styleClass="btn btn-primary">
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+							<xp:eventHandler event="onclick"
+								submit="true" refreshMode="complete">
+								<xp:this.action><![CDATA[#{javascript:viewStateBean.restoreState = true;
+return "xsp-success";}]]></xp:this.action>
+							</xp:eventHandler>
+						</xp:button>
+						<xp:link escape="true" text="${langBean.linkLabelConact}"
+							id="link2" styleClass="btn btn-primary"
+							value="mailto:#{langBean.mailtoEurRentalAddress}?subject=#{langBean.mailtoSubject}: #{document1.txt_catalogno}">
+							<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+						</xp:link>
+						<xp:br></xp:br>
+						<xp:br></xp:br>
+
+						<xp:panel id="panelAttachmentLinks">
+							<xp:repeat id="repeat1" rows="30" var="fileName">
+								<xp:this.value><![CDATA[#{javascript:
+var doc:NotesDocument = document1.getDocument();
+viewScope.docUnid = doc.getUniversalID();
+var attachmentNames = doc.getItemValue("AttachmentNames");
+//dBar.info(attachmentNames);
+return attachmentNames ;}]]></xp:this.value>
+								<xp:label value="#{langBean.labelClickToViewPhoto}" id="label15"></xp:label>
+								&#160;
+								<xp:link escape="true" text="#{fileName}" target="_blank"
+									id="link3"
+									value="#{configBean.HostURL}#{configBean.RemanrentalURL}/0/#{viewScope.docUnid}/$FILE/#{fileName} ">
+									<span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&#160;
+								</xp:link>
+								<xp:br></xp:br>
+							</xp:repeat>
+							<xp:br></xp:br>
+						</xp:panel>
+					</xp:panel>
+					<!--	rental rate col -->
+					<xp:panel id="panelRight1" styleClass="col-sm-6">
+						<xp:panel id="panelRentalRates1" rendered="#{userBean.commonName ne 'Anonymous'}">
+							<xp:table styleClass="address-table">
+								<xp:tr>
+									<xp:panel styleClass="tableHeading" tagName="th">
+										<xp:this.attrs>
+											<xp:attr name="colspan" value="2">
+											</xp:attr>
+										</xp:this.attrs>
+										<xp:label value="${langBean.labelRentalRate}" id="label1"
+											style="font-weight:bold;color:rgb(255,255,255)">
+										</xp:label>
+									</xp:panel>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="${langBean.labelDaily}: " id="label7">
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:text escape="true" id="computedField6"
+											value="${document1.num_pricedaily}">
+											<xp:this.converter>
+												<xp:convertNumber type="currency"
+													currencySymbol="€">
+												</xp:convertNumber>
+											</xp:this.converter>
+										</xp:text>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="${langBean.labelWeekly}: " id="label8">
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:text escape="true" id="computedField7"
+											value="${document1.num_priceweekly}">
+											<xp:this.converter>
+												<xp:convertNumber type="currency"
+													currencySymbol="€">
+												</xp:convertNumber>
+											</xp:this.converter>
+										</xp:text>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="${langBean.labelMonthly}: " id="label9">
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:text escape="true" id="computedField8"
+											value="${document1.num_pricemonthly}">
+											<xp:this.converter>
+												<xp:convertNumber type="currency"
+													currencySymbol="€">
+												</xp:convertNumber>
+											</xp:this.converter>
+										</xp:text>
+									</xp:td>
+								</xp:tr>
+							</xp:table>
+						</xp:panel>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+	</xc:ccLayout>
+
+	<xp:this.navigationRules>
+		<xp:navigationRule outcome="xsp-success" viewId="/RemanRentalView.xsp"></xp:navigationRule>
+	</xp:this.navigationRules>
+</xp:view>

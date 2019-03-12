@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sharedfield xmlns="http://www.lotus.com/dxl" name="$TemplateBuild" language="en">
+  <field type="text" kind="editable" name="$TemplateBuild"/>
+  <item name="$TemplateBuild" sign="true">
+    <text>2.0.12</text>
+  </item>
+  <item name="$TemplateBuildName" sign="true">
+    <text>Cascade Website</text>
+  </item>
+  <item name="$TemplateBuildDate" sign="true">
+    <datetime dst="true">20180614T000000,00-07</datetime>
+  </item>
+  <item name="$TemplateBuildTool" sign="true">
+    <text>Teamstudio Build Manager</text>
+  </item>
+  <item name="$TMSBuildLicense" sign="true">
+    <text>[%%BMLIC%%]</text>
+  </item>
+</sharedfield>

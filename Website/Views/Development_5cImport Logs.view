@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.lotus.com/dxl" name="Development\Import Logs" showinmenu="false" publicaccess="false" unreadmarks="none" onopengoto="lastopened" onrefresh="displayindicator" headers="beveled" opencollapsed="false" showresponsehierarchy="true" showmargin="true" shrinkrows="false" extendlastcolumn="true" showhierarchies="false" unreadcolor="black" rowlinecount="1" headerlinecount="1" rowspacing="1" bgcolor="white" totalscolor="black" headerbgcolor="white" boldunreadrows="false" evaluateactions="false" allownewdocuments="false" allowcustomizations="true" hidemarginborder="false" marginwidth="0px" marginbgcolor="white" uniquekeys="false">
+  <code event="selection">
+    <formula>SELECT Form = "ImportLog"</formula>
+  </code>
+  <column sort="descending" hidedetailrows="false" itemname="StartDate" width="10" resizable="true" separatemultiplevalues="true" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="Date">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <datetimeformat show="date" date="yearmonthday" fourdigityearfor21stcentury="true" time="hourminutesecond" zone="never" dateformat="weekdaymonthdayyear" dayformat="twodigitday" monthformat="twodigitmonth" yearformat="fourdigityear" weekdayformat="shortname" dateseparator1=" " dateseparator2="/" dateseparator3="/" timeseparator=":" preference="usersetting"/>
+    <numberformat format="general" punctuated="false" parens="false" percent="false" bytes="false"/>
+  </column>
+  <column sort="descending" hidedetailrows="false" itemname="StartDate" width="10" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="Time">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <datetimeformat show="time" date="yearmonthday" fourdigityearfor21stcentury="true" time="hourminutesecond" zone="never" dateformat="weekdaymonthdayyear" dayformat="twodigitday" monthformat="twodigitmonth" yearformat="fourdigityear" weekdayformat="shortname" dateseparator1=" " dateseparator2="/" dateseparator3="/" timeseparator=":" preference="usersetting"/>
+    <numberformat format="general" punctuated="false" parens="false" percent="false" bytes="false"/>
+  </column>
+  <column hidedetailrows="false" itemname="NAME" width="31.3750" resizable="true" separatemultiplevalues="false" sortnoaccent="true" sortnocase="true" showaslinks="false">
+    <columnheader title="Log Name">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+</view>

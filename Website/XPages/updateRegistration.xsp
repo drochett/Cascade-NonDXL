@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+	<xc:ccLayout>
+		<xp:panel id="main" disableOutputTag="true">
+			<xc:ccUpdateRegistration></xc:ccUpdateRegistration>
+		</xp:panel>
+	</xc:ccLayout></xp:view>

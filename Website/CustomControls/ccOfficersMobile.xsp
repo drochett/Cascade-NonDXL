@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.data>
+		<xp:dominoView var="view1" databaseName="${configBean.HomeDbPath}"
+			viewName="WebCorpOfficers" categoryFilter="${sessionScope.LanguageP}">
+		</xp:dominoView>
+	</xp:this.data>
+	<div class="row">
+		<div class="col-md-12">
+			<xe:dynamicContent id="dynamicContent1"
+				defaultFacet="list" useHash="true">
+				<xp:this.facets>
+					<xp:div xp:key="list">
+						<ul class="list-group">
+							<xp:repeat id="repeat1" disableOutputTag="true"
+								styleClass="list-group" var="row" rows="999" value="#{view1}">
+								<li class="list-group-item">
+									<xp:link escape="true" id="link1">
+										<div class="pull-right">
+											<i class="glyphicon glyphicon-chevron-right"
+												style="font-size:12pt;font-weight:bold;color:rgb(128,128,128)"></i>
+										</div>
+										<xp:text value="#{row.Subject}"
+											style="font-size:12pt;font-weight:bold;color:rgb(72,72,72)" />
+										<xp:br></xp:br>
+										<xp:text value="#{row.Title}"
+											style="font-size:11pt;color:rgb(128,128,128)" />
+										<xp:eventHandler event="onclick"
+											submit="true" refreshMode="partial"
+											refreshId="dynamicContent1">
+											<xp:this.action><![CDATA[#{javascript:
+var ve:NotesXspViewEntry = row;
+viewScope.unid = ve.getUniversalID();
+viewScope.photoURL = ve.getColumnValue("Photo");
+getComponent("dynamicContent1").show("detail", 
+		{documentId: row.getNoteID(), action:"openDocument"}); }]]></xp:this.action>
+										</xp:eventHandler>
+									</xp:link>
+								</li>
+							</xp:repeat>
+						</ul>
+					</xp:div>
+					<xp:panel xp:key="detail">
+						<xp:this.data>
+							<xp:dominoDocument var="document1" action="openDocument"
+								databaseName="${configBean.HomeDbPath}" formName="Person">
+							</xp:dominoDocument>
+						</xp:this.data>
+						<xp:panel id="list-group" styleClass="panel">
+							<div class="list-group">
+								<div class="list-group-item">
+									<xp:button id="link2" styleClass="glyphicon glyphicon-backward">
+										<xp:eventHandler event="onclick" submit="true"
+											refreshMode="partial" refreshId="dynamicContent1">
+											<xp:this.action><![CDATA[#{javascript:getComponent("dynamicContent1").show("list"); }]]></xp:this.action>
+										</xp:eventHandler>
+									</xp:button>
+								</div>
+								<div class="list-group-item Cascade" style="height:150px;">
+									<xp:image styleClass="img-rounded pull-left"
+										style="max-height:125px; margin-right:10px;" id="image2"
+										url="#{configBean.HostURL}#{configBean.HomeURL}/#{viewScope.photoURL}">
+									</xp:image>
+									<xp:br></xp:br>
+									<xp:text id="fullname" tagName="h4"
+										styleClass="list-group-item-heading">
+										<xp:this.value><![CDATA[#{document1.Subject}]]></xp:this.value>
+									</xp:text>
+									<xp:text id="computedField1" tagName="h5"
+										style="color:rgb(128,128,128)">
+										<xp:this.value><![CDATA[#{document1.Title}]]></xp:this.value>
+									</xp:text>
+								</div>
+								<div class="list-group-item">
+									<xp:text id="comments" value="#{document1.Comments}"
+										escape="false" styleClass="list-group-item-heading">
+									</xp:text>
+								</div>
+							</div>
+						</xp:panel>
+					</xp:panel>
+				</xp:this.facets>
+			</xe:dynamicContent>
+		</div>
+	</div>
+</xp:view>

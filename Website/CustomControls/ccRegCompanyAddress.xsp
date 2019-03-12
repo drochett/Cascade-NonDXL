@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+<xe:widgetContainer id="companyAddressWidget"
+						titleBarText="#{javascript:langBean.HeadingCompanyAddress}"
+						styleClass="login-panel">
+						<div class="panel-body">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-3">
+										<xp:text tagName="label"
+											value="${langBean.labelAcctNumber}: " id="AccountNumberLabel"
+											styleClass="control-label">
+										</xp:text>
+									</div>
+									<div class="col-sm-9">
+										<xp:text escape="true"
+											id="AccountNumberField" value="#{regDoc.AccountNumber}">
+										</xp:text>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-3">
+										<xp:text tagName="label"
+											value="${langBean.labelCompany}: " id="CompanyLabel"
+											styleClass="control-label">
+										</xp:text>
+									</div>
+									<div class="col-sm-9">
+										<xp:text escape="true"
+											id="CompanyNameField" value="#{regDoc.cName}">
+										</xp:text>
+
+										<xp:br></xp:br>
+										<xp:text escape="false"
+											id="CompanyAddressField">
+											<xp:this.value><![CDATA[#{javascript:var rtnString = "";
+addressArray = registrationBean.getPerson().getCompanyAddressArray();
+dBar.info( addressArray.length);
+rtnString = addressArray[0];
+if (addressArray.length >=2) {
+	rtnString = rtnString + "<BR>" + addressArray[1];
+}
+if (addressArray.length == 3){
+	rtnString = rtnString + "<BR>" + addressArray[2];
+}
+return rtnString;
+}]]></xp:this.value>
+										</xp:text>
+										<xp:br></xp:br>
+										<xp:text escape="true"
+											id="CompanyCityField" value="#{regDoc.cCity}">
+										</xp:text>
+										,
+
+										&#160;
+										<xp:text escape="true"
+											id="CompanyStateField" value="#{regDoc.cState}">
+										</xp:text>
+										&#160;&#160;
+										<xp:text escape="true"
+											id="CompanyAddressZip" value="#{regDoc.cZip}">
+										</xp:text>
+										<xp:br></xp:br>
+										<xp:text escape="true"
+											id="CompanyCountryField" value="#{regDoc.cCountry}">
+										</xp:text>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+					</xe:widgetContainer>
+</xp:view>

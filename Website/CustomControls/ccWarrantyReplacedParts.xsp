@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+  <xp:this.beforePageLoad><![CDATA[#{javascript:
+if (@IsNewDoc()) {
+ viewScope.showRows = 3 ;
+ } else if (currentDocument.getDocument().hasItem("showRows")) {
+ viewScope.showRows = currentDocument.getDocument().getItemValueDouble("showRows") ;
+ } else {
+ viewScope.showRows = 30 ;
+ }}]]></xp:this.beforePageLoad>
+  <xp:panel id="panelReplacedParts1">
+    <xp:table styleClass="address-table">
+      <xp:tr>
+        <xp:panel styleClass="tableHeading" tagName="th">
+          <xp:this.attrs>
+            <xp:attr name="colspan" value="2"></xp:attr>
+          </xp:this.attrs>
+          <xp:label value="Replaced Parts" id="label7" style="font-weight:bold;color:rgb(255,255,255)">
+          </xp:label>
+        </xp:panel>
+      </xp:tr>
+    </xp:table>
+    <xp:br></xp:br>
+    <xp:table styleClass="address-table">
+      <xp:tr>
+        <xp:td style="width:50.0px">
+          <xp:label value="Qty"></xp:label>
+        </xp:td>
+        <xp:td>
+          <xp:label value="Part Number"></xp:label>
+        </xp:td>
+        <xp:td>
+          <xp:label value="Name/Description"></xp:label>
+        </xp:td>
+        <xp:td style="width:90.0px">
+          <xp:label value="Cost Per Unit"></xp:label>
+        </xp:td>
+        <xp:td>
+          <xp:label value="Dealer PO#"></xp:label>
+        </xp:td>
+        <xp:td style="width:50.0px" align="center">
+          <xp:label value=" "></xp:label>
+        </xp:td>
+      </xp:tr>
+      <xp:tr id="tr1" rendered="true">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_1}" id="replacedQty_11"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_1}" id="replacedPartNum_11"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_1}" id="replacedCascadePartNum_1_11">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_1}" id="replacedCost_11"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_1}" id="replacedDealerPO_11"></xp:inputText>
+        </xp:td>
+        <xp:td>
+        </xp:td>
+      </xp:tr>
+      <!-- tr2 -->
+      <xp:tr id="tr2" rendered="true">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_2}" id="inputText1"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_2}" id="inputText2"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_2}" id="inputText3">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_2}" id="inputText4"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_2}" id="inputText5"></xp:inputText>
+        </xp:td>
+        <xp:td>
+        </xp:td>
+      </xp:tr>
+      <!-- tr3 -->
+      <xp:tr id="tr3" rendered="true">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_3}" id="inputText6"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_3}" id="inputText7"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_3}" id="inputText8">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_3}" id="inputText9"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_3}" id="inputText10"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button3" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 3)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 4}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr4 -->
+      <xp:tr id="tr4" rendered="#{viewScope.showRows ge 4}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_4}" id="inputText11"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_4}" id="inputText12"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_4}" id="inputText13">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_4}" id="inputText14"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_4}" id="inputText15"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button1" styleClass="btn btn-default" >
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 4)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 5}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr5 -->
+      <xp:tr id="tr5" rendered="#{viewScope.showRows ge 5}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_5}" id="inputText16"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_5}" id="inputText17"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_5}" id="inputText18">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_5}" id="inputText19"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_5}" id="inputText20"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button2" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 5)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 6}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr6 -->
+      <xp:tr id="tr6" rendered="#{viewScope.showRows ge 6}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_6}" id="inputText21"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_6}" id="inputText22"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_6}" id="inputText23">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_6}" id="inputText24"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_6}" id="inputText25"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button4" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 6)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 7}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr7 -->
+      <xp:tr id="tr7" rendered="#{viewScope.showRows ge 7}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_7}" id="inputText26"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_7}" id="inputText27"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_7}" id="inputText28">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_7}" id="inputText29"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_7}" id="inputText30"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button5" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 7)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 8}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr8 -->
+      <xp:tr id="tr8" rendered="#{viewScope.showRows ge 8}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_8}" id="inputText31"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_8}" id="inputText32"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_8}" id="inputText33">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_8}" id="inputText34"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_8}" id="inputText35"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button6" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 8)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 9}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr9 -->
+      <xp:tr id="tr9" rendered="#{viewScope.showRows ge 9}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_9}" id="inputText36"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_9}" id="inputText37"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_9}" id="inputText38">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_9}" id="inputText39"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_9}" id="inputText40"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button7" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 9)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 10}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr10 -->
+      <xp:tr id="tr10" rendered="#{viewScope.showRows ge 10}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_10}" id="inputText41"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_10}" id="inputText42"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_10}" id="inputText43">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_10}" id="inputText44"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_10}" id="inputText45"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button8" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 10)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 11}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr11 -->
+      <xp:tr id="tr11" rendered="#{viewScope.showRows ge 11}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_11}" id="inputText46"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_11}" id="inputText47"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_11}" id="inputText48">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_11}" id="inputText49"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_11}" id="inputText50"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button9" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 11)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 12}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr12 -->
+      <xp:tr id="tr12" rendered="#{viewScope.showRows ge 12}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_12}" id="inputText51"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_12}" id="inputText52"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_12}" id="inputText53">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_12}" id="inputText54"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_12}" id="inputText55"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button10" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 12)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 13}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr13 -->
+      <xp:tr id="tr13" rendered="#{viewScope.showRows ge 13}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_13}" id="inputText56"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_13}" id="inputText57"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_13}" id="inputText58">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_13}" id="inputText59"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_13}" id="inputText60"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button11" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 13)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 14}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr14 -->
+      <xp:tr id="tr14" rendered="#{viewScope.showRows ge 14}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_14}" id="inputText61"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_14}" id="inputText62"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_14}" id="inputText63">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_14}" id="inputText64"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_14}" id="inputText65"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button12" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 14)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 15}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr15 -->
+      <xp:tr id="tr15" rendered="#{viewScope.showRows ge 15}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_15}" id="inputText66"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_15}" id="inputText67"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_15}" id="inputText68">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_15}" id="inputText69"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_15}" id="inputText70"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button13" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 15)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 16}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr16 -->
+      <xp:tr id="tr16" rendered="#{viewScope.showRows ge 16}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_16}" id="inputText71"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_16}" id="inputText72"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_16}" id="inputText73">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_16}" id="inputText74"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_16}" id="inputText75"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button14" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 16)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 17}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr17 -->
+      <xp:tr id="tr17" rendered="#{viewScope.showRows ge 17}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_17}" id="inputText76"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_17}" id="inputText77"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_17}" id="inputText78">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_17}" id="inputText79"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_17}" id="inputText80"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button15" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 17)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 18}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr18 -->
+      <xp:tr id="tr18" rendered="#{viewScope.showRows ge 18}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_18}" id="inputText81"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_18}" id="inputText82"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_18}" id="inputText83">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_18}" id="inputText84"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_18}" id="inputText85"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button16" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 18)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 19}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr19 -->
+      <xp:tr id="tr19" rendered="#{viewScope.showRows ge 19}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_19}" id="inputText86"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_19}" id="inputText87"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_19}" id="inputText88">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_19}" id="inputText89"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_19}" id="inputText90"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button17" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 19)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 20}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr20 -->
+      <xp:tr id="tr20" rendered="#{viewScope.showRows ge 20}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_20}" id="inputText91"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_20}" id="inputText92"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_20}" id="inputText93">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_20}" id="inputText94"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_20}" id="inputText95"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button18" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 20)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 21}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr21 -->
+      <xp:tr id="tr21" rendered="#{viewScope.showRows ge 21}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_21}" id="inputText96"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_21}" id="inputText97"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_21}" id="inputText98">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_21}" id="inputText99"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_21}" id="inputText100"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button19" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 21)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 22}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr22 -->
+      <xp:tr id="tr22" rendered="#{viewScope.showRows ge 22}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_22}" id="inputText101"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_22}" id="inputText102"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_22}" id="inputText103">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_22}" id="inputText104"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_22}" id="inputText105"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button20" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 22)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 23}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr23 -->
+      <xp:tr id="tr23" rendered="#{viewScope.showRows ge 23}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_23}" id="inputText106"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_23}" id="inputText107"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_23}" id="inputText108">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_23}" id="inputText109"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_23}" id="inputText110"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button21" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 23)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 24}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr24 -->
+      <xp:tr id="tr24" rendered="#{viewScope.showRows ge 24}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_24}" id="inputText111"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_24}" id="inputText112"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_24}" id="inputText113">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_24}" id="inputText114"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_24}" id="inputText115"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button22" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 24)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 25}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr25 -->
+      <xp:tr id="tr25" rendered="#{viewScope.showRows ge 25}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_25}" id="inputText116"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_25}" id="inputText117"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_25}" id="inputText118">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_25}" id="inputText119"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_25}" id="inputText120"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button23" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 25)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 26}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr26 -->
+      <xp:tr id="tr26" rendered="#{viewScope.showRows ge 26}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_26}" id="inputText121"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_26}" id="inputText122"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_26}" id="inputText123">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_26}" id="inputText124"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_16}" id="inputText125"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button24" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 26)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 27}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr27 -->
+      <xp:tr id="tr27" rendered="#{viewScope.showRows ge 27}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_27}" id="inputText126"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_27}" id="inputText127"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_27}" id="inputText128">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_27}" id="inputText129"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_27}" id="inputText130"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button25" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 27)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 28}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr28 -->
+      <xp:tr id="tr28" rendered="#{viewScope.showRows ge 28}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_28}" id="inputText131"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_28}" id="inputText132"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_28}" id="inputText133">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_28}" id="inputText134"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_28}" id="inputText135"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button26" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 28)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 29}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr29 -->
+      <xp:tr id="tr29" rendered="#{viewScope.showRows ge 29}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_29}" id="inputText136"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_29}" id="inputText137"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_29}" id="inputText138">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_29}" id="inputText139"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_29}" id="inputText140"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:button id="button27" styleClass="btn btn-default">
+            <xp:this.rendered><![CDATA[#{javascript: @IsNewDoc() && (viewScope.showRows == 29)}]]></xp:this.rendered>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+              refreshId="panelReplacedParts1" disableValidators="true">
+              <xp:this.action><![CDATA[#{javascript:viewScope.showRows = 30}]]></xp:this.action>
+            </xp:eventHandler>
+          </xp:button>
+        </xp:td>
+      </xp:tr>
+      <!-- tr30 -->
+      <xp:tr id="tr30" rendered="#{viewScope.showRows ge 30}">
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedQty_30}" id="inputText141"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedPartNum_30}" id="inputText142"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCascadePartNum_1_30}" id="inputText143">
+          </xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedCost_30}" id="inputText144"></xp:inputText>
+        </xp:td>
+        <xp:td>
+          <xp:inputText value="#{document1.ReplacedDealerPO_30}" id="inputText145"></xp:inputText>
+        </xp:td>
+        <xp:td>
+        </xp:td>
+      </xp:tr>
+    </xp:table>
+  </xp:panel>
+
+</xp:view>

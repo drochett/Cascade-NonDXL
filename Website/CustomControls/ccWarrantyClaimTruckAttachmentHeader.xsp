@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"><xp:panel styleClass="row">
+		<xp:panel styleClass="col-xs-12 col-md-12" id="panelForm1">
+			<xp:table border="0" styleClass="order-steps">
+				<xp:tr>
+					<xp:td>
+						<xp:label value="1) " id="label4">
+						</xp:label>
+						<xp:label value="${langBean.stepAddress}" id="label5">
+						</xp:label>
+					</xp:td>
+					<xp:td styleClass="active">
+						<xp:label value="2) " id="label1">
+						</xp:label>
+						<xp:label value="${langBean.stepTruckInfo}" id="label2">
+						</xp:label>
+					</xp:td>
+					<xp:td>
+						<xp:label value="3) " id="label6">
+						</xp:label>
+						<xp:label value="${langBean.stepOtherData}" id="label7">
+						</xp:label>
+					</xp:td>
+					<xp:td>
+						<xp:label value="4) " id="label11">
+						</xp:label>
+						<xp:label value="${langBean.stepSummary}" id="label12">
+						</xp:label>
+					</xp:td>
+					<xp:td>
+						<xp:label value="5) " id="label8">
+						</xp:label>
+						<xp:label value="${langBean.stepFileAttachments}" id="label9">
+						</xp:label>
+					</xp:td>
+					<xp:td>
+						<xp:label value="6) " id="label3">
+						</xp:label>
+						<xp:label value="${langBean.stepConfirmation}" id="label10">
+						</xp:label>
+					</xp:td>
+				</xp:tr>
+			</xp:table>
+		</xp:panel>
+	</xp:panel>
+</xp:view>

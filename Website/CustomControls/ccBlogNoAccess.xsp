@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom"> 
+
+	<xp:panel styleClass="container">
+		
+		<xc:ccBlogHeader></xc:ccBlogHeader>
+
+		<xp:panel styleClass="row" id="rowMain1" style="margin-bottom:10px;">
+			<xp:panel id="doccontent" styleClass="col-sm-12">
+				<xp:panel id="panel1">
+					<xp:panel id="panelDocument1">
+						<xp:panel styleClass="row">
+							<xp:panel style="background:white;">
+								<xp:panel styleClass="post-heading">
+									<xp:text escape="true" id="computedField1" tagName="h2"
+										value="You do not have access to requested page.">
+									</xp:text>
+								</xp:panel>
+							</xp:panel>
+						</xp:panel>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+	</xp:panel>
+
+</xp:view>

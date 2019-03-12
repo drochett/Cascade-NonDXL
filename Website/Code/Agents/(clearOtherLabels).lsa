@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="(clearOtherLabels)" hide="v3" publicaccess="false">
+  <trigger type="agentlist"/>
+  <documentset type="selected"/>
+  <code event="options">
+    <lotusscript>
+%REM
+	Agent generateLabels
+	Created Jun 29, 2015 by Paul Della-Nebbia/TSPSDev
+	Description: Comments for Agent
+%END REM
+Option Public
+Option Declare
+%INCLUDE "lsconst"
+
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	
+	' === REQUIRED === Access the current database from the session
+	Dim session As New NotesSession
+	Dim dbCur As NotesDatabase
+	Set dbCur = session.CurrentDatabase
+	Dim doc As NotesDocument
+	Dim valCopy As String
+	
+	' === Access the unprocessed collection of selected documents in view
+	Dim collUnprocessed As NotesDocumentCollection
+	Set collUnprocessed = dbCur.UnprocessedDocuments
+	
+	' === Make sure the collection is not empty and then report the count in a messagebox
+	If collUnprocessed Is Nothing Then
+		Messagebox "Collection is empty!", MB_ICONEXCLAMATION, _
+"AGENT: " &amp; session.CurrentAgent.Name
+	Else
+		Dim nContinue As Integer     
+		nContinue = Messagebox( "CLEAR eme-yy language labels for " &amp; collUnprocessed.Count &amp;  " selected documents?", MB_YESNO, "AGENT: " &amp; session.CurrentAgent.Name)
+		
+		If nContinue = IDYES Then 
+			Set doc = collUnprocessed.Getfirstdocument()
+			
+			Do Until doc Is Nothing
+				valCopy = doc.GetItemValue("val_americas_en")(0)
+				With doc
+					.val_eme_de = ""
+					.val_eme_en = ""
+					.val_eme_es = ""
+					.val_eme_fi = ""
+					.val_eme_fr = ""
+					.val_eme_it = ""
+					.val_eme_nl = ""
+					.val_eme_se = ""
+					.val_americas_es = ""
+					.val_americas_ca = ""
+					.val_americas_fr = ""
+					.save True,True 
+				End With	
+				Set doc = collUnprocessed.Getnextdocument(doc)
+			Loop
+		Else
+			Messagebox "No documents updated" , MB_OK, "AGENT: " &amp; session.CurrentAgent.Name
+		End If
+		
+		
+	End If
+End Sub</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101914,37-08</datetime>
+  </item>
+</agent>

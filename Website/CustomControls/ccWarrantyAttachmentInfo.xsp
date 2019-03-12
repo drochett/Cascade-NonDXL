@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:panel styleClass="tableHeading" tagName="th">
+        <xp:this.attrs>
+          <xp:attr name="colspan" value="2"></xp:attr>
+        </xp:this.attrs>
+        <xp:label value="Attachment Information" id="label4"
+          style="font-weight:bold;color:rgb(255,255,255)">
+        </xp:label>
+      </xp:panel>
+    </xp:tr>
+    <xp:tr>
+      <xp:td style="width:25%">
+        <xp:label value="Model/Catalog Number:" id="warrantycatalog_Label1" for="warrantycatalog1"></xp:label>
+        <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.warrantycatalog}" id="warrantycatalog1">
+          <xp:this.validators>
+            <xp:validateRequired message="Attachment Information - Model/Catalog Number is required"></xp:validateRequired>
+          </xp:this.validators>
+        </xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="Serial Number:" id="warrantyserial_Label1" for="warrantyserial1"></xp:label>
+        <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.warrantyserial}" id="warrantyserial1">
+          <xp:this.validators>
+            <xp:validateRequired message="Attachment Information - Serial Number is required"></xp:validateRequired>
+          </xp:this.validators>
+        </xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="Installation Date:" id="warrantyinstalldate_Label1" for="warrantyinstalldate1">
+        </xp:label>
+        <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.warrantyinstalldate}" id="warrantyinstalldate1">
+          <xp:this.validators>
+            <xp:validateRequired message="Attachment Information - Installation Date is required"></xp:validateRequired>
+          </xp:this.validators>
+        </xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="Failure Date:" id="warrantyfailuredate_Label1" for="warrantyfailuredate1">
+        </xp:label>
+        <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.warrantyfailuredate}" id="warrantyfailuredate1">
+          <xp:this.validators>
+            <xp:validateRequired message="Attachment Information - Failure Date is required"></xp:validateRequired>
+          </xp:this.validators>
+        </xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="Date Dealer Completed Repair:" id="warrantydealerfinishedrepair_Label1"
+          for="warrantydealerfinishedrepair1">
+        </xp:label>
+        <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.warrantydealerfinishedrepair}" id="warrantydealerfinishedrepair1">
+          <xp:this.validators>
+            <xp:validateRequired message="Attachment Information - Date Dealer Completed Repair is required"></xp:validateRequired>
+          </xp:this.validators>
+        </xp:inputText>
+      </xp:td>
+    </xp:tr>
+  </xp:table>
+
+</xp:view>

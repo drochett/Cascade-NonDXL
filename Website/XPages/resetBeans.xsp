@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar"
+	xmlns:xc="http://www.ibm.com/xsp/custom"> 
+	
+	<xc:ccLayout>
+	
+	<xp:panel styleClass="container" id="main">
+		
+		<xp:br></xp:br>
+		<xp:br></xp:br>
+		<xp:button value="Reset Language bean" id="button6">
+			<xp:eventHandler event="onclick" submit="true"
+				refreshMode="complete">
+				<xp:this.action><![CDATA[#{javascript:langBean.resetConfig();}]]></xp:this.action>
+			</xp:eventHandler>
+		</xp:button>
+		<xp:br></xp:br>
+		<xp:br></xp:br>
+		<xp:button value="Reset Menu bean" id="button1">
+			<xp:eventHandler event="onclick" submit="true"
+				refreshMode="complete">
+				<xp:this.action><![CDATA[#{javascript:menuBean.resetConfig();}]]></xp:this.action>
+			</xp:eventHandler>
+		</xp:button>
+		
+		<xp:br></xp:br>
+		<xp:br></xp:br>
+		<xp:button value="Reset Config bean" id="button8">
+			<xp:eventHandler event="onclick" submit="true" refreshMode="complete">
+				<xp:this.action><![CDATA[#{javascript:configBean.resetConfig();}]]></xp:this.action>
+			</xp:eventHandler>
+		</xp:button>
+		
+		<xp:br></xp:br>
+		<xp:br></xp:br><xp:button value="Reset Order Status bean" id="button2">
+			<xp:eventHandler event="onclick" submit="true"
+				refreshMode="complete">
+				<xp:this.action><![CDATA[#{javascript:OrderStatusBean.resetConfig();}]]></xp:this.action>
+			</xp:eventHandler>
+</xp:button>
+		<xp:br></xp:br>
+		<xp:br></xp:br>
+
+		<xp:br></xp:br>
+		<xp:br></xp:br>
+		
+	</xp:panel>
+
+	
+	
+	
+	</xc:ccLayout>
+
+</xp:view>

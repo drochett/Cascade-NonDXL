@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.beforePageLoad><![CDATA[#{javascript:
+dBar.info("---beforePageLoad---");
+if (viewScope.orderStep == "" || viewScope.orderStep == null) {
+	viewScope.orderStep = "step_1";
+}
+}]]></xp:this.beforePageLoad>
+	<xc:ccLayout>
+		<xp:panel styleClass="container" id="main">
+			<xp:this.data>
+				<xp:dominoDocument var="document1" formName="RegAttDealers"
+					databaseName="${configBean.OrdersDbPath}">
+					<xp:this.querySaveDocument><![CDATA[#{javascript:
+if (currentDocument.isNewNote()) {
+	var doc:NotesDocument = currentDocument.getDocument();
+	var item:NotesItem;
+	// CHANGE EDITORARRAY
+	var editorArray = new Array ("[EditAllDocs]","[EditProdReg]");
+	item = doc.replaceItemValue("AccessEditor",editorArray);
+	item.setAuthors(true);
+	var username =  session.getEffectiveUserName();
+	dBar.info("username="+username);
+	var reader = (username != "Anonymous") ? username : "[EditAllDocs]" ;
+	dBar.info("reader="+reader);
+	item = doc.replaceItemValue("OrderOwner", reader);
+	item.setReaders(true);
+	
+	var dt:NotesDateTime = session.createDateTime("Today");
+	dt.setNow();
+	dBar.info("dt="+dt);
+    item = doc.appendItemValue("OrderDate", dt);
+    item = doc.appendItemValue("OrderStatus", "New");
+       // CHANGE ORDERFORM 
+    item = doc.appendItemValue("OrderType", "Attachment Registration for Dealers");
+    item = doc.appendItemValue("OrderForm", "regattdealers");
+    var languageP = (!!sessionScope.LanguageP) ? sessionScope.LanguageP : "americas-en";
+    dBar.info("languageP="+languageP);
+    item = doc.appendItemValue("MsgLanguage", languageP);
+    return true ;
+	//dBar.info("return true in querySaveDocument to continue" );
+	//doc.save(); no need to save back end doc in this querySaveDocument event, save will follow
+}}]]></xp:this.querySaveDocument>
+					<xp:this.postSaveDocument><![CDATA[#{javascript:
+dBar.info("((( postSaveDocument ))) ");
+dBar.info("Form="+document1.getItemValueString("Form"));}]]></xp:this.postSaveDocument>
+				</xp:dominoDocument>
+			</xp:this.data>
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							value="${langBean.titleRegAttDealers}" styleClass="carousel-heading">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<xp:br></xp:br>
+			<!--	dynamic Content -->
+			<xe:dynamicContent id="dcOrderStep" defaultFacet="step_1">
+				<xp:this.facets>
+					<xc:ccRegAttDealers xp:key="step_1"></xc:ccRegAttDealers>
+					<xc:ccRegAttConfirmation xp:key="step_2"></xc:ccRegAttConfirmation>
+				</xp:this.facets>
+			</xe:dynamicContent>
+			<xp:br></xp:br>
+
+			<xp:br></xp:br>
+
+		</xp:panel>
+	</xc:ccLayout>
+
+</xp:view>
+
+

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex"
+  xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+  <xp:this.afterPageLoad><![CDATA[#{javascript://lookup the right country
+var country = "USA";
+dBar.info("browserL: "+ sessionScope.BrowserL)
+// code below is if we are opening data based on browser language
+/*switch (sessionScope.BrowserL) {
+		case "USA":
+			country = "USA";
+			break;
+		case "Mexico":
+			country = "Mexico";
+			break;
+		case "LATIN AMERICA":
+			country = "LATIN AMERICA"
+			break
+		case "CANADA":
+			country = "USA";
+			break;
+		case "GERMANY":
+			country = "GERMANY"; 
+			break;
+		case "UK":
+			country = "UK"; 
+			break;
+		case "SPAIN":
+			country = "SPAIN"; 
+			break;
+		case "FINLAND":
+			country = "FINLAND"; 
+			break;
+		case "FRANCE":
+			country = "FRANCE"; 
+			break;
+		case "ITALY":
+			country = "ITALY"; 
+			break;
+		case "NETHERLANDS":
+			country = "NETHERLANDS"; 
+			break;
+		case "SWEDEN":
+			country = "SWEDEN"; 
+			break;
+		default:
+			country = "USA";	
+	};*/
+	
+// code below is if we are opening data based on preferred language
+	switch (sessionScope.LanguageP) {
+		case "americas-en":
+			country = "USA";
+			break;
+		case "americas-es":
+			country = "LATIN AMERICA";
+			break;
+		case "americas-ca":
+			country = "CANADA";
+			break;
+		case "eme-de":
+			country = "GERMANY"; 
+			break;
+		case "eme-en":
+			country = "UK"; 
+			break;
+		case "eme-es":
+			country = "SPAIN"; 
+			break;
+		case "eme-fi":
+			country = "FINLAND"; 
+			break;
+		case "eme-fr":
+			country = "FRANCE"; 
+			break;
+		case "eme-it":
+			country = "ITALY"; 
+			break;
+		case "eme-nl":
+			country = "NETHERLANDS"; 
+			break;
+		case "eme-se":
+			country = "SWEDEN"; 
+			break;
+		default:
+			country = "USA";	
+	}; 
+dBar.info("country  :" + country);
+
+//var first = "Americas#americas-en#Field Sales";
+var first = document1.getItemValueString("Continent") + "#" + sessionScope.LanguageP + "#" + document1.getItemValueString("Department");
+//var first = document1.getItemValueString("Continent") + "#" + sessionScope.BrowserL + "#" + document1.getItemValueString("Department");
+
+dBar.info("first  :" + first);
+var viewName="PeopleEmbedded2";
+var dbName = configBean.getValue("HomeDbPath");
+dBar.info("dbName: "+dbName);
+var db = session.getDatabase(session.getServerName(), dbName,false );
+if (db != null){
+	var search = new java.util.Vector();
+	search.add(first);
+dBar.info("country  :" + country);
+	search.add(country);
+	var vw:NotesView = db.getView(viewName);
+	var ve:NotesViewEntry = vw.getEntryByKey(search);
+	
+	if (ve != null){
+		dBar.info("position is " + ve.getPosition("."));
+		var pos = @LeftBack(ve.getPosition("."), ".");
+		dBar.info("computed position is " + pos);
+		getComponent("dataView1").getDataModel().getDominoViewDataContainer().expand(pos);
+	}
+	
+	} else {
+		dBar.info("database not found");
+}}]]></xp:this.afterPageLoad>
+  <xp:this.beforePageLoad><![CDATA[#{javascript:getExpandLevel();
+}]]></xp:this.beforePageLoad>
+  <xp:panel id="main" styleClass="container">
+    <!--		option top RTF	-->
+    <xp:div styleClass="row">
+      <xp:div styleClass="col-xs-12">
+        <xp:text escape="false" id="computedField5" value="#{document1.OneBodyField}">
+        </xp:text>
+      </xp:div>
+    </xp:div>
+    <!--		main content row	-->
+    <xp:panel styleClass="row contacts">
+      <xp:panel id="panelContactsListing" styleClass="col-sm-6 scroll">
+        <xe:widgetContainer id="widgetContainer1" titleBar="true" titleBarText="${document1.Subject}">
+          <xe:dataView id="dataView1" var="viewEntry" openDocAsReadonly="true" rows="999"
+            indexVar="idxVar">
+            <xp:this.facets>
+              <xp:panel xp:key="categoryRow" id="panelCategory1">
+                <xp:text escape="true" id="computedField6" value="#{viewEntry.Country}">
+                </xp:text>
+              </xp:panel>
+              <xp:panel xp:key="summary" id="panelDetail1">
+                <xp:link escape="true" id="link1">
+                  <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+                    refreshId="details">
+                    <xp:this.action><![CDATA[#{javascript:
+var ve:NotesXspViewEntry = viewEntry;
+viewScope.unid = ve.getUniversalID();
+viewScope.photoURL = ve.getColumnValue("PhotoURL");}]]></xp:this.action>
+                  </xp:eventHandler>
+                  <xp:div>
+                    <xe:multiImage id="multiImage1" styleClass="img-rounded pull-left avatar">
+                      <xe:this.icons>
+                        <xe:iconEntry url="/noPhoto.png" selectedValue="noPhoto">
+                        </xe:iconEntry>
+                        <xe:iconEntry selectedValue="yesPhoto"
+                          url="#{configBean.HostURL}#{configBean.HomeURL}/#{viewEntry.PhotoURL}">
+                        </xe:iconEntry>
+                        <xe:iconEntry url="/.ibmxspres/.extlib/icons/noPhoto.png"
+                          selectedValue="notUsed">
+                        </xe:iconEntry>
+                      </xe:this.icons>
+                      <xe:this.value><![CDATA[#{javascript:
+importPackage(com.cascorp);
+var ve:NotesXspViewEntry = viewEntry;
+var doc:NotesDocument = ve.getDocument();
+var HTMLfromRT:String = RegistrationUtilities.getHTMLfromRT(doc, "rtf_PersonGraphic");
+//if (HTMLfromRT.contains("<img") && HTMLfromRT.contains(".jpg") ) {
+if (HTMLfromRT.contains("<img") ) {
+	 	return "yesPhoto";
+ 	}else{
+		return "noPhoto";
+}
+}]]></xe:this.value>
+                    </xe:multiImage>
+                  </xp:div>
+                  <xp:div>
+                    <xp:text escape="true" id="computedField2" value="#{viewEntry.Subject}"
+                      styleClass="list-group-item-heading" tagName="h4">
+                    </xp:text>
+                    <xp:text escape="true" id="computedField3" value="#{viewEntry.Title}"
+                      styleClass="list-group-item-text text-muted" tagName="p">
+                    </xp:text>
+                    <xp:text escape="true" id="computedField1" value="#{viewEntry.StateRegion}"
+                      styleClass="list-group-item-text text-muted" tagName="p">
+                    </xp:text>
+                  </xp:div>
+                </xp:link>
+              </xp:panel>
+            </xp:this.facets>
+            <xe:this.data>
+              <xp:dominoView var="view1"
+              	databaseName="${configBean.HomeDbPath}"
+              	viewName="PeopleEmbedded2" expandLevel="1"
+              	categoryFilter="${document1.Continent}#${sessionScope.LanguageP}#${document1.Department}">
+
+              </xp:dominoView>
+            </xe:this.data>
+          </xe:dataView>
+        </xe:widgetContainer>
+      </xp:panel>
+      <!--		start details-->
+      <xp:panel id="details" styleClass="col-sm-6">
+        <xp:this.data>
+          <xp:dominoDocument var="person1" action="openDocument" formName="Person"
+            documentId="#{javascript:viewScope.unid}" databaseName="${configBean.HomeDbPath}">
+          </xp:dominoDocument>
+        </xp:this.data>
+        <xe:widgetContainer id="widgetContainer2" titleBar="true"
+          titleBarText="${langBean.titleDetails}" rendered="#{javascript:!!(viewScope.photoURL)}">
+          <xp:table>
+            <xp:tr>
+              <xp:td rowspan="9" style="width:110px">
+                <xe:multiImage id="multiImage2" styleClass="img-rounded avatar-big">
+                  <xe:this.icons>
+                    <xe:iconEntry url="/noPhoto.png" selectedValue="noPhoto">
+                    </xe:iconEntry>
+                    <xe:iconEntry selectedValue="yesPhoto"
+                      url="#{configBean.HostURL}#{configBean.HomeURL}/#{viewScope.photoURL}">
+                    </xe:iconEntry>
+                    <xe:iconEntry url="/.ibmxspres/.extlib/icons/noPhoto.png"
+                      selectedValue="notUsed">
+                    </xe:iconEntry>
+                  </xe:this.icons>
+                  <xe:this.value><![CDATA[#{javascript:
+importPackage(com.cascorp);
+var doc:NotesDocument = person1.getDocument();
+var HTMLfromRT:String = RegistrationUtilities.getHTMLfromRT(doc, "rtf_PersonGraphic");
+//if (HTMLfromRT.contains("<img") && HTMLfromRT.contains(".jpg") ) {
+if (HTMLfromRT.contains("<img") ) {
+	 	return "yesPhoto";
+ 	}else{
+		return "noPhoto";
+}
+}]]></xe:this.value>
+                </xe:multiImage>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{person1.Name}" id="name1">
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:inputText value="#{person1.Title}" id="title1">
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:inputText value="#{person1.Address}" id="address1">
+                  <xp:this.multipleSeparator><![CDATA[#{javascript:"\n"}]]></xp:this.multipleSeparator>
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:inputText value="#{person1.StateRegion}" id="stateRegion1">
+                  <xp:this.multipleSeparator><![CDATA[#{javascript:"\n"}]]></xp:this.multipleSeparator>
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:inputText value="#{person1.Phone}" id="phone1">
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:this.rendered><![CDATA[#{javascript:
+var fax = person1.getItemValueString("Fax");
+return !!fax ;
+}]]></xp:this.rendered>
+              <xp:td>
+                <xp:inputText value="Fax: #{person1.Fax}" id="inputText1">
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:link escape="true" text="#{person1.Email}" id="link2" value="mailto:#{person1.Email}">
+                </xp:link>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+            <xp:this.rendered><![CDATA[#{javascript:
+var val = person1.getItemValueString("Comments");
+return !!val ;
+}]]></xp:this.rendered>
+              <xp:td>
+                <xp:inputText value="#{person1.Comments}" id="comments1">
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:fileDownload rows="30" id="fileDownload1" displayLastModified="false"
+                  value="#{person1.Body}" hideWhen="true" fileNameTitle="${langBean.vCardLabel}"
+                  displaySize="false" displayType="false" displayCreated="false">
+                </xp:fileDownload>
+              </xp:td>
+            </xp:tr>
+          </xp:table>
+        </xe:widgetContainer>
+      </xp:panel>
+      <!--			end details-->
+    </xp:panel>
+    <!--		option bottom RTF	-->
+    <xp:div styleClass="row">
+      <xp:div styleClass="col-xs-12">
+        <xp:text escape="false" id="computedField4" value="#{document1.FooterRTF}">
+        </xp:text>
+      </xp:div>
+    </xp:div>
+  </xp:panel>
+</xp:view>

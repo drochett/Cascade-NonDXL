@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:panel styleClass="tableHeading" tagName="th">
+        <xp:this.attrs>
+          <xp:attr name="colspan" value="2"></xp:attr>
+        </xp:this.attrs>
+        <xp:label value="End User" id="label2" style="font-weight:bold;color:rgb(255,255,255)">
+        </xp:label>
+      </xp:panel>
+    </xp:tr>
+    <xp:tr>
+      <xp:td style="width:30.0%">
+        <xp:label value="Company: " id="billingCompany_Label1" for="billingCompany1">
+        </xp:label>
+        <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.BillingCompany}" id="billingCompany1">
+          <xp:this.validators>
+            <xp:validateRequired message="End user Company is required"></xp:validateRequired>
+          </xp:this.validators>
+        </xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="Physical address: " id="billingAddress_Label1" for="billingAddress1">
+        </xp:label>
+        <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.BillingAddress}" id="billingAddress1">
+          <xp:this.validators>
+            <xp:validateRequired message="End user Address is required"></xp:validateRequired>
+          </xp:this.validators>
+        </xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="Address Line 2: " id="billingAddress_2_Label1" for="billingAddress_21">
+        </xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.BillingAddress_2}" id="billingAddress_21">
+        </xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="City: " id="billingCity_Label1" for="billingCity1">
+        </xp:label>
+        <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.BillingCity}" id="billingCity1">
+          <xp:this.validators>
+            <xp:validateRequired message="End user City is required"></xp:validateRequired>
+          </xp:this.validators>
+        </xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="State / Province: " id="billingState_Label1" for="billingState1">
+        </xp:label>
+        <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.BillingState}" id="billingState1">
+          <xp:this.validators>
+            <xp:validateRequired message="End user State / Province is required"></xp:validateRequired>
+          </xp:this.validators>
+        </xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="ZIP / Postal Code: " id="billingPostalCode_Label1" for="billingPostalCode1">
+        </xp:label>
+        <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.BillingPostalCode}" id="billingPostalCode1">
+          <xp:this.validators>
+            <xp:validateRequired message="End user Zip / Postal Code is required"></xp:validateRequired>
+          </xp:this.validators>
+        </xp:inputText>
+      </xp:td>
+    </xp:tr>
+  </xp:table>
+
+</xp:view>

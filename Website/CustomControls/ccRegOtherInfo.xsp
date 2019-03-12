@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+xmlns:xe="http://www.ibm.com/xsp/coreex">
+<xe:widgetContainer id="otherInfoWidget"
+						titleBarText="${langBean.HeadingOtherInformation}"
+						styleClass="login-panel">
+						<div class="panel-body">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-5">
+										<xp:text tagName="label"
+											id="PeferredLanguageLabel" styleClass="control-label" escape="false">
+										<xp:this.value><![CDATA[${langBean.LabelPreferredLang}:  <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value></xp:text>
+									</div>
+									<div class="col-sm-7">
+										<xp:comboBox
+											id="PeferredLanguageSelect" required="true"
+											disableClientSideValidation="true"
+											value="#{regDoc.PreferredLanguage}">
+											<xp:this.validators>
+												<xp:validateRequired
+													message="${langBean.msgIsRequired}">
+												</xp:validateRequired>
+											</xp:this.validators>
+											<xp:selectItems>
+												<xp:this.value><![CDATA[${langBean.LanguagesList}]]></xp:this.value>
+											</xp:selectItems>
+										</xp:comboBox>
+										<xp:message
+											id="PreferredLanguageErrorMsg"
+											for="PeferredLanguageSelect">
+										</xp:message>
+										<xp:br></xp:br>
+										
+									</div>
+								</div>
+
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-5">
+										<xp:text tagName="label"
+											value="${langBean.LabelProductInterest}:" id="InterestLabel"
+											styleClass="control-label">
+										</xp:text>
+									</div>
+									<div class="col-sm-7">
+
+										<xp:checkBoxGroup
+											id="NHPCheckBox" value="#{regDoc.MHP}">
+											<xp:selectItems>
+												<xp:this.value><![CDATA[${langBean.ProdMHP}]]></xp:this.value>
+											</xp:selectItems>
+										</xp:checkBoxGroup>
+										<xp:checkBoxGroup
+											id="ALCCheckBox" value="#{regDoc.ALC}">
+											<xp:selectItems>
+												<xp:this.value><![CDATA[${langBean.ProdALC}]]></xp:this.value>
+											</xp:selectItems>
+										</xp:checkBoxGroup>
+										<xp:checkBoxGroup
+											id="ForksCheckBox" value="#{regDoc.forks}">
+											<xp:selectItems>
+												<xp:this.value><![CDATA[${langBean.ProdForks}]]></xp:this.value>
+											</xp:selectItems>
+										</xp:checkBoxGroup>
+										<xp:checkBoxGroup
+											id="CEPCheckBox" value="#{regDoc.CEP}">
+											<xp:selectItems>
+												<xp:this.value><![CDATA[${langBean.ProdCEP}]]></xp:this.value>
+											</xp:selectItems>
+										</xp:checkBoxGroup>
+									</div>
+								</div>
+
+
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-5">
+										<xp:text tagName="label"
+											value="${langBean.LabelTimeZone}:" id="TimeZoneLabel"
+											styleClass="control-label">
+										</xp:text>
+									</div>
+									<div class="col-sm-7">
+										<xp:comboBox id="TimeZoneSelect"
+											value="#{regDoc.TimeZone}">
+											<xp:selectItems>
+												<xp:this.value><![CDATA[${langBean.TimeZoneList}]]></xp:this.value>
+											</xp:selectItems>
+										</xp:comboBox>
+									</div>
+								</div>
+							</div>
+						</div>
+					</xe:widgetContainer>
+</xp:view>

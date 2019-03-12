@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xp:this.afterPageLoad><![CDATA[#{javascript:println("Starting Again");
+//println("++++++++++++++++++++++++++++");
+dBar.info("++++++++++++++++++++++++++++")
+//println("sessionScope.mhpItem ["+sessionScope.mhpItem+"]");
+//println("sessionScope.mhpRev ["+sessionScope.mhpRev+"]");
+//println("sessionScope.mhpSerial ["+sessionScope.mhpSerial+"]");
+dBar.info("++++++++++++++++++++++++++++")
+var returnMap=new com.ibm.jscript.std.ObjectObject();
+returnMap = jdeBean.getMHPdata(sessionScope.mhpItem,sessionScope.mhpRev,"americas", sessionScope.jdbcTable);
+for ( var n in returnMap ){
+	//println("n = " + n);
+	var iLc = n.toUpperCase();
+	var value = returnMap[n];
+	//println("value for "+n+" is "+value);
+	if(iLc == "STATUS") { //do nothing
+	}else{  //divide by 100
+		value = Number(returnMap[n])/100;
+	}
+	//println("new value for "+n+" is "+value);
+	switch(iLc.trim()){
+		case "STATUS":
+			//println("status is "+ value);
+			getComponent("errorDisplay").setValue(value);
+			break
+		case "POSITION1LOADCENTER-MM": //do nothing - it will be taken care of in the next round
+			break
+		case "POSITION1LOADCENTER-IN": //do nothing - it will be taken care of in the next round
+			break
+		case "POSITION2LOADCENTER-IN": //do nothing - it will be taken care of in the next round
+			break
+		case "POSITION2LOADCENTER-MM": //do nothing - it will be taken care of in the next round
+			break
+		default:
+			//println("deault switch for "+ iLc);
+			getComponent(n.toUpperCase()).setValue(value);
+			//println("set value for " + iLc);	
+	};
+};
+// we will now set the values not set above.  what they gets set to depends on values set in othe fields above
+for ( var n in returnMap ){
+	var iLc = n.toUpperCase();
+	var value = returnMap[n];
+	value = Number(returnMap[n])/100
+	var fieldVal
+	switch(iLc.trim()){
+		case "POSITION1LOADCENTER-MM":
+			fieldVal = Number(getComponent("POSITION1CAPACITYONARMS-KG").getValue());
+			//println("<<<<<<<<<<<< value for POSITION1CAPACITYONARMS-KG is >>>>>>>> " + fieldVal.toString())
+			
+			if(fieldVal == 0) {
+			getComponent(iLc).setValue(0);
+			//println("set string 0 value for " + iLc);
+			}else{
+			getComponent(iLc).setValue(value);
+			//println("XXXXXXX set value for " + iLc + " to " + value + " XXXXXXXXX");
+			}
+			fieldVal = Number(getComponent("POSITION1CAPACITYBETWEENARMS-KG").getValue());
+			//println(">>>>>>>>>>>>> value for POSITION1CAPACITYBETWEENARMS-KG is <<<<<<<<<<<< " + fieldVal.toString())
+			if(fieldVal == 0) {
+			getComponent("POSITION1LOADCENTER2-MM").setValue(0);
+			}else{
+			getComponent("POSITION1LOADCENTER2-MM").setValue(value);
+			//println("set value for " + iLc +" #2");
+			}
+			break;
+			
+		case "POSITION1LOADCENTER-IN":
+			fieldVal = Number(getComponent("POSITION1CAPACITYONARMS-LB").getValue());
+			//println("value for XXXXX POSITION1CAPACITYONARMS-LB is XXXXX "  + fieldVal.toString())
+			if(fieldVal == 0) {
+			getComponent(iLc).setValue(0);
+			}else{
+			getComponent(iLc).setValue(value);
+			}
+			fieldVal = Number(getComponent("POSITION1CAPACITYBETWEENARMS-LB").getValue());
+			if(fieldVal == "0") {
+			getComponent("POSITION1LOADCENTER2-IN").setValue(0);
+			}else{
+			getComponent("POSITION1LOADCENTER2-IN").setValue(value);
+			}
+			break;
+			
+		case "POSITION2LOADCENTER-MM":
+			fieldVal = Number(getComponent("POSITION2CAPACITYONARMS-KG").getValue());
+			//println("value for XXXXX POSITION2CAPACITYONARMS-LB is XXXXX "  + fieldVal.toString())
+			if(fieldVal == 0) { 
+			getComponent(iLc).setValue(0);
+			}else{
+			getComponent(iLc).setValue(value);
+			}
+			fieldVal = Number(getComponent("POSITION2CAPACITYBETWEENARMS-KG").getValue());
+			//println("value for VVVVV POSITION2CAPACITYBETWEENARMS-KG is VVVVV "  + fieldVal.toString())
+			if(fieldVal == 0) { 
+			getComponent("POSITION2LOADCENTER2-MM").setValue(0);
+			}else{
+			getComponent(iLc).setValue(value);
+			}
+			break;
+			
+		case "POSITION2LOADCENTER-IN":
+			fieldVal = Number(getComponent("POSITION2CAPACITYONARMS-LB").getValue());
+			//println("value for XXXXX POSITION2CAPACITYONARMS-LB is XXXXX "  + fieldVal.toString())
+			if(fieldVal == 0) { 
+			getComponent(iLc).setValue(0);
+			}else{
+			getComponent(iLc).setValue(value);
+			}
+			fieldVal = Number(getComponent("POSITION2CAPACITYBETWEENARMS-LB").getValue());
+			//println("value for VVVVV POSITION2CAPACITYBETWEENARMS-LB is VVVVV "  + fieldVal.toString())
+			if(fieldVal == 0) { 
+			getComponent("POSITION2LOADCENTER2-IN").setValue(0);
+			}else{
+			getComponent(iLc).setValue(value);
+			}
+			break;
+		default:
+			break;
+	};
+}
+}]]></xp:this.afterPageLoad>
+	<xp:this.resources>
+		<xp:script src="/custom.jss" clientSide="false" />
+		<xp:styleSheet href="/cascade.css" />
+		<xp:styleSheet href="/other_websites.css" />
+		<xp:styleSheet href="/printPage.css" />
+	</xp:this.resources><xc:ccLayout_Print>
+		<xp:panel id="main" styleClass="table">
+			<!--	new	banner row-->
+			<xp:panel styleClass="@media.container2" id="panel1">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<xp:panel styleClass="row" id="panel2" tagName="div">
+				<xp:panel id="left" styleClass="col-sm-5"
+					tagName="div"/>
+			</xp:panel>
+			<xp:br/>
+						<xc:ccMHP_SpecSheetTitle_Print/>
+						<xc:ccMHP_DataEntry_Print/>
+						<xc:ccMHP_SpecData_Left_Print/>
+						<xc:ccMHP_SpecData_Right/>
+						<xc:ccMHP_SpecData_Left_Btm/>
+						<xc:ccMHP_SpecData_Right_Btm/></xp:panel>
+	</xc:ccLayout_Print>
+
+</xp:view>

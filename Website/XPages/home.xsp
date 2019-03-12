@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+	
+	<xp:this.beforePageLoad><![CDATA[#{javascript:
+setScpLanguage() ;
+//var localeHome = (!!sessionScope.LanguageURL) ? ("/" + sessionScope.LanguageURL + "home") : "/international" ;
+var localeHome = (sessionScope.isBrowserLocaleSupported) ? ("/" + sessionScope.LanguageURL + "home") : "/international" ;
+return facesContext.getExternalContext().redirect(localeHome);
+}]]></xp:this.beforePageLoad>
+	<xp:this.resources>
+		<xp:script src="/custom.jss" clientSide="false"></xp:script>
+	</xp:this.resources>
+	</xp:view>

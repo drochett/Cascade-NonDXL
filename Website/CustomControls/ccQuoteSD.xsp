@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+  xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+  <!--panel QuoteCD - complete Step 1 -->
+  <xp:panel styleClass="row" id="panel1">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel5">
+      <!--  MyOrder button block -->
+      <xc:ccOrderQuoteMyOrderButton></xc:ccOrderQuoteMyOrderButton>
+      <xp:br></xp:br>
+      <xp:panel id="panelSelectors1" rendered="#{javascript:@IsNewDoc()}">
+        <!-- Message Login to select address from profile-->
+        <xp:panel styleClass="alert alert-warning" rendered="#{userBean.commonName eq 'Anonymous'}">
+          <xc:ccAddressLogin></xc:ccAddressLogin>
+        </xp:panel>
+        <!--SELECTION panel-->
+        <xp:panel id="PanelShipping1" rendered="#{userBean.commonName ne 'Anonymous'}">
+          <xc:ccAddressSelection></xc:ccAddressSelection>
+        </xp:panel>
+      </xp:panel>
+      <!--			address row and columns-->
+      <xp:panel styleClass="row" id="panel4">
+        <xp:panel styleClass="col-xs-12" id="panel6">
+          <!--Table Heading Contact Information -->
+          <xp:table styleClass="address-table">
+            <xp:tr>
+              <xp:panel styleClass="tableHeading" tagName="th">
+                <xp:this.attrs>
+                  <xp:attr name="colspan" value="2"></xp:attr>
+                </xp:this.attrs>
+                <xp:label value="${langBean.titleContactInformation}" id="label33"
+                  style="font-weight:bold;color:rgb(255,255,255)">
+                </xp:label>
+              </xp:panel>
+            </xp:tr>
+          </xp:table>
+          <!--Table Shipping Fields -->
+          <xc:ccAddressShipping></xc:ccAddressShipping>
+        </xp:panel>
+      </xp:panel><!--END	address row and columns-->
+
+      <!-- START Truck information-->
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:this.attrs>
+              <xp:attr name="colspan" value="2"></xp:attr>
+            </xp:this.attrs>
+            <xp:label value="${langBean.titleTruckInformation}" id="label5"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+        <xp:tr>
+          <xp:td style="width:25%">
+            <xp:label value="${langBean.labelTruckMtgClass}:" id="txt_MtgClass_1_Label1"
+              for="txt_MtgClass_11"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:radioGroup value="#{document1.txt_MtgClass_1}" id="txt_MtgClass_11">
+              <xp:selectItems>
+                <xp:this.value><![CDATA[${langBean.selMtgClass_1}]]></xp:this.value>
+              </xp:selectItems>
+            </xp:radioGroup>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelTruckCarrWidth}:" id="txt_TruckCarrWidth_1_Label1"
+              for="txt_TruckCarrWidth_11">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.txt_TruckCarrWidth_1}" id="txt_TruckCarrWidth_11"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+      <!-- END truck information-->
+      <xp:br></xp:br>
+      <!-- START SIDE 1 ROW-->
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:this.attrs>
+              <xp:attr name="colspan" value="2"></xp:attr>
+            </xp:this.attrs>
+            <xp:label value="${langBean.titleSide1}" id="label1"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+      </xp:table>
+      <!--  1st row and 2 columns-->
+      <xp:panel styleClass="row" id="panel8">
+        <xp:panel styleClass="col-xs-12 col-sm-8 col-sm-push-4" id="panel7">
+          <xp:image url="/sdph_side1.gif" id="image1"></xp:image>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-12 col-sm-4 col-sm-pull-8" id="panel9">
+          <xp:table styleClass="address-table">
+            <xp:tr>
+              <xp:td style="width:25.0px">
+                <xp:label value="A:" id="txt_A_Side_1_Label1" for="txt_A_Side_11"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.txt_A_Side_1}" id="txt_A_Side_11"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="B:" id="txt_B_Side_1_Label1" for="txt_B_Side_11"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.txt_B_Side_1}" id="txt_B_Side_11"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="C:" id="txt_C_Side_1_Label1" for="txt_C_Side_11"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.txt_C_Side_1}" id="txt_C_Side_11"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="D:" id="txt_D_Side_1_Label1" for="txt_D_Side_11"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.txt_D_Side_1}" id="txt_D_Side_11"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="E:" id="txt_E_Side_1_Label1" for="txt_E_Side_11"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.txt_E_Side_1}" id="txt_E_Side_11"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+          </xp:table>
+        </xp:panel>
+      </xp:panel><!--END 1st row and 2 columns-->
+      <!-- END SIDE 1 information-->
+      <xp:br></xp:br>
+      <!-- START SIDE 2 ROW-->
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:this.attrs>
+              <xp:attr name="colspan" value="2"></xp:attr>
+            </xp:this.attrs>
+            <xp:label value="${langBean.titleSide2}" id="label2"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+      </xp:table>
+      <!--  1st row and 2 columns-->
+      <xp:panel styleClass="row" id="panel10">
+        <xp:panel styleClass="col-xs-12 col-sm-8 col-sm-push-4" id="panel11">
+          <xp:image url="/sdph_side2.gif" id="image2"></xp:image>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-12 col-sm-4 col-sm-pull-8" id="panel12">
+          <xp:table styleClass="address-table">
+            <xp:tr>
+              <xp:td style="width:25.0px">
+                <xp:label value="A:" id="label3" for="txt_A_Side_11"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.txt_A_Side_2}" id="inputText1"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="B:" id="label4" for="txt_B_Side_11"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.txt_B_Side_2}" id="inputText2"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="C:" id="label7" for="txt_C_Side_11"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.txt_C_Side_2}" id="inputText3"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="D:" id="label8" for="txt_D_Side_11"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.txt_D_Side_2}" id="inputText4"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="E:" id="label9" for="txt_E_Side_11"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.txt_E_Side_2}" id="inputText5"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+          </xp:table>
+        </xp:panel>
+      </xp:panel><!--END 1st row and 2 columns-->
+      <!-- END SIDE 2 ROW -->
+      <xp:br></xp:br>
+      <!-- START BACKREST ROW-->
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:this.attrs>
+              <xp:attr name="colspan" value="2"></xp:attr>
+            </xp:this.attrs>
+            <xp:label value="${langBean.titleBackrestStyle}" id="label10"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+      </xp:table>
+      <!--  1st row and 2 columns-->
+      <xp:panel styleClass="row" id="panel13">
+        <xp:panel styleClass="col-xs-12 col-sm-6" id="panel14">
+          <xp:image url="/brtube.gif" id="image3"></xp:image>
+          <xp:br></xp:br>
+          <xp:checkBoxGroup id="checkBoxGroup1" value="#{document1.txt_TubeBackrest}">
+            <xp:selectItems>
+                <xp:this.value><![CDATA[${langBean.selTubeBackrest}]]></xp:this.value>
+              </xp:selectItems>
+          </xp:checkBoxGroup>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-12 col-sm-6" id="panel15">
+          <xp:image url="/brilf.gif" id="image4"></xp:image>
+          <xp:br></xp:br>
+          <xp:checkBoxGroup id="checkBoxGroup2" value="#{document1.txt_ILFBackrest}">
+            <xp:selectItems>
+                <xp:this.value><![CDATA[${langBean.selILFBackrest}]]></xp:this.value>
+              </xp:selectItems>
+           </xp:checkBoxGroup>
+        </xp:panel>
+      </xp:panel><!--END 1st row and 2 columns-->
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:td style="width:25%">
+            <xp:label value="${langBean.labelLoadBackrestHt}:" id="txt_LoadBackrestHt_Label1"
+              for="txt_LoadBackrestHt1">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.txt_LoadBackrestHt}" id="txt_LoadBackrestHt1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelLoadWeight}:" id="txt_LoadWt_Label1" for="txt_LoadWt1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.txt_LoadWt}" id="txt_LoadWt1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelLoadHeight}:" id="txt_LoadHt_Label1" for="txt_LoadHt1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.txt_LoadHt}" id="txt_LoadHt1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+      <!-- END BACKREST ROW -->
+      <xp:br></xp:br>
+      <!-- START Notes-->
+      <xp:panel id="panelNotes1">
+        <xp:table styleClass="address-table">
+          <xp:tr>
+            <xp:panel styleClass="tableHeading" tagName="th">
+              <xp:label value="${langBean.titleNotes}" id="label6"
+                style="font-weight:bold;color:rgb(255,255,255)">
+              </xp:label>
+            </xp:panel>
+          </xp:tr>
+          <xp:tr>
+            <xp:td>
+              <xe:djTextarea rows="2" value="#{document1.rtf_Notes}" id="rtf_Notes1"></xe:djTextarea>
+            </xp:td>
+          </xp:tr>
+        </xp:table>
+      </xp:panel>
+      <!-- END Notes-->
+      <xp:br></xp:br>
+
+
+    </xp:panel><!--END Quote Form -->
+  </xp:panel>
+  <!--END Quote Form -->
+
+
+  <!--panel buttons-->
+  <xp:panel styleClass="row" id="panel2">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel3">
+      <hr></hr>
+      <xp:button value="${langBean.btnLabelSubmit}" id="button3" styleClass="btn btn-primary pull-right"
+        rendered="#{javascript:@IsNewDoc()}">
+        <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+          immediate="false" save="true" refreshId="main">
+          <xp:this.action><![CDATA[#{javascript:
+viewScope.orderPlaced = "1";
+viewScope.orderStep = "step_2";
+var dc = getComponent("dcOrderStep");
+dc.show("step_2")
+}]]></xp:this.action>
+        </xp:eventHandler>
+      </xp:button>
+      <!--processing buttons -->
+      <xp:panel rendered="#{javascript:!@IsNewDoc()}">
+        <xc:ccOrderQuoteProcessButtons></xc:ccOrderQuoteProcessButtons>
+      </xp:panel>
+
+    </xp:panel>
+  </xp:panel>
+</xp:view>
+

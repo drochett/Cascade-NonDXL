@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.lotus.com/dxl" name="Development\ActiveLabelValues - Null IsMulti" showinmenu="false" publicaccess="false" unreadmarks="none" onopengoto="lastopened" onrefresh="displayindicator" headers="beveled" opencollapsed="false" showresponsehierarchy="true" showmargin="true" shrinkrows="false" extendlastcolumn="true" showhierarchies="false" unreadcolor="black" rowlinecount="1" headerlinecount="1" rowspacing="1" bgcolor="white" totalscolor="black" headerbgcolor="white" boldunreadrows="false" evaluateactions="false" allownewdocuments="false" allowcustomizations="false" hidemarginborder="false" marginwidth="0px" marginbgcolor="white" uniquekeys="false">
+  <code event="selection">
+    <formula>SELECT Form = "LabelForm" &amp; Status = "Active" &amp; !@IsAvailable(isMultiValue)</formula>
+  </code>
+  <actionbar bgcolor="#f0f0f0" bordercolor="black">
+    <actionbuttonstyle bgcolor="#f0f0f0"/>
+    <font color="system"/>
+    <border style="solid" width="0px 0px 1px"/>
+    <action title="Categori_ze" showinbar="false" systemcommand="categorize"/>
+    <action title="_Edit Document" showinbar="false" systemcommand="edit"/>
+    <action title="_Send Document" showinbar="false" systemcommand="send"/>
+    <action title="_Forward" showinbar="false" systemcommand="forward"/>
+    <action title="_Move To Folder..." showinbar="false" systemcommand="movetofolder"/>
+    <action title="_Remove From Folder" showinbar="false" systemcommand="removefromfolder"/>
+    <action title="_Read" showinbar="false" systemcommand="markread"/>
+    <action title="_Unread" showinbar="false" systemcommand="markunread"/>
+    <action title="_Open in New Window" showinbar="false" systemcommand="openinnewwindow"/>
+    <action title="_Print..." showinbar="false" systemcommand="print"/>
+    <action title="_Delete" showinbar="false" systemcommand="delete"/>
+    <action title="_Document Properties" showinbar="false" systemcommand="properties"/>
+    <action title="C_ut" showinbar="false" systemcommand="cut"/>
+    <action title="_Copy" showinbar="false" systemcommand="copy"/>
+    <action title="Copy as Document _Link" showinbar="false" systemcommand="copyasdoclink"/>
+    <action title="Copy as _Table" showinbar="false" systemcommand="copyastable"/>
+    <action title="P_aste" showinbar="false" systemcommand="paste"/>
+    <action title="_Open" showinbar="false" systemcommand="open"/>
+    <action title="Bookmark" showinbar="false" systemcommand="bookmark"/>
+    <action title="Create LabelForm">
+      <code event="click">
+        <formula>@Command([Compose];"LabelForm")</formula>
+      </code>
+    </action>
+    <action title="Generate other Language labels">
+      <code event="action">
+        <simpleaction action="runagent" agent="(generateLabels)"/>
+      </code>
+    </action>
+    <action title="Used in ...\setLocationUsed">
+      <code event="action">
+        <simpleaction action="runagent" agent="(setWhereUsed)"/>
+      </code>
+    </action>
+    <action title="Used in ...\setCCused">
+      <code event="action">
+        <simpleaction action="runagent" agent="(setCCused)"/>
+      </code>
+    </action>
+    <action title="Used in ...\setXPageUsed">
+      <code event="action">
+        <simpleaction action="runagent" agent="(setXpageUsed)"/>
+      </code>
+    </action>
+  </actionbar>
+  <column align="center" hidedetailrows="false" itemname="$18" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>transde := @If(@IsAvailable(trans_de)&amp;trans_de = "translated";1;0);
+transes := @If(@IsAvailable(trans_es)&amp;trans_es = "translated";1;0);
+transfi := @If(@IsAvailable(trans_fi)&amp;trans_fi = "translated";1;0);
+transfr := @If(@IsAvailable(trans_fr)&amp;trans_fr = "translated";1;0);
+transit := @If(@IsAvailable(trans_it)&amp;trans_it = "translated";1;0);
+transnl := @If(@IsAvailable(trans_nl)&amp;trans_nl = "translated";1;0);
+transse := @If(@IsAvailable(trans_se)&amp;trans_se = "translated";1;0);
+transam_es := @If(@IsAvailable(trans_am_es)&amp;trans_am_es = "translated";1;0);
+transam_ca := @If(@IsAvailable(trans_am_ca)&amp;trans_am_ca = "translated";1;0);
+transam_fr := @If(@IsAvailable(trans_am_fr)&amp;trans_am_fr = "translated";1;0);
+multiVal := @If(@IsAvailable(isMultiValue) &amp; isMultiValue ="Yes";1;0);
+@If(transde =1 &amp; transes = 1 &amp; transfi = 1 &amp; transfr = 1 &amp; transit = 1 &amp; transnl =1 &amp; transse = 1 &amp; transam_es = 1 &amp; transam_ca = 1 &amp; transam_fr = 1;0:0:0;
+	@If(multiVal = 1;0:0:255;255:0:0))</formula>
+    </code>
+  </column>
+  <column sort="ascending" hidedetailrows="false" itemname="key" width="16.3750" resizable="true" separatemultiplevalues="false" sortnoaccent="true" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader title="Key">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column align="center" resort="both" hidedetailrows="false" itemname="$52" width="7.6250" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader title="Processed">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>transde := @If(@IsAvailable(trans_de)&amp;trans_de = "translated";1;0);
+transes := @If(@IsAvailable(trans_es)&amp;trans_es = "translated";1;0);
+transfi := @If(@IsAvailable(trans_fi)&amp;trans_fi = "translated";1;0);
+transfr := @If(@IsAvailable(trans_fr)&amp;trans_fr = "translated";1;0);
+transit := @If(@IsAvailable(trans_it)&amp;trans_it = "translated";1;0);
+transnl := @If(@IsAvailable(trans_nl)&amp;trans_nl = "translated";1;0);
+transse := @If(@IsAvailable(trans_se)&amp;trans_se = "translated";1;0);
+transam_es := @If(@IsAvailable(trans_am_es)&amp;trans_am_es = "translated";1;0);
+transam_ca := @If(@IsAvailable(trans_am_ca)&amp;trans_am_ca = "translated";1;0);
+transam_fr := @If(@IsAvailable(trans_am_fr)&amp;trans_am_fr = "translated";1;0);
+@If(transde =1 &amp; transes = 1 &amp; transfi = 1 &amp; transfr = 1 &amp; transit = 1 &amp; transnl =1 &amp; transse = 1 &amp; transam_es = 1 &amp; transam_ca = 1 &amp; transam_fr = 1;"Yes";"No")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$44" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_de) &amp;  trans_de = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$51" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="de">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_de) &amp; @Contains(trans_de; "translated"); "True";"False")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$46" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_es) &amp;  trans_es = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$53" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="es">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_es) &amp; @Contains(trans_es; "translated"); "True";"False")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$47" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_fi) &amp;  trans_fi = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$54" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="fi">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_fi) &amp; @Contains(trans_fi; "translated"); "True";"False")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$48" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_fr) &amp;  trans_fr = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$55" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="fr">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_fr) &amp; @Contains(trans_fr; "translated"); "True";"False")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$49" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(trans_it = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$56" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="it">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_it) &amp; @Contains(trans_it; "translated"); "True";"False")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$50" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_nl) &amp;  trans_nl = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$57" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="nl">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_nl) &amp; @Contains(trans_nl; "translated"); "True";"False")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$45" width="0.8750" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_se) &amp;  trans_se = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$58" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="se">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_se) &amp; @Contains(trans_se; "translated"); "True";"False")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$62" width="0.8750" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_la) &amp;  trans_la = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$68" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="am_es">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_am_es) &amp; @Contains(trans_am_es; "translated"); "True";"False")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$69" width="0.8750" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_la) &amp;  trans_la = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$64" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="am_ca">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_am_ca) &amp; @Contains(trans_am_ca; "translated"); "True";"False")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$70" width="0.8750" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_la) &amp;  trans_la = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$63" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="am_fr">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_am_fr) &amp; @Contains(trans_am_fr; "translated"); "True";"False")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$29" width="1.1250" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>0:0:0</formula>
+    </code>
+  </column>
+  <column hidedetailrows="false" itemname="val_americas_en" width="15.2500" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader title="val_americas_en">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$43" width="0.8750" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_de) &amp;  trans_de = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column hidedetailrows="false" itemname="$10" width="15" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader title="val_eme_de">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(!@Contains(isMultiValue;"Yes");
+val_eme_de;"")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$31" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_es) &amp;  trans_es = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column hidedetailrows="false" itemname="$12" width="15" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader title="val_eme_es">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(!@Contains(isMultiValue;"Yes");
+val_eme_es;"")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$33" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_fi) &amp;  trans_fi = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column hidedetailrows="false" itemname="$13" width="15.2500" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader title="val_eme_fi">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(!@Contains(isMultiValue;"Yes");
+val_eme_fi;"")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$36" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_fr) &amp;  trans_fr = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column hidedetailrows="false" itemname="val_eme_fr" width="15.1250" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader title="val_eme_fr">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$37" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_it) &amp;  trans_it = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column hidedetailrows="false" itemname="$14" width="15" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader title="val_eme_it">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(!@Contains(isMultiValue;"Yes");
+val_eme_it;"")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$39" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_nl) &amp;  trans_nl = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column hidedetailrows="false" itemname="$15" width="15" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader title="val_eme_nl">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(!@Contains(isMultiValue;"Yes");
+val_eme_nl;"")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$41" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_se) &amp;  trans_se = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column hidedetailrows="false" itemname="$16" width="10" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader title="val_eme_se">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(!@Contains(isMultiValue;"Yes");
+val_eme_se;"")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$61" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_am_es) &amp;  trans_am_es = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column hidedetailrows="false" itemname="$71" width="10" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="val_americas_es">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(!@Contains(isMultiValue;"Yes");
+val_americas_es;"")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$66" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_am_ca) &amp;  trans_am_ca = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column hidedetailrows="false" itemname="$65" width="10" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="val_americas_ca">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(!@Contains(isMultiValue;"Yes");
+val_americas_ca;"")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$67" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(@IsAvailable(trans_am_fr) &amp;  trans_am_fr = "translated"; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column hidedetailrows="false" itemname="$60" width="10" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="val_americas_fr">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(!@Contains(isMultiValue;"Yes");
+val_americas_fr;"")</formula>
+    </code>
+  </column>
+</view>

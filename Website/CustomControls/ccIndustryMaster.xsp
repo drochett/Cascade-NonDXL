@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+	 	<xp:panel id="panelDocumentNOTmigrated"
+		styleClass="container cascade-content cascade-content-blocks">
+		<xp:this.loaded><![CDATA[${document1.DocumentMigrated eq "No"}]]></xp:this.loaded>
+		<xp:table>
+			<xp:tr>
+				<xp:td style="background-color:rgb(255,128,64)">
+					<xp:label value="Type = " id="label1" style="font-weight:bold">
+					</xp:label>
+					<xp:text escape="true" id="computedField2" value="${document1.Type}"
+						style="font-weight:bold">
+					</xp:text>
+					&#160; &#160;
+					<xp:label value="DocumentMigrated = " id="label2"
+						style="font-weight:bold">
+					</xp:label>
+					<xp:text escape="true" id="computedField3" value="${document1.DocumentMigrated}"
+						style="font-weight:bold">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td>
+					<xp:text escape="false" id="computedField1" value="#{document1.Body}">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+		</xp:table>
+	</xp:panel>
+	<!--	panelDocumentISmigrated style="content"	-->
+	<xp:panel id="panelDocumentISmigrated" styleClass="container"
+		style="background-image:url(bg.gif)">
+		<xp:this.loaded><![CDATA[${document1.DocumentMigrated eq "Yes"}]]></xp:this.loaded>
+		<xp:panel styleClass="blue-header cascade-banner"
+			style="background-image:url(${configBean.HostURL}${configBean.HomeURL}/files/${document1.Image}/$FILE/${document1.Image})">
+
+			<!--
+				Following image is to set DIV height properly. If there is a better
+				way I'd lvoe to know - DSR
+			-->
+			<xp:image id="image2" style="visibility:hidden;"
+				url="${configBean.HostURL}${configBean.HomeURL}/files/${document1.Image}/$FILE/${document1.Image}"
+				alt="${document1.AltText}" title="${document1.TitleText}">
+			</xp:image>
+			<!-- End graphic -->
+
+			<xp:panel styleClass="col-md-6 #{document1.TextSide}">
+				<xp:panel styleClass="callout-heading">
+					<h1>
+						<xp:text escape="false" id="computedField7" value="${document1.Subject}">
+						</xp:text>
+					</h1>
+				</xp:panel>
+
+				<xp:panel styleClass="callout-text">
+					<h2>
+						<xp:text escape="false" id="computedField8" value="${document1.Description}">
+						</xp:text>
+					</h2>
+				</xp:panel>
+
+			</xp:panel>
+
+			<xp:image id="image1" style="position:absolute;left:100px;top200px;"
+				url="${configBean.HostURL}${configBean.HomeURL}/files/${document1.Image}/$FILE/${document1.Image}"
+				rendered="false">
+			</xp:image>
+
+		</xp:panel>
+
+		<!--		breadcrumb row-->
+		<xp:panel styleClass="row" id="rowBreadcrumb1">
+			<xp:panel styleClass="col-xs-12" id="col11">
+				<xc:ccIndustryMasterBreadcrumbs></xc:ccIndustryMasterBreadcrumbs>
+			</xp:panel>
+		</xp:panel>
+
+		<!--		main content row-->
+		<xp:panel styleClass="row" id="rowMain1">
+			<xp:panel id="doccontent" styleClass="col-sm-9">
+
+
+
+				<xe:dataView id="dataView1" var="viewEntry" styleClass="product-master-tables"
+					expandedDetail="true"
+					multiColumnCount="#{javascript:return (deviceBean.isMobile()||deviceBean.isTablet()) ? '1' : '2' ;}">
+					<xp:this.facets>
+						<xp:panel xp:key="detail" id="detailPanel">
+							<xp:link escape="true" id="link1"
+								value="#{configBean.HostURL}#{sessionScope.LanguageURL}#{viewEntry.DocumentURL}">
+								<xp:table>
+									<xp:tr>
+										<xp:td colspan="2">
+											<xp:text escape="true" id="Subject1" value="#{viewEntry.Subject}"
+												styleClass="title" disableTheme="true">
+											</xp:text>
+											<xp:text escape="true" id="SubjectTagline1"
+												value="#{viewEntry.SubjectTagline}" styleClass="capacity">
+											</xp:text>
+										</xp:td>
+									</xp:tr>
+									<xp:tr>
+										<xp:td styleClass="image">
+											<xp:image id="image3"
+												url="#{configBean.HostURL}#{configBean.HomeURL}/files/#{viewEntry.Image}/$FILE/#{viewEntry.Image}">
+											</xp:image>
+										</xp:td>
+										<xp:td styleClass="description">
+											<xp:text escape="true" value="#{viewEntry.DescriptionTrunc}"
+												id="Description1">
+											</xp:text>
+										</xp:td>
+									</xp:tr>
+								</xp:table>
+							</xp:link>
+						</xp:panel>
+					</xp:this.facets>
+					<xe:this.data>
+						<xp:dominoView var="view1" databaseName="${configBean.HomeDbPath}"
+							viewName="ProductIndustries">
+							<xp:this.keys><![CDATA[#{javascript:
+var v =  new java.util.Vector(); 
+v.addElement(sessionScope.LanguageP);
+v.addElement(document1.getItemValueString("DocumentURL"));
+//dBar.dump(v);
+return v;}]]></xp:this.keys>
+						</xp:dominoView>
+					</xe:this.data>
+				</xe:dataView>
+			</xp:panel>
+			<xp:panel id="panel1" styleClass="col-sm-3">
+				<xc:ccDownloads></xc:ccDownloads>
+			</xp:panel>
+		</xp:panel>
+	</xp:panel>
+</xp:view>

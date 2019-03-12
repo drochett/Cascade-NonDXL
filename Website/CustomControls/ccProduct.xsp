@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex" xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+
+	<xp:this.beforePageLoad><![CDATA[#{javascript:	
+viewScope.images = null;
+var images = new Array;			
+var iList = null;
+var titleList = null;
+var altList = null;
+iList = document1.getDocument().getItemValue( "ImageList");
+titleList = document1.getDocument().getItemValue( "ctitleList");
+altList = document1.getDocument().getItemValue( "caltList");
+					
+var imgURL = "";
+
+if (iList != null && iList.length > 0){
+	for(var i=0; i<iList.length; i++){
+		var imagename = iList[i];
+		imageFile = iList[i];
+		imgURL = configBean.getValue("HostURL")+ configBean.getValue("HomeURL")+"/files/" + imageFile + "/$FILE/" + imageFile ;			 
+					  
+		if (imagename != ""){
+	  		images.push({
+				url: imgURL,
+				alt: altList[i],
+				title: titleList[i],
+				filename: imagename
+	  		});
+		} 				  
+	}
+	viewScope.put("images", images);
+	viewScope.put("MainPage", "true");
+   } else {
+		// not required as carousel will not load if no images (see ccProductCarousel.xsp)
+		imagename = "noImageInDoc.jpg" ;
+		imgURL = configBean.getValue("HostURL")+ configBean.getValue("HomeURL")+"/files/" + imagename + "/$FILE/" + imagename ;
+		strAlt = altList[i];
+		strTitle = titleList[i];
+		
+		if (imagename != ""){
+			images.push({
+				url: imgURL,
+				alt: altList[i],
+				title: titleList[i],
+				filename: imagename
+			});
+		}			 
+	};}]]></xp:this.beforePageLoad>
+	<xp:panel id="panelDocumentNOTmigrated"
+		styleClass="container cascade-content cascade-content-blocks">
+		<xp:this.loaded><![CDATA[${document1.DocumentMigrated eq "No"}]]></xp:this.loaded>
+		<xp:table>
+			<xp:tr>
+				<xp:td style="background-color:rgb(255,128,192)">
+					<xp:label value="Type = " id="label1" style="font-weight:bold"
+						for="computedField2">
+					</xp:label>
+					<xp:text escape="true" id="computedField2" value="${document1.Type}"
+						style="font-weight:bold">
+					</xp:text>
+					&#160; &#160;
+					<xp:label value="DocumentMigrated = " id="label2"
+						style="font-weight:bold">
+					</xp:label>
+					<xp:text escape="true" id="computedField3" value="${document1.DocumentMigrated}"
+						style="font-weight:bold">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td>
+					<xp:text escape="false" id="computedField1" value="#{document1.Body}">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+		</xp:table>
+	</xp:panel>
+	<xp:panel id="panelDocumentISmigrated">
+		<xp:this.loaded><![CDATA[${document1.DocumentMigrated eq "Yes"}]]></xp:this.loaded>
+		<xp:panel id="main" styleClass="container">
+			<xp:panel styleClass="cascade-carousel product-carousel blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-sm-6 col-md-5">
+						<xp:panel styleClass="carousel-wrapper">
+							<xp:this.loaded><![CDATA[${(viewScope.images eq "" || viewScope.images eq null) ? false : true }]]></xp:this.loaded>
+							<xc:ccOtherCarousel></xc:ccOtherCarousel>
+						</xp:panel>
+					</xp:panel>
+					<xp:panel styleClass="col-sm-6 col-md-7">
+						<h1>
+							<xp:text escape="false" id="computedField7" value="${document1.Subject}"
+								styleClass="carousel-heading">
+							</xp:text>
+						</h1>
+						<h2>
+							<xp:text escape="false" id="computedField8" value="${document1.Description}"
+								styleClass="carousel-text">
+							</xp:text>
+						</h2>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+
+			<!-- start breadcrumb -->
+			<xp:panel styleClass="row" id="row1">
+				<xp:panel styleClass="col-xs-12" id="col11">
+					<xc:ccProductBreadcrumbs></xc:ccProductBreadcrumbs>
+				</xp:panel>
+			</xp:panel>
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-md-8">
+					<xp:panel>
+						<xp:this.loaded><![CDATA[${(document1.displayOnWeb eq "No" || document1.displayOnWeb eq null) ? false : true }]]></xp:this.loaded>
+						<xp:text escape="false" id="computedField9" value="${document1.topOfPageCode}">
+						</xp:text>
+					</xp:panel>
+					<xp:panel styleClass="row">
+						<!--************ Features *****************-->
+						<xp:panel styleClass="col-sm-6">
+							<xp:this.loaded><![CDATA[${(document1.Features eq "" || document1.Features eq null) ? false : true }]]></xp:this.loaded>
+							<h3>
+								<xp:label value="${langBean.features}" id="label5" for="features1"
+									styleClass="h3">
+								</xp:label>
+							</h3>
+							<xp:text escape="false" id="computedField6" value="${document1.Features}">
+							</xp:text>
+						</xp:panel>
+						<!--************ Options *****************-->
+						<xp:panel styleClass="col-sm-6">
+							<xp:this.loaded><![CDATA[${(document1.Options eq "" || document1.Options eq null) ? false : true }]]></xp:this.loaded>
+							<h3>
+								<xp:label value="${langBean.options}" id="label3" for="options1"
+									styleClass="h3">
+								</xp:label>
+							</h3>
+								<xp:text escape="false" id="computedField5" value="${document1.Options}">
+								</xp:text>
+						</xp:panel>
+						<xp:panel styleClass="col-xs-12">
+							<!--************ Videos *****************-->
+							<xp:text escape="false" id="computedField4" value="${document1.Videos}">
+							</xp:text>
+							<xp:br></xp:br>
+							<!-- START repeat for programmed video display -->
+							<xp:scriptBlock id="scriptBlock1" src="/jquery-wmode"></xp:scriptBlock>
+							<xp:repeat id="repeat1" rows="99" var="videoURL"
+								indexVar="idxVar" styleClass="row">
+								<xp:this.value><![CDATA[${javascript:
+var doc:NotesDocument = document1 ;
+var db:NotesDatabase = configBean.HomeDbPath ;
+var dbName = new Array("",db);
+var vw:NotesView = "Videos" ;
+var key = doc.getItemValueString("DocumentURL")  ;
+var tmp = @DbLookup(dbName,vw,key,4);
+return @If(@IsError(tmp), 0 , tmp  ) ;}]]></xp:this.value>
+								<xp:div styleClass="col-sm-6">
+									<xp:div styleClass="embed-responsive embed-responsive-16by9">
+										<xp:panel styleClass="embed-responsive-item" tagName="iframe">
+											<xp:this.attrs>
+												<xp:attr name="src" value="#{videoURL}">
+												</xp:attr>
+												<xp:attr name="allowfullscreen" value="true">
+												</xp:attr>
+											</xp:this.attrs>
+										</xp:panel>
+									</xp:div>
+								</xp:div>
+							</xp:repeat>
+							<!-- END  repeat for programmed video display -->
+						</xp:panel>
+					</xp:panel>
+				</xp:panel>
+
+				<!-- ************ Downloads *****************-->
+				<xp:panel styleClass="col-md-4">
+					<xp:panel>
+						<xc:ccDownloads></xc:ccDownloads>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+	</xp:panel>
+</xp:view>

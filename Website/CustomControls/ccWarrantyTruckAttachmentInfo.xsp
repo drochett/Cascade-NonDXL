@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xc:ccWarrantyClaimTruckAttachmentHeader></xc:ccWarrantyClaimTruckAttachmentHeader>
+	<xp:br></xp:br>
+	<xc:ccWarrantyServiceInfo></xc:ccWarrantyServiceInfo>
+	<xp:br></xp:br>
+	<xc:ccWarrantyAttachmentInfo></xc:ccWarrantyAttachmentInfo>
+
+	<xp:br></xp:br>
+	<xc:ccWarrantyTruckInfo></xc:ccWarrantyTruckInfo>
+	<br></br>
+	
+	<xp:button value="${langBean.btnPrevStep}" id="buttonPrevious1" styleClass="btn btn-primary">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <xp:eventHandler event="onclick" submit="true"
+        	refreshMode="partial" refreshId="main"
+        	disableValidators="true">
+        	<xp:this.action><![CDATA[#{javascript:
+    viewScope.claimStep = "step_1";
+    var dc = getComponent("dcClaimStep");
+    dc.show("step_1")
+    }]]></xp:this.action>
+        </xp:eventHandler>
+	</xp:button><xp:button value="${langBean.btnNextStep}" id="buttonNext1" styleClass="btn btn-primary pull-right">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <xp:eventHandler event="onclick" submit="true"
+        	refreshMode="partial" refreshId="main">
+        	<xp:this.action><![CDATA[#{javascript://set order email to ship email
+dBar.info("starting Next button on ccWarrantyTruckAttachmentInfo");
+//println("starting Next button on orderAddress: ship email is " + salesOrderBean.getShipAddress().getEmail());
+try{
+// add logic to validate step 1 input first
+	viewScope.claimStep = "step_3";
+	var dc = getComponent("dcClaimStep");
+	dc.show("step_3");
+} catch(e) {
+	dBar.error("Error in ccWarrantyTruckAttachmentInfo Next button: " + e.toString());
+	println("ccWarrantyTruckAttachmentInfo---username " + session.getEffectiveUserName() + "--> Error in Next button: " + e.toString());
+	}
+//println("=+=+=+=+=+=+=");
+//println("Finished Order Address input");
+//println("=+=+=+=+=+=+=");	}]]></xp:this.action>
+        </xp:eventHandler>
+	</xp:button>
+	</xp:view>

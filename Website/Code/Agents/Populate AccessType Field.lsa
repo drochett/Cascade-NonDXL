@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="Populate AccessType Field" hide="v3" publicaccess="false" restrictions="unrestricted" activatable="false">
+  <trigger type="scheduled">
+    <schedule type="never" runlocation="specific" runserver="CN=PTL-WWWPROD-02/O=PTLWWWPD"/>
+  </trigger>
+  <code event="options">
+    <lotusscript>%REM
+	Agent Populate AccessType Field
+	Created Apr 4, 2017 by Michael Zens/PTL/CASCADE
+	Description: This agent finds docs in Cascweb Address Book in which nthe AccessType field is blank 
+	or if account is Europen and contains a "C" then populates it with data from JDE-Holliday ABAC06 field.
+	If American it then populates with data from JDE-WYATT ABAT1 field as before.
+%END REM
+Option Public
+Option Declare
+Use "JDESupportLite"
+
+
+</lotusscript>
+  </code>
+  <code event="declarations">
+    <lotusscript>'these are for error trapping
+Dim importLogSet As Boolean
+Dim importLogDoc As NotesDocument
+Dim importLogMsgRT As NotesRichTextItem
+'added to seperate the error messages
+Dim importLogErrorRT As NotesRichTextItem
+Dim importLogWarningRT As NotesRichTextItem
+Dim importLogInfoRT As NotesRichTextItem
+Dim changeCount As Long
+Dim unchangedCount As Long
+Dim warningcount As Long
+Dim infoCount As Long
+Dim unknownError As Long
+Dim totalCount As Integer
+Dim schemaAmericas As String
+Dim schemaEME As String
+Dim doc As NotesDocument
+Dim accessCode As Variant
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	Dim st As String
+	On Error GoTo Error_Trap
+	st = CStr(GetThreadInfo(1)) + ":  " 
+	Dim s As New NotesSession
+	Dim db As NotesDatabase
+	Dim a As NotesAgent
+	Dim v As NotesView
+	Dim setupDoc As NotesDocument
+	Dim dc As NotesDocumentCollection
+	
+	'set importLog doc stuff
+	Set db = s.Currentdatabase
+	Set a = s.Currentagent
+	st = a.Name + " / " + st
+	Set importLogDoc = db.Createdocument()
+	'set up Agent log stuff
+	Call importLogDoc.Replaceitemvalue("Form", "ImportLog")
+	Call importLogDoc.Replaceitemvalue("Server", db.Server)
+	Call importLogDoc.Replaceitemvalue("StartDate",  Now)
+	Call importLogDoc.Replaceitemvalue("Success", "Yes") 'Default to yes. Code will change to no if there is a problem.
+	Set importLogMsgRT = New NotesRichTextItem (importLogDoc, "Message")
+	'added code to point to errors field
+	Set importLogErrorRT = New NotesRichTextItem (importLogDoc, "Errors")
+	'added code to point to warnings field
+	Set importLogWarningRT = New NotesRichTextItem (importLogDoc, "Warnings")
+	'added code to point to Info field
+	Set importLogInfoRT = New NotesRichTextItem (importLogDoc, "Info")
+	importLogDoc.name = s.Currentagent.Name
+	
+	'+++++++++++++ Log connection data ++++++++++++++
+	If Logmsg = "" Then 
+	logMsg = |Server: | + server + |
+jdeLibraryAmericas:  | + jdeLibraryAmericas + |
+jdeLibraryEurope:  | + jdeLibraryEurope + |
+jdeDataSourceAmericas: | + jdeDataSourceAmericas + |
+jdeDataSourceEurope: | + jdeDataSourceEurope 
+	End if
+	Call setImportLogMessage(logMsg ,"Info")
+'	GoTo End_Of_Code
+	'+++++++++++++END OF  Log Connection data+++++++++++++
+	
+	logMsg = ""  're-init logmsg
+	'set up more Notes Stuff
+	Set v = db.getView("ActiveSetupValues")
+	'get the library for americas (WYATT)
+	Set setupDoc = v.getDocumentByKey("Schema-Americas",True)
+	If setupDoc Is Nothing Then
+		'major error need to exit
+		
+		Exit Sub
+	End If 
+	schemaAmericas = setupDoc.value(0)
+	
+	'get the llibrary for europe (HOLLIDAY)
+	Set setupDoc = v.getDocumentByKey("Schema-EME",True)
+	If setupDoc Is Nothing Then
+		'major error need to exit
+		
+		Exit Sub
+	End If 
+	schemaEME = setupDoc.value(0)
+	
+	'reset the database to point to the cascweb addressbook
+	Set setupDoc = v.getDocumentByKey("UserDominoDirectoryPath",True)
+	If setupDoc Is Nothing Then
+		'major error need to exit
+		
+		Exit Sub
+	End If 
+	Set db = s.Getdatabase(db.server,setupDoc.value(0), false)
+	If db Is Nothing Then
+		'major error - need to exit
+		
+		Exit sub
+	End If
+	Set dc = db.Search( "", Nothing, 0 ) 'init the document collection
+	
+	'get the view with the documents we are going  process
+'	Set v = db.getview("BAT")
+	Set v = db.getview("People")
+	Call setImportLogMessage(Chr(10) + "View Name is..." + v.Name,"Info")
+	Set doc = v.Getfirstdocument()
+	'add all documents in view to document collection. When we process them, they will be reoved
+	'from the view
+	Do until doc Is Nothing
+'		If (doc.location(0) = "americas" And doc.AccessType(0) = "") Or doc.location(0) = "eme" then
+			Call dc.Adddocument(doc)
+'		End if
+		Set doc = v.Getnextdocument(doc)
+	Loop
+	totalCount = dc.Count
+	Call setImportLogMessage(Chr(10)+"Total Documents to work on: " + CStr(totalCount),"Info")
+	
+'	Stop
+'	GoTo End_Of_Code
+'	GoTo End_Of_Code
+	'we now have a list of all documents where there is no accessType field or the customer is from europe
+	'we need to process them
+	Set doc = dc.getFirstDocument
+	Do Until doc Is Nothing
+		'init the variables
+		logMsg = ""
+		errorMsg = ""
+		accessCode = ""
+		origAccessCode = ""
+		sqlCall = ""
+		If doc.employeeID(0) = "" Then
+			errorMsg = st + "ERROR - document for " + doc.fullname(0) + " does not have an employeeID"
+			Call setImportLogMessage(errorMsg ,"Error")
+			GoTo Next_Doc
+		End If
+
+'REMOVING ORIGACCESSCODE CHECK - TAKES TOO LONG TO RUN -ASSUMING ORIGACCESSCODE CORRECT
+		If doc.Location(0) = "americas" And doc.AccessCode(0) &lt;&gt; "" Then
+			origAccessCode = doc.AccessCode(0)
+		End If
+'end of REMOVING ORIGACCESSCODE CHECK - TAKES TOO LONG TO RUN
+'get access code and process it
+		accessCode = getABAT1AccessCode(doc.employeeID(0), doc.Location(0))
+		
+		If doc.location(0) = "americas" And OrigAccessCode &lt;&gt; ""  And (accessCode &lt;&gt; origAccessCode)  Then
+			logmsg = "OrigAccessCode: " + origAccessCode +" &lt;&gt; " +"NewAccessCode: " + AccessCode + "|| " _
+			+"AccessCode is different for account " + doc.employeeID(0) + Chr(10) + Chr(13) + "|| userName: " + doc.fullName(0)_
+			+Chr(10)+"##############################################################################"
+'			ErrorMsg = "AccessCode is different for account " + doc.employeeID(0) + Chr(10) + Chr(13) + "|| userName: " + doc.fullName(0)
+		End If
+		
+		If errorMsg &lt;&gt; "" Then Call setImportLogMessage(errorMsg,"Error")'there was an error in getting access code - log it and move on
+		If accessCode = "" Then  'JDE did not return an access code - log it and move on
+			logMsg = jdeDataString 
+			logMsg = logMsg + Chr(10) + "ACCESS CODE RETURNED FROM JDE IS EMPTY."
+			logmsg = logMsg + Chr(10) + "User Name: " + doc.fullName(0) + "|| Region: " + doc.location(0)+ "|| Account Nbr: " + doc.employeeID(0)+ "|| Company: " + FullTrim(doc.CompanyName(0))
+			logmsg = logMsg + Chr(10) + "##############################################################################"
+			If sqlCall &lt;&gt;  "" Then Call SetImportLogMessage(sqlCall,"Msg")
+			unchangedCount = unchangedCount + 1
+		End If
+			If logMsg &lt;&gt; "" Then Call setImportLogMessage(logMsg, "Message")
+			Call doc.replaceItemValue("AccessType",accessCode)
+			Call doc.save(True,False)
+			changeCount = changeCount+1
+		
+		
+		'Call SetImportLogMessage(logMsg,"Msg")
+'		Call SetImportLogMessage("++++++++++++++++++++++","Msg")
+		'GoTo End_Of_Code
+NEXT_DOC:
+		Set doc = dc.getNextDocument(doc)
+	Loop
+	
+	GoTo End_Of_Code
+ERROR_TRAP:
+	MsgBox st + CStr(Err) + " on line " + CStr(Erl) + ": " + Error
+	
+	If errorMsg &lt;&gt; "" Then 
+		Call setImportLogMessage(errorMsg,"Error")
+		'importLogDoc.ErrorCount = 1
+	End If
+	Resume End_Of_Code
+END_OF_CODE:
+	importLogDoc.totalCOunt = CStr(totalCount)
+	importLogDoc.changeCount = CStr(changeCount)
+	importLogDoc.unchangedCount = CStr(unchangedCount)
+	importLogDoc.errorCount = errorCount
+	Call importLogDoc.Replaceitemvalue("EndDate",  Now)
+	Call importLogDoc.Save(True,True)
+	
+End Sub
+
+</lotusscript>
+  </code>
+  <code event="setImportLogMessage">
+    <lotusscript>Function setImportLogMessage (message As String, msgType As String)
+	'changed code to seperate issues MCR: WSCR-99MNNE – 09/26/14 - mdz
+	Dim st As String
+	Dim s As New NotesSession
+	Dim richStyle As NotesRichTextStyle
+	Set richStyle = s.CreateRichTextStyle
+	st =  + CStr(GetThreadInfo(1)) + ": "
+	'msgBox st + "Entering Log Msg - " + msgType
+	On Error GoTo catch
+	Select Case msgType
+		Case "Warning"
+			If importLogWarningRT.Values &lt;&gt; "" Then
+				Call importLogWarningRT.Addnewline(1)
+			End If
+			If message = "" Then Exit Function
+			richStyle.NotesColor = COLOR_DARK_MAGENTA
+			'added code below to catch errors in seperate field
+			warningCount = warningCount + 1
+			Call importLogWarningRT.AppendStyle(richStyle)
+			Call importLogWarningRT.Appendtext(message)
+			importLogDoc.warningCount = warningCount
+			'Exit Function
+		Case "Error"
+			'MsgBox st + "recording error"
+			If importLogErrorRT.Values &lt;&gt; "" Then
+				Call importLogErrorRT.Addnewline(1)
+			End If
+			richStyle.NotesColor = COLOR_RED
+			'added code below to catch errors in seperate field
+			ErrorCount = ErrorCount + 1
+			
+			Call importLogErrorRT.AppendStyle(richStyle)
+			If message &lt;&gt; "" Then
+				Call importLogErrorRT.Appendtext(message)
+			Else
+				Call importLogErrorRT.Appendtext("Error Unknown " + CStr(unknownError))
+				unknownError = unknownError + 1
+			End If
+			importLogDoc.errorCount = errorCount
+			'Exit Function
+		Case "Info"
+			If importLogInfoRT.Values &lt;&gt; "" Then
+				Call importLogInfoRT.Addnewline(1)
+			End If
+			'added code below to catch information in seperate field
+			If message = "" Then Exit Function
+			infoCount = infoCount+1
+			richStyle.NotesColor = COLOR_BLUE
+			Call importLogInfoRT.AppendStyle(richStyle)
+			Call importLogInfoRT.Appendtext(message)
+		Case "Msg"	
+			If importLogMsgRT.Values &lt;&gt; "" Then
+				Call importLogMsgRT.Addnewline(1)
+			End If
+			If message = "" Then Exit Function
+			If errorMsg &lt;&gt; "" Or  accessCode = "" Then
+				richStyle.NotesColor = COLOR_RED
+			ElseIf origAccessCode &lt;&gt; "" Then
+				richStyle.NotesColor = COLOR_CYAN
+			Else
+				richStyle.NotesColor = COLOR_BLACK
+			End If
+			Call importLogMsgRT.AppendStyle(richStyle)
+			Call importLogMsgRT.Appendtext(message)
+	End Select
+	importLogDoc.totalCOunt = CStr(totalCount)
+	importLogDoc.changeCount = CStr(changeCount)
+	importLogDoc.unchangedCount = CStr(unchangedCount)
+	importLogDoc.errorCount = errorCount
+	Call importLogDoc.save(True,False)
+	Exit Function
+	
+catch:
+	MessageBox st + "Err nbr " + CStr(Err) + ":  Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ 
+'	Call setImportLogMessage ("Sub setImportLogMessage " + Error$ + ": " + Str$(Erl), "Error")
+	Call importLogDoc.Replaceitemvalue("Success", "No")
+
+	Exit Function	
+End Function</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101947,46-08</datetime>
+  </item>
+</agent>

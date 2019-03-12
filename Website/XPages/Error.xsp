@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar" xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xc:ccLayout>
+		<div class="container" id="main">
+		<!--		banner row-->
+		<xp:panel styleClass="banner-image">
+			<xp:image id="image2" url="/attachment_lineup1170.png"></xp:image>
+		</xp:panel>
+		
+		<xp:panel id="error" styleClass="col-sm-7"
+					tagName="div">
+
+		<xc:ccError></xc:ccError></xp:panel>
+		</div>
+	</xc:ccLayout>
+</xp:view>

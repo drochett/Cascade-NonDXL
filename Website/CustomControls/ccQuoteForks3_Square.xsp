@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+
+  <!--TITLE HEADING-->
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:panel styleClass="tableHeading" tagName="th">
+        <xp:this.attrs>
+          <xp:attr name="colspan" value="2"></xp:attr>
+        </xp:this.attrs>
+        <xp:label value="${langBean.title3bSquare}" id="label2"
+          style="font-weight:bold;color:rgb(255,255,255)">
+        </xp:label>
+      </xp:panel>
+    </xp:tr>
+  </xp:table>
+  <xp:br></xp:br>
+  <!-- START 1 row 2 column IMAGE FLIP -->
+  <xp:panel styleClass="row" id="panel4">
+    <xp:panel styleClass="col-xs-12 col-sm-7 col-sm-push-5" id="panel7">
+      <xp:image url="/Step3-SquareCarriagePlate.gif" id="image1"></xp:image>
+    </xp:panel>
+    <xp:panel styleClass="col-xs-12 col-sm-5 col-sm-pull-7" id="panel6">
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:td colspan="2">
+            <xp:label value="${langBean.labelPleaseEnterIn}:">
+            </xp:label>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td style="width:60.0%">
+            <xp:label value="${langBean.ftf_ForkWidth_Label1}:" for="ftf_ForkWidth1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ftf_ForkWidth}" id="ftf_ForkWidth1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.ftf_ForkThickness_Label1}:" for="ftf_ForkThickness1">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ftf_ForkThickness}" id="ftf_ForkThickness1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.ftf_ForkLength_Label1}:" for="ftf_ForkLength1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ftf_ForkLength}" id="ftf_ForkLength1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.ftf_BackHeight_Label1}:" for="ftf_BackHeight1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ftf_BackHeight}" id="ftf_BackHeight1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.ftf_CarriageHeight_Label1}:" for="ftf_CarriageHeight1">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ftf_CarriageHeight}" id="ftf_CarriageHeight1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.ftf_HookDistance1_Label1}:" for="ftf_HookDistance11">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ftf_HookDistance1}" id="ftf_HookDistance11"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.ftf_HookDistance2_Label1}:" for="ftf_HookDistance21">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ftf_HookDistance2}" id="ftf_HookDistance21"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+    </xp:panel>
+  </xp:panel>
+  <!-- END 1 row 2 column IMAGE FLIP -->
+  <!-- START 1 row 2 column IMAGE FLIP -->
+  <xp:panel styleClass="row" id="panel1">
+    <xp:panel styleClass="col-xs-12 col-sm-7 col-sm-push-5" id="panel2">
+      <xp:image url="/Step3-SquareCarriagePlate.gif" id="image2"></xp:image>
+    </xp:panel>
+    <xp:panel styleClass="col-xs-12 col-sm-5 col-sm-pull-7" id="panel3">
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:td style="width:60.0%">
+            <xp:label value="${langBean.w1_Label1}:" for="w11"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.w1}" id="w11"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.w2_Label1}:" for="w21"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.w2}" id="w21"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.x1_Label1}:" for="x11"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.x1}" id="x11"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.x2_Label1}:" for="x21"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.x2}" id="x21"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.y1_Label1}:" for="y11"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.y1}" id="y11"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.y2_Label1}:" for="y21"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.y2}" id="y21"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.z1_Label1}:" for="z11"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.z1}" id="z11"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.z2_Label1}:" for="z21"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.z2}" id="z21"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.ftf_stampInfo_Label1}:" for="ftf_stampInfo1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ftf_stampInfo}" id="ftf_stampInfo1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+    </xp:panel>
+  </xp:panel>
+  <!-- END 1 row 2 column IMAGE FLIP styleClass="address-table" -->
+  <xp:table>
+    <xp:tr>
+      <xp:td style="width:25.0%">
+        <xp:label value="${langBean.pinKit_Label1}" for="pinKit1" id="label1"></xp:label> 
+      </xp:td>
+      <xp:td>
+        <xp:radioGroup id="radioGroup1" value="#{document1.pinKit}">
+          <xp:selectItems id="selectItems1">
+            <xp:this.value><![CDATA[${langBean.selYesNo}]]></xp:this.value>
+          </xp:selectItems>
+        </xp:radioGroup>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td></xp:td>
+      <xp:td>
+        <xp:label value="${langBean.pinKit_Label2}" ></xp:label>
+        <xp:br></xp:br>
+        <xp:label value="${langBean.pinKit_Label3}" ></xp:label>
+      </xp:td>
+    </xp:tr>
+  </xp:table>
+  <!-- START INSTRUCTIONS  s-->
+  <xp:panel id="panelInstructions1" styleClass="row" rendered="#{javascript:@IsNewDoc()}">
+    <xp:panel styleClass="col-xs-12" id="panel5">
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:this.attrs>
+              <xp:attr name="colspan" value="2"></xp:attr>
+            </xp:this.attrs>
+            <xp:label value="${langBean.titleNotes}" id="label10"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+      </xp:table>
+      <xp:panel id="panelInstructions2" styleClass="alert alert-info">
+        <xp:table>
+          <xp:tr>
+            <xp:td style="width:20px">
+              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            </xp:td>
+            <xp:td>
+              <xp:text escape="true" id="confirmMsg1" value="${langBean.itaNote1}">
+              </xp:text>
+            </xp:td>
+          </xp:tr>
+          <xp:tr>
+            <xp:td style="width:20px">
+              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            </xp:td>
+            <xp:td>
+              <xp:text escape="true" id="computedField2" value="${langBean.itaNote3}">
+              </xp:text>
+            </xp:td>
+          </xp:tr>
+        </xp:table>
+      </xp:panel>
+    </xp:panel>
+  </xp:panel>
+  <!-- END INSTRUCTIONS-->
+
+  <xp:eventHandler event="onClientLoad" submit="false">
+  	<xp:this.script><![CDATA[dojo.query("input[id$='ftf_ForkWidth1']")[0].focus();]]></xp:this.script>
+  </xp:eventHandler></xp:view>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<li>
+	<xp:link escape="true"
+		value="${configBean.HostURL}international"
+		style="display:inline-block; padding-right:0;">
+		<xp:image id="image2" url="/France-Flag-24.png"></xp:image>
+	</xp:link>
+	<xp:link escape="true"
+		value="${configBean.twitter_FR}" id="link8"
+		target="Twitter"
+		style="display:inline-block; padding-right:0;">
+		<xp:image id="image1" url="/twitter.png"></xp:image>
+	</xp:link>
+	<xp:link escape="true"
+		value="${configBean.youTube_FR}"
+		id="link9" target="Youtube"
+		style="display:inline-block; padding-right:0;">
+		<xp:image id="image3" url="/youtube.png"></xp:image>
+	</xp:link>
+	<xp:link escape="true"
+		value="${configBean.facebook_FR}" id="link10"
+		target="Facebook"
+		style="display:inline-block; padding-right:0;">
+		<xp:image id="image4" url="/facebook.png"></xp:image>
+	</xp:link>
+	<xp:link escape="true"
+		value="${configBean.linkedin_FR}" id="link11"
+		target="Linkedin"
+		style="display:inline-block; padding-right:0;">
+		<xp:image id="image5" url="/linkedin.png"></xp:image>
+	</xp:link>
+</li>
+
+</xp:view>

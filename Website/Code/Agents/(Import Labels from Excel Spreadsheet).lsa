@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="(Import Labels from Excel Spreadsheet)" hide="v3" publicaccess="false">
+  <trigger type="agentlist"/>
+  <documentset type="runonce"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent Import Labels from Excel Spreadshett
+	Created May 2, 2016 by Michael Zens/PTL/CASCADE
+	Description: This agent asks user to select workbook and spreadsheet that have label values
+	that need to imported into Note
+%END REM
+Option Public
+Option Declare
+
+
+</lotusscript>
+  </code>
+  <code event="declarations">
+    <lotusscript>Private Const AGENTNAME = "ImportLabelsFromSpreadsheet"
+Dim xlApp As Variant
+Dim importLogSet As Boolean
+Dim importLogDoc As NotesDocument
+Dim importLogMsgRT As NotesRichTextItem
+'added to seperate the error messages
+Dim importLogErrorRT As NotesRichTextItem
+Dim importLogWarningRT As NotesRichTextItem
+Dim importLogInfoRT As NotesRichTextItem
+Dim changeCount As Long
+Dim deleteCount As Long
+Dim errorCount As Integer
+Dim warningcount As Long
+Dim infoCount As Long
+Dim unknownError As Long
+Dim thisServer As String
+Dim lastLogMessage As Boolean
+Dim written As Integer
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	LastLogMessage = False
+	Dim session As New NotesSession
+	Dim ws As New NotesUIWorkspace
+	Dim xlWorkbook As Variant
+	Dim xlSheet As Variant
+	Dim key As String, newKey As String
+	Dim db As NotesDatabase
+	Dim view As NotesView
+	Dim doc As NotesDocument
+	Dim xfilename As Variant
+	Dim row As Integer
+	Dim st As String
+	Dim badKeyCount As Integer
+	Dim processed As Integer,trans As String
+	
+	st = AgentNAME +  " / " + Cstr(Getthreadinfo(1)) + ": "
+	On Error Goto Handle_Error
+	processed = 1 'assume all values will move over - if not it will go back to zero(0)
+	' get current database
+	Set db = session.CurrentDatabase
+	'Set view = db.getView("(NotProcessedLabelValues)")
+	'AllLabelValues
+	Set view = db.getView("AllLabelValues2")
+	Set importLogDoc = db.Createdocument()
+	
+	Call importLogDoc.Replaceitemvalue("Form", "ImportLog")
+	Call importLogDoc.Replaceitemvalue("Server", db.Server)
+	Call importLogDoc.Replaceitemvalue("StartDate",  Now)
+	Call importLogDoc.Replaceitemvalue("Success", "Yes") 'Default to yes. Code will change to no if there is a problem.
+	Set importLogMsgRT = New NotesRichTextItem (importLogDoc, "Message")
+	'added code to point to errors field
+	Set importLogErrorRT = New NotesRichTextItem (importLogDoc, "Errors")
+	'added code to point to warnings field
+	Set importLogWarningRT = New NotesRichTextItem (importLogDoc, "Warnings")
+	'added code to point to Info field
+	Set importLogInfoRT = New NotesRichTextItem (importLogDoc, "Info")
+	importLogDoc.name = agentName
+	Call importLogDoc.Save(True,True)
+	Call setImportLogMessage("View Name is..." + view.Name,"Msg")
+	Set xlApp = CreateObject("Excel.Application")  'start Excel with OLE Automation
+	Print "Connecting to Excel..."
+
+	xFileName = ws.OpenFileDialog(False,"Select an excel file to import.","Microsoft Office Excel Workbook|*.xls","C:\users\mzens\My Documents")
+	Call setImportLogMessage("Excel file:  " + xFilename(0),"Msg")
+	Print "Opening " &amp; xFilename(0) &amp; "..."
+	xlApp.Workbooks.Open xFilename 
+	xlApp.Visible = False
+	xlApp.Interactive = False
+	Set xlWorkbook = xlApp.Workbooks.Open(xFileName)
+	Set xlWorkbook = xlApp.ActiveWorkbook
+	Set xlsheet=xlWorkbook.ActiveSheet
+	Print "Starting import from Excel file..." 
+	Call setImportLogMessage("Starting import from Excel file...","Msg")
+	
+	
+	Dim NumberOfRows As Long
+	NumberOfRows = xlSheet.UsedRange.Rows.Count	
+	row = 1 'starting point for roe in excel worksheet usually row 1 but in this case row 1 is a Title row so starting at row 2
+	row = Cstr(Inputbox("Enter row to start at.","info Needed"))
+	written = 0  'init just in case it set to something else besides 0
+	key = xlSheet.cells(row,1).value
+	'Pront key
+	'Set doc = view.Getdocumentbykey(key, True)
+	Set doc = Nothing 'initialize
+	If Not view Is Nothing Then Set doc = view.Getdocumentbykey(key,True)  'cell(row.*) where * has the value which is unique to all documents
+	'start importing
+	trans = "trans_"
+	With xlSheet
+		Do While .cells(row,1).value &lt;&gt; ""
+			If(doc Is Nothing) Then 
+				'Do Something
+				Call setImportLogMessage(|Unable to find label document for:  "| + key + |".|, "Warning")
+				BadKeyCount = badKeyCount + 1
+				'if you want to update then use this code below
+			Else
+				If doc.IsMultiValue(0) = "Yes" Then  'want To process these by hand
+					'Do something to log file
+					Call setImportLogMessage( key + | is a multiValue label - not processed|, "Warning")
+					Goto GetNextDocument
+				Else
+					Call setImportLogMessage(key, "Info")
+				End If
+			'val_eme_de
+				If .cells(row,3).value &lt;&gt; "" Or .cells(row,3).value &lt;&gt; "" Then
+					'we have a value - let's change the document
+					Call doc.ReplaceItemValue("val_eme_de", .cells(row,3).value)
+					'Call doc.removeItem(trans + "de")
+				End If
+			'val_eme_en
+				'this is special. it is same as americas value
+				Call doc.ReplaceItemValue("val_eme_en",doc.Getitemvalue("val_americas_en"))
+			'val_eme_es
+				If .cells(row,4).value &lt;&gt; "" Or .cells(row,4).value&lt;&gt; "" Then
+					'we have a value - let's change the document
+					Call doc.ReplaceItemValue("val_eme_es", .cells(row,4).value)
+					'Call doc.RemoveItem(trans + "es")'this will help us with keeping track of what's been processed
+					Else 'it may have already been processed
+				End If
+				
+				'val_eme_fi
+				If .cells(row,5).value &lt;&gt; "" Or .cells(row,5).value&lt;&gt; "" Then
+					'we have a value - let's change the document
+					Call doc.ReplaceItemValue("val_eme_fi", .cells(row,5).value)
+					'Call doc.RemoveItem(trans + "fi")'this will help us with keeping track of what's been processed
+				End If
+					
+			'val_eme_fr
+				If .cells(row,6).value &lt;&gt; "" Or .cells(row,6).value&lt;&gt; "" Then
+					'we have a value - let's change the document
+					Call doc.ReplaceItemValue("val_eme_fr", .cells(row,6).value)
+					'Call doc.RemoveItem(trans + "fr")'this will help us with keeping track of what's been processed
+				End If
+					
+			'val_eme_it
+				If .cells(row,7).value &lt;&gt; "" Or .cells(row,7).value&lt;&gt; "" Then
+					'we have a value - let's change the document
+					Call doc.ReplaceItemValue("val_eme_it", .cells(row,7).value)
+					'Call doc.RemoveItem(trans + "it")'this will help us with keeping track of what's been processed
+				End If
+					
+				'val_eme_nl
+				If .cells(row,8).value &lt;&gt; "" Or .cells(row,8).value&lt;&gt; "" Then
+					'we have a value - let's change the document
+					Call doc.ReplaceItemValue("val_eme_nl", .cells(row,8).value)
+					'Call doc.RemoveItem(trans + "nl")'this will help us with keeping track of what's been processed
+				End If
+					
+				'val_eme_se
+				If .cells(row,9).value &lt;&gt; "" Or .cells(row,9).value&lt;&gt; "" Then
+					'we have a value - let's change the document
+					Call doc.ReplaceItemValue("val_eme_se", .cells(row,9).value)
+					'Call doc.RemoveItem(trans + "se")'this will help us with keeping track of what's been processed
+				End If
+					
+				'val_americas_es
+				If .cells(row,10).value &lt;&gt; "" Or .cells(row,10).value&lt;&gt; "" Then
+					'we have a value - let's change the document
+					Call doc.ReplaceItemValue("val_americas_es", .cells(row,10).value)
+					'Call doc.RemoveItem(trans + "se")'this will help us with keeping track of what's been processed
+				End If
+				
+				Call doc.save(True,True)
+			written = written + 1
+			End If
+GETNEXTDOCUMENT:
+			row = row+1  'increae to get to next row
+			newKey = xlSheet.cells(row,1).value
+			If newKey = key Then
+				'we have an issue = most likely MultiValue let us get next key
+				Do Until newKey &lt;&gt; key
+					row = row+1 'get to next row
+					newKey = xlSheet.cells(row,1).value
+				Loop
+			End If
+			key = newKey
+			newKey = ""  'reset it to nothing
+			Set doc = view.Getdocumentbykey(key,True)
+			Print key
+		Loop
+		
+	End With
+	
+	Call setImportLogMessage("Records imported: " &amp; Cstr(written), "Msg")
+	Call setImportLogMessage("Attempted to import " &amp; Cstr(row) &amp; " records", "Msg")
+	xlworkbook.close False
+	
+	LastLogMessage = True
+	Goto End_Of_Code
+HANDLE_ERROR:	
+	Call SetImportLogMessage("row Nbr:  " + Cstr(row),"Error")
+	Call SetImportLogMessage("Written:  " + Cstr(written),"Error")
+	Call SetImportLogMessage("Key:  " + key,"Error")
+	Call setImportLogMessage ("Error on line " &amp; Format$(Erl)&amp; ": " &amp; Error$,"Error")
+	Call ImportLogDoc.Replaceitemvalue("Success", "No")
+	Resume End_Of_Code
+END_OF_CODE:
+	If badKeyCount &gt; 0 Then
+		Call setImportLogMessage(|badKeyCount:  | + Cstr(badKeyCount), "Info")
+	End If
+End Sub
+
+</lotusscript>
+  </code>
+  <code event="terminate">
+    <lotusscript>Sub Terminate
+	xlApp.Quit' close import file
+	If importLogDoc.Getitemvalue("Success")(0) &lt;&gt; "Yes" Then
+		Call importLogDoc.Replaceitemvalue("Success", "No")
+	End If
+	
+	If lastLogMessage = False Then Call setImportLogMessage ("Import aborted " &amp; Now, "Msg")
+	Call setImportLogCount
+	
+	Call importLogDoc.Save(True,True)
+
+End Sub
+
+</lotusscript>
+  </code>
+  <code event="setImportLogCount">
+    <lotusscript>Sub setImportLogCount
+' this function sets counts for whatever
+	Dim st As String
+	st = AgentNAME +  " / " + Cstr(Getthreadinfo(1)) + ": "
+
+	On Error Goto catch
+
+	Call importLogDoc.Replaceitemvalue("EndDate",  Now)
+	Call importLogDoc.Replaceitemvalue("unknownErrorCount", unknownError)
+	Call importLogDoc.Replaceitemvalue("errorCount", errorCount)
+	Call importLogDoc.Replaceitemvalue("warningCount", warningCount)
+	Call importLogDoc.Replaceitemvalue("infoCount", infoCount)
+Exit Sub
+	
+catch:
+	Call setImportLogMessage (st + "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ ,"Error")
+	Call importLogDoc.Replaceitemvalue("Success", "No")
+
+	Exit Sub
+	
+End Sub
+
+</lotusscript>
+  </code>
+  <code event="setImportLogMessage">
+    <lotusscript>Function setImportLogMessage (message As String, msgType As String)
+	'changed code to seperate issues MCR: WSCR-99MNNE – 09/26/14 - mdz
+	Dim st As String
+	Dim s As New NotesSession
+	Dim richStyle As NotesRichTextStyle
+	Set richStyle = s.CreateRichTextStyle
+	st = AGENTNAME +  " / " + Cstr(Getthreadinfo(1)) + ": "
+	On Error Goto catch
+	Select Case msgType
+		Case "Warning"
+			If importLogWarningRT.Values &lt;&gt; "" Then
+				Call importLogWarningRT.Addnewline(1)
+			End If
+			If message = "" Then Exit Function
+			richStyle.NotesColor = COLOR_DARK_MAGENTA
+			'added code below to catch errors in seperate field
+			warningCount = warningCount + 1
+			Call importLogWarningRT.AppendStyle(richStyle)
+			Call importLogWarningRT.Appendtext(message)
+			importLogDoc.warningCount = warningCount
+			Exit Function
+		Case "Error"
+			If importLogErrorRT.Values &lt;&gt; "" Then
+				Call importLogErrorRT.Addnewline(1)
+			End If
+			richStyle.NotesColor = COLOR_RED
+			'added code below to catch errors in seperate field
+			ErrorCount = ErrorCount + 1
+			Call importLogErrorRT.AppendStyle(richStyle)
+			If message &lt;&gt; "" Then
+				Call importLogErrorRT.Appendtext(message)
+			Else
+				Call importLogErrorRT.Appendtext("Error Unknown " + Cstr(unknownError))
+				unknownError = unknownError + 1
+			End If
+			Exit Function
+		Case "Info"
+			If importLogInfoRT.Values &lt;&gt; "" Then
+				Call importLogInfoRT.Addnewline(1)
+			End If
+			'added code below to catch information in seperate field
+			If message = "" Then Exit Function
+			infoCount = infoCount+1
+			richStyle.NotesColor = COLOR_BLUE
+			Call importLogInfoRT.AppendStyle(richStyle)
+			Call importLogInfoRT.Appendtext(message)
+		Case "Msg"	
+			If importLogMsgRT.Values &lt;&gt; "" Then
+				Call importLogMsgRT.Addnewline(1)
+			End If
+			If message = "" Then Exit Function
+			richStyle.NotesColor = COLOR_BLACK
+			Call importLogMsgRT.AppendStyle(richStyle)
+			Call importLogMsgRT.Appendtext(message)
+	End Select
+	Call importLogDoc.save(True,False)
+	Exit Function
+	
+catch:
+	Messagebox st + "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ 
+'	Call setImportLogMessage ("Sub setImportLogMessage " + Error$ + ": " + Str$(Erl))
+	Call importLogDoc.Replaceitemvalue("Success", "No")
+
+	Exit Function	
+End Function</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101941,01-08</datetime>
+  </item>
+</agent>

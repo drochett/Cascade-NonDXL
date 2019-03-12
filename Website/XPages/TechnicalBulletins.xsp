@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.data>
+		
+					<xp:dominoView var="view2" databaseName="#{configBean.DownloadsDbPath}"
+						viewName="TechnicalBulletins2">
+					</xp:dominoView>
+	</xp:this.data>
+	<xc:ccLayout>
+
+		<!--start container for page-->
+		<xp:panel styleClass="container" id="main">
+			<!--  new banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							value="${langBean.HeadingTechnicalBulletins}"
+							styleClass="carousel-heading">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+
+			<xp:panel id="showResults">
+				<div class="panel-body">
+
+					<div class="form-group">
+						<!-- Show pager controls at top-->
+						<xp:panel id="topControls"
+							styleClass="row topPager">
+
+							<div class="col-sm-12">
+								<xp:pager layout="Previous Group Next"
+									partialRefresh="true" id="pager3" for="repeat1"
+									styleClass="pull-right">
+								</xp:pager>
+							</div>
+						</xp:panel>
+
+
+						<!-- Show table with Data -->
+						<div id="resultsDiv">
+							<table class="table table-condensed">
+								<thead>
+									<tr>
+										
+										<th style="width: 40%;">
+											<xp:text escape="true"
+												id="computedField18" tagName="label"
+												value="${langBean.TechnicalBulletinsHeadingSubject}">
+											</xp:text>
+										</th>
+										<th style="width: 40%;">
+											<xp:text escape="true"
+												id="computedField5" tagName="label"
+												value="${langBean.TechnicalBulletinsHeadingProductFamily}">
+											</xp:text>
+										</th>
+
+										<th style="width: 10%;">
+											<xp:text escape="true"
+												id="computedField19" tagName="label"
+												value="${langBean.TechnicalBulletinsHeadingLanguage}">
+											</xp:text>
+
+										</th>
+										<th style="width: 10%;">
+											<xp:text escape="true"
+												id="computedField4" tagName="label"
+												value="${langBean.TechnicalBulletinsHeadingDate}">
+											</xp:text>
+
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<xp:repeat id="repeat1" var="col"
+										indexVar="ind" value="#{view2}">
+										<xp:this.rows><![CDATA[#{javascript:var limitPerPage = configBean.getValue("MaxSiteSearchResultsPerPage");
+return limitPerPage;}]]></xp:this.rows>
+										<tr>
+
+											<td>
+												<xp:link escape="true"
+													text="#{col.description}" id="link2"
+													value="#{configBean.HostURL}#{configBean.DownloadsURL}/#{col.href}"
+													target="_blank">
+
+												</xp:link>
+											</td>
+											<td>
+												<xp:text escape="true"
+													id="computedField6" value="#{col.productFamily}">
+												</xp:text>
+											</td>
+											<td>
+												<xp:text escape="true"
+													id="computedField2" value="#{col.languaged}">
+												</xp:text>
+											</td>
+											<td>
+												<xp:text escape="true"
+													id="computedField3" value="#{col.lastupdated}">
+													<xp:this.converter>
+														<xp:convertDateTime
+															type="date">
+														</xp:convertDateTime>
+													</xp:this.converter>
+												</xp:text>
+											</td>
+
+										</tr>
+									</xp:repeat>
+								</tbody>
+
+							</table>
+						</div>
+
+
+						<!-- Footer row with pager -->
+						<xp:panel id="panel7" styleClass="row">
+							<div class="col-sm-12">
+                                  <xp:pager layout="Previous Group Next"
+                                      partialRefresh="true" id="pager4" for="repeat1"
+                                      styleClass="pull-right">
+                                   </xp:pager>
+                                  <xe:pagerSizes id="pagerSizes1" for="repeat1"
+                                    text="${langBean.pagerSizesPretext} {0} #{langBean.pagerSizesPosttext}"
+                                    >
+                                  </xe:pagerSizes>
+							</div>
+						</xp:panel>
+
+					</div>
+				</div>
+			</xp:panel>
+
+			<!--DataView NOT USED LOADED=FALSE-->
+            
+			<!--
+      
+            <xe:dataView id="dataView1" openDocAsReadonly="true"
+				rows="25" var="viewEntry" columnTitles="true" loaded="false">
+				<xe:this.summaryColumn>
+					<xe:viewSummaryColumn columnTitle="Description"></xe:viewSummaryColumn>
+				</xe:this.summaryColumn>
+				<xp:this.facets>
+					<xp:pager layout="Previous Group Next"
+						partialRefresh="true" id="pager2" xp:key="pagerBottomRight">
+					</xp:pager>
+					<xp:pager layout="Previous Group Next"
+						partialRefresh="true" id="pager1" xp:key="pagerTopRight">
+					</xp:pager>
+					<xe:pagerSizes id="pagerSizes1" xp:key="pagerBottomLeft"
+					  text="${langBean.pagerSizesPretext} {0} #{langBean.pagerSizesPosttext}" sizes="10">
+					</xe:pagerSizes>
+					<xe:pagerSaveState id="pagerSaveState1"
+						xp:key="pagerBottom">
+					</xe:pagerSaveState>
+
+
+					<xp:panel xp:key="summary" id="panelSummary1"
+						style="width:45%" styleClass="testclass">
+						<xp:link escape="true"
+							text=" #{viewEntry.Description}" id="link1" target="_blank"
+							value="#{configBean.HostURL}#{configBean.DownloadsURL}/#{viewEntry.href}">
+
+						</xp:link>
+					</xp:panel>
+				</xp:this.facets>
+				<xe:this.extraColumns>
+					<xe:viewExtraColumn columnName="productfamily"
+						columnTitle="Product Family" style="width:35%">
+
+					</xe:viewExtraColumn>
+
+
+					<xe:viewExtraColumn columnName="LanguageD"
+						columnTitle="Language" style="width:10%">
+					</xe:viewExtraColumn>
+
+					<xe:viewExtraColumn columnName="LastUpdated"
+						columnTitle="Last Updated" style="width:10%">
+					</xe:viewExtraColumn>
+
+				</xe:this.extraColumns>
+				<xe:this.data>
+					<xp:dominoView var="view1"
+						databaseName="#{configBean.DownloadsDbPath}"
+						viewName="TechnicalBulletins2">
+					</xp:dominoView>
+				</xe:this.data>
+			</xe:dataView>
+
+
+			-->
+      
+      <!--END search results-->
+
+		</xp:panel><!--end container for page-->
+		</xc:ccLayout>
+</xp:view>

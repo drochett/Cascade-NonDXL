@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.data>
+		<xp:dominoView
+			var="view1"
+			databaseName="#{javascript:configBean.UserprofilesDbPath}"
+			viewName="attachmentsbyowner"
+			keys="#{javascript:session.getEffectiveUserName()+'';}">
+		</xp:dominoView>
+	</xp:this.data>
+
+	<xp:panel
+		styleClass="form-group"
+		tagName="div">
+		<!-- Show pager controls at top -->
+		<xp:this.rendered><![CDATA[#{javascript:view1.getAllDocumentsByKey(session.getEffectiveUserName()).getCount().toFixed()>0}]]></xp:this.rendered>
+		<!-- Show table with Data -->
+		<xp:panel
+			id="details"
+			styleClass="col-md-12">
+			<div id="resultsDiv">
+				<table class="table table-condensed">
+					<thead>
+						<tr>
+							<th style="width 20%">
+							</th>
+							<th style="width: 25%;">
+								<xp:text
+									escape="true"
+									id="computedField5"
+									tagName="label"
+									value="${langBean.MyAttachTableSerialNbr}">
+								</xp:text>
+							</th>
+							<th style="width: 25%;">
+								<xp:text
+									escape="true"
+									id="computedField1"
+									tagName="label"
+									value="${langBean.MyAttachTableModelNbr}">
+								</xp:text>
+							</th>
+							<th style="width: 25%;">
+								<xp:text
+									escape="true"
+									id="computedField18"
+									tagName="label"
+									value="${langBean.MyAttachTableNickName}">
+								</xp:text>
+							</th>
+							<th style="width 5%"></th>
+						</tr>
+					</thead>
+					<!-- Display view data -->
+					<tbody>
+						<xp:repeat
+							id="repeat1"
+							var="rowData"
+							indexVar="ind"
+							value="#{view1}"
+							rows="10">
+							<tr>
+								<td>
+									<xp:text escape="false"></xp:text>
+									<xp:image id="image1">
+										<xp:this.url><![CDATA[#{javascript:importPackage (com.cascorp);
+//dBar.info("entering image code");
+var imageFile
+var url;
+if(rowData.isDocument()){
+//need to get url for image to be displayed
+	var iconName = rowData.getDocument().getItemValueString("icon");
+	dBar.info("icon Name: "+iconName)
+	var whURL = configBean.getValue("WorkHorseURL");
+	var whDbPath = configBean.getValue("WorkHorseDbPath");
+	var hostURL = configBean.HostURL;
+	var db: NotesDatabase = session.getDatabase("",whDbPath, false);
+	//get document in whdb
+	var v1:NotesView = db.getView("fsSmlu");
+	var v2:NotesView = db.getView("attachmentImagesSmall");
+	var whDoc:NotesDocument = v1.getDocumentByKey(iconName);
+	if(whDoc == null){
+		dBar.info("whDoc is null");
+		imageFile="CASCLogo_s.jpg";
+	} else {
+		//dBar.info("found whDoc");
+		imageFile = whDoc.getItemValueString("smKey");
+		//dBar.info("imageFileName="+imageFile)
+		if(imageFile==""){
+			imageFile="CASCLogo_s.jpg";
+		}
+	}
+	//dBar.info("Attachment Name: "+rowData.getDocument().getItemValue("attachmentIdentifier"));	
+	//dBar.info("Done with getting photo data");
+	url=hostURL+whURL+"/attachmentImages/"+imageFile+"/$File/"+imageFile
+	//dBar.info("URL >>> " +url);
+	return url;
+}else{
+	dBar.info("rowData is not document");
+}
+}]]></xp:this.url>
+									</xp:image>
+								</td>
+								<td>
+									<xp:text escape="true"
+										value="#{rowData.serialNbr}" tagName="a" id="link1">
+										<xp:this.attrs>
+										<xp:attr name="href">
+											<xp:this.value><![CDATA[#{javascript:importPackage(com.cascorp);
+sessionScope.hideAdd=true;
+var doc:NotesDocument = NotesViewEntry.getDocument;
+try{
+	if(rowData.isDocument){
+		var srlNbr = rowData.getDocument().getItemValueString("serialNbr");
+		dBar.info("srlNbr1: "+srlNbr);
+		var destination = configBean.getValue("HostURL")+"qr/?"+srlNbr;
+		dBar.info("dest="+destination)
+		return destination;
+	}else{
+		dBar.info("rowData is not document");
+	}
+} catch(e) {
+dBar.error("Error = " + e);
+}}]]>
+												</xp:this.value>
+											</xp:attr>
+										</xp:this.attrs>
+									</xp:text>
+			
+										
+											
+								</td>
+								<td>
+									<xp:text
+										escape="true"
+										id="computedField2"
+										value="#{rowData.modelNbr}">
+									</xp:text>
+								</td>
+								<td>
+									<xp:text
+										escape="true"
+										id="computedField3"
+										value="#{rowData.Attachment}">
+									</xp:text>
+								</td>
+								<td>
+									<xp:link
+										escape="true"
+										id="link3"
+										text="${langBean.labelEdit}">
+
+
+
+										<xp:this.value><![CDATA[#{javascript:importPackage(com.cascorp);
+try{
+	var hostURL = configBean.getValue("HostURL")
+	var hostName = configBean.getValue("HostCommon")
+	var dbName = configBean.getValue("UserprofilesDbPath")
+	var webPath = configBean.getValue("WebsiteURL")
+	sessionScope.newAttachment=null;
+	sessionScope.viaQR=null;
+	sessionScope.editAttachment=true;
+	try{
+		var urlPath = hostURL+webPath
+		dBar.info("urlPaTh:  "+urlPath)
+		if(rowData.isDocument()){
+			//dBar.info("rowData is Document");
+			var doc = rowData.getDocument();
+			if (doc != null){
+				var serialNbr = doc.getItemValueString("serialNbr");
+				var mhpItem = doc.getItemValueString("modelNbr");
+				//dBar.info("serialNbr="+serialNbr);
+				//dBar.info("mhpItem="+mhpItem);
+				sessionScope.serialNbr = serialNbr;
+				sessionScope.mhpItem=mhpItem;
+				//dBar.info("ccMyAttachments [edit] sessionScope.serialNbr: "+sessionScope.serialNbr)
+				//return "MyProfileAttachment.xsp?databaseName="+hostName+"!!"+dbName+"&documentId="+rowData.getUniversalID()+"&action=editDocument"
+				return urlPath+"/MyProfileAttachment.xsp?databaseName="+hostName+"!!"+dbName+"&documentId="+rowData.getUniversalID()+"&action=editDocument"
+			} else {
+				dBar.info("Unable to get handle on document");
+			}
+		}
+	} catch (e) {
+		return e.toString()
+	}
+} catch (e) {
+	return e.toString()
+}}]]></xp:this.value>
+									</xp:link>
+								</td>
+							</tr>
+						</xp:repeat>
+					</tbody>
+				</table>
+			</div>
+		</xp:panel>
+		<!-- Footer row with pager -->
+		<xp:panel
+			id="panel7"
+			styleClass="row">
+			<div class="col-sm-12">
+				<xp:pager
+					layout="Previous Group Next"
+					partialRefresh="true"
+					id="pager4"
+					for="repeat1"
+					styleClass="pull-right">
+				</xp:pager>
+				<xe:pagerSizes
+					id="pagerSizes1"
+					for="repeat1"
+					text="${langBean.pagerSizesPretext} {0} #{langBean.pagerSizesPosttext}"
+					rendered="false">
+				</xe:pagerSizes>
+			</div>
+		</xp:panel>
+	</xp:panel>
+	<xp:label
+		value="${langBean.MyCascadeNoAttachments}"
+		id="label1"
+		style="margin:10px 0 0 10px;"
+		rendered="#{javascript:view1.getAllDocumentsByKey(session.getEffectiveUserName()).getCount().toFixed()==0}">
+	</xp:label>
+
+	<xp:eventHandler
+		event="onClientLoad"
+		submit="true"
+		refreshMode="norefresh">
+		<xp:this.action><![CDATA[#{javascript:sessionScope.remove("serialNbr");
+sessionScope.remove("mhpItem");
+sessionScope.remove("serialNumber");
+sessionScope.remove("newAttachment");
+sessionScope.remove("hideAdd")
+sessionScope.remove("editAttachment")
+sessionScope.remove("mhpRev");}]]></xp:this.action>
+	</xp:eventHandler></xp:view>

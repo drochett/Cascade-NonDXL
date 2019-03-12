@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+
+  <xp:panel styleClass="row">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panelForm1">
+      <xp:table border="0" styleClass="order-steps">
+        <xp:tr>
+          <xp:td styleClass="active">
+            <xp:label value="${langBean.labelStep} 1" id="label3">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:label value="${langBean.labelStep} 2" id="label1">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:label value="${langBean.labelStep} 3" id="label2">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:label value="${langBean.labelStep} 4" id="label4">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:label value="${langBean.labelStep} 5" id="label5">
+            </xp:label>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+    </xp:panel>
+  </xp:panel>
+</xp:view>

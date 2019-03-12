@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xe:widgetContainer id="companyAddressWidget"
+		titleBarText="${langBean.myorders}"
+		styleClass="portal-panel">
+		
+		<div class="panel-body" >
+			<div class="form-group">
+				<div class="row">
+					
+					<xe:dynamicViewPanel id="dynamicViewPanel2"
+						pageName="#{empty sessionScope.formName ? 'ProcessOrders.xsp' : sessionScope.formName}"
+						var="viewEntry"
+						customizerBean="com.cascorp.OrderProcessingViewCustomizer"
+						rows="10">
+						<xe:this.rowClasses><![CDATA[#{javascript:
+try {
+	viewScope.hasEntries = false;
+	out = "";
+	dBar.info(viewEntry.toString() + " --- " + viewEntry.getIndentLevel() + " -- " + viewEntry.isCategory());
+	dBar.info("type of is " + typeof viewEntry.getIndentLevel());
+	if (viewEntry.isCategory()){
+		dBar.info("is category");
+	 	if (viewEntry.getIndentLevel()==1){
+			dBar.info("indenting " + viewEntry.toString() + " by one");
+			out =  "OrderProcessingView_Category1";
+		} else if (viewEntry.getIndentLevel()==2){
+			dBar.info("indenting " + viewEntry.toString() + " by two");
+			out =  "OrderProcessingView_Category2";
+		}
+	}
+	viewScope.hasEntries = true;
+	return out;
+} catch(e) {
+	dBar.info(e);
+	return "";
+}
+}]]></xe:this.rowClasses>
+
+						<xe:this.rendered><![CDATA[#{javascript:getComponent("dynamicViewPanel2").getRowCount() > 0}]]></xe:this.rendered>
+						<xp:this.facets>
+							<xp:pager layout="Previous Group Next" styleClass="pull-right"
+								partialRefresh="true" id="pager1" xp:key="headerPager">
+								<xp:this.rendered><![CDATA[#{javascript:getComponent("dynamicViewPanel2").getRowCount() > 0}]]></xp:this.rendered>
+							</xp:pager>
+
+							<xe:pagerSaveState id="pagerSaveState1"
+								xp:key="viewTitle">
+								<xe:this.rendered><![CDATA[#{javascript:getComponent("dynamicViewPanel2").getRowCount() > 0}]]></xe:this.rendered>
+							</xe:pagerSaveState>
+
+							<xp:pager layout="Previous Group Next" styleClass="pull-right"
+								partialRefresh="true" id="pager2" xp:key="footerPager">
+								<xp:this.rendered><![CDATA[#{javascript:getComponent("dynamicViewPanel2").getRowCount() > 0}]]></xp:this.rendered>
+							</xp:pager>
+
+						</xp:this.facets>
+						<xe:this.data>
+							<xp:dominoView var="view1"
+								databaseName="#{configBean.OrdersDbPath}"
+								viewName="#{empty sessionScope.viewName ? 'myOrders' : sessionScope.viewName}"
+								keys="#{javascript:session.getEffectiveUserName();}">
+							</xp:dominoView>
+						</xe:this.data>
+					</xe:dynamicViewPanel>
+
+					<xp:label value="${langBean.MyCascadeNoWebOrders}"
+						id="label1" style="margin:10px 0 0 10px;">
+						<xp:this.rendered><![CDATA[#{javascript:getComponent("dynamicViewPanel2").getRowCount() == 0}]]></xp:this.rendered>
+					</xp:label>
+				</div>
+			</div>
+		</div>
+
+		</xe:widgetContainer>
+</xp:view>

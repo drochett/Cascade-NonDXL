@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imageresource xmlns="http://www.lotus.com/dxl" comment="Common Design Element" imagename="FaviconII.ICO" language="en-US" name="cascadeicon.ico" publicaccess="true">
+  <item name="$LastBuildTime" sign="true">
+    <datetime dst="true">20061030T163052,62+02</datetime>
+  </item>
+  <item name="$BabelInfo" sign="true">
+    <textlist>
+      <text>6ACBA8B0A0906291C1257205006AFADBP</text>
+      <text>en-US</text>
+    </textlist>
+  </item>
+</imageresource>

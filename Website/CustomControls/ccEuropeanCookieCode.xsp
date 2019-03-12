@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<xp:this.resources>
+		
+		<xp:headTag tagName="script" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="type" value="text/javascript"></xp:parameter>
+				<xp:parameter name="src">
+				<xp:this.value>
+	<![CDATA[#{javascript:return
+	"https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.2/cookieconsent.min.js"}]]>
+				</xp:this.value>
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="stylesheet"></xp:parameter>
+				<xp:parameter name="type" value="text/css"></xp:parameter>
+				<xp:parameter name="href">
+					<xp:this.value>
+	<![CDATA[#{javascript:return
+		"https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css"}]]>
+					</xp:this.value>
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+		
+		<xp:script clientSide="true">
+		<xp:this.contents><![CDATA[
+		window.addEventListener("load", function(){
+		window.cookieconsent.initialise({ "palette": { "popup": { "background": "#00338d" }, "button": { "background": "#d2dae7" } }, "theme": "classic", "position": "top", "static": true, "content": {"message": "This website uses and sets cookies on your computer in order to deliver you an excellent user experience. By continuing to use this website, you are agreeing to our use of cookies.", "dismiss": "I Agree", "link": "View our privacy policy.", "href": "https://www.cascorp.com/eme/en/privacy" } })
+		});
+		]]></xp:this.contents>
+		</xp:script>
+	</xp:this.resources>
+</xp:view>

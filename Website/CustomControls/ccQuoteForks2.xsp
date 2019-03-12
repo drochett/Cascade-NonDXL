@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+  xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+  <!--  Step Header -->
+  
+  
+  
+  <xc:ccQuoteForksHdr2></xc:ccQuoteForksHdr2>
+  <xp:br></xp:br>
+  <xp:panel styleClass="row" id="panel1">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel5">
+      <!-- START Truck information-->
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:this.attrs>
+              <xp:attr name="colspan" value="2"></xp:attr>
+            </xp:this.attrs>
+            <xp:label value="${langBean.titleTruckInformation}" id="label5"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+        <xp:tr>
+          <xp:td style="width:25%">
+            <xp:label value="${langBean.labelTruckMake}:" id="truck_Make_Label1" for="truck_Make1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.Truck_Make}"
+            	id="truck_Make1">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelTruckModel}:" id="truck_Model_Label1" for="truck_Model1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.Truck_Model}" id="truck_Model1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelTruckCapacity}:" id="truck_Capacity_Label1"
+              for="truck_Capacity1">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.Truck_Capacity}" id="truck_Capacity1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelLoadCenter}:" id="load_Center_Label1" for="load_Center1">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.Load_Center}" id="load_Center1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelForkCapacity}:" id="label1" for="load_Center1">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.Fork_Capacity}" id="inputText1"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+      <!-- END Truck information-->
+      <xp:br></xp:br>
+      <!-- START BASIC FORK information-->
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:this.attrs>
+              <xp:attr name="colspan" value="2"></xp:attr>
+            </xp:this.attrs>
+            <xp:label value="${langBean.titleBasicForkInformation}" id="label2"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+      </xp:table>
+      <!--  1st row and 2 columns-->
+      <xp:panel styleClass="row" id="panelForkType1">
+        <xp:panel styleClass="col-xs-12 col-sm-6 col-sm-push-6" id="panel3">
+          <xp:br></xp:br>
+          <xe:multiImage id="multiImageForkType1">
+            <xe:this.icons>
+              <xe:iconEntry url="/Step2_ITA.gif" selectedValue="Standard ITA Hook Forks">
+
+              </xe:iconEntry>
+              <xe:iconEntry selectedValue="Non-Standard Hook Forks" url="/Step2_SquareCarriagePlate.gif">
+              </xe:iconEntry>
+              <xe:iconEntry selectedValue="Pin/Shaft Type Forks" url="/Step2_ShaftPinBar.gif"></xe:iconEntry>
+              <xe:iconEntry selectedValue="Bolt-On" url="/Step2_BoltOn.gif"></xe:iconEntry>
+            </xe:this.icons>
+            <xe:this.value><![CDATA[#{javascript:return (!!document1.getItemValueString("Fork_Type")) ? document1.getItemValueString("Fork_Type") : "Standard ITA Hook Forks" ;}]]></xe:this.value>
+          </xe:multiImage>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-12 col-sm-6 col-sm-pull-6" id="panel9">
+          <xp:table styleClass="address-table">
+            <xp:tr>
+              <xp:td style="width:50.0%">
+                <xp:label value="${langBean.labelForkType}:" id="fork_Type_Label1" for="fork_Type1"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:radioGroup id="fork_Type1" layout="pageDirection" value="#{document1.Fork_Type}"
+                  defaultValue="Standard ITA Hook Forks">
+                  <xp:selectItems>
+                    <xp:this.value><![CDATA[${langBean.selForkType}]]></xp:this.value>
+                  </xp:selectItems>
+                  <xp:eventHandler event="onchange" submit="true" refreshMode="partial"
+                    refreshId="panelForkType1"></xp:eventHandler>
+                </xp:radioGroup>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelForkQuantity}:" id="fork_Quantity_Label1"
+                  for="fork_Quantity1"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.Fork_Quantity}" id="fork_Quantity1"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+          </xp:table>
+        </xp:panel>
+      </xp:panel><!--END 1st row and 2 columns-->
+      <!-- END BASIC FORK information-->
+      <xp:br></xp:br>
+      <!-- START REPLACING FORKS? -->
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:this.attrs>
+              <xp:attr name="colspan" value="2"></xp:attr>
+            </xp:this.attrs>
+            <xp:label value="${langBean.titleReplacingForks}" id="label3"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+      </xp:table>
+      <xp:panel id="panelOrderConfirmed1">
+        <xp:panel styleClass="alert alert-info">
+          <xp:table>
+            <xp:tr>
+              <xp:td>
+                <xp:text escape="true" id="confirmMsg1" value="${langBean.msgReplacingForks}">
+                </xp:text>
+              </xp:td>
+            </xp:tr>
+          </xp:table>
+        </xp:panel>
+        <xp:br></xp:br>
+      </xp:panel>
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:td style="width:25%">
+            <xp:label value="${langBean.labelForkProductionNumber}:" id="fork_Production_Number_Label1"
+              for="fork_Production_Number1">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.Fork_Production_Number}" id="fork_Production_Number1">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+      <!-- END REPLACING FORKS?-->
+
+    </xp:panel><!--END Quote Form -->
+  </xp:panel>
+  <!--END Quote Form -->
+
+
+  <!--panel navigation buttons-->
+  <xp:panel styleClass="row" id="panel7">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel8">
+      <hr></hr>
+      <xp:button value="${langBean.btnPrevStep}" id="buttonPrevious1" styleClass="btn btn-primary">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+          refreshId="main">
+          <xp:this.action><![CDATA[#{javascript:
+    viewScope.orderStep = "step_1";
+    var dc = getComponent("dcOrderStep");
+    dc.show("step_1")
+    }]]></xp:this.action>
+        </xp:eventHandler>
+      </xp:button>
+
+      <xp:button value="${langBean.btnNextStep}" id="button1" styleClass="btn btn-primary pull-right">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+          refreshId="main">
+          <xp:this.action><![CDATA[#{javascript:
+    viewScope.orderStep = "step_3";
+    var dc = getComponent("dcOrderStep");
+    dc.show("step_3")
+    }]]></xp:this.action>
+        </xp:eventHandler>
+      </xp:button>
+
+    </xp:panel>
+  </xp:panel>
+
+  <xp:eventHandler event="onClientLoad" submit="false">
+  	<xp:this.script><![CDATA[dojo.query("input[id$='truck_Make1']")[0].focus();]]></xp:this.script>
+  </xp:eventHandler></xp:view>
+
+

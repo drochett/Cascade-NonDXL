@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex" dojoParseOnLoad="true"
+	dojoTheme="true">  
+	<xp:this.resources>
+		<xp:dojoModule name="dojox.widget.Standby"></xp:dojoModule>
+		<xp:script src="/waitFunctions.js" clientSide="true"></xp:script>
+	</xp:this.resources>
+	<xp:this.beforeRenderResponse><![CDATA[#{javascript:importPackage(com.cascorp);
+//set region and account number
+if (salesOrderBean.getRegion() == "" || salesOrderBean.getRegion() == null){
+	//get the region from the person document
+	var rtnMap = RegistrationUtilities.getAccountNumber(session.getEffectiveUserName(),sessionAsSigner);
+	salesOrderBean.setRegion(rtnMap.get("region"));
+	salesOrderBean.setAccountNumber(rtnMap.get("acctnumber"));
+	dBar.info("user account number is " + salesOrderBean.getAccountNumber());
+	dBar.info("user region is " + salesOrderBean.getRegion());
+}
+var region = salesOrderBean.getRegion();
+
+if (region!=null || region != ""){
+	dBar.info("Init JDESupport");
+	var jde = new JDESupport();
+	var serverValid = jde.testJDE(region);
+	if (!serverValid){
+		//redirect to error XPage
+		context.redirectToPage("Error.xsp");
+	}
+}
+}]]></xp:this.beforeRenderResponse>
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+	<xc:ccLayout>
+		<xp:panel styleClass="container" id="mainPanel">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7" styleClass="carousel-heading"
+							value="${langBean.OrderStatusPageHeading}">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!-- This panel shows if they are not in the order status group -->
+			<xp:panel rendered="${!orderStatusBean.inOrderStatusGroup}">
+				<div class="panel-body">
+					<div class="form-group">
+						<xp:text tagName="label" value="${langBean.OrderStatusNotAllowed}"
+							id="computedField6" styleClass="control-label">
+						</xp:text>&#160;&#160;&#160;&#160;
+						<xp:link escape="true"
+							text="${javascript:langBean.accessform}" id="link1"
+							target="_blank"
+							value="${configBean.HostURL}${sessionScope.LanguageURL}orderstatus_intro">
+						</xp:link>
+					</div>
+				</div>
+			</xp:panel>
+			<!-- This is the panel that contains all the controls to search -->
+			<xp:panel rendered="${orderStatusBean.inOrderStatusGroup}"
+				disableOutputTag="true">
+				<xp:panel styleClass="row" id="CompanyRow" tagName="div">
+					<xp:panel id="companyInfo" styleClass="col-md-3" tagName="div">
+						<xc:ccOrderStatusCompanyInfo></xc:ccOrderStatusCompanyInfo>
+					</xp:panel>
+					<xp:panel id="Search1" styleClass="col-md-5" tagName="div">
+						<xc:ccOrderStatusSearch1></xc:ccOrderStatusSearch1>
+					</xp:panel>
+					<xp:panel id="panel2" styleClass="col-md-4" tagName="div">
+						<xc:ccOrderStatusSearch2></xc:ccOrderStatusSearch2>
+					</xp:panel>
+
+				</xp:panel>
+				<xp:button value="do query" id="button1" loaded="false">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="partial" refreshId="resultsArea">
+						<xp:this.action><![CDATA[#{javascript:orderStatusBean.performQueryTest("americas", "223400");}]]></xp:this.action>
+					</xp:eventHandler>
+				</xp:button>
+				<xp:button value="do query 2" id="button2" loaded="false">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="partial" refreshId="resultsArea">
+						<xp:this.action><![CDATA[#{javascript:orderStatusBean.performQuery3();}]]></xp:this.action>
+					</xp:eventHandler>
+				</xp:button>
+
+
+				<xp:panel id="resultsArea" styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xe:widgetContainer id="resultsContainer"
+							styleClass="login-panel" titleBarText="${langBean.OrderStatusResultsHeading}">
+
+							<!-- Panel if no results -->
+							<xp:panel rendered="#{javascript:!orderStatusBean.hasResults();}">
+								<div class="panel-body">
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-12">
+												<xp:text tagName="label" id="computedField15"
+													styleClass="control-label" value="${langBean.OrderStatusNoResultsMsg}">
+
+												</xp:text>
+											</div>
+										</div>
+									</div>
+								</div>
+							</xp:panel>
+							<xp:panel id="showResults"
+								rendered="#{javascript:orderStatusBean.hasResults();}">
+								<div class="panel-body">
+									<div class="form-group">
+
+										<xp:panel id="topControls" styleClass="row">
+											<div class="col-sm-6">
+												<span class="pagination">
+													<xp:link escape="true" id="ExpandLink" styleClass="btn btn-primary">
+														<span class="glyphicon glyphicon-plus">
+														</span>
+														<xp:text escape="true" id="computedField9"
+															tagName="span" value="${langBean.OrderStatusExpandAll}">
+
+														</xp:text>
+														<xp:eventHandler event="onclick" submit="true"
+															refreshMode="partial" refreshId="resultsArea">
+															<xp:this.action><![CDATA[#{javascript://viewScope.CloseAll = "false";
+var s:com.ibm.xsp.component.xp.XspSection = getComponent("section1");
+s.setClosed(false);}]]></xp:this.action>
+														</xp:eventHandler>
+													</xp:link>
+													<xp:link escape="true" id="link2" styleClass="btn btn-primary">
+														<span class="glyphicon glyphicon-minus">
+														</span>
+														<xp:text escape="true" id="computedField16"
+															tagName="span" value="${langBean.OrderStatusCollapseAll}">
+
+														</xp:text>
+														<xp:eventHandler event="onclick" submit="true"
+															refreshMode="partial" refreshId="resultsArea">
+															<xp:this.action><![CDATA[#{javascript://viewScope.CloseAll = "";
+var s:com.ibm.xsp.component.xp.XspSection = getComponent("section1");
+s.setClosed(true);
+}]]></xp:this.action>
+														</xp:eventHandler>
+													</xp:link>
+												</span>
+											</div>
+											<div class="col-sm-6">
+
+												<xe:pagerSizes id="pagerSizes1" for="repeat1"
+													styleClass="pull-right">
+												</xe:pagerSizes>
+
+											</div>
+										</xp:panel>
+
+
+										<div id="resultsDiv" class="table-responsive">
+											<table class="table table-condensed table-bordered">
+												<thead>
+													<tr>
+														<th>
+															<xp:text escape="true" id="computedField17"
+																tagName="label" value="${langBean.OrderStatusHeadingPONumber}">
+															</xp:text>
+														</th>
+														<th>
+															<xp:text escape="true" id="computedField18"
+																tagName="label" value="${langBean.OrderStatusHeadingCascadeNumber}">
+															</xp:text>
+														</th>
+														<th>
+															<xp:text escape="true" id="computedField19"
+																tagName="label" value="${langBean.OrderStatusHeadingShipTo}">
+															</xp:text>
+
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													<xp:repeat id="repeat1" rows="10" var="order"
+														indexVar="ind" value="#{orderStatusBean.orders}"
+														disableOutputTag="true">
+														<tr class="info">
+															<td>
+																<xp:label value="#{order.purchaseOrderNumber}"
+																	id="label7" style="font-weight:bold">
+																</xp:label>
+
+															</td>
+															<td>
+																<xp:label id="label5" value="#{order.dispOrderNumber}"
+																	style="font-weight:bold">
+																</xp:label>
+															</td>
+															<td>
+																<xp:label value="#{order.dispShipTo}" id="label8"
+																	style="font-weight:bold">
+																</xp:label>
+
+															</td>
+														</tr>
+														<!-- end first row -->
+
+														<!-- start row with order details table -->
+														<tr>
+															<td colspan="3">
+																<xp:section id="section1" header="Order Details"
+																	type="wide" initClosed="#{javascript:return viewScope.CloseAll;}">
+																	<div id="orderDetailsDiv#{ind}" class="table-responsive">
+																		<table class="table table-striped table-condensed">
+																			<thead>
+																				<tr>
+																					<th>
+																						<xp:text escape="true" id="qtyHeading"
+																							tagName="label" value="${langBean.OrderStatusHeadingQty}">
+																						</xp:text>
+
+																					</th>
+																					<th>
+																						<xp:text escape="true" id="computedField20"
+																							tagName="label" value="${langBean.OrderStatusHeadingItem}">
+																						</xp:text>
+
+																					</th>
+																					<th>
+																						<xp:text escape="true" id="computedField21"
+																							tagName="label" value="${langBean.OrderStatusHeadingDesc}">
+																						</xp:text>
+																					</th>
+																					<th>
+																						<xp:text escape="true" id="computedField22"
+																							tagName="label" value="${langBean.OrderStatusHeadingSerial}">
+																						</xp:text>
+																					</th>
+																					<th>
+																						<xp:text escape="true" id="priceHeading"
+																							tagName="label" value="${langBean.OrderStatusHeadingPrice}">
+																						</xp:text>
+																					</th>
+																					<th>
+																						<xp:text escape="true" id="orderDateHeading"
+																							tagName="label" value="${langBean.OrderStatusHeadingOrderDate}">
+																						</xp:text>
+
+																					</th>
+																					<th>
+																						<xp:text escape="true" id="headingTargetShipDate"
+																							tagName="label"
+																							value="${langBean.OrderStatusHeadingTargetShipDate}">
+																						</xp:text>
+																					</th>
+																					<th>
+																						<xp:text escape="true" id="headingActualShipDate"
+																							tagName="label"
+																							value="${langBean.OrderStatusHeadingActualShipDate}">
+																						</xp:text>
+																					</th>
+																					<th>
+																						<xp:text escape="true" id="headingFreight"
+																							tagName="label" value="${langBean.OrderStatusHeadingFreight}">
+																						</xp:text>
+																					</th>
+																				</tr>
+																			</thead>
+																			<xp:repeat id="repeat2" rows="1000"
+																				value="#{order.orderItems}" var="item" indexVar="itemInd"
+																				disableOutputTag="true">
+
+																				<tr>
+																					<td>
+																						<xp:text escape="true" id="computedField10"
+																							value="#{item.quantity}" rendered="#{item.showQty}">
+																						</xp:text>
+																					</td>
+																					<td>
+																						<xp:text escape="true" id="computedField2"
+																							value="#{item.item}">
+																						</xp:text>
+																					</td>
+																					<td>
+																						<xp:text escape="true" id="computedField3"
+																							value="#{item.description}">
+																						</xp:text>
+																					</td>
+																					<td>
+																						<xp:text escape="true" id="computedField8"
+																							value="#{item.serialNumber}">
+																						</xp:text>
+																					</td>
+
+																					<td>
+																						<span style="float:right">
+																							<xp:text escape="true" id="computedField4"
+																								value="#{item.extPrice}" rendered="#{item.showPrice}">
+																								<xp:this.converter>
+																									<xp:convertNumber pattern=" #,##0.00">
+																									</xp:convertNumber>
+																								</xp:this.converter>
+																							</xp:text>
+																						</span>
+																					</td>
+
+																					<td>
+																						<xp:text escape="true" id="computedField11"
+																							value="#{item.orderDate}">
+																							<xp:this.converter>
+																								<xp:convertDateTime type="date">
+																								</xp:convertDateTime>
+																							</xp:this.converter>
+																						</xp:text>
+																					</td>
+
+																					<td>
+																						<xp:text escape="true" id="computedField12"
+																							value="#{item.targetShipDate}">
+																							<xp:this.converter>
+																								<xp:convertDateTime type="date">
+																								</xp:convertDateTime>
+																							</xp:this.converter>
+																						</xp:text>
+																					</td>
+
+																					<td>
+																						<xp:text escape="true" id="computedField13"
+																							value="#{item.actualShipDate}">
+																							<xp:this.converter>
+																								<xp:convertDateTime type="date">
+																								</xp:convertDateTime>
+																							</xp:this.converter>
+																						</xp:text>
+																					</td>
+
+																					<td>
+																						<xp:text escape="true" id="computedField14"
+																							value="#{item.carrierTerms}">
+																						</xp:text>
+																					</td>
+
+
+																				</tr>
+																			</xp:repeat>
+																			<!-- add total column if prices shown-->
+																			<xp:panel tagName="tr" id="totalRow"
+																				rendered="#{order.showTotalPrice}">
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td>
+
+																					<xp:text escape="true" id="computedField1"
+																						value="#{langBean.OrderStatusTotal} - #{order.curCode}">
+
+																					</xp:text>
+																				</td>
+																				<td>
+																					<span style="float:right">
+																						<xp:text escape="true" id="computedField5"
+																							value="#{order.orderTotal}" style="font-weight:bold">
+																							<xp:this.converter>
+																								<xp:convertNumber pattern=" #,##0.00">
+																								</xp:convertNumber>
+																							</xp:this.converter>
+																						</xp:text>
+																					</span>
+																				</td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+
+																			</xp:panel>
+																		</table>
+																	</div>
+																</xp:section>
+															</td>
+														</tr>
+													</xp:repeat>
+												</tbody>
+											</table>
+										</div>
+										<div class="col-sm-12">
+
+											<xp:pager layout="Previous Group Next"
+												partialRefresh="true" id="pager1" for="repeat1" styleClass="pull-right">
+											</xp:pager>
+										</div>
+
+									</div>
+								</div>
+							</xp:panel>
+						</xe:widgetContainer>
+						<div class="row">
+							<div class="col-sm-12">
+								<xp:text tagName="label" value="${langBean.orderStatusNetPriceMsg}"
+									id="NetPriceMsgLabel" styleClass="control-label">
+								</xp:text>
+							</div>
+						</div>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

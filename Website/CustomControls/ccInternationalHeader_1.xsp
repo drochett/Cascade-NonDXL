@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<!--
+		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	-->
+	<xp:this.resources>
+		<xp:metaData name="robots" content="none"></xp:metaData>
+	</xp:this.resources>
+	<div class="navbar navbar-default" role="navigation">
+		<div class="container cascade-header">
+			<div class="navbar-header">
+
+				<!--*********** Display the Cascade Logo **********************-->
+				<xp:image url="/logo@2x.png" id="image2" alt="">
+					<xp:this.styleClass><![CDATA[#{javascript:return (deviceBean.isMobile())? "cascade-logo-mobile" : "cascade-logo" ;}]]></xp:this.styleClass>
+				</xp:image>
+
+
+				<!--*********** Display the region's name  **********************-->
+				<xp:text escape="true" id="computedField1"
+					styleClass="header-region" value="International">
+				</xp:text>
+				<!--*********** Display the region's tagline  **********************-->
+				<xp:text escape="true" id="computedField2"
+					styleClass="header-tagline1"
+					value="Leading the world in quality">
+				</xp:text>
+				<xp:text escape="true" id="computedField3"
+					styleClass="header-tagline2"
+					value="lift truck attachments, forks and accessories.">
+				</xp:text>
+			</div>
+
+			<!--*********** Dropdown Menu  **********************-->
+			<div class="navbar-collapse collapse">
+
+				<!--*********** Right Navbar  **********************-->
+				<!--				<ul class="nav navbar-nav navbar-right">-->
+				<!--					<li>-->
+				<!--						<input id="localsearchbox"-->
+				<!--							class="form-control input-sm localsearchbox cascade-search"-->
+				<!--							placeholder="Search...">-->
+				<!--						</input>-->
+				<!--					</li>-->
+				<!--				</ul>-->
+				<ul
+					class="nav navbar-nav navbar-right cascade-social-icons"
+					style="margin-top:0px; position:relative; z-index:100;">
+					<li style="padding-top:10px;">
+						<xp:link escape="true"
+							value="https://www.twitter.com/cascadecorp" id="link8"
+							target="Twitter"
+							style="display:inline-block; padding-right:0;">
+							<xp:image id="image1" url="/twitter.png"></xp:image>
+						</xp:link>
+						<xp:link escape="true"
+							value="https://www.youtube.com/user/CascadeCorporation/videos"
+							id="link9" target="Youtube"
+							style="display:inline-block; padding-right:0;">
+							<xp:image id="image3" url="/youtube.png"></xp:image>
+						</xp:link>
+						<xp:link escape="true"
+							value="https://www.facebook.com/800CASCADE" id="link10"
+							target="Facebook"
+							style="display:inline-block; padding-right:0;">
+							<xp:image id="image4" url="/facebook.png"></xp:image>
+						</xp:link>
+						<xp:link escape="true" value="#" id="link11"
+							target="Linkedin"
+							style="display:inline-block; padding-right:0;">
+							<xp:image id="image5" url="/linkedin.png"></xp:image>
+						</xp:link>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</xp:view>

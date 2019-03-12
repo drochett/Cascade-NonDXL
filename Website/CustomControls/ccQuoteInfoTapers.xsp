@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:panel styleClass="tableHeading" tagName="th">
+        <xp:this.attrs>
+          <xp:attr name="colspan" value="2"></xp:attr>
+        </xp:this.attrs>
+        <xp:label value="${langBean.titleTapers}" id="label5"
+          style="font-weight:bold;color:rgb(255,255,255)">
+        </xp:label>
+      </xp:panel>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:text escape="true" id="computedField1" value="#{document1.Taper_Options}"></xp:text></xp:td>
+    </xp:tr>
+  </xp:table>
+</xp:view>

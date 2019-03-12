@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	
+
+	<xc:ccLayout>
+		<div class="container" id="main">
+		<!--		banner row-->
+		<xp:panel styleClass="banner-image">
+			<xp:image id="image2" url="/attachment_lineup1170.png"></xp:image>
+		</xp:panel>
+			<xp:panel styleClass="row" id="row" tagName="div">
+				<xp:panel id="login" styleClass="col-sm-5"
+					tagName="div">
+					<xc:ccLogin_1 allowBrowserCaching="false"
+						loggedInMessage="${labelBean.MsgRedirect}"
+						loginFailMessage="${langBean.LoginFailMsg}"
+						loginDialogTitle="Not Used"
+						loginButtonText="${langBean.LabelSignInButton}"
+						labelPassword="${langBean.LabelPassword}:"
+						urlLoginNSF="/names.nsf" loginLinkText="login"
+						logoutLinkText="logout" displayLogoutLink="false"
+						showRememberMe="true" textRememberMe="${langBean.LabelRememberMe}"
+						xDaysRememberMe="90" labelName="${langBean.LabelUserName}:"
+						loginFailReason1Message="${langBean.LoginFailMsg1}"
+						loginFailReason2Message="${langBean.LoginFailMsg2}"
+						loginFailReason3Message="${langBean.LoginFailMsg3}"
+						loginFailReason4Message="${langBean.LoginFailMsg4}"
+						loginFailReason5Message="${langBean.LoginFailMsg5}"
+						loginMessage="${langBean.LoginMsg}"
+						cookieDomain="${configBean.SiteName}">
+						<xc:this.urlAfterLogin><![CDATA[#{javascript:
+var refer = facesContext.getExternalContext().getRequest().getHeader("Referer"); 
+var prevPage = sessionScope.prevPage;
+dBar.info("refer is " + refer);
+dBar.info("prevPage is: " + prevPage);
+var lang = sessionScope.LanguageURL;
+dBar.info("lang is: "+ lang);
+if (!!prevPage){
+	//else if a sessionScope.prevPage was set, go there
+	return prevPage;
+//} else if (!!refer){
+//REMOVED, WE DON'T WANT THEM USING REFERER
+	//if the referer page was set return to there
+//	return refer;
+
+} else if (!!lang){
+	return "/" + lang +"home";
+	
+} else {
+	//go to home page
+	return "/americas/en/home";
+	
+	//return "/" + configBean.getValue("WebsiteURL") + "/newRegistration.xsp";
+	//return facesContext.getExternalContext().getRequestContextPath() + "/International.xsp"
+}}]]></xc:this.urlAfterLogin>
+						<xc:this.urlAfterLogout><![CDATA[#{javascript:
+facesContext.getExternalContext().getRequestContextPath() + "/International.xsp"}]]></xc:this.urlAfterLogout>
+
+					</xc:ccLogin_1>
+					<xc:ccForgotPassword></xc:ccForgotPassword>
+				</xp:panel>
+
+				<xp:panel id="newRegistration" styleClass="col-sm-7"
+					tagName="div">
+					<xc:ccNewRegistration></xc:ccNewRegistration>
+					
+				</xp:panel>
+			</xp:panel>
+		</div>
+	</xc:ccLayout>
+</xp:view>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.data>
+		<xp:dominoDocument var="document1" databaseName="${configBean.NewsDbPath}"
+			formName="Document" action="openDocument">
+		</xp:dominoDocument>
+	</xp:this.data>
+	
+	<xc:ccLayout>
+		<xp:panel styleClass="container">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-md-6">
+						<xp:text escape="false" id="computedField7" value="${langBean.news}"
+							styleClass="carousel-heading">
+						</xp:text>
+						<xp:text escape="false" id="computedField8" value="${document1.NewsFrom} - ${document1.Subject}"
+							styleClass="carousel-text">
+						</xp:text>
+					</xp:panel>
+					<xp:panel styleClass="col-md-6"
+						rendered="${document1.key ne null}">
+						<xp:image id="image1"
+							styleClass="img-responsive"
+							url="${configBean.HostURL}${configBean.NewsURL}/files/${document1.key}/$FILE/${document1.key}">
+						</xp:image>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!--		breadcrumb row-->
+			<xp:panel styleClass="row" id="rowBreadcrumb1">
+				<xp:panel styleClass="col-xs-12" id="col11">
+					<xe:breadCrumbs id="breadCrumbs1">
+						<xe:this.treeNodes>
+							<xe:basicLeafNode label="${langBean.home}"
+								href="${configBean.HostURL}${sessionScope.LanguageURL}home">
+							</xe:basicLeafNode>
+							<xe:basicLeafNode label="#{document1.Subject}">
+							</xe:basicLeafNode>
+						</xe:this.treeNodes>
+					</xe:breadCrumbs>
+				</xp:panel>
+			</xp:panel>
+			<!--		main content row-->
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-xs-12">
+					<xp:text escape="false" id="oneBodyField1" value="#{document1.Body}">
+					</xp:text>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+	</xc:ccLayout>
+	</xp:view>

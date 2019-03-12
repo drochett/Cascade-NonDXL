@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<xp:panel styleClass="container" style="background: #E1E1E1;">
+
+		<xc:ccBlogAdminHeader></xc:ccBlogAdminHeader>
+		
+		<xp:this.data>
+			<xp:dominoView var="view1"
+				databaseName="#{javascript:configBean.BlogDbPath}"
+				viewName="Moderation">
+
+			</xp:dominoView>
+		</xp:this.data>
+		<xp:button id="button1" value="Approve">
+
+			
+		<xp:eventHandler event="onclick" submit="true" refreshMode="complete">
+			<xp:this.action>
+
+				<xp:actionGroup>
+					<xp:confirm
+						message="Do you want to Approve selected Comments?">
+					</xp:confirm>
+					<xp:executeScript>
+						<xp:this.script><![CDATA[#{javascript:
+var viewPanel = getComponent("viewPanel1");
+var docIDs=viewPanel.getSelectedIds();
+print(docIDs);
+var userName:NotesName = session.createName(@UserName());
+print(userName.getCommon());
+var db:NotesDatabase = session.getDatabase(database.getServer(),configBean.BlogDbPath);
+print(db.getFileName());
+for (i=0; i<docIDs.length; i++) {
+      var doc:NotesDocument = db.getDocumentByID(docIDs[i]);
+      doc.replaceItemValue("Status", "Approved");
+      doc.save();
+}}]]></xp:this.script>
+					</xp:executeScript>
+				</xp:actionGroup>
+			</xp:this.action></xp:eventHandler></xp:button>
+		<xp:button value="Delete" id="button2">
+			<xp:eventHandler event="onclick" submit="true"
+				refreshMode="complete">
+				<xp:this.action>
+					<xp:deleteSelectedDocuments view="viewPanel1"
+						message="Are you sure?">
+					</xp:deleteSelectedDocuments>
+				</xp:this.action>
+			</xp:eventHandler>
+		</xp:button>
+		<xp:br></xp:br>
+		
+		<xp:viewPanel value="#{view1}" id="viewPanel1">
+			<xp:this.facets>
+				<xp:pager partialRefresh="true"
+					layout="Previous Group Next" xp:key="headerPager" id="pager1">
+				</xp:pager>
+			</xp:this.facets>
+			<xp:viewColumn columnName="$5" id="viewColumn1"
+				showCheckbox="true" style="width:100px;">
+				<xp:this.facets>
+					<xp:viewColumnHeader value="Created2" xp:key="header"
+						id="viewColumnHeader1">
+					</xp:viewColumnHeader>
+				</xp:this.facets>
+			</xp:viewColumn>
+			<xp:viewColumn columnName="Name" id="viewColumn2"
+				style="width:125px;">
+				<xp:this.facets>
+					<xp:viewColumnHeader value="Name" xp:key="header"
+						id="viewColumnHeader2">
+					</xp:viewColumnHeader>
+				</xp:this.facets>
+			</xp:viewColumn>
+			<xp:viewColumn columnName="Email" id="viewColumn4">
+				<xp:this.facets>
+					<xp:viewColumnHeader value="Email" xp:key="header"
+						id="viewColumnHeader4">
+					</xp:viewColumnHeader>
+				</xp:this.facets>
+			</xp:viewColumn>
+			<xp:viewColumn columnName="Link" id="viewColumn5"
+				contentType="html" style="width:100px;">
+				<xp:this.facets>
+					<xp:viewColumnHeader value="Link" xp:key="header"
+						id="viewColumnHeader5">
+					</xp:viewColumnHeader>
+				</xp:this.facets>
+			</xp:viewColumn>
+			<xp:viewColumn columnName="Comment" id="viewColumn3">
+				<xp:this.facets>
+					<xp:viewColumnHeader value="Comment" xp:key="header"
+						id="viewColumnHeader3">
+					</xp:viewColumnHeader>
+				</xp:this.facets>
+			</xp:viewColumn>
+		</xp:viewPanel>
+
+	</xp:panel>
+
+&#160;</xp:view>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+	
+	
+	<xc:ccAddToHomeScreen></xc:ccAddToHomeScreen>
+	<xc:ccCompatibility></xc:ccCompatibility>
+	<xc:ccDebug></xc:ccDebug>
+	<xp:this.beforePageLoad><![CDATA[#{javascript:
+setScpLanguage() ; 
+setOrderProcessingRoles() ; 
+
+var url = facesContext.getExternalContext().getRequestPathInfo() ; 
+if (url==null) { 
+        url = facesContext.getExternalContext().getRequest().getRequestURL().toString() ; 
+        dBar.info("url was null"); 
+} 
+dBar.info("prev url TWO is " + url); 
+ if (view.getPageName().indexOfIgnoreCase("login.xsp")<0 && 
+         view.getPageName().indexOfIgnoreCase("activate.xsp")<0 && 
+         view.getPageName().indexOfIgnoreCase("Phase2NewRegistration.xsp")<0 && 
+         view.getPageName().indexOfIgnoreCase("updateRegistration.xsp")<0 && 
+         view.getPageName().indexOfIgnoreCase("passwordReset.xsp")<0 && 
+         view.getPageName().indexOfIgnoreCase("afterRegistration.xsp")<0 && 
+         view.getPageName().indexOfIgnoreCase("RemanRental.xsp")<0)         { 
+                if (@UserName() == "Anonymous") { 
+                //set url 
+                                   sessionScope.prevPage = url; 
+                } 
+} 
+
+}]]></xp:this.beforePageLoad>
+	<xp:this.resources>
+		<xp:script src="/custom.jss" clientSide="false"></xp:script>
+
+	</xp:this.resources>
+
+
+
+
+	
+	<xc:ccTrackingCode></xc:ccTrackingCode>
+
+	<xc:commonheader></xc:commonheader>
+
+
+	<xp:callback id="callback1"></xp:callback>
+
+
+
+	<xc:commonfooter></xc:commonfooter>
+</xp:view>

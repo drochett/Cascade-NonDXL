@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar" xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xp:this.data>
+		<xp:dominoDocument var="document1" formName="Address"
+			databaseName="${configBean.UserprofilesDbPath}">
+			<xp:this.querySaveDocument><![CDATA[#{javascript:
+if (currentDocument.isNewNote()) {
+	var doc:NotesDocument = currentDocument.getDocument();
+	var item:NotesItem;
+	var username =  session.getEffectiveUserName();
+	//dBar.info("username="+username);
+	var author = (username != "Anonymous") ? username : "[EditAllDocs]" ;
+	//dBar.info("author="+author);
+	item = doc.replaceItemValue("Owner", author);
+	item.setAuthors(true);
+    return true ;
+}}]]></xp:this.querySaveDocument>
+			<xp:this.postSaveDocument><![CDATA[#{javascript:
+dBar.info("((( postSaveDocument ))) ");
+dBar.info("Form="+document1.getItemValueString("Form"));}]]></xp:this.postSaveDocument>
+		</xp:dominoDocument>
+	</xp:this.data>
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+	<xc:ccLayout>
+		<!--	bootstrap 2 column-->
+		<xp:panel id="main" styleClass="container">
+			<!--			banner image-->
+			<xp:panel styleClass="row blue-header">
+				<xp:panel styleClass="col-xs-12">
+					<xp:image url="/attachment_lineup1170.png" id="image1"
+						styleClass="img-responsive">
+					</xp:image>
+				</xp:panel>
+			</xp:panel>
+			<!--			MAIN CONTENT-->
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-xs-12 col-sm-10 col-md-8" id="panel1">
+					<!--				btn-group-->
+					<xp:panel id="panelActionbar1">
+						<xp:button value="${langBean.btnLabelEdit}" id="button1"
+							styleClass="btn btn-primary" rendered="#{javascript:!document1.isEditable()}">
+							<xp:eventHandler event="onclick" submit="true"
+								refreshMode="partial" refreshId="main">
+								<xp:this.action>
+									<xp:changeDocumentMode mode="edit" var="document1">
+									</xp:changeDocumentMode>
+								</xp:this.action>
+							</xp:eventHandler>
+						</xp:button>
+						<xp:button value="${langBean.btnLabelBack2}" id="button2"
+							rendered="#{javascript:!document1.isEditable()}">
+							<xp:eventHandler event="onclick" submit="true"
+								refreshMode="complete" immediate="true" save="false"></xp:eventHandler>
+						</xp:button>
+						<xp:button value="${langBean.btnLabelSave}" id="button3"
+							rendered="#{javascript:document1.isEditable()}">
+							<xp:eventHandler event="onclick"
+								submit="true" refreshMode="complete" immediate="false"
+								save="true">
+							</xp:eventHandler>
+						</xp:button>
+						<xp:button value="${langBean.btnLabelCancel}" id="button4"
+							rendered="#{javascript:document1.isEditable()}">
+							<xp:eventHandler event="onclick" submit="true"
+								refreshMode="complete" immediate="true" save="false"></xp:eventHandler>
+						</xp:button>
+						<xp:button value="${langBean.btnLabelDelete}" id="button5">
+							<xp:this.rendered><![CDATA[#{javascript:!document1.isNewNote() && document1.isEditable()}]]></xp:this.rendered>
+							<xp:eventHandler event="onclick" submit="true"
+								refreshMode="complete">
+								<xp:this.action><![CDATA[#{javascript:
+document1.setValue("DeletionFlag","1");
+document1.save();
+return "xsp-success";
+}]]></xp:this.action>
+								<xp:this.script><![CDATA[
+var confMsg = "#{javascript:langBean.btnDeleteConfirmMessage}" ;
+var contDelete = XSP.confirm(confMsg);
+return contDelete ;]]></xp:this.script>
+							</xp:eventHandler>
+						</xp:button>
+					</xp:panel>
+					<xp:br></xp:br>
+					<!--					address tables-->
+					<xp:panel id="panelAddress1">
+
+						<xp:table styleClass="address-table">
+							<xp:tr>
+								<xp:panel tagName="th" styleClass="tableHeading">
+									<xp:this.attrs>
+										<xp:attr name="colspan" value="2">
+										</xp:attr>
+									</xp:this.attrs>
+									<xp:text value="${langBean.titleAddressName}" id="label2">
+									</xp:text>
+								</xp:panel>
+							</xp:tr>
+							<xp:tr>
+								<xp:td colspan="2">
+									<xp:label rendered="#{javascript:currentDocument.isEditable()}">
+										<span class="glyphicon glyphicon-asterisk icon-required"
+											aria-hidden="true">
+										</span>
+									</xp:label>
+									<xp:label value="${langBean.labelRequiredFields}" id="label1"
+										rendered="#{javascript:currentDocument.isEditable()}" style="color:rgb(255,0,0)">
+									</xp:label>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td style="width:40%">
+									<xp:label value="${langBean.labelAddressIdentifier}:"
+										id="addressIdentifier_Label1" for="addressIdentifier1">
+									</xp:label>
+									<xp:label rendered="#{javascript:currentDocument.isEditable()}">
+										<span class="glyphicon glyphicon-asterisk icon-required"
+											aria-hidden="true">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{document1.AddressIdentifier}"
+										id="addressIdentifier1">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelAddressIdentifier} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+						</xp:table>
+
+					</xp:panel>
+					<xp:panel id="panel2">
+
+						<xp:table styleClass="address-table">
+							<xp:tr>
+								<xp:panel tagName="th" styleClass="tableHeading">
+									<xp:this.attrs>
+										<xp:attr name="colspan" value="2">
+										</xp:attr>
+									</xp:this.attrs>
+									<xp:text value="${langBean.titleAddress}" id="computedField1">
+									</xp:text>
+								</xp:panel>
+							</xp:tr>
+							<xp:tr>
+								<xp:td style="width:40%">
+									<xp:label value="${langBean.labelCompany}:" id="company_Label1"
+										for="company1">
+									</xp:label>
+									<xp:label rendered="#{javascript:currentDocument.isEditable()}">
+										<span class="glyphicon glyphicon-asterisk icon-required"
+											aria-hidden="true">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{document1.Company}" id="company1"
+										required="true">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelCompany} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelPerson}:" id="person_Label1"
+										for="person1">
+									</xp:label>
+									<xp:label rendered="#{javascript:currentDocument.isEditable()}">
+										<span class="glyphicon glyphicon-asterisk icon-required"
+											aria-hidden="true">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{document1.Person}" id="person1">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelPerson} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelAddress}:" id="address_Label1"
+										for="address1">
+									</xp:label>
+									<xp:label rendered="#{javascript:currentDocument.isEditable()}">
+										<span class="glyphicon glyphicon-asterisk icon-required"
+											aria-hidden="true">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{document1.Address}" id="address1">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelAddress} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelAddress_2}:" id="address_2_Label1"
+										for="address_21">
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{document1.Address_2}" id="address_21">
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelCity}:" id="city_Label1"
+										for="city1">
+									</xp:label>
+									<xp:label rendered="#{javascript:currentDocument.isEditable()}">
+										<span class="glyphicon glyphicon-asterisk icon-required"
+											aria-hidden="true">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{document1.City}" id="city1">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelCity} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelState}:" id="state_Label1"
+										for="state1">
+									</xp:label>
+									<xp:label rendered="#{javascript:currentDocument.isEditable()}">
+										<span class="glyphicon glyphicon-asterisk icon-required"
+											aria-hidden="true">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{document1.State}" id="state1">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelState} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelPostalCode}:" id="postalCode_Label1"
+										for="postalCode1">
+									</xp:label>
+									<xp:label rendered="#{javascript:currentDocument.isEditable()}">
+										<span class="glyphicon glyphicon-asterisk icon-required"
+											aria-hidden="true">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{document1.PostalCode}" id="postalCode1">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelPostalCode} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelCountry}:" id="country_Label1"
+										for="country1">
+									</xp:label>
+									<xp:label rendered="#{javascript:currentDocument.isEditable()}">
+										<span class="glyphicon glyphicon-asterisk icon-required"
+											aria-hidden="true">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{document1.Country}" id="country1">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelCountry} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelPhone}:" id="phone_Label1"
+										for="phone1">
+									</xp:label>
+									<xp:label rendered="#{javascript:currentDocument.isEditable()}">
+										<span class="glyphicon glyphicon-asterisk icon-required"
+											aria-hidden="true">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{document1.Phone}" id="phone1">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelPhone} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelFax}:" id="fax_Label1"
+										for="fax1">
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{document1.Fax}" id="fax1">
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelEmail}:" id="email_Label1"
+										for="email1">
+									</xp:label>
+									<xp:label rendered="#{javascript:currentDocument.isEditable()}">
+										<span class="glyphicon glyphicon-asterisk icon-required"
+											aria-hidden="true">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{document1.Email}" id="email1">
+										<xp:this.validators>
+											<xp:validateConstraint message="${langBean.errorMsgEmail}">
+												<xp:this.regex><![CDATA[\b[A-Za-z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b]]></xp:this.regex>
+											</xp:validateConstraint>
+											<xp:validateRequired
+												message="${langBean.labelEmail} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+						</xp:table>
+
+						<xp:br></xp:br>
+
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+	</xc:ccLayout>
+	<xp:this.navigationRules>
+		<xp:navigationRule outcome="xsp-success" viewId="/MyProfileView.xsp"></xp:navigationRule>
+	</xp:this.navigationRules>
+</xp:view>

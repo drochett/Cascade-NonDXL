@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.beforePageLoad><![CDATA[#{javascript://setup the forks typeOrder
+println("ccOrderForks----user name: "+session.getEffectiveUserName());
+viewScope.typeOrder = "forks";
+viewScope.prtNumFld = "forkNumberInput";
+
+}]]></xp:this.beforePageLoad>
+
+	<xc:ccOrderHeaderCommon></xc:ccOrderHeaderCommon>
+	<xp:panel id="refreshPanel">
+
+		<xp:br></xp:br>
+		<xp:panel styleClass="row" id="row" tagName="div">
+			<xp:panel styleClass="col-xs-12 col-md-10" id="POPanel">
+				<xe:widgetContainer id="widgetContainer1"
+					titleBarText="${langBean.ForksOrderPOHeading}" styleClass="login-panel">
+
+					<div class="panel-body">
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-4">
+									<xp:text tagName="label" value="${langBean.labelPurchaseOrder}:"
+										id="computedField2" styleClass="control-label">
+									</xp:text>
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk"></span>
+									</xp:label>
+								</div>
+								<div class="col-sm-8">
+									<xp:inputText id="dealerPONumberInput"
+										value="#{salesOrderBean.dealerPONumber}" required="true">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelPurchaseOrder}: ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-4">
+									<xp:text tagName="label"
+										value="${langBean.labelEndUserPurchaseOrder}:" id="computedField6"
+										styleClass="control-label">
+									</xp:text>
+								</div>
+								<div class="col-sm-8">
+									<xp:inputText id="inputText2"
+										value="#{salesOrderBean.endUserPONumber}">
+									</xp:inputText>
+								</div>
+							</div>
+						</div>
+						<xp:text escape="true" id="PurchaseNote"
+							tagName="p" value="${langBean.ForksOrderNote}"
+							style="font-weight:bold;color:#00338D">
+						</xp:text>
+					</div>
+				</xe:widgetContainer>
+
+			</xp:panel>
+		</xp:panel>
+		<xp:panel styleClass="row" id="panelStep1">
+			<xp:panel styleClass="col-xs-12 col-md-10" id="panelForm1">
+				<!--  Area to input fork number -->
+				<div class="form-group">
+					<div class="row">
+
+						<div class="col-sm-4">
+							<xp:text tagName="label" value="${langBean.labelEnterForkNumber}:"
+								id="computedField1" styleClass="control-label">
+							</xp:text>
+							<span aria-hidden="true"
+								class="required-icon glyphicon glyphicon-asterisk"></span>
+						</div>
+						<div class="col-sm-4">
+							<xp:inputText id="forkNumberInput"
+								disableClientSideValidation="true">
+
+								
+
+								<xp:eventHandler event="onkeypress"
+									submit="true" refreshMode="partial" refreshId="refreshPanel">
+									<xp:this.onComplete><![CDATA[//set focus to the fork number input
+//alert(  '#{id:forkNumberInput}');
+var forkInputField = document.getElementById( '#{id:forkNumberInput}');
+
+if (forkInputField != null){
+	//alert("not null");
+	forkInputField.focus();
+} else {
+	//alert("forkInputField id not found");
+	console.log("forkInputField is null on ccOrderForks");
+}
+]]></xp:this.onComplete>
+									<xp:this.action><![CDATA[#{javascript:try{
+var accountNumber = sessionScope.accountNbr;
+var forkNumberInput:com.ibm.xsp.component.xp.XspInputText = getComponent("forkNumberInput");
+var forkNum = forkNumberInput.getValue();
+if(forkNum==null) {
+println("forkNum is null");
+}
+var quanNumberInput:com.ibm.xsp.component.xp.XspInputText = getComponent("quantityInput");
+var quantity = quanNumberInput.getValue();
+viewScope.put("origPN",forkNum.toUpperCase());
+try {
+//get crossover number based on forknum and accountNumber
+	if (!!forkNum) {
+		var rtn = salesOrderBean.getForkCrossoverNum(forkNum,accountNumber);
+	}
+	forkNum = rtn;
+	dBar.info("getForkCrossoverNum returned [" + forkNum + "]")
+} catch(e){
+	dBar.error("Error in getting crossover reference: " + e.toString());
+	println("ccOrderSForks---username " + session.getEffectiveUserName() + "--> Error in Add button: " + e.toString());
+}
+//setup error messgae object
+var msg=new javax.faces.application.FacesMessage();
+if (!!forkNum) {
+	if (quantity !== null) {
+		var rtn = salesOrderBean.addForkItemQty(forkNum,quantity.toString(), viewScope.origPN.trim());
+	} else {
+		var qtyMsg=new javax.faces.application.FacesMessage();
+	 	//put up error message
+ 		facesContext.addMessage(quanNumberInput.getClientId(facesContext) ,  qtyMsg(langBean.getValue("OrderQtyWarning") +"99."));
+		//var rtn = salesOrderBean.addForkItem(forkNum, viewScope.origPN.trim());
+	}
+//	var rtn = "added";
+	if (rtn != "added"){
+	//see what error message to show
+		if (rtn == "badforknumber"){
+ 			//put up error message
+ 			facesContext.addMessage(forkNumberInput.getClientId(facesContext) ,  msg(langBean.getValue("msgBadForkNumber")));
+ 		} else if (rtn == "duplicate"){
+ 			facesContext.addMessage(forkNumberInput.getClientId(facesContext) ,  msg(langBean.getValue("msgDuplicateForkNumber")));
+ 		}
+ 		} else {
+ 			//clear out input field
+ 			forkNumberInput.setValue("");
+ 			quanNumberInput.setValue("");
+ 			var poNumberInput:com.ibm.xsp.component.xp.XspInputText = getComponent("dealerPONumberInput");
+			var poNum = poNumberInput.getValue();
+			viewScope.put("poNum",poNum);
+	 	}
+ } else {
+	//fork number is empty
+	facesContext.addMessage(forkNumberInput.getClientId(facesContext) ,  msg(langBean.getValue("msgBadForkNumber")));
+ }
+} catch(e){
+	dBar.error("Error in Add button: " + e.toString());
+	println("ccOrderSForks---username " + session.getEffectiveUserName() + "--> Error in Add button: " + e.toString());
+}
+ 
+ }]]></xp:this.action>
+									<xp:this.script><![CDATA[if (thisEvent.keyCode==13) {
+	return true;
+}else{
+	return false;
+}]]></xp:this.script>
+
+								</xp:eventHandler>
+							</xp:inputText>
+						</div>
+						<div class="col-sm-1">
+							<xp:text tagName="label1" value="${langBean.labelQuantity}:"
+								id="computedField3" styleClass="control-label">
+							</xp:text>
+						</div>
+						<div class="col-sm-1">
+							<xe:djNumberTextBox id="quantityInput"
+								maxLength="4" javaType="int" style="width:45.0px">
+								<xe:this.dojoAttributes>
+									<xp:dojoAttribute
+										name="missingMessage" value="${langBean.QtyRequiredMsg}">
+									</xp:dojoAttribute>
+								</xe:this.dojoAttributes>
+
+
+								<xe:this.constraints>
+									<xe:djNumberConstraints min="1"
+										places="0" max="99">
+									</xe:djNumberConstraints>
+								</xe:this.constraints>
+								<xp:eventHandler event="onkeypress"
+									submit="true" refreshMode="partial" refreshId="refreshPanel">
+									<xp:this.onComplete><![CDATA[//set focus to the fork number input
+//alert(  '#{id:forkNumberInput}');
+var forkInputField = document.getElementById( '#{id:forkNumberInput}');
+
+if (forkInputField != null){
+	//alert("not null");
+	forkInputField.focus();
+} else {
+	//alert("forkInputField id not found");
+	console.log("forkInputField is null on ccOrderForks");
+}
+]]></xp:this.onComplete>
+									<xp:this.action><![CDATA[#{javascript:try{
+var accountNumber = sessionScope.accountNbr;
+var forkNumberInput:com.ibm.xsp.component.xp.XspInputText = getComponent("forkNumberInput");
+var forkNum = forkNumberInput.getValue();
+var quanNumberInput:com.ibm.xsp.component.xp.XspInputText = getComponent("quantityInput");
+var quantity = quanNumberInput.getValue();
+viewScope.put("origPN",forkNum.toUpperCase());
+try {
+//get crossover number based on forknum and accountNumber
+	if (!!forkNum) {
+		var rtn = salesOrderBean.getForkCrossoverNum(forkNum,accountNumber);
+	}
+	forkNum = rtn;
+	dBar.info("getForkCrossoverNum returned [" + forkNum + "]")
+} catch(e){
+	dBar.error("Error in getting crossover reference: " + e.toString());
+	println("ccOrderSForks---username " + session.getEffectiveUserName() + "--> Error in Add button: " + e.toString());
+}
+//setup error messgae object
+var msg=new javax.faces.application.FacesMessage();
+if (!!forkNum) {
+	if (quantity !== null) {
+		var rtn = salesOrderBean.addForkItemQty(forkNum,quantity.toString(), viewScope.origPN.trim());
+	} else {
+		var qtyMsg=new javax.faces.application.FacesMessage();
+	 	//put up error message
+ 		facesContext.addMessage(quanNumberInput.getClientId(facesContext) ,  qtyMsg(langBean.getValue("OrderQtyWarning") +"99."));
+		//var rtn = salesOrderBean.addForkItem(forkNum, viewScope.origPN.trim());
+	}
+//	var rtn = "added";
+	if (rtn != "added"){
+	//see what error message to show
+		if (rtn == "badforknumber"){
+ 			//put up error message
+ 			facesContext.addMessage(forkNumberInput.getClientId(facesContext) ,  msg(langBean.getValue("msgBadForkNumber")));
+ 		} else if (rtn == "duplicate"){
+ 			facesContext.addMessage(forkNumberInput.getClientId(facesContext) ,  msg(langBean.getValue("msgDuplicateForkNumber")));
+ 		}
+ 		} else {
+ 		//clear out input field
+ 			forkNumberInput.setValue("");
+ 			quanNumberInput.setValue("");
+ 			var poNumberInput:com.ibm.xsp.component.xp.XspInputText = getComponent("dealerPONumberInput");
+			var poNum = poNumberInput.getValue();
+			viewScope.put("poNum",poNum);
+	 	}
+ } else {
+	//fork number is empty
+	facesContext.addMessage(forkNumberInput.getClientId(facesContext) ,  msg(langBean.getValue("msgBadForkNumber")));
+ }
+} catch(e){
+	dBar.error("Error in Next button: " + e.toString());
+	println("ccOrderSForks---username " + session.getEffectiveUserName() + "--> Error in Add button: " + e.toString());
+}
+ 
+ }]]></xp:this.action>
+									<xp:this.script><![CDATA[if (thisEvent.keyCode==13) {
+	return true;
+}else{
+	return false;
+}]]></xp:this.script>
+								</xp:eventHandler>
+							</xe:djNumberTextBox>
+						</div>
+						<div class="col-sm-2">
+							<xp:button value="${langBean.labelAddFork}" id="button1"
+								styleClass="btn btn-primary">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial" refreshId="refreshPanel">
+									<xp:this.action><![CDATA[#{javascript://println("Button Clicked");
+try{
+var accountNumber = sessionScope.accountNbr;
+var forkNumberInput:com.ibm.xsp.component.xp.XspInputText = getComponent("forkNumberInput");
+var forkNum = forkNumberInput.getValue();
+viewScope.ForkNum = forkNum;
+//println(forkNum);
+var quanNumberInput:com.ibm.xsp.component.xp.XspInputText = getComponent("quantityInput");
+var quantity = quanNumberInput.getValue();
+viewScope.put("origPN",forkNum.toUpperCase());
+try {
+//get crossover number based on forknum and accountNumber
+	if (!!forkNum) {
+		var rtn = salesOrderBean.getForkCrossoverNum(forkNum,accountNumber);
+	}
+	forkNum = rtn;
+	dBar.info("getForkCrossoverNum returned [" + forkNum + "]")
+} catch(e){
+	dBar.error("Error in getting crossover reference: " + e.toString());
+	println("ccOrderSForks---username " + session.getEffectiveUserName() + "--> Error in Add button: " + e.toString());
+}
+//setup error messgae object
+var msg=new javax.faces.application.FacesMessage();
+if (!!forkNum) {
+	if (quantity !== null) {
+		var rtn = salesOrderBean.addForkItemQty(forkNum,quantity.toString(), viewScope.origPN.trim());
+	} else {
+		var qtyMsg=new javax.faces.application.FacesMessage();
+	 	//put up error message
+ 		facesContext.addMessage(quanNumberInput.getClientId(facesContext) ,  qtyMsg(langBean.getValue("OrderQtyWarning") +"99."));
+		//var rtn = salesOrderBean.addForkItem(forkNum, viewScope.origPN.trim());
+	}
+//	var rtn = "added";
+	if (rtn != "added"){
+	//see what error message to show
+		if (rtn == "badforknumber"){
+ 			//put up error message
+ 			facesContext.addMessage(forkNumberInput.getClientId(facesContext) ,  msg(langBean.getValue("msgBadForkNumber")));
+ 		} else if (rtn == "duplicate"){
+ 			facesContext.addMessage(forkNumberInput.getClientId(facesContext) ,  msg(langBean.getValue("msgDuplicateForkNumber")));
+ 		}
+ 		} else {
+ 		//clear out input field
+			forkNumberInput.setValue("");
+ 			quanNumberInput.setValue("");
+ 			var poNumberInput:com.ibm.xsp.component.xp.XspInputText = getComponent("dealerPONumberInput");
+			var poNum = poNumberInput.getValue();
+			viewScope.put("poNum",poNum);
+ 		}
+ } else {
+	//fork number is empty
+	facesContext.addMessage(forkNumberInput.getClientId(facesContext) ,  msg(langBean.getValue("msgBadForkNumber")));
+ }
+} catch(e){
+	dBar.error("Error in Add button: " + e.toString());
+	println("ccOrderSForks---username " + session.getEffectiveUserName() + "--> Error in Add button: " + e.toString());
+}
+ 
+ }]]></xp:this.action>
+									<xp:this.onComplete><![CDATA[//set focus to the fork number input
+//alert(  '#{id:forkNumberInput}');
+var forkInputField = document.getElementById( '#{id:forkNumberInput}');
+
+if (forkInputField != null){
+	//alert("not null");
+	forkInputField.focus();
+} else {
+	//alert("forkInputField id not found");
+	console.log("forkInputField is null on ccOrderForks");
+}
+]]></xp:this.onComplete>
+
+
+								</xp:eventHandler>
+							</xp:button>
+						</div>
+
+					</div>
+				<!-- Error messages about fork number -->
+				<div class="form-group">
+					<div class="row">
+						<xp:panel id="panel1" styleClass="orderErrorPanel">
+							<xp:message id="forkNumInputMsg" for="forkNumberInput"></xp:message>
+						</xp:panel>
+					</div>
+				</div>
+				</div><!-- Error messages about Qauntity -->
+				<div class="form-group">
+					<div class="row">
+						<xp:panel id="panel2" styleClass="quantityErrorPanel">
+							<xp:message id="message2" for="quantityInput"></xp:message>
+						</xp:panel>
+					</div>
+				</div>
+
+
+				<!-- Build table for headings -->
+				<xp:table styleClass="tableColumnHeadings">
+					<xp:tr>
+						<xp:td style="width:20%">
+							<xp:label value="${langBean.labelForkNumber}" id="label1">
+							</xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:label value="${langBean.labelDescription}" id="label2">
+							</xp:label>
+						</xp:td>
+						<xp:td style="width:10%" styleClass="text-right">
+							<xp:label value="${langBean.labelQuantity}" id="label3">
+							</xp:label>
+						</xp:td>
+						<xp:td style="width:15%" styleClass="text-right">
+							<xp:label value="${langBean.labelPrice}" id="label6">
+							</xp:label>
+						</xp:td>
+						<xp:td style="width:5%">
+
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+
+				<!-- This table is for the order items -->
+
+				<xp:table styleClass="order-table" id="forksItemsTable">
+					<!-- Repeat over the rows to show the items to order -->
+					<xp:repeat id="OrderItemRepeat" rows="30" var="lineItem"
+						indexVar="indLineItem" value="#{javascript:salesOrderBean.getOrderedForks();}">
+
+						<xp:tr>
+							<xp:td style="width:20%">
+								<xp:inputText id="inputText4" readonly="true"
+									value="#{lineItem.partNumber}">
+								</xp:inputText>
+							</xp:td>
+							<xp:td>
+								<xp:inputText value="#{lineItem.description}" id="inputText7"
+									readonly="true">
+								</xp:inputText>
+
+							</xp:td>
+							<xp:td style="width:10%">
+								<span style="float:right">
+									<xe:djNumberTextBox id="djNumberTextBox1"
+										value="#{lineItem.orderQty}" maxLength="4"
+										rangeMessage="#{langBean.OrderQtyWarning} #{lineItem.maxQty}"
+										javaType="double" invalidMessage="#{langBean.OrderQtyWarning} #{lineItem.maxQty}"
+										style="width:45.0px" required="true">
+										<xe:this.dojoAttributes>
+											<xp:dojoAttribute name="missingMessage"
+												value="${langBean.QtyRequiredMsg}">
+											</xp:dojoAttribute>
+										</xe:this.dojoAttributes>
+										<xe:this.constraints>
+											<xe:djNumberConstraints max="#{lineItem.maxQty}"
+												min="1" places="0">
+											</xe:djNumberConstraints>
+										</xe:this.constraints>
+
+									</xe:djNumberTextBox>
+									<xp:td style="width:15%">
+										<span style="float:right">
+											<xp:inputText id="inputText3" readonly="true">
+												<xp:this.value><![CDATA[#{javascript:var price = lineItem.getPrice();
+var qty = lineItem.getOrderQty();
+var total = price * qty;
+return total;}]]></xp:this.value>
+												<xp:this.converter>
+													<xp:convertNumber pattern=" #,##0.00">
+													</xp:convertNumber>
+												</xp:this.converter>
+											</xp:inputText>
+										</span>
+									</xp:td>
+
+
+								</span>
+
+							</xp:td>
+							<!--  Setup a Remove link to remove the item from the forksItem Map -->
+							<xp:td style="width:5%">
+								<xp:link escape="true" text="#{langBean.labelRemove}"
+									id="link1">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="partial" refreshId="forksItemsTable"
+										disableValidators="true">
+										<xp:this.action><![CDATA[#{javascript:salesOrderBean.removeForkItem(lineItem.getPartNumber());}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+							</xp:td>
+
+						</xp:tr>
+						<!-- End repeat over the item rows -->
+					</xp:repeat>
+
+					<!-- add in a row for the total and calculate button -->
+
+					<xp:tr>
+
+						<xp:td style="width:20%">
+							<xp:image url="/empty.gif" id="image2"></xp:image>
+						</xp:td>
+						<xp:td>
+							<xp:image url="/empty.gif" id="image3"></xp:image>
+							<xp:label value="${langBean.labelTotal}" id="TotalLabel"></xp:label>
+						</xp:td>
+						<xp:td style="width:10%">
+							<xp:button id="button2" value="${langBean.labelCalculate}"
+								styleClass="btn btn-primary">
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="partial" refreshId="forksItemsTable"
+									disableValidators="true">
+									<xp:this.action><![CDATA[#{javascript://recalc total}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</xp:td>
+						<xp:td style="width:15%">
+							<span style="float:right">
+								<xp:text escape="true" id="orderTotalDisplay"
+									value="#{javascript:return salesOrderBean.getOrderTotal(viewScope.typeOrder );}">
+									<xp:this.converter>
+										<xp:convertNumber pattern=" #,##0.00"></xp:convertNumber>
+									</xp:this.converter>
+								</xp:text>
+							</span>
+						</xp:td>
+						<xp:td style="width:5%">
+							<xp:label value="#{salesOrderBean.custCurrency}" id="label4">
+							</xp:label>
+
+						</xp:td>
+
+					</xp:tr>
+
+				</xp:table>
+
+
+
+
+
+
+				<!--			button table-->
+				<xp:table>
+					<xp:tr>
+						<xp:td></xp:td>
+						<xp:td style="width:10%">
+							<xp:image url="/empty.gif" id="image1"></xp:image>
+						</xp:td>
+						<xp:td>
+							<!-- Error message if quantity is zero for anything -->
+							<xp:panel id="orderErrorMsg" styleClass="orderErrorPanel">
+								<xp:message id="message1" for="orderTotalDisplay"></xp:message>
+							</xp:panel>
+						</xp:td>
+						<xp:td style="width:10%">
+							<xp:button id="buttonNext1" value="${langBean.btnNextStep}"
+								styleClass="btn btn-primary">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial" refreshId="main">
+									<xp:this.action><![CDATA[#{javascript://println("=+=+=+=+=+=+=+=+=")
+dBar.info("Starting Next button");
+//println("Starting Next button");
+
+try{
+	if (salesOrderBean.checkQtyInput(viewScope.typeOrder)){
+		viewScope.orderStep = "step_2.xsp";
+		sessionScope.orderStep = "step_2.xsp";
+		var dc = getComponent("dcOrderStep");
+		//println("var dc = " + dc.toString())
+		dc.show("step_2.xsp")
+	} else {
+	dBar.info("throw error!");
+	
+	//throw an error	
+	var msg=new javax.faces.application.FacesMessage( langBean.getValue("OrderQtyErrorMsg"));
+ 	var orderTotalDisplay:com.ibm.xsp.component.xp.XspOutputText = getComponent("orderTotalDisplay");
+
+ 	facesContext.addMessage( orderTotalDisplay.getClientId(facesContext) , msg);
+	}
+} catch(e){
+	dBar.error("Error in Next button: " + e.toString());
+	println("ccOrderSForks---username " + session.getEffectiveUserName() + "--> Error in Next button: " + e.toString());
+}
+//println("=+=+=+=+=+=+=+=+=")
+
+
+}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+			</xp:panel>
+		</xp:panel>
+	</xp:panel>
+	<xp:eventHandler event="onClientLoad" submit="false">
+		<xp:this.script><![CDATA[//alert("test " + "#{id:dealerPONumberInput}");
+var poElement = document.getElementById("#{id:dealerPONumberInput}");
+if (poElement.value == ""){
+	//alert("focus on poElement");
+	poElement.focus();
+
+} else {
+	//focus on forkNumberInput
+	var forkNumberInput = document.getElementById("#{id:forkNumberInput}");
+	if (forkNumberInput != null){
+		forkNumberInput.focus();
+	}
+}
+
+
+
+//old the code below
+/*
+var poElement = document.getElementById("dealerPONumberInput");
+if (poElement == null){
+	dojo.query("input[id$='dealerPONumberInput']")[0].focus();
+
+} else {
+	dojo.query("input[id$='forkNumberInput']")[0].focus();
+}
+*/]]></xp:this.script>
+	</xp:eventHandler>
+</xp:view>

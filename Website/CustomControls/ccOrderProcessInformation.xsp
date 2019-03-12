@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.data>
+		<xp:dominoDocument var="document1"
+			databaseName=" web2/orders.nsf">
+		</xp:dominoDocument>
+	</xp:this.data>
+
+	<xp:table styleClass="address-table">
+		<xp:tr>
+			<xp:panel styleClass="tableHeading" tagName="th">
+				<xp:this.attrs>
+					<xp:attr name="colspan" value="2"></xp:attr>
+				</xp:this.attrs>
+				<xp:label id="label3"
+					style="font-weight:bold;color:rgb(255,255,255)"
+					value="${langBean.titleOrderDetails}">
+				</xp:label>
+
+			</xp:panel>
+		</xp:tr>
+		<xp:tr>
+			<xp:tr style="width:100%">
+				<xp:td 
+						style="font-weight:bold;color:rgb(255,0,0);font-size:12pt">
+					<xp:inputText id="computedField6" readonly="true">
+						<xp:this.value><![CDATA[${javascript:var urgent = viewScope.urgency;
+var dispUrgent = langBean.PartsOrderUrgent;
+if (urgent == "true"){dispUrgent}
+//if(urgent=="true"){"URGENT"};
+}]]></xp:this.value>
+					</xp:inputText>
+				</xp:td>
+			</xp:tr>
+			<xp:td style="width:40.0%">
+				<xp:label value="${langBean.labelOrderDate}"
+					id="label2">
+				</xp:label>
+			</xp:td>
+			<xp:td style="text-align: right">
+				<xp:inputText id="inputText2"
+					value="#{document1.orderDate}">
+					<xp:this.converter>
+						<xp:convertDateTime type="both"
+							timeStyle="long">
+						</xp:convertDateTime>
+					</xp:this.converter>
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+
+		<xp:tr>
+			<xp:td>
+				<xp:this.rendered><![CDATA[#{javascript:if (viewScope.orderStatus == "Processed") {
+return true;
+} else {
+return false;
+}}]]></xp:this.rendered>
+				<xp:label value="${langBean.LabelOrderProcessDate}"
+					id="label11">
+					<xp:this.rendered><![CDATA[#{javascript:if (viewScope.orderStatus == "Processed") {
+return true;
+} else {
+return false;
+}}]]></xp:this.rendered>
+				</xp:label>
+			</xp:td>
+			<xp:td style="text-align: right">
+				<xp:this.rendered><![CDATA[#{javascript:if (viewScope.orderStatus == "Processed") {
+return true;
+} else {
+return false;
+}}]]></xp:this.rendered>
+				<xp:inputText id="inputText10"
+					value="#{document1.processedDate}">
+					<xp:this.converter>
+						<xp:convertDateTime type="both"
+							timeStyle="long">
+						</xp:convertDateTime>
+					</xp:this.converter>
+					<xp:this.rendered><![CDATA[#{javascript:if (viewScope.orderStatus == "Processed") {
+return true;
+} else {
+return false;
+}}]]></xp:this.rendered>
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.LabelOrderID}"
+					id="label5">
+				</xp:label>
+			</xp:td>
+
+			<xp:td style="text-align: right">
+				<xp:inputText value="#{document1.orderID}"
+					id="inputText5">
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelAcctNumber}"
+					id="acctNumberLabel1">
+				</xp:label>
+			</xp:td>
+			<xp:td style="text-align: right">
+				<xp:inputText id="acctNumber"
+					value="#{document1.accountNbr}" readonly="true">
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.LabelOrderOwner}"
+					id="label6">
+				</xp:label>
+			</xp:td>
+
+			<xp:td style="text-align: right">
+				<xp:inputText value="#{document1.orderOwner}"
+					id="inputText6">
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.LabelOrderStatus}"
+					id="label7">
+				</xp:label>
+			</xp:td>
+
+			<xp:td style="text-align: right">
+				<xp:inputText value="#{document1.orderStatus}"
+					id="inputText7">
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelPurchaseOrder}"
+					id="label9">
+				</xp:label>
+			</xp:td>
+			<xp:td style="text-align:right">
+				<xp:inputText value="#{document1.PONumber}"
+					id="inputText8">
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelEndUserPurchaseOrder}"
+					id="label10">
+				</xp:label>
+			</xp:td>
+			<xp:td style="text-align:right">
+				<xp:inputText value="#{document1.CustomerPONumber}"
+					id="inputText9">
+				</xp:inputText>
+
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.titleShippingInstructions}"
+					id="label4">
+				</xp:label>
+			</xp:td>
+
+			<xp:td style="text-align: right">
+				<xp:inputText value="#{document1.shippingInstructions}"
+					id="inputText3">
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.titlePromoCode}"
+					id="label1">
+				</xp:label>
+			</xp:td>
+
+			<xp:td style="text-align: right">
+				<xp:inputText value="#{document1.promoCode}"
+					id="inputText1">
+				</xp:inputText>
+			</xp:td>
+
+		</xp:tr>
+
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelEmailNotification}"
+					id="email_Label1">
+				</xp:label>
+
+			</xp:td>
+			<xp:td style="text-align: right">
+				<xp:inputText id="email1"
+					value="#{document1.orderEmail}">
+
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelPriceTotal}"
+					id="priceTotal_Label1">
+				</xp:label>
+
+			</xp:td>
+			<xp:td style="text-align: right">
+				<xp:label value="#{document1.CustomerCurrency}"
+					id="label8">
+				</xp:label>
+				&#160;&#160;
+				<xp:inputText id="inputText4"
+					value="#{document1.PriceTotal}">
+					<xp:this.converter>
+						<xp:convertNumber pattern=" #,##0.00"></xp:convertNumber>
+					</xp:this.converter>
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+	</xp:table>
+
+</xp:view>

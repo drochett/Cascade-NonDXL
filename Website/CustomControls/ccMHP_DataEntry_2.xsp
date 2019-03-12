@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex"
+	styleClass="newsfeedtitle" xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<xp:this.resources>
+		<xp:styleSheet href="/cascade.css"></xp:styleSheet>
+		<xp:styleSheet href="/other_websites.css"></xp:styleSheet>
+	</xp:this.resources>
+
+	<xp:this.data>
+		<xe:jdbcQuery connectionName="db2" sqlQuery="CASPYDTA.F5530003"
+			var="jdbcQuery0">
+		</xe:jdbcQuery>
+		<xe:jdbcQuery sqlTable="CASPYDTA.F553005" var="jdbcQuery1"></xe:jdbcQuery>
+
+	</xp:this.data>
+	
+	<xp:panel id="dataUpdate">
+		<xp:panel styleClass="textmhplabelcenter">
+			<xe:widgetContainer id="widgetContainer1"
+				styleClass="login-panel" titleBar="false">
+				<div class="panel-body">
+					<div class="form-group">
+						<div class="row">
+						<div style="text-align:left" class="col-sm-3">
+								<xp:text escape="true" id="computedField41" value="${langBean.mhp_PrintSerialNbr}"
+									styleClass="textmhplabel">
+								</xp:text>
+								&#160;&#160;
+							</div>
+							<div class="col-sm-8">
+								<xp:inputText id="pssrl1" style="height:30.0px;width:200px"
+									disableClientSideValidation="true">
+								</xp:inputText>
+							</div>
+								&#160;&#160;
+								
+							<div class="col-sm-8"></div>
+							<xp:br></xp:br>
+							<xp:br></xp:br>
+							
+						</div>
+					</div>
+				</div>
+			</xe:widgetContainer>
+		</xp:panel>
+		
+		<xp:panel styleClass="textmhplabelcenter">
+			<div Class="panel-body">
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-8"></div>
+						<div>
+							<xp:messages id="messages1" style="text-align:left">
+							</xp:messages>
+							<xp:br></xp:br>
+							&#160;&#160;
+							<xp:button value="${langBean.labelQR2Search}" id="searchBtn"
+								styleClass="btn btn-primary pull-left">
+
+
+
+							<xp:eventHandler
+								event="onclick"
+								submit="true"
+								refreshMode="complete">
+								<xp:this.action><![CDATA[#{javascript:importPackage(com.cascorp);
+try{
+sessionScope.hideAdd=null;
+dBar.info("HostURL:  "+ configBean.getValue("HostURL"));
+var hostURL = configBean.getValue("HostURL");
+var srlNbr = getComponent("pssrl1").getValue().toUpperCase();
+dBar.info("hostURL="+ hostURL);
+dBar.info("srlNbr:  " + srlNbr);
+dBar.info("srlNbr2:  " + "qr/?"+srlNbr);
+sessionScope.newAttachment = true
+var redirectURL = hostURL+"qr/?"+srlNbr;
+	dBar.info("redirectedURL:  " + redirectURL);
+facesContext.getExternalContext().redirect(redirectURL);
+} catch (e) {
+	dBar.error("Error in tab button5: " + e.toString());
+}}]]></xp:this.action>
+							</xp:eventHandler></xp:button>
+							&#160;
+							
+							&#160;
+							
+							&#160;
+							
+							<xp:div style="margin-left:-30px"></xp:div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+			</div>
+		</xp:panel>
+
+
+	</xp:panel>
+
+	<xp:eventHandler
+		event="onClientLoad"
+		submit="true"
+		refreshMode="norefresh">
+		<xp:this.action><![CDATA[#{javascript:sessionScope.remove("serialNbr");
+sessionScope.remove("mhpItem");
+sessionScope.remove("serialNumber");
+sessionScope.remove("newAttachment");
+sessionScope.remove("viaQR");
+sessionScope.remove("hideAdd")}]]></xp:this.action>
+	</xp:eventHandler></xp:view>

@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex"
+	styleClass="newsfeedtitle" xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<xp:this.resources>
+		<xp:styleSheet href="/cascade.css"></xp:styleSheet>
+		<xp:styleSheet href="/other_websites.css"></xp:styleSheet>
+	</xp:this.resources>
+
+	<xp:this.data>
+		<xe:jdbcQuery connectionName="db2" sqlQuery="CASPYDTA.F5530003"
+			var="jdbcQuery0">
+		</xe:jdbcQuery>
+		<xe:jdbcQuery sqlTable="CASPYDTA.F553005" var="jdbcQuery1"></xe:jdbcQuery>
+
+	</xp:this.data>
+	<xp:this.beforePageLoad><![CDATA[#{javascript:viewScope.showSearch = false;
+viewScope.tabNbr = "tab5";
+viewScope.hidePrint="0";
+viewScope.hideClear="0";
+var table = configBean.Schema_Americas_History + configBean.JdbcTable_04;
+sessionScope.jdbcSNtable = table;
+table = configBean.JdbcTable_02;
+sessionScope.jdbcTable = "casprddta"+ table;
+}]]></xp:this.beforePageLoad>
+	<xp:panel id="dataUpdate">
+		<xp:panel styleClass="textmhplabelcenter">
+			<xp:this.rendered><![CDATA[#{javascript:viewScope.hideClear=="0"}]]></xp:this.rendered>
+			<xe:widgetContainer id="widgetContainer1"
+				styleClass="login-panel" titleBar="false">
+				<div class="panel-body">
+					<div class="form-group">
+						<div class="row">
+							<div style="text-align:left" class="col-sm-3">
+								<xp:text escape="true" id="computedField44" value="${langBean.mhp_SpecModelNbr}"
+									styleClass="textmhplabel">
+								</xp:text>
+								&#160;&#160;
+							</div>
+							<div class="col-sm-8">
+								<xp:inputText id="pdlitm" style="height:30.0px;width:200px"
+									disableClientSideValidation="true" >
+								<xp:eventHandler event="onchange"
+									submit="false">
+									<xp:this.script><![CDATA[XSP.getElementById("#{id:pssrl1}").value = "";
+XSP.getElementById("#{id:pdmerl}").value = "";]]></xp:this.script>
+
+								</xp:eventHandler>
+								<xp:eventHandler event="onselect"
+									submit="false">
+									<xp:this.script><![CDATA[XSP.getElementById("#{id:pdmerl}").value = "";]]></xp:this.script>
+								</xp:eventHandler></xp:inputText>
+							</div>
+							<xp:br></xp:br>
+							<xp:br></xp:br>
+							<div style="text-align:left" class="col-sm-3">
+								<xp:text escape="true" id="computedField45" value="${langBean.mhp_RevisionNbr}"
+									styleClass="textmhplabel">
+								</xp:text>
+								&#160;&#160;
+							</div>
+							<div class="col-sm-8">
+								<xp:inputText id="pdmerl" style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true">
+								</xp:inputText>
+							</div>
+							<xp:br></xp:br>
+							<xp:br></xp:br>
+							<div style="text-align:left" class="col-sm-3">
+								<xp:text escape="true" id="computedField41" value="${langBean.mhp_SerialNbr}"
+									styleClass="textmhplabel">
+								</xp:text>
+								&#160;&#160;
+							</div>
+							<div class="col-sm-8">
+								<xp:inputText id="pssrl1" style="height:30.0px;width:200px"
+									disableClientSideValidation="true">
+								</xp:inputText>
+							</div>
+						</div>
+					</div>
+				</div>
+			</xe:widgetContainer>
+		</xp:panel>
+		<xp:panel styleClass="textmhplabelcenter">
+			<xp:this.rendered><![CDATA[#{javascript:viewScope.hideClear=="1"}]]></xp:this.rendered>
+			<xe:widgetContainer id="widgetContainer2"
+				styleClass="login-panel" titleBar="false">
+				<div class="panel-body">
+					<div class="form-group">
+						<div class="row">
+							<div style="text-align:left" class="col-sm-3">
+								<xp:text escape="true" id="computedField42"
+									value="${langBean.mhp_PrintModelNbr}" styleClass="textmhplabel">
+								</xp:text>
+								&#160;&#160;
+							</div>
+							<div class="col-sm-8" style="text-align:left">
+								<xp:inputText id="pdlitm1"
+									style="height:30.0px;width:200px;text-align:left"
+									disableClientSideValidation="true" readonly="true">
+
+								</xp:inputText>
+							</div>
+							<xp:br></xp:br>
+							<xp:br></xp:br>
+							<div style="text-align:left" class="col-sm-3">
+								<xp:text escape="true" id="computedField46"
+									value="${langBean.mhp_PrintRevisionNbr}" styleClass="textmhplabel">
+								</xp:text>
+								&#160;&#160;
+							</div>
+							<div class="col-sm-8" style="text-align:left">
+								<xp:inputText style="width:44.0px;height:30.0px"
+									id="pdmerl1" disableClientSideValidation="true" readonly="true">
+								</xp:inputText>
+							</div>
+							<xp:br></xp:br>
+							<xp:br></xp:br>
+							<div style="text-align:left" class="col-sm-3">
+								<xp:text escape="true" id="computedField43" value="${langBean.mhp_PrintSerialNbr}"
+									styleClass="textmhplabel">
+								</xp:text>
+								&#160;&#160;
+							</div>
+							<div class="col-sm-8" style="text-align:left">
+								<xp:inputText id="pssrl11" style="height:30.0px;width:200px"
+									disableClientSideValidation="true" readonly="true">
+								</xp:inputText>
+							</div>
+						</div>
+					</div>
+				</div>
+			</xe:widgetContainer>
+		</xp:panel>
+		<xp:panel styleClass="textmhplabelcenter">
+			<div Class="panel-body">
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-8"></div>
+						<div>
+							<xp:messages id="messages1" style="text-align:left">
+							</xp:messages>
+							<xp:br></xp:br>
+							&#160;&#160;
+							<xp:button value="${langBean.mhp_Search}" id="searchBtn"
+								styleClass="btn btn-primary pull-left">
+
+
+								<xp:this.rendered><![CDATA[#{javascript:viewScope.hideClear=="0";}]]></xp:this.rendered>
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="partial" immediate="false" save="false" refreshId="dataUpdate">
+
+									<xp:this.action><![CDATA[#{javascript://println("Starting");
+try{
+var mhpRevInput:com.ibm.xsp.component.xp.XspInputText = getComponent("pdmerl");
+var mhpRev = mhpRevInput.getValue();
+viewScope.hideClear="1";
+var mhpSerial = getComponent("pssrl1").getValue().toUpperCase();
+viewScope.mhpSerial = mhpSerial;
+sessionScope.mhpSerial = mhpSerial;
+var mhpItem = getComponent("pdlitm").getValue().toUpperCase();
+viewScope.mhpItem = mhpItem;
+sessionScope.mhpItem = mhpItem;
+viewScope.mhpRev = getComponent("pdmerl").getValue();
+sessionScope.mhpRev = getComponent("pdmerl").getValue();
+println("viewScope " + viewScope.mhpItem);
+println( "mhpItem:  " + mhpItem);
+println( "mhpRev:  " + mhpRev);
+println( "mhpSerial:  " + mhpSerial);
+getComponent("pdlitm1").setValue(viewScope.mhpItem);
+println( "vs.mhpItem:  " +viewScope.mhpItem);
+getComponent("pdmerl1").setValue(viewScope.mhpRev);
+println( "vs.mhpRev:  " +viewScope.mhpRev);
+getComponent("pssrl11").setValue(viewScope.mhpSerial);
+println( "vs.mhpSerial:  " +viewScope.mhpSerial);
+//setup error message object
+var msg=new javax.faces.application.FacesMessage();
+//check data in serial and model numbers field
+if(!mhpSerial || mhpSerial ==""){
+	if(mhpItem==null || mhpItem=="" ) {
+		println("!mhpSerial");
+		//println("["+mhpSerial+"]"); 
+		viewScope.hideClear="0";
+		var errorField = '#{javascript:viewScope.get("errorField")}';
+		var rtn="badMHPdata" ;
+		println (rtn);
+		facesContext.addMessage("Validation Error",  msg(langBean.getValue("mhp_Mode&SerialNbrError")));
+		return
+	}
+	//check that there is data in the revision number fields
+	if(mhpRev==null || mhpRev==""){
+		viewScope.hideClear="0";
+		viewScope.errorField="pdmerl";
+		var errorField = '#{javascript:viewScope.get("errorField")}';
+		var rtn="badMHPdata" ;
+		println (rtn);
+		facesContext.addMessage("Validation Error",  msg(langBean.getValue("mhp_RevisionNbrError")));
+		//var revNbrInput = getElementById("#{id:pdmerl}");
+		//revNbrInput.focus();
+		//getComponent("pdmerl").
+		return
+	}
+}else{
+	//get model number (SWLITM column from table CASHSTDTA.F4220) based on serial Number (SWSRL1 column in table CASHSTDTA.F4220)
+	//println("mhpSerial = ["+mhpSerial+"]")
+	
+	var rev
+	var modelNbr = jdeBean.getModelNbrData(getComponent("pssrl11").getValue().toUpperCase(),"americas", sessionScope.jdbcSNtable);
+	//dBar.info("done getting map")
+	//need to parse out mhpRev from serial number
+	//mhpRev is nbrs after the-R  ie for SPR2262987-1R3 it is 3 which is the 3 in -R3
+	mhpItem = modelNbr;
+	if (mhpItem != ""){
+		var pos = mhpSerial.lastIndexOf("R");
+		//dBar.info("position of R is:  "+pos );
+		rev = mhpSerial.slice(pos+1);
+		//dBar.info("revision number is: " + rev);
+		mhpRev = rev;
+	}
+	//dBar.info("++++++++++++++++++++++++++++")
+	dBar.info("mhpItem for serial Number ["+mhpSerial+"] is " + modelNbr);
+	sessionScope.mhpItem = modelNbr;
+	sessionScope.mhpRev = rev;
+	viewScope.mhpItem = modelNbr;
+	viewScope.mhpRev = rev;
+	getComponent("pdlitm").setValue(viewScope.mhpItem);
+	getComponent("pdmerl").setValue(viewScope.mhpRev);
+}
+dBar.info("mhpItem:  " + mhpItem);
+dBar.info("mhpRev:  " + mhpRev);
+dBar.info("mhpSerial:  " + mhpSerial);
+getComponent("pdlitm1").setValue(viewScope.mhpItem);
+getComponent("pdmerl1").setValue(viewScope.mhpRev);
+getComponent("pssrl11").setValue(viewScope.mhpSerial);
+//println("set value for pdlitm1")
+//println("set value for pdmerl1")
+//println("set value for pssrl11")
+
+//End of error message object
+
+//viewScope.hidePrint="1";
+//getComponent("errorDisplay").setValue("");
+
+var returnMap=new com.ibm.jscript.std.ObjectObject();
+returnMap = jdeBean.getMHPdata(viewScope.get("mhpItem").toUpperCase(),viewScope.get("mhpRev"),"americas", sessionScope.jdbcTable);
+//dBar.info("done getting map");
+//dBar.info("++++++++++++++++++++++++++++")
+println( "done getting map");
+var i;
+for ( i in returnMap ){
+	var iLc = i.toUpperCase();
+	var value = returnMap[i];
+	if(iLc == "STATUS") { //do nothing
+	}else{  //divide by 100
+		viewScope.hidePrint="1";
+		value = Number(returnMap[i])/100;
+	}
+	switch(iLc.trim()){
+		case "STATUS":
+			//dBar.info("status is "+ value);
+			getComponent("errorDisplay").setValue(value);
+			viewScope.hidePrint="0";
+			break
+		case "POSITION1LOADCENTER-MM": //do nothing - it will be taken care of in the next round
+			break
+		case "POSITION1LOADCENTER-IN": //do nothing - it will be taken care of in the next round
+			break
+		case "POSITION2LOADCENTER-IN": //do nothing - it will be taken care of in the next round
+			break
+		case "POSITION2LOADCENTER-MM": //do nothing - it will be taken care of in the next round
+			break
+		default:
+			getComponent(i.toUpperCase()).setValue(value);
+			//dBar.info("set value for " + iLc);	
+			//sessionScope.put(iLc,value);
+			//println("set value for " + iLc + " to "+ value);	
+	};
+};
+// we will now set the values not set above.  what they gets set to depends on values set in othe fields above
+//dBar.info("++++++++++++++++++++++++++++");
+for ( i in returnMap ){
+	//var iLc = i.toUpperCase();
+	iLc = i.toUpperCase();
+	var value = returnMap[i];
+	value = Number(returnMap[i])/100;
+	var fieldVal;
+	switch(iLc.trim()){
+		case "POSITION1LOADCENTER-MM":
+		//println("we are here 1");
+			fieldVal = Number(getComponent("POSITION1CAPACITYONARMS-KG").getValue());
+			//println("<<<<<<<<<<<< value for POSITION1CAPACITYONARMS-KG is >>>>>>>> " + fieldVal.toString())
+			
+			if(fieldVal == 0) {
+			getComponent(iLc).setValue(0);
+			//println("set string 0 value for " + iLc);
+			}else{
+			getComponent(iLc).setValue(value);
+			//println("XXXXXXX set value for " + iLc + " to " + value + " XXXXXXXXX");
+			}
+			//sessionScope.put(iLc,value);
+			//println("we are here 2");
+			fieldVal = Number(getComponent("POSITION1CAPACITYBETWEENARMS-KG").getValue());
+			//println(">>>>>>>>>>>>> value for POSITION1CAPACITYBETWEENARMS-KG is <<<<<<<<<<<< " + fieldVal.toString());
+			if(fieldVal == 0) {
+			getComponent("POSITION1LOADCENTER2-MM").setValue(0);
+			//println("------------------ set 0 as a String value for " + iLc +" #2 to --------------");
+			}else{
+			getComponent("POSITION1LOADCENTER2-MM").setValue(value);
+			//println("set value for " + iLc +" #2");
+			}
+			//sessionScope.put(iLc,value);
+			break;
+			
+		case "POSITION1LOADCENTER-IN":
+			//println("we are here 3");
+			fieldVal = Number(getComponent("POSITION1CAPACITYONARMS-LB").getValue());
+			//println("value for XXXXX POSITION1CAPACITYONARMS-LB is XXXXX "  + fieldVal.toString())
+			if(fieldVal == 0) {
+			//println("setting 0 value for " + iLc);
+			getComponent(iLc).setValue(0);
+			}else{
+			//println("set value for " + iLc + " to " + value.toString());
+			getComponent(iLc).setValue(value);
+			}
+			//sessionScope.put(iLc,value);
+			
+			//println("we are here 4");
+			fieldVal = Number(getComponent("POSITION1CAPACITYBETWEENARMS-LB").getValue());
+			if(fieldVal == "0") {
+			getComponent("POSITION1LOADCENTER2-IN").setValue(0);
+			//println("set 0 value for " + iLc +" #2");
+			}else{
+			getComponent("POSITION1LOADCENTER2-IN").setValue(value);
+			//println("set value for " + iLc +" #2 to " + value.toString());
+			}
+			//sessionScope.put(iLc,value);
+			break;
+			
+		case "POSITION2LOADCENTER-MM":
+			//println("we are here 5");
+			fieldVal = Number(getComponent("POSITION2CAPACITYONARMS-KG").getValue());
+			//println("value for XXXXX POSITION2CAPACITYONARMS-LB is XXXXX "  + fieldVal.toString())
+			if(fieldVal == 0) { 
+			//println("setting 0 value for " + iLc);
+			getComponent(iLc).setValue(0);
+			}else{
+			//println("set value for " + iLc + " to " + value.toString());
+			getComponent(iLc).setValue(value);
+			}
+			//sessionScope.put(iLc,value);
+			
+			//println("we are here 6");
+			fieldVal = Number(getComponent("POSITION2CAPACITYBETWEENARMS-KG").getValue());
+			//println("value for VVVVV POSITION2CAPACITYBETWEENARMS-KG is VVVVV "  + fieldVal.toString())
+			if(fieldVal == 0) { 
+			//println("setting 0 value for " + iLc);
+			getComponent("POSITION2LOADCENTER2-MM").setValue(0);
+			}else{
+			//println("set value for " + iLc + " to " + value.toString());
+			getComponent(iLc).setValue(value);
+			}
+			//sessionScope.put(iLc,value);
+			break;
+			
+		case "POSITION2LOADCENTER-IN":
+			//println("we are here 7");
+			fieldVal = Number(getComponent("POSITION2CAPACITYONARMS-LB").getValue());
+			//println("value for XXXXX POSITION2CAPACITYONARMS-LB is XXXXX "  + fieldVal.toString())
+			if(fieldVal == 0) { 
+			//println("setting 0 value for " + iLc);
+			getComponent(iLc).setValue(0);
+			}else{
+			//println("set value for " + iLc + " to " + value.toString());
+			getComponent(iLc).setValue(value);
+			}
+			//sessionScope.put(iLc,value);
+			
+			//println("we are here 8");
+			fieldVal = Number(getComponent("POSITION2CAPACITYBETWEENARMS-LB").getValue());
+			//println("value for VVVVV POSITION2CAPACITYBETWEENARMS-LB is VVVVV "  + fieldVal.toString());
+			if(fieldVal == 0) { 
+			//println("setting 0 value for " + iLc);
+			getComponent("POSITION2LOADCENTER2-IN").setValue(0);
+			}else{
+			//println("set value for " + iLc + " to " + value.toString());
+			getComponent(iLc).setValue(value);
+			}
+			break;
+		default:
+			break;
+	};
+}
+} catch(e){
+	dBar.error("Error in Search button: " + e.toString());
+	println("ccDataEntry---username " + session.getEffectiveUserName() + "--> Error in Search button: " + e.toString());
+}
+println("++++++++++++++++++++++++++++");
+
+}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+							&#160;
+							<xp:button value="${javascript:langBean.mhp_Clear}" id="clearBtn"
+								styleClass="btn btn-primary pull-left">
+
+								<xp:this.rendered><![CDATA[#{javascript:viewScope.hideClear=="1";}]]></xp:this.rendered>
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="complete">
+									<xp:this.action><![CDATA[#{javascript:viewScope.hidePrint="0";
+viewScope.hideClear="0";
+//viewScope.mhpRev = "";
+//viewScope.mhpItem="";
+//viewScope.mhpSerial="";
+//sessionScope.mhpRev = "";
+//sessionScope.mhpItem="";
+//sessionScope.mhpSerial="";
+getComponent("pdlitm").setValue(viewScope.mhpItem);
+getComponent("pdmerl").setValue(viewScope.mhpRev);
+getComponent("pssrl1").setValue(viewScope.mhpSerial);
+getComponent("errorDisplay").setValue("");
+//getComponent("messages1").setValue("")
+//reset all fields in TABULATED SPECIFICATION DATA area
+getComponent("DESIGNEDOPERATINGPRESSURE-PSI").setValue(0);
+getComponent("ADDITIONALINFORMATION").setValue(0);
+getComponent("MAXIMUMOPERATINGFLOW-GPM").setValue(0);
+getComponent("POSITION3VERTICALCG-MM").setValue(0);
+getComponent("POSITION1CAPACITYONARMS-LB").setValue(0);
+getComponent("MAXIMUMOPERATINGPRESSURE-BAR").setValue(0);
+getComponent("POSITION2CAPACITYBETWEENARMS-KG").setValue(0);
+getComponent("POSITION3VERTICALCG-IN").setValue(0);
+getComponent("POSITION2CAPACITYONARMS-KG").setValue(0);
+getComponent("POSITION1LATERALCG-MM").setValue(0);
+getComponent("POSITION1LOSTLOAD-MM").setValue(0);
+getComponent("POSITION2LATERALCG-MM").setValue(0);
+getComponent("POSITION3HORIZONTALCG-MM").setValue(0);
+getComponent("POSITION3LATERALCG-MM").setValue(0);
+getComponent("MINIMUMOPERATINGFLOW-LPM").setValue(0);
+getComponent("POSITION4LATERALCG-MM").setValue(0);
+getComponent("POSITION1LATERALCG-IN").setValue(0);
+getComponent("POSITION1LOSTLOAD-IN").setValue(0);
+getComponent("POSITION2LATERALCG-IN").setValue(0);
+getComponent("POSITION3HORIZONTALCG-IN").setValue(0);
+getComponent("POSITION3LATERALCG-IN").setValue(0);
+getComponent("POSITION4LATERALCG-IN").setValue(0);
+getComponent("POSITION2CAPACITYBETWEENARMS-LB").setValue(0);
+getComponent("POSITION4VERTICALCG-MM").setValue(0);
+getComponent("POSITION2CAPACITYONARMS-LB").setValue(0);
+getComponent("RECOMMENDEDOPERATINGFLOW-GPM").setValue(0);
+getComponent("POSITION4VERTICALCG-IN").setValue(0);
+getComponent("POSITION2HORIZONTALCG-MM").setValue(0);
+getComponent("MAXIMUMOPERATINGPRESSURE-PSI").setValue(0);
+getComponent("POSITION2HORIZONTALCG-IN").setValue(0);
+getComponent("POSITION1LOADCENTER-MM").setValue(0);
+getComponent("POSITION1VERTICALCG-MM").setValue(0);
+getComponent("MAXIMUMOPERATINGFLOW-LPM").setValue(0);
+getComponent("POSITION1CAPACITYBETWEENARMS-KG").setValue(0);
+getComponent("POSITION1LOADCENTER-IN").setValue(0);
+getComponent("DESIGNEDOPERATINGPRESSURE-BAR").setValue(0);
+getComponent("POSITION1VERTICALCG-IN").setValue(0);
+getComponent("ATTACHMENTMASS-KG").setValue(0);
+getComponent("MINIMUMOPERATINGFLOW-GPM").setValue(0);
+getComponent("POSITION1HORIZONTALCG-MM").setValue(0);
+getComponent("POSITION1HORIZONTALCG-IN").setValue(0);
+getComponent("POSITION1CAPACITYBETWEENARMS-LB").setValue(0);
+getComponent("POSITION2LOADCENTER-MM").setValue(0);
+getComponent("POSITION2VERTICALCG-MM").setValue(0);
+getComponent("ATTACHMENTMASS-LB").setValue(0);
+getComponent("POSITION2LOADCENTER-IN").setValue(0);
+getComponent("POSITION2VERTICALCG-IN").setValue(0);
+getComponent("RECOMMENDEDOPERATINGFLOW-LPM").setValue(0);
+getComponent("POSITION1CAPACITYONARMS-KG").setValue(0);
+getComponent("POSITION2LOSTLOAD-MM").setValue(0);
+getComponent("POSITION4HORIZONTALCG-MM").setValue(0);
+getComponent("POSITION2LOSTLOAD-IN").setValue(0);
+getComponent("POSITION4HORIZONTALCG-IN").setValue(0);
+
+getComponent("POSITION1LOADCENTER2-MM").setValue(0);
+getComponent("POSITION1LOADCENTER2-IN").setValue(0);
+getComponent("POSITION2LOADCENTER2-MM").setValue(0);
+getComponent("POSITION2LOADCENTER2-IN").setValue(0);
+}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+							&#160;
+							<xp:button value="${javascript:langBean.mhp_PrintFriend}"
+								id="printBtn" styleClass="btn btn-primary pull-left">
+								<xp:this.rendered><![CDATA[#{javascript:if(viewScope.hidePrint=="1"){true}else{false};}]]></xp:this.rendered>
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="complete" immediate="true">
+
+
+									<xp:this.action><![CDATA[#{javascript://println("Printing MHP ITEM SPECIFICATION PAGE");
+context.redirectToPage("MHP_SpecificationsPrint",false);
+//target="_blank";
+/*var host = window.location.href;
+var url = host.replace("xpMHP_Specifications", "xpMHP_Specifications_Print");
+println(url);
+window.open(url,"_blank");*/}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+							&#160;
+							<xp:button value="Refresh" id="btnRefresh" rendered="false">
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="partial" refreshId="btnRefresh" immediate="false"
+									save="true">
+								</xp:eventHandler>
+							</xp:button>
+							<xp:div style="margin-left:-30px"></xp:div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+			</div>
+		</xp:panel>
+
+		<xp:panel styleClass="row.cascade-homepage-content" id="dataError"
+			tagName="div">
+			<xp:div style="text-align:left, text-color:rgb(255,0,0)">
+				<xc:ccDataError></xc:ccDataError>
+				<xc:ccMHP_SpecSheetTitle />
+			</xp:div>
+		</xp:panel>
+
+		<xp:panel styleClass="row" id="mhpData" tagName="div">
+			<xp:panel id="left" styleClass="col-sm-5">
+				<xc:ccMHP_SpecData_Left />
+			</xp:panel>
+			<xp:panel id="panel2" styleClass="col-sm-5" tagName="div">
+				<xc:ccMHP_SpecData_Right />
+			</xp:panel>
+			<xp:panel id="panel4" styleClass="col-sm-5" tagName="div">
+				<xc:ccMHP_SpecData_Left_Btm />
+			</xp:panel>
+			<xp:panel id="panel5" styleClass="col-sm-5" tagName="div">
+				<xc:ccMHP_SpecData_Right_Btm />
+			</xp:panel>
+		</xp:panel>
+
+		<xp:eventHandler event="onClientLoad" submit="false">
+			<xp:this.script><![CDATA[var modelNbrInput = document.getElementById("#{id:pdlitm}");
+if(!!modelNbrInput){modelNbrInput.focus()};
+]]></xp:this.script>
+
+		</xp:eventHandler>
+
+	</xp:panel>
+
+</xp:view>

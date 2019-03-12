@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="(Replace single quote with apostrophe)" hide="v3" publicaccess="false">
+  <trigger type="agentlist"/>
+  <documentset type="runonce"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent Replace single quote with apostrophe
+	Created Sep 7, 2016 by Michael Zens/PTL/CASCADE
+	Description: Comments for Agent
+%END REM
+Option Public
+Option Declare
+
+
+
+</lotusscript>
+  </code>
+  <code event="declarations">
+    <lotusscript>Dim OldStr As String
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	Dim s As  New NotesSession
+	Dim db As NotesDatabase
+	Dim v As NotesView
+	Dim dc As NotesDocumentCollection
+	Dim multiFieldCollection As NotesDocumentCollection
+	Dim doc As NotesDocument
+	
+	Set db = s.Currentdatabase
+	Set v = db.Getview("ActiveLabelValues")
+	Set dc = db.Search("", Nothing, 0)
+	Set multiFieldCollection = db.Search("", Nothing, 0)
+	Set doc = v.getFirstDocument
+	
+	Do Until doc Is Nothing
+		If doc.IsMultiValue(0) = "Yes" Then Goto Get_Next_Doc 'not processing multivalue fields
+		Dim vals As String
+		vals = ""
+		vals = doc.val_Americas_en(0) + doc.val_eme_de(0) + doc.val_eme_en(0) + doc.val_eme_es(0) _
+		+ doc.val_eme_fi(0) + doc.val_eme_fr(0) + doc.val_eme_it(0) + doc.val_eme_nl(0) + doc.val_eme_se(0)
+		 If Instr(vals,"'") Then
+		 	Call dc.Adddocument(doc)
+		 End If
+GET_NEXT_DOC:
+		Set doc = v.Getnextdocument(doc)
+	Loop
+	Msgbox "Total documents with apostrophe is " + Cstr(dc.count)
+	Set doc = Nothing
+	Set doc = dc.Getfirstdocument()
+	
+	Do Until doc Is Nothing
+		If doc.IsMultiValue(0) = "Yes" Then
+			Call multiFieldCollection.Adddocument(doc)
+			Goto Next_Doc
+		End If
+		Print Ucase(doc.getItemValue("Key")(0))
+		'parse out val_americas_en value
+		If Instr(doc.val_americas_en(0),"'") Then
+			Call replaceSingleQuote(doc.getFirstItem("val_americas_en"),doc)
+		End If
+	
+		'parse out val_eme_de value
+		If Instr(doc.val_eme_de(0),"'") Then
+			Call replaceSingleQuote(doc.getFirstItem("val_eme_de"),doc)
+		End If
+	
+		'parse out val_eme_en value
+		If Instr(doc.val_eme_en(0),"'") Then
+			Call replaceSingleQuote(doc.getFirstItem("val_eme_en"),doc)
+		End If
+		
+		'parse out val_eme_es value
+		If Instr(doc.val_eme_es(0),"'") Then
+			Call replaceSingleQuote(doc.getFirstItem("val_eme_es"),doc)
+		End If
+		
+		'parse out val_eme_fi value
+		If Instr(doc.val_eme_fi(0),"'") Then
+			Call replaceSingleQuote(doc.getFirstItem("val_eme_fi"),doc)
+		End If
+		
+		'parse out val_eme_fr value
+		If Instr(doc.val_eme_fr(0),"'") Then
+			Call replaceSingleQuote(doc.getFirstItem("val_eme_fr"),doc)
+		End If
+		
+		'parse out val_eme_it value
+		If Instr(doc.val_eme_it(0),"'") Then
+			Call replaceSingleQuote(doc.getFirstItem("val_eme_it"),doc)
+		End If
+		
+		'parse out val_eme_nl value
+		If Instr(doc.val_eme_nl(0),"'") Then
+			Call replaceSingleQuote(doc.getFirstItem("val_eme_nl"),doc)
+		End If
+		
+		'parse out val_eme_se value
+		If Instr(doc.val_eme_se(0),"'") Then
+			Call replaceSingleQuote(doc.getFirstItem("val_eme_se"),doc)
+		End If
+		
+		Call doc.Save(True,False)
+		
+NEXT_DOC:
+		Set doc = dc.GetNextDocument(doc)
+	Loop
+	
+	
+	Msgbox "Total Docs with MultiValues are: " + Cstr(multifieldcollection.count)
+	Stop
+End Sub
+
+</lotusscript>
+  </code>
+  <code event="replaceSingleQuote">
+    <lotusscript>%REM
+	Function replaceSingleQuote
+	Description: We are here because the ORIGINAL ITEM VALUE
+	has a single Quote in it. It may have more than one so we
+	need to get them all out
+%END REM
+Function replaceSingleQuote(item As NotesItem, doc As NotesDocument)
+	Dim newStr As String
+	Dim parsedStr As String
+	Dim fieldName As String
+	newStr = ""
+	parsedStr = ""
+	oldStr = item.Values(0)
+	fieldName = item.Name  'testing
+	If doc.getItemValue("Key")(0) = "AccountActivateMsgBadDoc" Then Stop
+	Print fieldName + ":  " + oldStr
+RECHECK_STRING:
+	If Instr(oldStr,"'") Then
+		parsedStr = parseOutQuote(oldStr)
+		If newStr = "" Then
+			newStr = parsedStr
+		Else
+			newStr = newStr + "’" + parsedStr
+		End If
+			Goto Recheck_String  ' need to cycle through entire item.value(0)
+	Else 'we have cycled through entire ooldStr need to append rest of oldStr
+		 'to new =Str
+		newStr = newStr + "’" + oldStr
+	End If
+
+	'MsgBox "’"
+	'MsgBox "'"
+	Print fieldName + ":  " + newStr
+	Call doc.ReplaceItemValue(item.name,newStr)
+	
+End Function
+
+</lotusscript>
+  </code>
+  <code event="parseOutQuote">
+    <lotusscript>%REM
+	Function parseOutApostrohe
+	Description: Comments for Function
+%END REM
+Function parseOutQuote(valueStr As String) As String
+	'need to loop through the valueStr and recompose the string replacing 
+	'all single quotes (') with apostrophe (’)
+	
+	Dim leftVal As String
+	leftVal = parseListItem(valueStr,"Left","'")
+	oldStr = parseListItem(valueStr,"Right","'")
+	parseOutQuote = leftVal
+	
+End Function
+
+</lotusscript>
+  </code>
+  <code event="parseListItem">
+    <lotusscript>Function parseListItem(valueStr As String, parseType As String, symbol As String) As String
+	
+	Dim itemLen As Integer, pos As Integer
+	Dim st As String
+	st =  Cstr(Getthreadinfo(1)) + ": " 'Used for error trapping
+	On Error Goto error_handler
+	itemLen = Len(valueStr)
+	
+	pos = Instr(valueStr,symbol)
+
+	If parseType = "Right" Then
+		parseListItem = Trim(Right(valueStr,itemLen - (Pos)))
+	Else
+		parseListItem = Trim(Left(valueStr,pos-1))
+	End If
+	Goto End_Of_Code
+ERROR_HANDLER:
+	Msgbox (st &amp; " - Error in line "  &amp; Erl &amp; " (ERROR " &amp; Err &amp;" - "  &amp; Error &amp; ")")
+	Resume End_Of_Code
+END_OF_CODE:
+	
+End Function</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101939,26-08</datetime>
+  </item>
+</agent>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.resources>
+		<xp:styleSheet href="/cascade.css"></xp:styleSheet>
+		<xp:styleSheet href="/other_websites.css"></xp:styleSheet>
+	</xp:this.resources>
+	<xe:widgetContainer id="widgetContainer1" titleBar="false">
+		<xp:panel styleClass="textmhplabelerror">
+			<div style="text-align:center; color:rgb(255,0,0)">
+				<xp:inputText id="errorDisplay" readonly="true"
+					styleClass="textmhplabelerror" style="color:rgb(255,0,0)">
+				</xp:inputText>
+			</div>
+			<xp:table style="width:100.0%">
+				<xp:tr style="backgoundColor:#8dc63f">
+					<xp:td style="background-color:rgb(0,47,128)"
+						id="td1">
+
+					</xp:td>
+				</xp:tr>
+			</xp:table>
+		</xp:panel>
+	</xe:widgetContainer>
+</xp:view>

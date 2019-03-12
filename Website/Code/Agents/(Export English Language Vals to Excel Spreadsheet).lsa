@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="(Export English Language Vals to Excel Spreadsheet)" hide="v3" publicaccess="false">
+  <trigger type="agentlist"/>
+  <documentset type="runonce"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent Import Labels from Excel Spreadshett
+	Created May 2, 2016 by Michael Zens/PTL/CASCADE
+	Description: This agent grabs a few views which contain language and menu labels
+		and populate excel spreadsheets with them. The spreadsheet will be used to 
+		send out for language translations
+%END REM
+Option Public
+Option Declare
+
+
+</lotusscript>
+  </code>
+  <code event="declarations">
+    <lotusscript>Dim xlApp As Variant, xlsheet As Variant, rows As Integer, cols As Integer
+Dim wsNbr As Integer
+Dim db As NotesDatabase
+Dim importLogSet As Boolean
+Dim importLogDoc As NotesDocument
+Dim importLogMsgRT As NotesRichTextItem
+'added to seperate the error messages
+Dim importLogErrorRT As NotesRichTextItem
+Dim importLogWarningRT As NotesRichTextItem
+Dim importLogInfoRT As NotesRichTextItem
+Dim changeCount As Long
+Dim deleteCount As Long
+Dim errorCount As Integer
+Dim warningcount As Long
+Dim infoCount As Long
+Dim unknownError As Long
+Dim thisServer As String
+Dim lastLogMessage As Boolean
+Dim written As Integer
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	On Error GoTo ErrorTrap
+	Dim s As New NotesSession, w As New NotesUIWorkspace
+	Dim v As NotesView, vString As String
+	Dim dcSingle As NotesDocumentCollection, dcMulti As NotesDocumentCollection
+	Dim dcBar As NotesDocumentCollection, dcBarMulti As NotesDocumentCollection 
+	Dim doc As NotesDocument, maxcols As Integer
+	
+	'===========================Set up Notes Stuff ==========================
+	Set db = s.CurrentDatabase   'link to current database
+	'initialize the documentcollection
+	VString ="AcitveLanguageMenu"
+	Set v = db.getview(VString)  'get selected view
+	Set dcSingle = v.Getalldocumentsbykey("Shaving Cream", True)
+	Set dcMulti = v.Getalldocumentsbykey("Shaving Cream", True)
+	Set dcBar = v.Getalldocumentsbykey("Shaving Cream", True)
+	Set dcBarMulti = v.Getalldocumentsbykey("Shaving Cream", True)
+	'=========================================================================
+	'===========================Populate the doc collections =================
+	
+	
+	Set doc = v.Getfirstdocument()
+	Do Until doc Is Nothing
+		If Instr(doc.GetItemValue("val_americas_en")(0),"|") Then
+		'use de because sometimes americas english is not an alias
+			If doc.Hasitem("isMultiValue") And doc.isMultiValue(0) = "Yes" Then
+				Call dcBarMulti.AddDocument(doc)
+			Else
+				Call dcBar.AddDocument(doc)
+			End If
+		Else
+			If doc.Hasitem("isMultiValue") And doc.isMultiValue(0) = "Yes" Then
+				Call dcMulti.AddDocument(doc)
+			Else
+				Call dcSingle.AddDocument(doc)
+			End If
+		End If
+		Set doc = v.getNextDocument(doc)
+	Loop
+	
+	
+	'GoTo Process_Collections
+	'=========================================================================
+	'===========================Set up excel =================================
+	Set xlApp = CreateObject("Excel.Application")  'start Excel with OLE Automation
+	xlApp.StatusBar = "Creating WorkSheet. Please be patient..."
+	xlApp.Visible = True
+	xlApp.Workbooks.Add
+	xlApp.ReferenceStyle = 2	
+	'=========================================================================
+PROCESS_COLLECTIONS:
+	Call a_singleLabelValSpreadsheet(dcSingle)
+	Call b_multiValSpreadsheet(dcMulti)
+	Call c_singleBarValSpreadsheet(dcBar)
+	Call d_multiBarValSpreadsheet(dcBarMulti)
+	
+	xlApp.StatusBar = "Importing Data from Lotus Notes Application completed."
+	
+	Set xlapp=Nothing   'stop OLE
+Set db=Nothing	
+	GoTo EndOfCode
+ERRORTRAP:
+	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Resume EndOfCode
+ENDOFCODE:
+	
+End Sub
+
+</lotusscript>
+  </code>
+  <code event="a_singleLabelValSpreadsheet">
+    <lotusscript>%REM
+	Function a_singleValSpreadsheet
+	Description: Create worksheet for single value documents
+%END REM
+Function a_singleLabelValSpreadsheet(dc As NotesDocumentCollection)
+	On Error GoTo ErrorTrap
+	Dim dcMenu As NotesDocumentCollection
+	Set dcMenu = db.Search("",Nothing,0)
+	cols = 0  'init the value to zero so code works
+	rows = 0  'init the value to zero so code works
+	Dim doc As NotesDocument, range As String
+	'==========================='create first worksheet==========================
+	'	If xlapp.worksheets(1).Name &lt;&gt; "SingleValueLabels" Then 
+	'		Set xlsheet = xlapp.Worksheets.Add()
+	'	Else
+	'		Set xlsheet = xlapp.worksheets(1)
+	'	End If
+	wsNbr = wsNbr+1
+
+	Set xlsheet = xlapp.worksheets(wsNbr)
+	xlsheet.Name = "SingleValueLabels"
+	xlApp.StatusBar = "Importing Data from Lotus Notes Application......"
+	'set up the column titles
+	'label, americas en, eme_en, eme_de, eme_es, eme_fi, eme_fr, eme_it, eme_nl, eme_se
+	cols = cols+1
+	rows=rows+1
+	range = "A"+Cstr(rows)+":D"+Cstr(rows)
+	xlsheet.Cells(rows,cols).Value = "Label"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "XPage"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "Custom Control"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "Value"
+	xlApp.Rows(rows).Select
+	xlApp.Selection.Font.Bold = True
+	xlApp.selection.Font.Name = "Arial"
+	xlApp.selection.Font.Size = 9
+	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	'++++++++++++++++++++++fill in values from docs++++++++++++++++++++++
+	
+	Set doc = dc.Getfirstdocument()
+	Do Until doc Is Nothing
+		If doc.Form(0) = "MenuForm" Then
+			' labelVal = "Menu-"
+			Call dcMenu.AddDocument(doc)
+		Else
+			'labelVal = "Label-"
+		rows = rows+1
+		xlSheet.cells(rows,1).value = doc.getitemValue("key")(0)
+		xlSheet.cells(rows,2).value = doc.xpage(0)
+		xlSheet.cells(rows,3).value = doc.cc(0)
+		xlSheet.cells(rows,4).value = doc.val_americas_en(0)
+		End If
+		Set doc = dc.getnextdocument(doc)
+	Loop
+	range = "A1:D"+Cstr(Rows)
+	'MsgBox CStr(GetThreadInfo(1)) &amp; " A1:D"+Cstr(Rows)
+	formatSheet(range)
+	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	Call e_singleMenuValSpreadsheet(dcMenu)
+	GoTo EndOfCode
+ERRORTRAP:
+	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Resume EndOfCode
+ENDOFCODE:
+	
+End Function
+
+</lotusscript>
+  </code>
+  <code event="d_multiBarValSpreadsheet">
+    <lotusscript>%REM
+	Function d_multiBarValSpreadsheet
+	Description: Comments for Function
+%END REM
+Function d_multiBarValSpreadsheet(dc As NotesDocumentCollection)
+	On Error GoTo ErrorTrap
+	cols = 0  'init the value to zero so code works
+	rows = 0  'init the value to zero so code works
+	Dim doc As NotesDocument, range As String
+	'==========================='create first worksheet==========================
+	wsNbr = wsNbr+1  'worksheet number
+	Set xlsheet = xlapp.Worksheets.Add()
+	xlsheet.Name = "BarMultiValueLabels"
+	xlApp.StatusBar = "Processing Alias Labels with multi values......"
+	'set up the column titles
+	'label, americas en, eme_en, eme_de, eme_es, eme_fi, eme_fr, eme_it, eme_nl, eme_se
+	cols = cols+1
+	rows=rows+1
+	range = "A"+Cstr(rows)+":D"+Cstr(rows)
+	xlsheet.Cells(rows,cols).Value = "Label"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "XPage"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "Custom Control"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "Value"
+	xlApp.Rows(rows).Select
+	xlApp.Selection.Font.Bold = True
+	xlApp.selection.Font.Name = "Arial"
+	xlApp.selection.Font.Size = 9
+	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	'++++++++++++++++++++++fill in values from docs++++++++++++++++++++++
+	
+	Set doc = dc.Getfirstdocument()
+	Dim item As NotesItem
+	Do Until doc Is Nothing
+		'init the values to basically nothing
+		Dim x As Integer
+		xlSheet.cells(rows,1).value = doc.getitemValue("key")(0)
+		xlSheet.cells(rows,2).value = doc.xpage(0)
+		xlSheet.cells(rows,3).value = doc.cc(0)
+		rows = rows+1
+		xlSheet.cells(rows,cols).value = doc.getitemValue("key")(0)
+		x=04
+			x=0  'reinit4
+			Dim value As String
+			value = ""
+			Set item = Nothing
+			Set item = doc.getFirstItem("val_americas_en")
+			Forall i In item.values
+				If x = 0 Then
+					value = i
+					x = x+1
+				Else
+					value = value + Chr(10) + i
+				End If
+			End Forall
+			xlSheet.cells(rows,4).value = value
+'		End Forall
+		Set doc = dc.getnextdocument(doc)
+	Loop
+	range = "A1:D"+Cstr(Rows)
+	'MsgBox CStr(GetThreadInfo(1)) &amp; " A1:D"+Cstr(Rows)
+	formatSheet(range)
+	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	GoTo EndOfCode
+ERRORTRAP:
+	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Resume EndOfCode
+ENDOFCODE:
+End Function
+
+</lotusscript>
+  </code>
+  <code event="formatSheet">
+    <lotusscript>%REM
+	Function formatSheet
+	Description: Comments for Function
+%END REM
+Function formatSheet(range As String)
+	On Error GoTo ErrorTrap
+	xlApp.Range(range).Select
+	xlApp.Selection.Font.Name = "Arial"
+	xlApp.Selection.Font.Size = 9
+	xlApp.Selection.Columns.AutoFit
+	xlApp.Selection.VerticalAlignment = 1
+	xlApp.Selection.Borders.LineStyle = 1
+	xlApp.Selection.Borders.Weight = 2
+
+	GoTo EndOfCode
+ERRORTRAP:
+	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Resume EndOfCode
+ENDOFCODE:
+End Function
+
+</lotusscript>
+  </code>
+  <code event="e_singleMenuValSpreadsheet">
+    <lotusscript>%REM
+	Function e_singleMenuValSpreadsheet
+	Description: Comments for Function
+%END REM
+Function e_singleMenuValSpreadsheet(dc As NotesDocumentCollection)
+	On Error GoTo ErrorTrap
+	cols = 0  'init the value to zero so code works
+	rows = 0  'init the value to zero so code works
+	Dim doc As NotesDocument, range As String
+	'==========================='create first worksheet==========================
+	wsNbr = wsNbr+1
+	Set xlsheet = xlapp.Worksheets.Add()
+	xlsheet.Name = "MenuLabels"
+	xlApp.StatusBar = "Importing Data from Lotus Notes Application......"
+	'set up the column titles
+	'label, americas en, eme_en, eme_de, eme_es, eme_fi, eme_fr, eme_it, eme_nl, eme_se
+	cols = cols+1
+	rows=rows+1
+	range = "A"+Cstr(rows)+":D"+Cstr(rows)
+	xlsheet.Cells(rows,cols).Value = "Label"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "XPage"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "Custom Control"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "Value"
+	xlApp.Rows(rows).Select
+	xlApp.Selection.Font.Bold = True
+	xlApp.selection.Font.Name = "Arial"
+	xlApp.selection.Font.Size = 9
+	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	'++++++++++++++++++++++fill in values from docs++++++++++++++++++++++
+	
+	Set doc = dc.Getfirstdocument()
+	Do Until doc Is Nothing
+			rows = rows+1
+			xlSheet.cells(rows,1).value = doc.getitemValue("key")(0)
+			xlSheet.cells(rows,2).value = doc.xpage(0)
+			xlSheet.cells(rows,3).value = doc.cc(0)
+			xlSheet.cells(rows,4).value = doc.val_americas_en(0)
+		Set doc = dc.getnextdocument(doc)
+	Loop
+	range = "A1:D"+Cstr(Rows)
+	'MsgBox CStr(GetThreadInfo(1)) &amp; " A1:D"+Cstr(Rows)
+	formatSheet(range)
+	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	GoTo EndOfCode
+ERRORTRAP:
+	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Resume EndOfCode
+ENDOFCODE:
+End Function
+
+</lotusscript>
+  </code>
+  <code event="b_multiValSpreadsheet">
+    <lotusscript>%REM
+	Function b_multiValSpreadsheet
+	Description: Comments for Function
+%END REM
+Function b_multiValSpreadsheet(dc As NotesDocumentCollection)
+	On Error GoTo ErrorTrap
+	cols = 0  'init the value to zero so code works
+	rows = 0  'init the value to zero so code works
+	Dim doc As NotesDocument, range As String
+	'==========================='create first worksheet==========================
+	wsNbr = wsNbr+1  'worksheet number
+	Set xlsheet = xlapp.Worksheets.Add()
+	xlsheet.Name = "MultiValueLabels"
+	xlApp.StatusBar = "Processing Labels with multi values......"
+	'set up the column titles
+	'label, americas en, eme_en, eme_de, eme_es, eme_fi, eme_fr, eme_it, eme_nl, eme_se
+	cols = cols+1
+	rows=rows+1
+	range = "A"+Cstr(rows)+":D"+Cstr(rows)
+	xlsheet.Cells(rows,cols).Value = "Label"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "XPage"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "Custom Control"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "Value"
+	xlApp.Rows(rows).Select
+	xlApp.Selection.Font.Bold = True
+	xlApp.selection.Font.Name = "Arial"
+	xlApp.selection.Font.Size = 9
+	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	'++++++++++++++++++++++fill in values from docs++++++++++++++++++++++
+
+	Set doc = dc.Getfirstdocument()
+	Dim labelVal As String
+	Dim item As NotesItem
+	Do Until doc Is Nothing
+		'init the values to basically nothing
+		Dim x As Integer
+		rows = rows+1
+		xlSheet.cells(rows,1).value = doc.getitemValue("key")(0)
+		xlSheet.cells(rows,2).value = doc.xpage(0)
+		xlSheet.cells(rows,3).value = doc.cc(0)
+			x=0  'reinit
+			Dim value As String
+			value = ""
+			Set item = Nothing
+			Set item = doc.getFirstItem("val_americas_en")
+			Forall i In item.values
+				If x = 0 Then
+					value = i
+					x = x+1
+				Else
+					value = value + Chr(10) + i
+				End If
+			End Forall
+			xlSheet.cells(rows,4).value = value
+		Set doc = dc.getnextdocument(doc)
+	Loop
+	range = "A1:D"+Cstr(Rows)
+	'MsgBox CStr(GetThreadInfo(1)) &amp; " A1:D"+Cstr(Rows)
+	formatSheet(range)
+	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	GoTo EndOfCode
+ERRORTRAP:
+	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Resume EndOfCode
+ENDOFCODE:
+	
+End Function
+
+</lotusscript>
+  </code>
+  <code event="c_singleBarValSpreadsheet">
+    <lotusscript>%REM
+	Function c_singleBarValSpreadsheet
+	Description: creates workSheet for those single values with Aliases (|)
+%END REM
+Function c_singleBarValSpreadsheet(dc As NotesDocumentCollection)
+	On Error GoTo ErrorTrap
+	cols = 0  'init the value to zero so code works
+	rows = 0  'init the value to zero so code works
+	Dim doc As NotesDocument, range As String
+	'==========================='create first worksheet==========================
+	wsNbr = wsNbr+1  'worksheet number
+	Set xlsheet = xlapp.Worksheets.Add()
+	xlsheet.Name = "BarSingleValueLabels"
+	xlApp.StatusBar = "Processing Labels with aliases......"
+	'set up the column titles
+	'label, americas en, eme_en, eme_de, eme_es, eme_fi, eme_fr, eme_it, eme_nl, eme_se
+	cols = cols+1
+	rows=rows+1
+	range = "A"+Cstr(rows)+":D"+Cstr(rows)
+	xlsheet.Cells(rows,cols).Value = "Label"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "XPage"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "Custom Control"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "Value"
+	xlApp.Rows(rows).Select
+	xlApp.Selection.Font.Bold = True
+	xlApp.selection.Font.Name = "Arial"
+	xlApp.selection.Font.Size = 9
+	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	'++++++++++++++++++++++fill in values from docs++++++++++++++++++++++
+	
+	Set doc = dc.Getfirstdocument()
+	Do Until doc Is Nothing
+		rows = rows+1
+		xlSheet.cells(rows,1).value = doc.getitemValue("key")(0)
+		xlSheet.cells(rows,2).value = doc.xpage(0)
+		xlSheet.cells(rows,3).value = doc.cc(0)
+		xlSheet.cells(rows,4).value = doc.val_americas_en(0)
+		Set doc = dc.getnextdocument(doc)
+	Loop
+	range = "A1:D"+Cstr(Rows)
+	'MsgBox CStr(GetThreadInfo(1)) &amp; " A1:D"+Cstr(Rows)
+	formatSheet(range)
+	'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	GoTo EndOfCode
+ERRORTRAP:
+	MsgBox CStr(GetThreadInfo(1)) &amp; ":  Error on line "&amp; Erl()&amp;" &gt;&gt; " &amp; Str(Err) &amp; "- " &amp; Error$
+	Resume EndOfCode
+ENDOFCODE:
+End Function</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101959,98-08</datetime>
+  </item>
+</agent>

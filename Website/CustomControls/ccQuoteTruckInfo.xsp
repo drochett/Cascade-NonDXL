@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+
+      <!-- START Truck DISPLAY  information-->
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:this.attrs>
+              <xp:attr name="colspan" value="2"></xp:attr>
+            </xp:this.attrs>
+            <xp:label value="${langBean.titleTruckInformation}" id="label5"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+      </xp:table>
+      <xp:panel styleClass="row" id="panelColumns2">
+        <xp:panel styleClass="col-xs-12 col-sm-6" id="panel2">
+          <xp:table styleClass="address-table">
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelTruckMake}:" id="truck_Make_Label1" for="truck_Make1"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.Truck_Make}" id="truck_Make1"
+                  readonly="true"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelTruckModel}:" id="truck_Model_Label1" for="truck_Model1"></xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.Truck_Model}" id="truck_Model1"
+                  readonly="true"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelTruckCapacity}:" id="truck_Capacity_Label1"
+                  for="truck_Capacity1">
+                </xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.Truck_Capacity}" id="truck_Capacity1"
+                  readonly="true">
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+          </xp:table>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-12 col-sm-6" id="panel3">
+          <xp:table styleClass="address-table">
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelLoadCenter}:" id="load_Center_Label1" for="load_Center1">
+                </xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.Load_Center}" id="load_Center1"
+                  readonly="true"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelForkCapacity}:" id="label1" for="load_Center1">
+                </xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.Fork_Capacity}" id="inputText1"
+                  readonly="true"></xp:inputText>
+              </xp:td>
+            </xp:tr>
+          </xp:table>
+        </xp:panel>
+      </xp:panel>
+
+</xp:view>

@@ -1,0 +1,269 @@
+'++LotusScript Development Environment:2:5:(Options):0:74
+Option Public
+Option Declare
+UseLSX "*lsxlc"
+
+
+
+'++LotusScript Development Environment:2:5:(Forward):0:1
+Declare Sub Initialize
+Declare Function setLcConnection(srcConnectType As String,srcDataSource As String,srcUserId As String,srcPassword As String) As Variant
+Declare Function SetDataSource(Region As String)
+Declare Function getABAT1AccessCode(AccountNumber As String, Region As String) As String
+Declare Sub setLcSession
+
+'++LotusScript Development Environment:2:5:(Declarations):0:10
+Private Const MODULENAME = "JDESupportLib" 
+Dim lcSession As lcSession
+Dim src As lcConnection
+Dim server As String
+'Dim AgentLog As NotesLog
+
+Private jdeUseridAmericas As String
+Private jdePasswordAmericas As String
+Dim jdeLibraryAmericas As String		
+Private jdeUseridEurope As String
+Private jdePasswordEurope As String
+Dim jdeLibraryEurope As String
+Dim jdeDataSourceAmericas As String
+Dim jdeDataSourceEurope As String
+Dim jdeDataSource As String
+Private jdeConnectionType As String
+
+Dim address(6) As String
+Dim y As Double
+'---------------------------------------------------------------------------------------
+'Delcare Variables for Logging data
+'---------------------------------------------------------------------------------------
+Dim logDoc As NotesDocument
+Dim logLevel As Double
+Dim strAccessTypeCode As String
+Dim errorMsg As String
+Dim infoMsg As String
+Dim logMsg As string
+Dim errorCount As Integer
+Dim sqlCall As String
+Dim JDEDataString As String
+Dim origAccessCode As String
+
+'++LotusScript Development Environment:2:2:Initialize:1:10
+Sub Initialize
+	On Error GoTo ErrorHandle
+	Dim s As New NotesSession
+	Dim st As String
+	st = CStr(GetThreadInfo(1)) + ":  " 
+	
+	jdeUseridAmericas = "notesodbc"
+	jdePasswordAmericas = "prey3din"
+	jdeUseridEurope = "notesodbc"
+	jdePasswordEurope="gwbs06orst"
+	jdeConnectionType = "odbc2"
+	
+	server = s.Currentdatabase.Server
+	Select Case server
+		Case "CN=PTL-WWWDEV-01/O=PTLWWWDV"
+			jdeLibraryAmericas = "CASDEVDTA"
+			jdeLibraryEurope= "CSCDVDTA"
+			jdeDataSourceAmericas = "JDEDV_NA"
+			jdeDataSourceEurope = "JDEDV_EU"
+			
+		Case "CN=PTL-WWWTEST-01/O=PTLWWWPY"
+			jdeLibraryAmericas= "CASPYDTA"
+			jdeLibraryEurope= "CSCPYDTA"
+			jdeDataSourceAmericas = "JDEPY_NA"
+			jdeDataSourceEurope = "JDEPY_EU"
+			
+		Case "CN=PTL-WWWPROD-02/O=PTLWWWPD"
+			jdeLibraryAmericas= "CASPRDDTA"
+			jdeLibraryEurope= "CSCPDTA"
+			jdeDataSourceAmericas = "JDEPD_NA"
+			jdeDataSourceEurope = "JDEPD_EU"
+		Case Else
+			logmsg = st +"the server |" + server + "| did not return data for data source. "
+	End Select
+	
+	
+	Exit Sub
+ErrorHandle:	
+	Messagebox "JDESupportLib / " + st + Error$ + ": " + Str$(Erl)
+	stop
+	Exit Sub
+End Sub
+
+'++LotusScript Development Environment:2:1:setLcConnection:1:8
+Function setLcConnection(srcConnectType As String,srcDataSource As String,srcUserId As String,srcPassword As String) As Variant
+
+	Dim st As String
+	st = MODULENAME +  " / " + CStr(GetThreadInfo(1)) + ":  "
+	setLcConnection = false
+	On Error GoTo catch
+'	MsgBox st +  "LCConnection: " + CStr(setLCConnection)
+'	MsgBox "srcConnectType: " + srcConnectType
+'	MsgBox "srcDataSource: " + srcDataSource
+'	MsgBox "srcUsierID: " + srcUserId
+'	MsgBox "srcPassword: " + srcPassword
+	Set src = New LCConnection(srcConnectType)
+	src.Server = srcDataSource
+	src.Userid = srcUserID
+	src.Password = srcPassword
+	
+	On Error GoTo odbcError
+	src.Connect
+
+	On Error GoTo catch
+setLcConnection = True
+	If src Is Nothing Then
+			MsgBox (st + " src is nothing @ line nbr " + CStr(GetThreadInfo (0)) )
+	End If
+
+	GoTo End_Of_Code
+	
+odbcError:
+	setLcConnection = False
+	MessageBox st +  " Connection failed with error " + Error$ + ": " + Str$(Erl)
+	errorMsg = st +  "(odbcError) Connection failed with error " + Error$ + ": " + Str$(Erl)
+Stop
+	Resume End_Of_Code
+	
+catch:
+	MessageBox st + "ERROR " + Error$ + ": " + Str$(Erl) + ". Error on line " & CStr(Erl)
+	errorMsg = st +  "(catch) Connection failed with error " + Error$ + ": " + Str$(Erl)
+	Resume End_Of_Code
+END_OF_CODE:
+	
+End Function
+
+'++LotusScript Development Environment:2:1:SetDataSource:5:8
+%REM
+	Function setServerConnection
+	Description: Comments for Function
+%END REM
+Function SetDataSource(Region As String)
+	Dim errorCycle As Boolean
+	errorcycle = False
+	Dim st As String
+	st = MODULENAME +  " / " + CStr(GetThreadInfo(1)) + ":  "
+	On Error GoTo HandleError
+	
+	'determine the jdeDataSource based on Region
+	Select Case Region
+		Case "americas"
+			jdeDataSource = jdeDataSourceAmericas
+		Case "eme"
+			jdeDataSource = jdeDataSourceEurope
+		Case Else
+			jdeDataSource = ""
+	End Select
+	
+	SetDataSource = jdeDataSource
+	'MsgBox "jdeDataSource: " + jdeDataSource
+	GoTo End_Of_Code
+HandleError:
+	errorCycle = True
+	MessageBox st + "ERROR " + CStr(Err) + " on line " + CStr(Erl) + ": " + Error 
+Stop
+	Resume End_Of_Code
+
+END_OF_CODE:
+	
+End Function
+
+'++LotusScript Development Environment:2:1:getABAT1AccessCode:5:8
+%REM
+	Function getABAT1AccessCode
+	Description: Comments for Function
+%END REM
+Function getABAT1AccessCode(AccountNumber As String, Region As String) As String
+	Dim discon As Boolean
+	jdeDataString = ""
+	discon = True
+	Dim st As String
+	Dim errorCycle As Boolean
+	errorcycle = False
+	st = MODULENAME +  " / " + CStr(GetThreadInfo(1)) + ":  "
+	On Error GoTo HandleError	
+	Call setDataSource(Region)
+	Dim vAbat1 As New LCField(LCTYPE_TEXT)
+	Dim vAbac06 As New LCField(LCTYPE_TEXT)
+	Dim rs As variant
+	Select Case Region
+		Case "americas"
+			sqlCall = ""
+			Dim fldLstABAT As New LCFieldList
+			jdeDataString = "Region: "+ region + " >> jdeLibraryAmericas: " + jdeLibraryAmericas
+			'set the LC session
+			Call setLcSession
+			'connect to the AS/400
+			If setLCConnection(jdeConnectionType,jdeDataSourceAmericas,jdeUseridAmericas,jdePasswordAmericas) = False Then
+				disCon = False
+				GoTo End_Of_Code 'function handles error and notification
+			End If
+			'run the query
+			sqlCall = "SELECT abat1 from " & jdeLibraryAmericas & ".F0101 where aban8 = " & AccountNumber
+			If (src. Execute (sqlCall, fldLstABAT ) = 0) Then
+				disCon = False
+				GoTo end_of_code
+			Else
+				Set vAbat1 = fldLstABAT.Lookup ("ABAT1")
+
+				While (src.Fetch (fldLstABAT) > 0)
+					getABAT1AccessCode = vAbat1.text(0)
+				Wend
+			End If
+		Case "eme"
+			sqlCall = ""
+			jdeDataString = "Region: "+ region + " >> jdeLibraryEurope: " + jdeLibraryEurope
+			Dim fldLstABAC06 As New LCFieldList
+			'set the LC session
+			Call setLcSession
+			'connect to the AS/400
+			If setLCConnection(jdeConnectionType,jdeDataSourceEurope,jdeUseridEurope,jdePasswordEurope) = False Then
+				disCon = False
+				errorMsg = st + "ERROR  src is not connected @ line nbr " + CStr(GetThreadInfo (0)) 
+				GoTo End_Of_Code 'function handles error and notification
+			End If
+			sqlCall = "SELECT abac06 from " & jdeLibraryEurope & ".F0101 where aban8 = " & AccountNumber
+			'MsgBox sqlCall
+			If (src. Execute (sqlCall, fldLstABAC06 ) = 0) Then
+				disCon = False
+				GoTo End_Of_Code
+			Else
+				Set vAbac06 = fldLstABAC06.Lookup("ABAC06")
+				While (src.Fetch (fldLstABAC06) > 0)
+'					MsgBox st + "lcfield.datatype = " + CStr(vAbac06.datatype)
+'					MsgBox st + "uboud(lcfield) = " + CStr(UBound(vAbac06.Text))
+'					MsgBox st + "vAbac06.Text = " + CStr(vAbac06.Text(0))
+					getABAT1AccessCode = vAbac06.text(0)
+				Wend
+			End If
+	End Select
+	'MsgBox st+getABAT1AccessCode
+	GoTo end_of_code
+HandleError:
+	errorCycle = True
+	errorMsg = st + "ERROR " + CStr(Err) + " on line " + CStr(Erl) + ": " + Error + " >> SqlCall:  " + sqlCall
+	
+	'errorCount = 1
+	MsgBox errorMsg
+	If Err = 91 Then Exit Function
+	stop
+	Resume end_of_code
+END_OF_CODE:
+	If disCon = True Then Call src.Disconnect()
+End Function
+
+'++LotusScript Development Environment:2:2:setLcSession:1:8
+Sub setLcSession
+	Dim st As String
+	st = MODULENAME +  " / " + CStr(GetThreadInfo(1)) + ":  "
+	Set lcSession = New LCSession()
+	lcSession.ConnectionPooling = True
+
+	GoTo End_Of_Code
+catch:
+	MessageBox st + "ERROR " + Error$ + ": " + Str$(Erl)
+Stop
+	Resume End_Of_Code
+END_OF_CODE:
+	
+End Sub

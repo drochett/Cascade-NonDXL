@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+
+	<xp:this.resources>
+		<xp:script src="/custom.jss" clientSide="false"></xp:script>
+	</xp:this.resources>
+	<xp:this.beforePageLoad><![CDATA[#{javascript:dBar.info("entering Document XPage beforePageLoad");
+setScpLanguage() ;
+}]]></xp:this.beforePageLoad>
+
+	<xp:this.acl>
+		<xp:acl>
+			<xp:this.entries>
+				<xp:aclEntry type="ANONYMOUS" right="NOACCESS"></xp:aclEntry>
+          		<xp:aclEntry type="DEFAULT" right="EDITOR"></xp:aclEntry>
+			</xp:this.entries>
+		</xp:acl>
+	</xp:this.acl>
+	
+	<xc:ccMetaData metaRobots="index,follow">
+		<xc:this.pageTitle><![CDATA[#{javascript:viewScope.get("pageTitle")}]]></xc:this.pageTitle>
+		<xc:this.metaKeywords><![CDATA[#{javascript:viewScope.get("pageKeywords")}]]></xc:this.metaKeywords>
+		<xc:this.metaDescription><![CDATA[#{javascript:viewScope.get("pageDescription")}]]></xc:this.metaDescription>
+	</xc:ccMetaData>
+
+	<xc:ccLayout>
+		<xc:ccBlogAdminView></xc:ccBlogAdminView>
+	</xc:ccLayout>
+</xp:view>

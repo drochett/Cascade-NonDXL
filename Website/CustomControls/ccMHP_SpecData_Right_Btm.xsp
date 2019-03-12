@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" dojoParseOnLoad="true"
+	dojoTheme="true" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xe:widgetContainer id="widgetContainer20"
+		styleClass="login-panel" titleBar="false">
+		<xp:panel styleClass="textmhplabel">
+			<div>
+				<div>
+					<xp:table style="border-style: hidden" styleClass="cell">
+						<xp:tr>
+							<xp:td style="width:20%; text-align: right; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecMinFlow} ="
+									style="align:Right" id="label1" />
+
+							</xp:td>
+							<xp:td style="border-style:hidden">
+								<xp:inputText style="width:44.0px;height:30.0px"
+									readonly="true" id="MINIMUMOPERATINGFLOW-LPM" defaultValue="0">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0" />
+
+									</xp:this.converter>
+								</xp:inputText>
+								<br />
+								<xp:inputText style="width:44.0px;height:30.0px"
+									readonly="true" id="MINIMUMOPERATINGFLOW-GPM" defaultValue="0">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0" />
+
+									</xp:this.converter>
+								</xp:inputText>
+							</xp:td>
+							<xp:td style="text-align:left; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecLpm}"
+									id="label2" />
+
+								<br />
+								<xp:label value="#{javascript:langBean.mhp_SpecGpm}"
+									id="label3" />
+
+							</xp:td>
+							<xp:td style="width:20%; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecRecFlow} ="
+									id="label25" />
+
+							</xp:td>
+							<xp:td style="border-style:hidden">
+								<xp:inputText style="width:44.0px;height:30.0px"
+									readonly="true" id="RECOMMENDEDOPERATINGFLOW-LPM" defaultValue="0">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0" />
+
+									</xp:this.converter>
+								</xp:inputText>
+								<br />
+								<xp:inputText style="width:44.0px;height:30.0px"
+									readonly="true" id="RECOMMENDEDOPERATINGFLOW-GPM" defaultValue="0">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0" />
+
+									</xp:this.converter>
+								</xp:inputText>
+							</xp:td>
+							<xp:td style="border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecLpm}"
+									id="label26" />
+
+								<br />
+								<xp:label value="#{javascript:langBean.mhp_SpecGpm}"
+									id="label27" />
+
+							</xp:td>
+							<xp:td style=" width: 25%;text-align: right; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecMaxFlow} ="
+									style="align:Right" id="label22" />
+
+							</xp:td>
+							<xp:td style="border-style:hidden">
+								<xp:inputText style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="MAXIMUMOPERATINGFLOW-LPM">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0" />
+
+									</xp:this.converter>
+								</xp:inputText>
+
+
+								<br />
+								<xp:inputText style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="MAXIMUMOPERATINGFLOW-GPM">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0" />
+
+									</xp:this.converter>
+								</xp:inputText>
+
+
+							</xp:td>
+							<xp:td style="text-align:left; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecLpm}"
+									id="label23" />
+
+								<br />
+								<xp:label value="#{javascript:langBean.mhp_SpecGpm}"
+									id="label24" />
+
+							</xp:td>
+
+						</xp:tr>
+					</xp:table>
+				</div>
+			</div>
+		</xp:panel>
+	</xe:widgetContainer>
+</xp:view>

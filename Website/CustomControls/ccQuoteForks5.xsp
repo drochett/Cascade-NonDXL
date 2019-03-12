@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+  xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+  <!--  Step Header -->
+  <xc:ccQuoteForksHdr5 rendered="#{javascript:@IsNewDoc()}"></xc:ccQuoteForksHdr5>
+  <xp:br></xp:br>
+  <!-- START 1 row 1 column -->
+  <xp:panel styleClass="row" id="panelColumns1">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel5">
+
+      <!-- START CUSTOMER DISPLAY  information-->
+      <xc:ccQuoteCustomerInfo></xc:ccQuoteCustomerInfo>
+      <!-- END CUSTOMER DISPLAY information-->
+      <xp:br></xp:br>
+      <!-- START Truck DISPLAY  information-->
+      <xc:ccQuoteTruckInfo></xc:ccQuoteTruckInfo>
+      <!-- END Truck DISPLAY information-->
+      <xp:br></xp:br>
+      <!-- START 1 row 2 column -->
+      <xp:panel styleClass="row" id="panelColumns2">
+        <xp:panel styleClass="col-xs-6" id="panel1">
+          <!-- START basic fork DISPLAY  information-->
+          <xc:ccQuoteBasicForkInfo></xc:ccQuoteBasicForkInfo>
+          <!-- END basic fork DISPLAY information-->
+        </xp:panel>
+        <!-- START switch -->
+        <xp:panel styleClass="col-xs-6" id="panel4">
+          <xe:switchFacet id="switchFacetForkType1" selectedFacet="#{document1.Fork_Type}">
+            <xp:this.facets>
+              <xp:panel xp:key="Standard ITA Hook Forks" id="panel6">
+                <xc:ccQuoteInfo3ITA></xc:ccQuoteInfo3ITA>
+              </xp:panel>
+              <xp:panel xp:key="Non-Standard Hook Forks" id="panel9">
+                <xc:ccQuoteInfo3Square></xc:ccQuoteInfo3Square>
+              </xp:panel>
+              <xp:panel xp:key="Pin/Shaft Type Forks" id="panel10">
+                <xc:ccQuoteInfo3ShaftPin></xc:ccQuoteInfo3ShaftPin>
+              </xp:panel>
+              <xp:panel xp:key="Bolt-On" id="panel11">
+                <xc:ccQuoteInfo3BoltOn></xc:ccQuoteInfo3BoltOn>
+              </xp:panel>
+            </xp:this.facets>
+          </xe:switchFacet>
+        </xp:panel>
+        <!-- START switch -->
+      </xp:panel>
+      <!-- END 1 row 2 column -->
+      <xp:br></xp:br>
+      <!-- START 1 row 3 column -->
+      <xp:panel styleClass="row" id="panel7">
+        <xp:panel styleClass="col-xs-12 col-md-4" id="panel8">
+          <xc:ccQuoteInfoForkTips></xc:ccQuoteInfoForkTips>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-12 col-md-4" id="panel12">
+          <xc:ccQuoteInfoTapers></xc:ccQuoteInfoTapers>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-12 col-md-4" id="panel13">
+          <xc:ccQuoteInfoBevel></xc:ccQuoteInfoBevel>
+        </xp:panel>
+      </xp:panel>
+      <!-- END 1 row 3 column -->
+      <xp:br></xp:br>
+      <!-- START NOTES DISPLAY  information-->
+      <xc:ccQuoteInfoNotes></xc:ccQuoteInfoNotes>
+      <!-- END NOTES DISPLAY information-->
+
+    </xp:panel>
+  </xp:panel>
+  <!-- END 1 row 1 column -->
+  <xp:br></xp:br>
+  <!--submit and process buttons-->
+  <xp:panel styleClass="row" id="panel2">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel3">
+      <hr></hr>
+
+      <xp:button value="${langBean.btnPrevStep}" id="buttonPrevious1" styleClass="btn btn-primary">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+          refreshId="main">
+          <xp:this.action><![CDATA[#{javascript:
+    viewScope.orderStep = "step_4";
+    var dc = getComponent("dcOrderStep");
+    dc.show("step_4")
+    }]]></xp:this.action>
+        </xp:eventHandler>
+      </xp:button>
+
+      <xp:button value="${langBean.btnLabelSubmit}" id="button3" styleClass="btn btn-primary pull-right"
+        rendered="#{javascript:@IsNewDoc()}">
+        <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+          immediate="false" save="true" refreshId="main">
+          <xp:this.action><![CDATA[#{javascript:
+viewScope.orderPlaced = "1";
+viewScope.orderStep = "step_6";
+var dc = getComponent("dcOrderStep");
+dc.show("step_6")
+}]]></xp:this.action>
+        </xp:eventHandler>
+      </xp:button>
+      <!--processing buttons -->
+      <xp:panel rendered="#{javascript:!@IsNewDoc()}">
+        <xc:ccOrderQuoteProcessButtons></xc:ccOrderQuoteProcessButtons>
+      </xp:panel>
+
+    </xp:panel>
+  </xp:panel>
+</xp:view>
+

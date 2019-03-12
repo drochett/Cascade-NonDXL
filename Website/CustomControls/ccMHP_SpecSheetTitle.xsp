@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.resources>
+		<xp:styleSheet href="/cascade.css"></xp:styleSheet>
+		<xp:styleSheet href="/other_websites.css"></xp:styleSheet>
+	</xp:this.resources>
+	<xp:panel styleClass="subheading">
+		<div style="text-align:center">
+		
+		<xp:link id="link1" styleClass="pull-right newsfeedtitle"
+			text="#{javascript:langBean.mhp_PrintFriend}"
+			style="font-size:10pt">
+
+			<xp:eventHandler event="onclick" submit="true"
+				refreshMode="complete" immediate="true">
+
+
+				<xp:this.action><![CDATA[#{javascript://println("Printing MHP ITEM SPECIFICATION PAGE");
+context.redirectToPage("MHP_SpecificationsPrint",false);
+//target="_blank";
+/*var host = window.location.href;
+var url = host.replace("xpMHP_Specifications", "xpMHP_Specifications_Print");
+println(url);
+window.open(url,"_blank");*/}]]></xp:this.action>
+			</xp:eventHandler>
+		</xp:link>
+		<xp:br></xp:br>
+			<xp:text escape="true" id="computedField1"
+				value="#{langBean.mhp_SpecTitle}">
+			</xp:text>
+		</div>
+	</xp:panel>
+</xp:view>

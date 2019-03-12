@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="(setWhereUsed)" hide="v3" publicaccess="false">
+  <trigger type="agentlist"/>
+  <documentset type="selected"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent typeProduct
+	Created Jun 29, 2015 by Paul Della-Nebbia/TSPSDev
+	Description: Comments for Agent
+%END REM
+Option Public
+Option Declare
+%INCLUDE "lsconst"
+
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	
+	Dim location As String
+	location = "" 
+	Do While location = ""
+		location = Inputbox("examples: input table, Attachments menu", "set LocationUsed  = " )	
+	Loop 
+	
+	' === REQUIRED === Access the current database from the session
+	Dim session As New NotesSession
+	Dim dbCur As NotesDatabase
+	Set dbCur = session.CurrentDatabase
+	
+	' === Access the unprocessed collection of selected documents in view
+	Dim collUnprocessed As NotesDocumentCollection
+	Set collUnprocessed = dbCur.UnprocessedDocuments
+	
+	' === Make sure the collection is not empty and then report the count in a messagebox
+	If collUnprocessed Is Nothing Then
+		Messagebox "Collection is empty!", MB_ICONEXCLAMATION, _
+"AGENT: " &amp; session.CurrentAgent.Name
+	Else
+		Dim nContinue As Integer     
+		nContinue = Messagebox( "Set LocationUsed=" + location + " for " &amp; collUnprocessed.Count &amp;  " selected documents?", MB_YESNO, "AGENT: " &amp; session.CurrentAgent.Name)
+		
+		If nContinue = IDYES Then 
+			Call collUnprocessed.Stampall("LocationUsed", location )		
+		Else
+			Messagebox "No documents updated" , MB_OK, "AGENT: " &amp; session.CurrentAgent.Name
+		End If
+		
+	End If
+	
+End Sub</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101920,08-08</datetime>
+  </item>
+</agent>

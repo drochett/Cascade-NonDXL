@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+
+	
+
+	
+	<xc:ccLayout>
+
+		<xp:panel styleClass="container" id="main">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							styleClass="carousel-heading">
+							<xp:this.value><![CDATA[#{javascript:langBean.getValue("titleQR2")}]]></xp:this.value>
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!--	START dynamicContent row-->
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-xs-12">
+					<xe:dynamicContent id="dcQRView" defaultFacet="mhpSpecs">
+						<xp:this.facets>
+							<xc:ccMHP_DataEntry_2 xp:key="mhpSpecs"></xc:ccMHP_DataEntry_2>
+						</xp:this.facets>
+					</xe:dynamicContent>
+				</xp:panel>
+			</xp:panel>
+
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>
+

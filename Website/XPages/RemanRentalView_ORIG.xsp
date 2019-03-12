@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xc:ccLayout>
+		<xp:panel id="main" styleClass="container">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7" value="${langBean.rent}"
+							styleClass="carousel-heading">
+						</xp:text>
+						<xp:text escape="true" id="computedField3" value="${langBean.msgPrePhoneText}"
+							styleClass="carousel-text">
+						</xp:text>
+						&#160;
+						<xp:text escape="false" id="computedField8"
+							value="${langBean.phoneNumberCustomerSupport}" styleClass="carousel-text"
+							loaded="${!deviceBean.mobile}">
+						</xp:text>
+						<xp:link escape="true"
+							text="${langBean.phoneNumberCustomerSupport}" id="link2"
+							loaded="${deviceBean.mobile}" styleClass="carousel-text">
+							<xp:this.value><![CDATA[#{javascript:
+var phoneNum = langBean.getValue("phoneNumberCustomerSupport")
+return "tel:"+ phoneNum ;}]]></xp:this.value>
+						</xp:link>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!--			MAIN CONTENT-->
+			<!-- americas-en -->
+			<xp:panel id="americas" styleClass="row"
+				loaded="${sessionScope.LanguageP eq 'americas-en'}">
+				<xp:panel styleClass="col-xs-12" id="panelAmericas1">
+					<xp:br></xp:br>
+					<xp:br></xp:br>
+					<xp:br></xp:br>
+					<xp:panel id="panel11">
+						<xp:panel styleClass="alert alert-info">
+							<xp:table>
+								<xp:tr>
+									<xp:td style="width:8%">
+										<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+									</xp:td>
+									<xp:td>
+										<xp:text escape="true" id="confirmMsg1"
+											value="Cascade offers a full fleet of rental attachments for your convenience. To rent, please call our Customer Support Center at ">
+										</xp:text>
+										<xp:text escape="true" id="computedField1" value="800-380-2272."
+											loaded="${!deviceBean.mobile}">
+										</xp:text>
+										<xp:link escape="true" text="800-380-2272" id="link1"
+											loaded="${deviceBean.mobile}">
+											<xp:this.value><![CDATA[#{javascript:return "tel:800-380-2722"}]]></xp:this.value>
+										</xp:link>
+									</xp:td>
+								</xp:tr>
+							</xp:table>
+						</xp:panel>
+						<xp:br></xp:br>
+					</xp:panel>
+					<xp:br></xp:br>
+					<xp:br></xp:br>
+				</xp:panel>
+			</xp:panel>
+			<!-- eme rental view -->
+			<xp:panel id="eme" styleClass="row"
+				loaded="${sessionScope.LanguageP ne 'americas-en'}">
+				<xp:panel styleClass="col-xs-12" id="panel1">
+					<xp:panel styleClass="alert alert-warning">
+						<xp:this.rendered><![CDATA[#{javascript:@Name('[CN]', session.getEffectiveUserName()) == "Anonymous"}]]></xp:this.rendered>
+						<xp:table>
+							<xp:tr>
+								<xp:td style="width:8%">
+									<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+								</xp:td>
+								<xp:td>
+									<xp:text escape="true" id="computedField2"
+										value="#{langBean.msgLoginForPricing}">
+									</xp:text>
+									&#160;
+									<xp:link escape="true" id="link7" text="${langBean.login}"
+										value="${configBean.HostURL}login">
+									</xp:link>
+								</xp:td>
+							</xp:tr>
+						</xp:table>
+					</xp:panel>
+					<xe:pagerSaveState id="pagerSaveState1" for="viewPanel1">
+					</xe:pagerSaveState>
+					<xp:viewPanel rows="30" id="viewPanel1" pageName="/RemanRental.xsp"
+						var="viewEntry">
+						<xp:this.facets>
+							<xp:pager partialRefresh="true" layout="Previous Group Next"
+								xp:key="headerPager" id="pager1" styleClass="pagination">
+							</xp:pager>
+							<xp:pager partialRefresh="true" layout="Previous Group Next"
+								xp:key="footerPager" id="pager2">
+							</xp:pager>
+						</xp:this.facets>
+						<xp:this.data>
+							<xp:dominoView var="view1"
+								databaseName="${configBean.RemanrentalDbPath}" viewName="${sessionScope.LanguageP}-remanrental"
+								expandLevel="1">
+							</xp:dominoView>
+						</xp:this.data>
+						<xp:viewColumn columnName="$8" id="viewColumn1"
+							style="font-size:11pt;font-weight:bold;color:rgb(0,0,255)"
+                                                        collapsedImage="/collapse.png" expandedImage="/expand.png" 
+                                                        styleClass="RentalCatIcon"> 
+							
+							<xp:viewColumnHeader value=""
+								id="viewColumnHeader1">
+							</xp:viewColumnHeader>
+						</xp:viewColumn>
+						<xp:viewColumn columnName="$6" id="viewColumn2"
+							displayAs="link" openDocAsReadonly="true">
+							<xp:viewColumnHeader value="${langBean.colLabelProduct}"
+								id="viewColumnHeader2">
+							</xp:viewColumnHeader>
+						</xp:viewColumn>
+						<xp:viewColumn columnName="$7" id="viewColumn3">
+							<xp:viewColumnHeader value="${langBean.colLabelType}"
+								id="viewColumnHeader3">
+							</xp:viewColumnHeader>
+						</xp:viewColumn>
+						<xp:viewColumn columnName="txt_catalogno" id="viewColumn4"
+							style="font-weight:bold">
+							<xp:viewColumnHeader value="${langBean.colLabelCatalogNo}"
+								id="viewColumnHeader4">
+							</xp:viewColumnHeader>
+						</xp:viewColumn>
+						<xp:viewColumn columnName="txt_mtgclass" id="viewColumn5"
+							style="text-align:center;font-weight:bold">
+							<xp:viewColumnHeader value="${langBean.colLabelMountingClass}"
+								id="viewColumnHeader5">
+							</xp:viewColumnHeader>
+						</xp:viewColumn>
+						<xp:viewColumn columnName="$3" id="viewColumn6"
+							rendered="#{userBean.commonName ne 'Anonymous'}" style="text-align:right">
+							<xp:viewColumnHeader value="${langBean.colLabelDaily}"
+								id="viewColumnHeader6">
+							</xp:viewColumnHeader>
+						</xp:viewColumn>
+						<xp:viewColumn columnName="$4" id="viewColumn7"
+							rendered="#{userBean.commonName ne 'Anonymous'}" style="text-align:right">
+							<xp:viewColumnHeader value="${langBean.colLabelWeekly}"
+								id="viewColumnHeader7">
+							</xp:viewColumnHeader>
+						</xp:viewColumn>
+						<xp:viewColumn columnName="$5" id="viewColumn8"
+							rendered="#{userBean.commonName ne 'Anonymous'}" style="text-align:right">
+							<xp:viewColumnHeader value="${langBean.colLabelMonthly}"
+								id="viewColumnHeader8">
+							</xp:viewColumnHeader>
+						</xp:viewColumn>
+					</xp:viewPanel>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

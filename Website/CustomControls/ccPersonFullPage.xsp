@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xp:this.beforePageLoad><![CDATA[#{javascript:viewScope.unidPerson = viewScope.unid;}]]></xp:this.beforePageLoad>
+	<xp:panel id="main"
+		styleClass="container cascade-content cascade-content-blocks">
+		<xp:panel styleClass="row">
+			<xp:panel styleClass="col-sm-12" id="panel1">
+				<xc:ccPerson></xc:ccPerson>
+			</xp:panel>
+		</xp:panel>
+		
+	</xp:panel>
+</xp:view>

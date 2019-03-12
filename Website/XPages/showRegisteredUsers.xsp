@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"> 
+	<xp:this.beforePageLoad><![CDATA[#{javascript:importPackage(com.cascorp);
+if (session.getEffectiveUserName()!= "Anonymous"){
+	viewScope.userInfo = RegistrationUtilities.getAccountNumber(session.getEffectiveUserName(), sessionAsSigner);
+}}]]></xp:this.beforePageLoad>
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+
+	<xc:ccLayout>
+		<xp:panel styleClass="container" id="main">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7" styleClass="carousel-heading"
+							value="#{langBean.HeadingRegisteredUsers}">
+
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!-- Main content area -->
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-xs-12 col-sm-10 col-md-8" id="panel1">
+					<xp:text escape="true" id="computedField1" tagName="p"
+						value="${langBean.RegUsersPageDescription}">
+
+					</xp:text>
+					<xp:panel styleClass="row" id="row" tagName="div">
+						<xe:widgetContainer id="widgetContainer1"
+							titleBarText="${langBean.RegUsersCompanyHeading}" styleClass="login-panel">
+
+							<div class="panel-body">
+								<div class="form-group">
+									<div class="row">
+										<div class="col-sm-3">
+											<xp:text tagName="label" value="${langBean.labelCompany}:"
+												id="computedField2" styleClass="control-label">
+											</xp:text>
+										</div>
+										<div class="col-sm-9">
+											<xp:text escape="true"
+												id="computedField5">
+
+												<xp:this.value><![CDATA[#{javascript:importPackage(com.cascorp);
+return RegistrationUtilities.getCompanyNameFromJDE(viewScope.userInfo.acctnumber, viewScope.userInfo.region)}]]></xp:this.value>
+											</xp:text>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-3">
+											<xp:text tagName="label" value="${langBean.labelAcctNumber}:"
+												id="computedField6" styleClass="control-label">
+											</xp:text>
+										</div>
+										<div class="col-sm-9">
+											<xp:text escape="true" id="computedField8"
+												value="${viewScope.userInfo.acctnumber}">
+
+											</xp:text>
+										</div>
+									</div>
+								</div>
+							</div>
+						</xe:widgetContainer>
+
+					</xp:panel>
+					<xp:panel styleClass="row" id="panel2" tagName="div">
+						<xe:widgetContainer id="widgetContainer2"
+							titleBarText="${langBean.RegUsersUserListHeading}" styleClass="login-panel">
+							<div class="panel-body">
+								<div class="form-group">
+									<div class="row">
+										<div class="col-sm-3">
+											<xp:text tagName="label" value="${langBean.LabelRegisteredUsers}:"
+												id="computedField9" styleClass="control-label">
+											</xp:text>
+										</div>
+
+										<div class="col-sm-9">
+											<xp:repeat id="repeat1" rows="3000" var="col"
+												indexVar="ind">
+
+
+												<xp:this.value><![CDATA[#{javascript:importPackage(com.cascorp);
+var regUtil = new RegistrationUtilities();
+return regUtil.getRegisteredUsers(userInfo.acctnumber, sessionAsSigner);}]]></xp:this.value>
+												<xp:text escape="true" id="computedField10"
+													value="#{javascript:return col.getFullName();}">
+
+												</xp:text>
+												&#160;&#160;&#160;&#160;&#160;
+
+												(
+												<xp:link escape="true"
+													text="#{javascript:return col.getEmail();}" id="link1">
+
+													<xp:this.value><![CDATA[#{javascript:return "mailto:" + col.getEmail();}]]></xp:this.value>
+												</xp:link>
+												)
+												<xp:text escape="true" id="computedField11">
+													<xp:this.value><![CDATA[#{javascript:return (col.isOrderPerson()) ? "*" : "";}]]></xp:this.value>
+												</xp:text>
+
+												<xp:br></xp:br>
+											</xp:repeat>
+										</div>
+									</div>
+
+								</div>
+								<xp:text escape="true" id="computedField3" tagName="p"
+									value="${langBean.RegUsersAccessMsg}">
+								</xp:text>
+								<p>
+									<xp:text escape="true" id="computedField4" value="${langBean.RegUsersModMsg}"
+										tagName="span">
+									</xp:text>
+									&#160;
+									<xp:link escape="true" text="${configBean.EmailReturnAddress}"
+										id="link2" value="mailto:${configBean.EmailReturnAddress}">
+									</xp:link>
+
+
+								</p>
+							</div>
+						</xe:widgetContainer>
+
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

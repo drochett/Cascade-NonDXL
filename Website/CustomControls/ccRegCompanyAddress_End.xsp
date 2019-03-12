@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+<xe:widgetContainer id="companyAddressWidget"
+						titleBarText="#{javascript:langBean.HeadingCompanyAddress}"
+						styleClass="login-panel">
+						<div class="panel-body">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											value="${langBean.labelCompany}:"
+											id="computedField1" styleClass="control-label">
+										</xp:text>
+									</div>
+									<div class="col-sm-8">
+										<xp:inputText
+											id="inputText1" value="#{regDoc.cName}">
+										</xp:inputText>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											value="${langBean.LabelStreetAddress}:"
+											id="StreetAddressLabel" styleClass="control-label">
+										</xp:text>
+									</div>
+									<div class="col-sm-8">
+										<xp:inputText
+											id="StreetAddress1Input" value="#{regDoc.address1}">
+										</xp:inputText>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											value="${langBean.LabelAddressCont}:"
+											styleClass="control-label" id="Address-ContLabel">
+										</xp:text>
+									</div>
+									<div class="col-sm-8">
+										<xp:inputText
+											id="StreetAddress2Input" value="#{regDoc.address2}">
+										</xp:inputText>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											value="${langBean.LabelAddressCont}:" id="Address-Cont2Label"
+											styleClass="control-label">
+										</xp:text>
+									</div>
+									<div class="col-sm-8">
+										<xp:inputText
+											id="StreetAddress3Input" value="#{regDoc.address3}">
+										</xp:inputText>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											value="${langBean.labelCity}:" id="CityLabel"
+											styleClass="control-label">
+										</xp:text>
+									</div>
+									<div class="col-sm-8">
+										<xp:inputText id="CityInput"
+											value="#{regDoc.city}">
+										</xp:inputText>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											value="${langBean.labelState}:" id="StateLabel"
+											styleClass="control-label">
+										</xp:text>
+									</div>
+									<div class="col-sm-8">
+										<xp:comboBox
+											id="StateListSelect" value="#{regDoc.state}">
+											<xp:selectItems>
+												<xp:this.value><![CDATA[${langBean.StateList}]]></xp:this.value>
+											</xp:selectItems>
+										</xp:comboBox>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											value="${langBean.labelPostalCode}:" id="ZipLabel"
+											styleClass="control-label">
+										</xp:text>
+									</div>
+									<div class="col-sm-8">
+										<xp:inputText id="ZipInput"
+											value="#{regDoc.Zip}">
+										</xp:inputText>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-4">
+										<xp:text tagName="label"
+											id="CountryLabel"
+											styleClass="control-label" escape="false">
+											<xp:this.value><![CDATA[${langBean.labelCountry}:  <span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>]]></xp:this.value>									
+										</xp:text>
+									</div>
+									<div class="col-sm-8">
+										<xp:comboBox id="countrySelect"
+											value="#{regDoc.country}" disableClientSideValidation="true">
+											<xp:selectItems>
+												<xp:this.value><![CDATA[${langBean.ListCountries}]]></xp:this.value>
+											</xp:selectItems>
+											<xp:this.validators>
+												<xp:validateRequired
+													message="${langBean.msgIsRequired}">
+												</xp:validateRequired>
+											</xp:this.validators>
+
+										</xp:comboBox>
+										<xp:message id="message1"
+											for="countrySelect">
+										</xp:message></div>
+								</div>
+							</div>
+						</div>
+					</xe:widgetContainer>
+</xp:view>

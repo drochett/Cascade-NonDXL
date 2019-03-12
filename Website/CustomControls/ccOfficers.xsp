@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+	<xp:panel id="panelDocumentNOTmigrated"
+		styleClass="container cascade-content cascade-content-blocks">
+		<xp:this.loaded><![CDATA[${document1.DocumentMigrated eq "No"}]]></xp:this.loaded>
+		<xp:table>
+			<xp:tr>
+				<xp:td style="background-color:rgb(255,128,64)">
+					<xp:label value="Type = " id="label1" style="font-weight:bold">
+					</xp:label>
+					<xp:text escape="true" id="computedField2" value="${document1.Type}"
+						style="font-weight:bold">
+					</xp:text>
+					&#160; &#160;
+					<xp:label value="DocumentMigrated = " id="label2"
+						style="font-weight:bold">
+					</xp:label>
+					<xp:text escape="true" id="computedField3" value="${document1.DocumentMigrated}"
+						style="font-weight:bold">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td>
+					<xp:text escape="false" id="computedField1" value="#{document1.Body}">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+		</xp:table>
+	</xp:panel>
+	<xp:panel id="panelDocumentISmigrated">
+		<xp:this.loaded><![CDATA[${document1.DocumentMigrated eq "Yes"}]]></xp:this.loaded>
+		<!--		banner row in content container-->
+		<xp:panel styleClass="container">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<h1>
+							<xp:text escape="false" id="computedField7" value="${document1.Subject}"
+								styleClass="carousel-heading">
+							</xp:text>
+						</h1>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+		<xc:ccOfficersDesktop loaded="${!(deviceBean.mobile || deviceBean.tablet)}"></xc:ccOfficersDesktop>
+		<xc:ccOfficersMobile loaded="${deviceBean.mobile || deviceBean.tablet}"></xc:ccOfficersMobile>
+	</xp:panel>
+</xp:view>

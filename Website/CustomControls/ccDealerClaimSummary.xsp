@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xc:ccDealerClaimSummaryHeader></xc:ccDealerClaimSummaryHeader>
+
+	
+
+	<xp:panel styleClass="row" id="panelEmail1">
+		<xp:panel styleClass="col-xs-12 col-md-10" id="panel5">
+			<xp:table styleClass="address-table">
+				<xp:tr>
+					<xp:panel styleClass="tableHeading" tagName="th">
+						<xp:this.attrs>
+							<xp:attr name="colspan" value="2"></xp:attr>
+						</xp:this.attrs>
+						<xp:label value="${langBean.titleEmailNotification}" id="label33"
+							style="font-weight:bold;color:rgb(255,255,255)">
+						</xp:label>
+					</xp:panel>
+				</xp:tr>
+				<xp:tr>
+					<xp:td style="width:40%">
+						<xp:label value="${langBean.labelEmailNotification}:" id="email_Label1"
+							for="dealerEmail">
+						</xp:label>
+
+					</xp:td>
+					<xp:td>
+						<xp:inputText id="dealerEmail"
+							value="#{salesOrderBean.shipAddress.email}" readonly="true">
+						</xp:inputText>
+					</xp:td>
+				</xp:tr>
+			</xp:table>
+
+			<!-- add panel for address -->
+			<xc:ccDealerClaimAddressSummary></xc:ccDealerClaimAddressSummary>
+			<xp:panel>
+				<!-- Enter Service Information -->
+				<xp:panel id="panelServiceInfo1">
+					<xp:table styleClass="address-table">
+						<xp:tr>
+							<xp:panel styleClass="tableHeading" tagName="th">
+								<xp:this.attrs>
+									<xp:attr name="colspan" value="2"></xp:attr>
+								</xp:this.attrs>
+								<xp:text tagName="label" value="${langBean.titleServiceInformation}"
+									id="computedField15" styleClass="control-label">
+								</xp:text>
+							</xp:panel>
+						</xp:tr>
+						<xp:tr>
+							<xp:td style="width:25%">
+								<xp:text tagName="label" value="${langBean.labelServiceContract}:"
+									id="computedField16" styleClass="control-label">
+								</xp:text>
+							</xp:td>
+							<xp:td>
+								<xp:inputText
+									value="#{requestScope.contract}" id="serviceContract"
+									readonly="true">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+					</xp:table>
+				</xp:panel>
+				<!-- Build Table for Attachment Information -->
+				<xp:panel id="panelAttachemntInformation">
+					<xp:table styleClass="address-table">
+						<xp:tr>
+							<xp:panel styleClass="tableHeading" tagName="th">
+								<xp:this.attrs>
+									<xp:attr name="colspan" value="2"></xp:attr>
+								</xp:this.attrs>
+								<xp:text tagName="label"
+									value="${langBean.titleAttachmentInformation}" id="computedField2"
+									styleClass="control-label">
+								</xp:text>
+							</xp:panel>
+						</xp:tr>
+
+						<xp:tr>
+							<xp:td style="width:25%">
+								<xp:text tagName="label" value="${langBean.labelModelCatalog}:"
+									id="computedField1" styleClass="control-label">
+								</xp:text>
+							</xp:td>
+							<xp:td>
+								<xp:inputText
+									value="#{requestScope.contract}" id="modelCatalog"
+									readonly="true">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td>
+								<xp:text tagName="label" value="${langBean.labelSerialNumber}:"
+									id="computedField3" styleClass="control-label">
+								</xp:text>
+							</xp:td>
+							<xp:td>
+								<xp:inputText
+									value="#{requestScope.serial}" id="serialNbr"
+									readonly="true">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td>
+								<xp:text tagName="label" value="${langBean.labelInstallationDate}:"
+									id="computedField4" styleClass="control-label">
+								</xp:text>
+							</xp:td>
+							<xp:td>
+								<xp:inputText
+									value="#{requestScope.install}" id="dateInstall"
+									readonly="true">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td>
+								<xp:text tagName="label" value="${langBean.labelPressure}:"
+									id="computedField5" styleClass="control-label">
+								</xp:text>
+							</xp:td>
+							<xp:td>
+								<xp:inputText
+									value="#{requestScope.pressure}" id="pressure"
+									readonly="true">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td>
+								<xp:text tagName="label" value="${langBean.labelFlow}:"
+									id="computedField6" styleClass="control-label">
+								</xp:text>
+							</xp:td>
+							<xp:td>
+								<xp:inputText id="flow" readonly="true"
+									value="#{requestScope.flow}">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td>
+								<xp:text tagName="label" value="${langBean.labelDateDealer}:"
+									id="computedField7" styleClass="control-label">
+								</xp:text>
+							</xp:td>
+							<xp:td>
+								<xp:inputText
+									value="#{requestScope.complete}" id="dateComplete"
+									readonly="true">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td></xp:td>
+							<xp:td></xp:td>
+						</xp:tr>
+					</xp:table>
+				</xp:panel>
+				<xp:panel id="panel1">
+					<xp:table styleClass="address-table">
+						<xp:tr>
+							<xp:panel styleClass="tableHeading" tagName="th">
+								<xp:this.attrs>
+									<xp:attr name="colspan" value="2"></xp:attr>
+								</xp:this.attrs>
+								<xp:text tagName="label" value="${langBean.titleAccessories}"
+									id="computedField8" styleClass="control-label">
+								</xp:text>
+							</xp:panel>
+						</xp:tr>
+						<xp:tr>
+							<xp:td style="width:25%">
+								<xp:text tagName="label" value="${langBean.labelHFC}"
+									id="computedField13" styleClass="control-label">
+								</xp:text>
+							</xp:td>
+							<xp:td>
+								<xp:inputText id="hfc"
+									value="#{requestScope.hfc}" readonly="true">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td>
+								<xp:text tagName="label" value="${langBean.labelLoadCushion}:"
+									id="computedField9" styleClass="control-label">
+								</xp:text>
+							</xp:td>
+							<xp:td>
+								<xp:inputText id="load"
+									value="#{requestScope.load}" readonly="true">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td>
+								<xp:text tagName="label" value="${langBean.labelDigitalTilt}:"
+									id="computedField14" styleClass="control-label">
+								</xp:text>
+							</xp:td>
+							<xp:td>
+								<xp:inputText id="digital"
+									value="#{requestScope.digital}" readonly="true">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td></xp:td>
+							<xp:td></xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:panel styleClass="tableHeading" tagName="th">
+								<xp:this.attrs>
+									<xp:attr name="colspan" value="2"></xp:attr>
+								</xp:this.attrs>
+								<xp:text tagName="label" value="${langBean.titleTruckInformation}"
+									id="computedField10" styleClass="control-label">
+								</xp:text>
+							</xp:panel>
+							<xp:td></xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td>
+								<xp:text tagName="label" value="${langBean.labelTruckMakeModel}:"
+									id="computedField11" styleClass="control-label">
+								</xp:text>
+							</xp:td>
+							<xp:td>
+								<xp:inputText id="truckModel"
+									value="#{requestScope.truckModel}" readonly="true">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td>
+								<xp:text tagName="label" value="${langBean.labelTruckSerial}:"
+									id="computedField12" styleClass="control-label">
+								</xp:text>
+							</xp:td>
+							<xp:td>
+								<xp:inputText id="truckSerial"
+									value="#{requestScope.truckSerial}" readonly="true">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+						</xp:tr>
+					</xp:table>
+				<xp:table styleClass="address-table">
+					<xp:tr>
+						<xp:button value="${langBean.btnPrevStep}" id="buttonPrevious1"
+							styleClass="btn btn-primary">
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true">
+							</span>
+							<xp:eventHandler event="onclick" submit="true"
+								refreshMode="partial" refreshId="main" disableValidators="true">
+								<xp:this.action><![CDATA[#{javascript:
+		viewScope.claimStep = "step_2";
+		sessionScope.claimStep = "step_2";
+		var dc = getComponent("dcClaimStep");
+		dc.show("step_2")
+		}]]></xp:this.action>
+							</xp:eventHandler>
+						</xp:button>
+						<xp:button value="${langBean.btnLabelSubmit}"
+							id="button3" styleClass="btn btn-primary pull-right">
+							<xp:this.rendered><![CDATA[#{javascript:viewScope.OrderPlaced=="0"}]]>
+							</xp:this.rendered>
+							<xp:eventHandler event="onclick"
+								submit="true" refreshMode="partial" immediate="false"
+								save="true" refreshId="main">
+								<xp:this.action><![CDATA[#{javascript:println("submitting Dealer Claim");d
+salesOrderBean.saveDealerClaim(viewScope.typeOrder, session);
+viewScope.orderPlaced = "1";
+viewScope.claimStep = "step_4";
+var dc = getComponent("dcClaimStep");
+dc.show("step_4")
+}]]></xp:this.action>
+							</xp:eventHandler>
+						</xp:button>
+					</xp:tr>
+					<xp:tr>
+					<xp:td></xp:td>
+					</xp:tr>
+				</xp:table>
+				</xp:panel>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+
+</xp:view>

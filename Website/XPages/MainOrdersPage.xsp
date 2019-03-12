@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xc:ccLayout>
+		<xp:panel styleClass="container" id="main">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7" value="${langBean.titleOrders}"
+							styleClass="carousel-heading">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!--	START external content row-->
+			<xp:panel styleClass="row" id="panelmain1">
+				<xp:panel id="panel3" styleClass="col-xs-12 col-md-10">
+					<xe:dataView id="dataView2" var="menuItem" rows="100"
+						styleClass="categories-list" indexVar="idxVar"
+						multiColumnCount="#{javascript:return (deviceBean.isMobile()) ? '1' : '2' ;}">
+						<xp:this.value><![CDATA[#{javascript:
+//var xdoc:NotesXspDocument = document1 ;
+//return menuBean.getMenuChildren(xdoc.getItemValueString("DocumentURL"));
+return menuBean.getMenuChildren("order");}]]></xp:this.value>
+						<xp:this.facets>
+							<xp:panel xp:key="summary">
+								<xp:link escape="true" text="#{menuItem.value}" id="link2"
+									value="#{javascript:configBean.HostURL + sessionScope.LanguageURL + menuItem.getKey();}"
+									rendered="#{!menuItem.external}">
+								</xp:link>
+								<xp:link escape="true" target="_blank" text="#{menuItem.value}"
+									id="link1" value="#{menuItem.key}" rendered="#{menuItem.external}">
+								</xp:link>
+							</xp:panel>
+						</xp:this.facets>
+					</xe:dataView>
+				</xp:panel>
+			</xp:panel>
+			<!--	end external content row-->
+			<!--	START INTERNAL content row-->
+			<xp:panel styleClass="row" id="panelOrderProcessing1"
+				loaded="${sessionScope.isEditRole eq true}">
+				<xp:panel id="panel2" styleClass="col-xs-12 col-md-10">
+					<xp:table styleClass="address-table">
+						<xp:tr>
+							<xp:panel styleClass="tableHeading" tagName="th">
+								<xp:this.attrs>
+									<xp:attr name="colspan" value="2">
+									</xp:attr>
+								</xp:this.attrs>
+								<xp:label value="${langBean.titleOrderProcessing}" id="label33"
+									style="font-weight:bold;color:rgb(255,255,255)">
+								</xp:label>
+							</xp:panel>
+						</xp:tr>
+					</xp:table>
+					<xp:panel styleClass="row" id="panel4">
+						<!--	list1 order processing-->
+						<xp:panel id="panel5" styleClass="col-md-6">
+							<xp:div styleClass="btn-group-vertical">
+								<xp:link escape="true"
+									loaded="${sessionScope.roles.isEditAllDocs eq true || sessionScope.roles.isEditParts eq true}"
+									text="${langBean.processparts}" id="link3" styleClass="btn btn-link text-left">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:
+sessionScope.viewName="processparts";
+//sessionScope.formName="OrderParts.xsp";
+sessionScope.formName="ProcessOrders.xsp";
+context.redirectToPage("OrderProcessing");
+}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+								<xp:link escape="true"
+									loaded="${sessionScope.roles.isEditAllDocs eq true || sessionScope.roles.isEditSalesLit eq true}"
+									text="${langBean.processsalesliterature}" id="link4"
+									styleClass="btn btn-link text-left">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:
+sessionScope.viewName="processsalesliterature";
+//sessionScope.formName="SalesLiterature.xsp";
+sessionScope.formName="ProcessOrders.xsp";
+context.redirectToPage("OrderProcessing");
+}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+
+								<xp:link escape="true"
+									loaded="${sessionScope.roles.isEditAllDocs eq true || sessionScope.roles.isEditSalesLit eq true}"
+									text="${langBean.processforkkit}" id="link11" styleClass="btn btn-link text-left">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:
+sessionScope.viewName="processforkkit";
+//sessionScope.formName="OrderForkkit.xsp";
+sessionScope.formName="ProcessOrders.xsp";
+context.redirectToPage("OrderProcessing");
+}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+
+								<xp:link escape="true"
+									loaded="${sessionScope.roles.isEditAllDocs eq true || sessionScope.roles.isEditSalesVideo eq true}"
+									text="${langBean.processsalesvideos}" id="link13"
+									styleClass="btn btn-link text-left">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:
+sessionScope.viewName="processsalesvideos";
+//sessionScope.formName="OrderSalesVideos.xsp";
+sessionScope.formName="ProcessOrders.xsp";
+context.redirectToPage("OrderProcessing");
+}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+								<xp:link escape="true"
+									loaded="${sessionScope.roles.isEditAllDocs eq true || sessionScope.roles.isEditTrainVideo eq true}"
+									text="${langBean.processpricelists}" id="link14"
+									styleClass="btn btn-link text-left">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:
+sessionScope.viewName="processpricelists";
+//sessionScope.formName="OrderPriceLists.xsp";
+sessionScope.formName="ProcessOrders.xsp";
+context.redirectToPage("OrderProcessing");
+}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+								<xp:link escape="true"
+									loaded="${sessionScope.roles.isEditAllDocs eq true || sessionScope.roles.isEditTrainVideo eq true}"
+									text="${langBean.processdrivertrainingvideos}" id="link15"
+									styleClass="btn btn-link text-left">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:
+sessionScope.viewName="processdrivertrainingvideos";
+//sessionScope.formName="OrderDriverTrainingVideos.xsp";
+sessionScope.formName="ProcessOrders.xsp";
+context.redirectToPage("OrderProcessing");
+}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+								<xp:link escape="true"
+									loaded="${sessionScope.roles.isEditAllDocs eq true || sessionScope.roles.isEditPromotional eq true}" 
+									text="${langBean.processpromoitems}"
+									id="link20" styleClass="btn btn-link text-left">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:sessionScope.viewName = "processpromoitems";
+sessionScope.formName = "ProcessOrders.xsp";
+context.redirectToPage("OrderProcessing");}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+							</xp:div>
+						</xp:panel>
+						<!--	list2 order processing-->
+						<xp:panel id="panel7" styleClass="col-md-6">
+							<xp:div styleClass="btn-group-vertical">
+								<xp:link escape="true"
+									loaded="${sessionScope.roles.isEditAllDocs eq true || sessionScope.roles.isEditFeedback eq true}"
+									text="${langBean.processcustomerfeedback}" id="link7"
+									styleClass="btn btn-link text-left">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:
+sessionScope.viewName="customerfeedback";
+sessionScope.formName="CustomerFeedback.xsp";
+context.redirectToPage("OrderQuoteProcessing");
+}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+
+								<xp:link escape="true"
+									loaded="${sessionScope.roles.isEditAllDocs eq true || sessionScope.roles.isEditForks eq true}"
+									text="${langBean.processforks}" id="link12" styleClass="btn btn-link text-left">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:sessionScope.viewName="processforks";
+sessionScope.viewName="processforks";
+sessionScope.formName="ProcessOrders.xsp";
+context.redirectToPage("OrderProcessing");
+}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+								<xp:link escape="true"
+									loaded="${sessionScope.roles.isEditAllDocs eq true || sessionScope.roles.isEditWarranty eq true}"
+									text="${langBean.processwarrantyclaims}" id="link5"
+									styleClass="btn btn-link text-left">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:
+sessionScope.viewName="warrantyclaims";
+sessionScope.formName="WarrantyClaim.xsp";
+context.redirectToPage("OrderQuoteProcessing");
+}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+								<xp:link escape="true"
+									loaded="${sessionScope.roles.isEditAllDocs eq true || sessionScope.roles.isEditDealerClaim eq true}"
+									text="${langBean.processdealerclaims}" id="link10"
+									styleClass="btn btn-link text-left">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:
+sessionScope.viewName="dealerclaims";
+sessionScope.formName="DealerClaim.xsp";
+context.redirectToPage("OrderQuoteProcessing");
+}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+								<xp:link escape="true"
+									loaded="${sessionScope.roles.isEditAllDocs eq true || sessionScope.roles.isEditForkquote eq true}"
+									text="${langBean.processquoterequestfork}" id="link6"
+									styleClass="btn btn-link text-left">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:
+sessionScope.viewName="quoterequestfork"; 
+sessionScope.formName="QUOTETYPE";
+context.redirectToPage("OrderQuoteProcessing"); 
+}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+								<xp:link escape="true"
+									loaded="${sessionScope.roles.isEditAllDocs eq true || sessionScope.roles.isEditProdReg eq true}"
+									text="${langBean.processregattdealers}" id="link8"
+									styleClass="btn btn-link text-left">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:
+sessionScope.viewName="regattdealers";
+sessionScope.formName="RegAttDealers.xsp";
+context.redirectToPage("OrderQuoteProcessing");
+}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+								<xp:link escape="true"
+									loaded="${sessionScope.roles.isEditAllDocs eq true || sessionScope.roles.isEditProdReg eq true}"
+									text="${langBean.processregatteu}" id="link9" styleClass="btn btn-link text-left">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:
+sessionScope.viewName="regattendusers";
+sessionScope.formName="RegAttEndusers.xsp";
+context.redirectToPage("OrderQuoteProcessing");
+}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+								<xp:link escape="true"
+									loaded="${sessionScope.rolesOther.isBlogAdmin eq true}"
+									text="${langBean.processBlog}" id="link16" styleClass="btn btn-link text-left">
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete">
+										<xp:this.action><![CDATA[#{javascript:
+context.redirectToPage("BlogAdmin");
+}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+							</xp:div>
+						</xp:panel>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+
+			<!--	end INTERNAL content row-->
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

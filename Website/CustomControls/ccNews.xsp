@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+		xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+										<!-- News Feeds -->
+					<xp:panel styleClass="news-feed">
+						<xp:button value="Clear add to home" id="button1">
+							<xp:this.loaded><![CDATA[${javascript:if (requestScope.session=="CN=PTL-WWWDEV-01/O=PTLWWWDV"){
+	return false;
+} else {
+return false;}}]]></xp:this.loaded>
+							<xp:eventHandler event="onclick" submit="false">
+								<xp:this.script><![CDATA[addToHomescreen.removeSession();]]></xp:this.script>
+							</xp:eventHandler>
+						</xp:button>
+						<h4 id="h41" class="subheading">
+										<xp:text id="computedField4" value="${langBean.news}">
+							</xp:text>
+						</h4>
+						<xe:dataView id="dataView1" rows="999" var="viewEntry"
+							styleClass="news-table" expandedDetail="true">
+							<xe:this.data>
+								<xp:dominoView databaseName="${configBean.NewsDbPath}"
+									categoryFilter="${sessionScope.LanguageP}" viewName="NewsByLanguage"
+									var="view1">
+								</xp:dominoView>
+							</xe:this.data>
+							<xp:this.facets>
+								<xp:panel xp:key="detail" id="detailPanel">
+									<xp:link escape="true" id="link1">
+										<xp:this.value><![CDATA[#{javascript:
+var ve:NotesXspViewEntry = viewEntry;
+var docId = ve.getDocument().getUniversalID();
+var url = configBean.HostURL + configBean.WebsiteURL+ "/News.xsp?action=openDocument&documentId=" + docId ;
+return url ;}]]></xp:this.value>
+										<xp:table styleClass="news-story">
+											<xp:tr>
+												<xp:td styleClass="image">
+													<xp:panel styleClass="image-wrapper">
+														<xp:image id="image2" url="/NewsDefault.png">
+															<xp:this.rendered><![CDATA[#{javascript:
+	var ve:NotesXspViewEntry = viewEntry;
+	var imageKey = ve.getColumnValue("key");
+	return !(imageKey) ;}]]></xp:this.rendered>
+														</xp:image>
+														<xp:image id="image3"
+															url="#{configBean.HostURL}#{configBean.NewsURL}/files/#{viewEntry.key}/$FILE/#{viewEntry.key}">
+															<xp:this.rendered><![CDATA[#{javascript:
+	var ve:NotesXspViewEntry = viewEntry;
+	var imageKey = ve.getColumnValue("key");
+	return !!(imageKey) ;}]]></xp:this.rendered>
+														</xp:image>
+													</xp:panel>
+												</xp:td>
+												<xp:td styleClass="description">
+													<xp:text value="#{viewEntry.txtNewsFrom} #{viewEntry.Subject}"
+														id="computedField5" styleClass="newsfeedtitle" escape="false">
+													</xp:text>
+													<xp:br></xp:br>
+													<xp:text value="#{viewEntry.Abstract} #{langBean.readMore}"
+														id="computedField6" escape="false">
+													</xp:text>
+												</xp:td>
+											</xp:tr>
+										</xp:table>
+									</xp:link>
+								</xp:panel>
+							</xp:this.facets>
+						</xe:dataView>
+					</xp:panel>
+
+
+</xp:view>

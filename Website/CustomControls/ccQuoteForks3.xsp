@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+  xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+  <!--  Step Header -->
+  <xc:ccQuoteForksHdr3></xc:ccQuoteForksHdr3>
+  <xp:br></xp:br>
+  <!-- START Truck DISPLAY  information-->
+  <xp:panel styleClass="row" id="panel23">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel24">
+      <xc:ccQuoteTruckInfo></xc:ccQuoteTruckInfo>
+    </xp:panel>
+  </xp:panel>
+  <!-- END Truck DISPLAY information-->
+  <xp:br></xp:br>
+  <!-- START DYNAMIC CONTENT ROW -->
+  <xp:panel styleClass="row" id="panelColumns1">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel4">
+      <!-- START switch -->
+      <xe:switchFacet id="switchFacetForkType1" selectedFacet="#{document1.Fork_Type}">
+        <xp:this.facets>
+          <xp:panel xp:key="Standard ITA Hook Forks" id="panel6">
+            <xc:ccQuoteForks3_ITA></xc:ccQuoteForks3_ITA>
+          </xp:panel>
+          <xp:panel xp:key="Non-Standard Hook Forks" id="panel9">
+            <xc:ccQuoteForks3_Square></xc:ccQuoteForks3_Square>
+          </xp:panel>
+          <xp:panel xp:key="Pin/Shaft Type Forks" id="panel10">
+            <xc:ccQuoteForks3_ShaftPin></xc:ccQuoteForks3_ShaftPin>
+          </xp:panel>
+          <xp:panel xp:key="Bolt-On" id="panel11">
+            <xc:ccQuoteForks3_BoltOn></xc:ccQuoteForks3_BoltOn>
+          </xp:panel>
+        </xp:this.facets>
+      </xe:switchFacet>
+    </xp:panel>
+  </xp:panel>
+  <!-- END DYNAMIC CONTENT ROW -->
+
+  <!--panel navigation buttons-->
+  <xp:panel styleClass="row" id="panel7">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel8">
+      <hr></hr>
+      <xp:button value="${langBean.btnPrevStep}" id="buttonPrevious1" styleClass="btn btn-primary">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+          refreshId="main">
+          <xp:this.action><![CDATA[#{javascript:
+    viewScope.orderStep = "step_2";
+    var dc = getComponent("dcOrderStep");
+    dc.show("step_2")
+    }]]></xp:this.action>
+        </xp:eventHandler>
+      </xp:button>
+
+      <xp:button value="${langBean.btnNextStep}" id="button1" styleClass="btn btn-primary pull-right">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+          refreshId="main">
+          <xp:this.action><![CDATA[#{javascript:
+    viewScope.orderStep = "step_4";
+    var dc = getComponent("dcOrderStep");
+    dc.show("step_4")
+    }]]></xp:this.action>
+        </xp:eventHandler>
+      </xp:button>
+
+    </xp:panel>
+  </xp:panel>
+
+</xp:view>

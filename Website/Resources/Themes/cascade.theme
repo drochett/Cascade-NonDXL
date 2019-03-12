@@ -1,0 +1,20 @@
+<theme extends="Bootstrap3.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="platform:/plugin/com.ibm.designer.domino.stylekits/schema/stylekit.xsd">
+	<resources>
+		<styleSheet href="/cascade.css"></styleSheet>
+		<styleSheet href="/onebodyfield.css"></styleSheet>
+		<styleSheet href="/other_websites.css"></styleSheet>
+	</resources>
+	
+	<control override="false">
+		<name>ViewRoot</name>
+		<property>
+			<name>pageTitle</name>
+			<value>Cascade Corporation</value>
+		</property>
+		<property>
+			<name>pageIcon</name>
+			<value>cascadeicon.ico</value>
+		</property>
+	</control>
+</theme>

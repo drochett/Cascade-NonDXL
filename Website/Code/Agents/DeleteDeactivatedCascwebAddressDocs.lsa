@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="DeleteDeactivatedCascwebAddressDocs" hide="v3" publicaccess="false" activatable="false">
+  <trigger type="scheduled">
+    <schedule type="daily" runlocation="specific" runserver="CN=PTL-WWWPROD-02/O=PTLWWWPD">
+      <starttime>
+        <datetime>T020000,00</datetime>
+      </starttime>
+      <startdate>
+        <datetime>20170415</datetime>
+      </startdate>
+    </schedule>
+  </trigger>
+  <documentset type="modified"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent DeleteDeactivatedCascwebAddressDocs
+	Created Apr 13, 2017 by Michael Zens/PTL/CASCADE
+	Description: Comments for Agent
+%END REM
+Option Public
+Option Declare
+
+
+</lotusscript>
+  </code>
+  <code event="declarations">
+    <lotusscript>'these are for error trapping
+Dim importLogSet As Boolean
+Dim importLogDoc As NotesDocument
+Dim importLogMsgRT As NotesRichTextItem
+'added to seperate the error messages
+Dim importLogErrorRT As NotesRichTextItem
+Dim importLogWarningRT As NotesRichTextItem
+Dim importLogInfoRT As NotesRichTextItem
+Dim db As NotesDatabase
+Dim errorCount As Long
+Dim deleteCount As Long
+Dim unchangedCount As Long
+Dim warningcount As Long
+Dim infoCount As Long
+Dim unknownError As Long
+Dim totalCount As Integer
+Dim thisServer As String
+Dim logMsg As String
+Dim color As String
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	Dim st As String
+	On Error GoTo Error_Trap
+	st = CStr(GetThreadInfo(1)) + ":  " 
+	Dim s As New NotesSession
+	Dim a As NotesAgent
+	Dim v As NotesView
+	Dim setupDoc As NotesDocument
+	Dim doc As NotesDocument
+	Dim dc As NotesDocumentCollection
+	Dim item As NotesItem
+	Dim todayDT As New NotesDateTime(Now())
+	Dim x As Integer
+	
+	'set importLog doc stuff
+	Set db = s.Currentdatabase
+	thisServer = db.Server
+	Set a = s.Currentagent
+	st = a.Name + " / " + st
+	Set importLogDoc = db.Createdocument()
+	'set up Agent log stuff
+	Call importLogDoc.Replaceitemvalue("Form", "ImportLog")
+	Call importLogDoc.Replaceitemvalue("Server", db.Server)
+	Call importLogDoc.Replaceitemvalue("StartDate",  Now)
+	Call importLogDoc.Replaceitemvalue("Success", "Yes") 'Default to yes. Code will change to no if there is a problem.
+	Set importLogMsgRT = New NotesRichTextItem (importLogDoc, "Message")
+	'added code to point to errors field
+	Set importLogErrorRT = New NotesRichTextItem (importLogDoc, "Errors")
+	'added code to point to warnings field
+	Set importLogWarningRT = New NotesRichTextItem (importLogDoc, "Warnings")
+	'added code to point to Info field
+	Set importLogInfoRT = New NotesRichTextItem (importLogDoc, "Info")
+	importLogDoc.name = s.Currentagent.Name
+	
+	'open the cascweb address book
+	Set v = db.getView("ActiveSetupValues")'reset the database to point to the cascweb addressbook
+	Set setupDoc = v.getDocumentByKey("UserDominoDirectoryPath",True)
+	Set db = Nothing
+	Set db = s.Getdatabase(thisServer,setupDoc.value(0), False)
+	If db Is Nothing Then
+		'major error - need to exit
+		logMsg = |Unable to connect to database "|+db.server+setupDoc.value(0)
+		Call setImportLogMessage(Chr(10)+logMsg,"Error")
+		Exit Sub
+	Else
+		logMsg = |Connected to database "|+db.server+|\|+setupDoc.value(0)+|".|
+		Call setImportLogMessage(Chr(10)+logMsg,"Info")
+	End If
+	Set dc = db.Search( "", Nothing, 0 ) 'init the document collection
+	'get the view with the documents we are going  process
+	Set v = db.getview("To Be Deleted")
+	totalCount = CStr(v.entryCount)
+	Set doc = v.Getfirstdocument()
+	'Call todayDT.AdjustDay(10)  'testing only so that we can test to see if time diff works to decide if doc gets deleted
+	Do Until doc Is Nothing
+		Color = ""
+		'compare deletionDT to now
+		Set item = Nothing
+		Set item = doc.Getfirstitem("deletionDT")
+		Dim dt As New NotesDateTime(doc.deletionDT(0))
+		Dim dtReturn As Long
+		Dim dt2 As New NotesDateTime(doc.deletionDT(0))
+		
+		dtReturn = todayDT.TimeDifference(DT)
+		logMsg = "The document for " + doc.internetAddress(0) + " time difference is "+ CStr(dtReturn) + ".  DeleteionDT:  " + DT2.DateOnly
+		Call setImportLogMessage(logMsg,"Msg")
+		
+'		If todayDT.TimeDifference(DT) &lt;= 0 Then
+		If todayDT.TimeDifference(DT) &gt;= 1 Then
+			Set item = Nothing
+			Set item = doc.Getfirstitem("deletionDT")
+			logMsg = "The document for " + doc.internetAddress(0) + " will be removed.  DeleteionDT:  " + DT2.DateOnly
+			Call setImportLogMessage(logMsg,"Msg")
+			Call dc.Adddocument(doc)
+		Else
+			Dim dt3 As New NotesDateTime(doc.deletionDT(0))
+			logMsg = "The document for " + doc.internetAddress(0) + " will not be removed.  DeleteionDT:  " + DT3.DateOnly
+			color = "RED"
+			Call setImportLogMessage(logMsg,"Msg")
+			unchangedCount = unchangedCount + 1
+		End If
+		
+		Set dt2 = Nothing 're-init it
+		Set doc = v.getNextDocument(doc)
+	Loop
+		
+	deleteCount = dc.Count
+	If dc.count = 0 Then
+		logmsg = |Document collection count for view |+v.name+| with "JO" as AccessType:  |+ CStr(dc.count)
+		Call setImportLogMessage(Chr(10)+logMsg,"Info")
+		logmsg = |No documents with "JO" as accessType will be deleted.|
+		Call setImportLogMessage(Chr(10)+logMsg,"Msg")
+		GoTo End_Of_Code 
+	Else
+		logMsg = "Total Documents to work on: " + CStr(totalCount)
+		Call setImportLogMessage(Chr(10)+logMsg,"Info")
+	End If
+	
+	'GoTo End_Of_Code
+	
+	Dim docB As NotesDocument
+	Set doc = dc.Getfirstdocument()
+	Do Until doc Is Nothing
+		Set docB=Nothing
+		Set docB = dc.getNextDocument(doc)
+		Call doc.remove(True)
+		deleteCount = deleteCount+1
+		Set doc = docB
+	Loop
+	
+	GoTo End_Of_Code
+ERROR_TRAP:
+	MsgBox st + CStr(Err) + " on line " + CStr(Erl) + ": " + Error
+
+	Call setImportLogMessage(st + CStr(Err) + " on line " + CStr(Erl) + ": " + Error,"Error")
+
+	Resume End_Of_Code
+END_OF_CODE:
+	importLogDoc.totalCOunt = CStr(totalCount)
+	importLogDoc.deleteCount = CStr(deleteCount)
+	importLogDoc.unchangedCount = CStr(unchangedCount)
+	importLogDoc.errorCount = errorCount
+	Call importLogDoc.Replaceitemvalue("EndDate",  Now)
+	Call importLogDoc.Save(True,True)
+	
+End Sub
+
+</lotusscript>
+  </code>
+  <code event="setImportLogMessage">
+    <lotusscript>Function setImportLogMessage (message As String, msgType As String)
+	'changed code to seperate issues MCR: WSCR-99MNNE – 09/26/14 - mdz
+	Dim st As String
+	Dim s As New NotesSession
+	Dim richStyle As NotesRichTextStyle
+	Set richStyle = s.CreateRichTextStyle
+	st =  + CStr(GetThreadInfo(1)) + ": "
+	'msgBox st + "Entering Log Msg - " + msgType
+	On Error GoTo catch
+	Select Case msgType
+		Case "Warning"
+			If importLogWarningRT.Values &lt;&gt; "" Then
+				Call importLogWarningRT.Addnewline(1)
+			End If
+			If message = "" Then Exit Function
+			richStyle.NotesColor = COLOR_DARK_MAGENTA
+			'added code below to catch errors in seperate field
+			warningCount = warningCount + 1
+			Call importLogWarningRT.AppendStyle(richStyle)
+			Call importLogWarningRT.Appendtext(message)
+			importLogDoc.warningCount = warningCount
+			'Exit Function
+		Case "Error"
+			'MsgBox st + "recording error"
+			If importLogErrorRT.Values &lt;&gt; "" Then
+				Call importLogErrorRT.Addnewline(1)
+			End If
+			richStyle.NotesColor = COLOR_RED
+			'added code below to catch errors in seperate field
+			ErrorCount = ErrorCount + 1
+			
+			Call importLogErrorRT.AppendStyle(richStyle)
+			If message &lt;&gt; "" Then
+				Call importLogErrorRT.Appendtext(message)
+			Else
+				Call importLogErrorRT.Appendtext("Error Unknown " + CStr(unknownError))
+				unknownError = unknownError + 1
+			End If
+			importLogDoc.errorCount = errorCount
+			'Exit Function
+		Case "Info"
+			If importLogInfoRT.Values &lt;&gt; "" Then
+				Call importLogInfoRT.Addnewline(1)
+			End If
+			'added code below to catch information in seperate field
+			If message = "" Then Exit Function
+			infoCount = infoCount+1
+			richStyle.NotesColor = COLOR_BLUE
+			Call importLogInfoRT.AppendStyle(richStyle)
+			Call importLogInfoRT.Appendtext(message)
+		Case "Msg"	
+			If importLogMsgRT.Values &lt;&gt; "" Then
+				Call importLogMsgRT.Addnewline(1)
+			End If
+			If color = "RED" Then 
+				richStyle.NotesColor = COLOR_RED
+			Else
+				richStyle.NotesColor = COLOR_BLACK
+			End IF
+			Call importLogMsgRT.AppendStyle(richStyle)
+			Call importLogMsgRT.Appendtext(message)
+	End Select
+	importLogDoc.errorCount = errorCount
+	Call importLogDoc.save(True,False)
+	Exit Function
+	
+catch:
+	MessageBox st + "Err nbr " + CStr(Err) + ":  Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ 
+'	Call setImportLogMessage ("Sub setImportLogMessage " + Error$ + ": " + Str$(Erl), "Error")
+	Call importLogDoc.Replaceitemvalue("Success", "No")
+
+	Exit Function	
+End Function</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101946,96-08</datetime>
+  </item>
+</agent>

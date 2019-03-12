@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+  xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+  <!--  Step Header -->
+  <xc:ccQuoteForksHdr4></xc:ccQuoteForksHdr4>
+  <xp:br></xp:br>
+  <!-- START Truck DISPLAY  information-->
+  <xp:panel styleClass="row" id="panel23">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel24">
+      <xc:ccQuoteTruckInfo></xc:ccQuoteTruckInfo>
+    </xp:panel>
+  </xp:panel>
+  <!-- END Truck DISPLAY information-->
+  <xp:br></xp:br>
+  <!-- START CHOOSE FORK TIPS -->
+  <xp:panel styleClass="row" id="panelColumns1">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel3">
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:this.attrs>
+              <xp:attr name="colspan" value="2"></xp:attr>
+            </xp:this.attrs>
+            <xp:label value="${langBean.titleForkTips}" id="label5"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+      </xp:table>
+      <!-- START 1 row 4 column -->
+      <xp:panel styleClass="row" id="panelColumns2">
+        <xp:panel styleClass="col-xs-6 col-md-3" id="panel1">
+          <xp:br></xp:br>
+          <xp:image url="/Step4_ForkTips_1.gif" id="image1"></xp:image>
+          <xp:br></xp:br>
+          <xp:div style="padding-left:2.0em;padding-top:1.0em">
+            <xp:label value="${langBean.labelForkTip1}" style="font-weight:bold"></xp:label>
+            <xp:br></xp:br>
+            <ul>
+              <li>
+                <xp:label value="${langBean.labelForkTip1item1}"></xp:label>
+              </li>
+            </ul>
+          </xp:div>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-6 col-md-3" id="panel2">
+          <xp:br></xp:br>
+          <xp:image url="/Step4_ForkTips_2.gif" id="image2"></xp:image>
+          <xp:br></xp:br>
+          <xp:div style="padding-left:2.0em;padding-top:1.0em">
+            <xp:label value="${langBean.labelForkTip2}" style="font-weight:bold"></xp:label>
+            <xp:br></xp:br>
+            <ul>
+              <li>
+                <xp:label value="${langBean.labelForkTip2item1}"></xp:label>
+              </li>
+              <li>
+                <xp:label value="${langBean.labelForkTip2item2}"></xp:label>
+              </li>
+            </ul>
+          </xp:div>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-6 col-md-3" id="panel4">
+          <xp:br></xp:br>
+          <xp:image url="/Step4_ForkTips_3.gif" id="image3"></xp:image>
+          <xp:br></xp:br>
+          <xp:div style="padding-left:2.0em;padding-top:1.0em">
+            <xp:label value="${langBean.labelForkTip3}" style="font-weight:bold"></xp:label>
+            <xp:br></xp:br>
+            <ul>
+              <li>
+                <xp:label value="${langBean.labelForkTip3item1}"></xp:label>
+              </li>
+            </ul>
+          </xp:div>
+        </xp:panel>
+        <!--        <xp:panel styleClass="col-xs-6 col-md-3" id="panel5">-->
+        <!--        </xp:panel>-->
+      </xp:panel>
+      <!-- END 1 row 4 column -->
+      <xp:comboBox id="PeferredLanguageSelect" value="#{document1.Tips}">
+        <xp:selectItems value="${langBean.selForkTips}"></xp:selectItems>
+        </xp:comboBox>
+    </xp:panel>
+  </xp:panel>
+  <!-- END CHOOSE FORK TIPS -->
+  <xp:br></xp:br>
+  <!-- START CHOOSE TAPERS -->
+  <xp:panel styleClass="row" id="panel6">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel9">
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:this.attrs>
+              <xp:attr name="colspan" value="2"></xp:attr>
+            </xp:this.attrs>
+            <xp:label value="${langBean.titleTapers}" id="label1"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+      </xp:table>
+      <!-- START 1 row 4 column -->
+      <xp:panel styleClass="row" id="panel10">
+        <xp:panel styleClass="col-xs-6 col-md-3" id="panel11">
+          <xp:br></xp:br>
+          <xp:image url="/Step4_Taper-Std_1.gif" id="image4"></xp:image>
+          <xp:br></xp:br>
+          <xp:div style="padding-left:2.0em;padding-top:1.0em">
+            <xp:label value="${langBean.labelTaper1}" style="font-weight:bold"></xp:label>
+          </xp:div>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-6 col-md-3" id="panel12">
+          <xp:br></xp:br>
+          <xp:image url="/Step4_Taper-FullTop_2.gif" id="image5"></xp:image>
+          <xp:br></xp:br>
+          <xp:div style="padding-left:2.0em;padding-top:1.0em">
+            <xp:label value="${langBean.labelTaper2}" style="font-weight:bold"></xp:label>
+          </xp:div>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-6 col-md-3" id="panel13">
+          <xp:br></xp:br>
+          <xp:image url="/Step4_Taper-FullBtm_3.gif" id="image6"></xp:image>
+          <xp:br></xp:br>
+          <xp:div style="padding-left:2.0em;padding-top:1.0em">
+            <xp:label value="${langBean.labelTaper3}" style="font-weight:bold"></xp:label>
+          </xp:div>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-6 col-md-3" id="panel14">
+          <xp:br></xp:br>
+          <xp:image url="/Step4_Taper-TwoStage_4.gif" id="image7"></xp:image>
+          <xp:br></xp:br>
+          <xp:div style="padding-left:2.0em;padding-top:1.0em">
+            <xp:label value="${langBean.labelTaper4}" style="font-weight:bold"></xp:label>
+            <xp:br></xp:br>
+            <ul>
+              <li>
+                <xp:label value="${langBean.labelTaper4item1}"></xp:label>
+              </li>
+            </ul>
+          </xp:div>
+        </xp:panel>
+      </xp:panel>
+      <!-- END 1 row 4 column -->
+      <xp:comboBox id="comboBox1" value="#{document1.Taper_Options}">
+        <xp:selectItems value="${langBean.selTaperOptions}"></xp:selectItems>
+        <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+          refreshId="panelBevelOptions1"></xp:eventHandler>
+      </xp:comboBox>
+    </xp:panel>
+  </xp:panel>
+  <!-- END CHOOSE TAPERS  -->
+  <xp:br></xp:br>
+  <!-- START BEVEL OPTIONS -->
+  <xp:panel styleClass="row" id="panelBevelOptions1">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel16">
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:this.attrs>
+              <xp:attr name="colspan" value="2"></xp:attr>
+            </xp:this.attrs>
+            <xp:label value="${langBean.titleBevelOptions}" id="label2"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+      </xp:table>
+      <!-- START 1 row 4 column -->
+      <xp:panel styleClass="row" id="panel17">
+        <xp:panel styleClass="col-xs-6 col-md-4" id="panel18"
+          rendered="#{document1.Taper_Options eq 'Standard Taper'}">
+          <xp:br></xp:br>
+          <xp:image url="/Step4_Bevel-Std-No_1.gif" id="image8"></xp:image>
+          <xp:br></xp:br>
+          <xp:div style="padding-left:2.0em;padding-top:1.0em">
+            <xp:label value="${langBean.labelBevel1}" style="font-weight:bold"></xp:label>
+          </xp:div>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-6 col-md-4" id="panel5"
+          rendered="#{document1.Taper_Options eq 'Standard Taper'}">
+          <xp:br></xp:br>
+          <xp:image url="/Step4_Bevel-StdTaperwBevel_4.gif" id="image9"></xp:image>
+          <xp:br></xp:br>
+          <xp:div style="padding-left:2.0em;padding-top:1.0em">
+            <xp:label value="${langBean.labelBevel2}" style="font-weight:bold"></xp:label>
+          </xp:div>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-6 col-md-4" id="panel15"
+          rendered="#{document1.Taper_Options ne 'Standard Taper'}">
+          <xp:br></xp:br>
+          <xp:image url="/Step4_Bevel-FullTaper-Top_3.gif" id="image10"></xp:image>
+          <xp:br></xp:br>
+          <xp:div style="padding-left:2.0em;padding-top:1.0em">
+            <xp:label value="${langBean.labelBevel3}" style="font-weight:bold"></xp:label>
+          </xp:div>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-6 col-md-4" id="panel19"
+          rendered="#{document1.Taper_Options eq 'Full Bottom Taper and Polish' || document1.Taper_Options eq 'Two Stage Taper and Polish'}">
+          <xp:br></xp:br>
+          <xp:image url="/Step4_Bevel-FullTaper-Btm_2.gif" id="image11"></xp:image>
+          <xp:br></xp:br>
+          <xp:div style="padding-left:2.0em;padding-top:1.0em">
+            <xp:label value="${langBean.labelBevel4}" style="font-weight:bold"></xp:label>
+          </xp:div>
+        </xp:panel>
+        <xp:panel styleClass="col-xs-6 col-md-4" id="panel20"
+          rendered="#{document1.Taper_Options eq 'Full Top Taper and Polish'}">
+          <xp:br></xp:br>
+          <xp:image url="/Step4_Bevel-TopChiselTip_5.gif" id="image12"></xp:image>
+          <xp:br></xp:br>
+          <xp:div style="padding-left:2.0em;padding-top:1.0em">
+            <xp:label value="${langBean.labelBevel5}" style="font-weight:bold"></xp:label>
+          </xp:div>
+        </xp:panel>
+      </xp:panel>
+      <!-- END 1 row 4 column -->
+      <xp:comboBox id="comboBox2" value="#{document1.Chisel_Bevel_Options}">
+        <xp:selectItems>
+          <xp:this.value><![CDATA[#{javascript:
+var taperOption = "Choose One";
+var taperOption = currentDocument.getItemValueString("Taper_Options") ;
+
+if (taperOption == "Choose One" || taperOption == "" || taperOption == null ) {
+		return langBean.getValue("selBevelOptions0") ;
+	} else if (taperOption == "Standard Taper") {
+		return langBean.getValue("selBevelOptions1") ;
+	} else if (taperOption == "Full Top Taper and Polish") {
+		return langBean.getValue("selBevelOptions2") ;
+	} else if (taperOption == "Full Bottom Taper and Polish") {
+		return langBean.getValue("selBevelOptions3and4") ;
+	} else if (taperOption == "Two Stage Taper and Polish") {
+		return langBean.getValue("selBevelOptions3and4") ;
+	} else {
+		return langBean.getValue("selBevelOptions0") ;
+}
+	}]]></xp:this.value>
+        </xp:selectItems>
+      </xp:comboBox>
+    </xp:panel>
+  </xp:panel>
+  <!-- END BEVEL OPTIONS  -->
+  <xp:br></xp:br>
+  <!-- START Notes-->
+  <xp:panel styleClass="row" id="panel21">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel22">
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:label value="${langBean.titleNotes}" id="label6"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xe:djTextarea rows="2" value="#{document1.rtf_Notes}" id="rtf_Notes1"></xe:djTextarea>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+    </xp:panel>
+  </xp:panel>
+  <!-- END Notes-->
+
+
+  <!--panel navigation buttons-->
+  <xp:panel styleClass="row" id="panel7">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel8">
+      <hr></hr>
+      <xp:button value="${langBean.btnPrevStep}" id="buttonPrevious1" styleClass="btn btn-primary">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+          refreshId="main">
+          <xp:this.action><![CDATA[#{javascript:
+    viewScope.orderStep = "step_3";
+    var dc = getComponent("dcOrderStep");
+    dc.show("step_3")
+    }]]></xp:this.action>
+        </xp:eventHandler>
+      </xp:button>
+
+      <xp:button value="${langBean.btnNextStep}" id="button1" styleClass="btn btn-primary pull-right">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+          refreshId="main">
+          <xp:this.action><![CDATA[#{javascript:
+    viewScope.orderStep = "step_5";
+    var dc = getComponent("dcOrderStep");
+    dc.show("step_5")
+    }]]></xp:this.action>
+        </xp:eventHandler>
+      </xp:button>
+
+    </xp:panel>
+  </xp:panel>
+
+  </xp:view>

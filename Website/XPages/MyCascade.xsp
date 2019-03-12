@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex" dojoParseOnLoad="true"
+	dojoTheme="true">   
+	<xp:this.resources>
+		<xp:dojoModule name="dojox.widget.Standby"></xp:dojoModule>
+		<xp:script src="/waitFunctions.js" clientSide="true"></xp:script>
+	</xp:this.resources>
+		<xp:this.beforeRenderResponse><![CDATA[#{javascript:importPackage(com.cascorp);
+//set region and account number
+if (salesOrderBean.getRegion() == "" || salesOrderBean.getRegion() == null){
+	//get the region from the person document
+	var rtnMap = RegistrationUtilities.getAccountNumber(session.getEffectiveUserName(),sessionAsSigner);
+	salesOrderBean.setRegion(rtnMap.get("region"));
+	//salesOrderBean.setAccountNumber(rtnMap.get("acctnumber"));
+	dBar.info("user account number is " + salesOrderBean.getAccountNumber());
+	dBar.info("user region is " + salesOrderBean.getRegion());
+}
+var region = salesOrderBean.getRegion();
+
+if (region!=null || region != ""){
+	var jde = new JDESupport();
+	var serverValid = jde.testJDE(region);
+	if (!serverValid){
+		//redirect to error XPage
+		context.redirectToPage("Error.xsp");
+	}
+}
+}]]></xp:this.beforeRenderResponse>
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+	
+	<xc:ccLayout>
+		<xp:panel styleClass="container" id="mainPanel">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							styleClass="carousel-heading"
+							value="Hello, ${orderStatusBean.firstName}">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			
+			<xc:ccMyLayout_END>
+				<xp:this.rendered><![CDATA[#{javascript:orderStatusBean.userType=="END"}]]></xp:this.rendered>>
+			</xc:ccMyLayout_END>					
+
+			<xc:ccMyLayout_INT>
+				<xp:this.rendered><![CDATA[#{javascript:orderStatusBean.userType=="INT"}]]></xp:this.rendered>>
+			</xc:ccMyLayout_INT>					
+
+			<xc:ccMyLayout_DLR>
+				<xp:this.rendered><![CDATA[#{javascript:orderStatusBean.userType=="DLR"}]]></xp:this.rendered>>
+			</xc:ccMyLayout_DLR>					
+
+			<xc:ccMyLayout_OEM>
+				<xp:this.rendered><![CDATA[#{javascript:orderStatusBean.userType=="OEM"}]]></xp:this.rendered>>
+			</xc:ccMyLayout_OEM>					
+			
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

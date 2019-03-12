@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	pageTitle="Dealer Locator Demo">
+	<xc:ccLayout>
+		<xp:panel styleClass="container" id="main">
+			<!--	Dealer banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7" value="Dealer Locator"
+							styleClass="carousel-heading">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!--	Container for Dealer map-->
+			<xc:ccDealerLocatorMap></xc:ccDealerLocatorMap>
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

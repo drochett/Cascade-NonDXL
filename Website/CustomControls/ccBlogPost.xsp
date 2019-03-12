@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom">  
+		
+		<xc:ccBlogHeader> </xc:ccBlogHeader>
+		
+		<xp:panel styleClass="row" id="rowMain1" style="margin-bottom:10px;">
+			<xp:panel id="doccontent" styleClass="col-sm-12">
+				
+		
+		<!--    document unid found-->
+		<xp:panel id="panel1">
+			<xp:panel id="panelDocument1">
+				    <xp:panel styleClass="row">
+				    	    <xp:panel
+				    	    	styleClass="blog-post">
+				    	    	<xp:image id="image2"
+				    	    		url="${configBean.HostURL}${configBean.BlogURL}/0/#{javascript:currentDocument.getDocument().getUniversalID();}/$FILE/${compositeData.documentDataSource.FullSize}"
+				    	    		width="100%">
+				    	    	</xp:image>
+
+				    	    	<xp:panel styleClass="post-heading">
+				    	    		<xp:text escape="false" tagName="h2"
+				    	    			value="#{compositeData.documentDataSource.Title}"
+				    	    			styleClass="post-title">
+				    	    		</xp:text>
+
+				    	    		<hr class="medium" />
+				    	    		<xp:text escape="false"
+				    	    			tagName="span" styleClass="meta"
+				    	    			value="Posted by #{compositeData.documentDataSource.PostedBy} on #{compositeData.documentDataSource.PostedOn}">
+				    	    		</xp:text>
+				    	    	</xp:panel>
+
+				    	    	<xp:text escape="false"
+				    	    		value="#{compositeData.documentDataSource.Body}">
+				    	    	</xp:text>
+				    	    </xp:panel>
+
+				    	    <xp:this.data>
+		<xp:dominoView var="dominoView" viewName="Comments"
+			databaseName="#{javascript:configBean.BlogDbPath}">
+			<xp:this.categoryFilter><![CDATA[#{javascript:compositeData.documentDataSource.getItemValueString("PermLink")}]]></xp:this.categoryFilter>
+		</xp:dominoView>
+	</xp:this.data>
+
+	<xp:panel>
+	<xp:panel styleClass="row">
+		<xp:this.rendered><![CDATA[#{javascript:var ce=configBean.BlogCommentsEnabled;
+ce = ce.toLowerCase();
+if (ce == "yes"||ce=="true") {
+	return true;
+} else {
+	return false;
+}}]]></xp:this.rendered>
+		<xp:section id="section_comment"
+			headerStyle="font-weight:bold;font-size:24px;"
+			style="background:white;padding-left:15px;padding-righ:15px;"
+			initClosed="true">
+			<xp:this.header><![CDATA[#{javascript:"Comments ("+getComponent("commentList").getRowCount()+")";}]]></xp:this.header>
+
+			<xp:panel id="Comments">
+				<xp:repeat id="commentList" indexVar="responseIndex"
+					var="rowData" value="#{javascript:dominoView}">
+					<xp:panel styleClass="lotusComment">
+						<xp:panel styleClass="lotusCommentHeader">
+							Created&#160;by&#160;
+							<xp:text escape="true" id="cfName"
+								styleClass="lotusPerson" style="font-weight:bold">
+								<xp:this.value><![CDATA[#{javascript:rowData.getColumnValue("Name")}]]></xp:this.value>
+							</xp:text>
+							&#160;on&#160;
+							<xp:text escape="true" id="cfDate">
+								<xp:this.value><![CDATA[#{javascript:rowData.getColumnValue("Created")}]]></xp:this.value>
+								<xp:this.converter>
+									<xp:convertDateTime type="both">
+									</xp:convertDateTime>
+								</xp:this.converter>
+							</xp:text>
+						</xp:panel>
+						<xp:panel styleClass="lotusCommentBody">
+							<xp:text escape="false" id="cfComment"
+								styleClass="lotusChunk">
+								<xp:this.value><![CDATA[#{javascript:var a=rowData.getColumnValue("Comment");
+if(a!=null){
+if(typeof a=="string"){
+return "<p>"+a.toString()+"</p>";	
+}else{
+var html="<p>";
+for(var x=0;x<a.length;x++){
+	html+=a[x]+"<br>";
+}
+return html+"</p>";
+}
+}
+}]]></xp:this.value>
+							</xp:text>
+						</xp:panel>
+						<xp:br></xp:br>
+					</xp:panel>
+				</xp:repeat>
+				<xp:panel>
+					<xp:this.rendered><![CDATA[#{javascript:var cs=getComponent("commentsSubmitted").getValue();
+if (cs=="false") {
+	return false;
+} else {
+	return true;
+}}]]></xp:this.rendered>
+					<xp:label
+						value="Thank you for your comments, they will be reviewed before appearing on this page."
+						id="label6" styleClass="h3">
+					</xp:label>
+				</xp:panel>
+				<xp:panel id="addCommentPanel">
+					<xp:this.rendered><![CDATA[#{javascript:var cs=getComponent("commentsSubmitted").getValue();
+if (cs=="false") {
+	return true;
+} else {
+	return false;
+}}]]></xp:this.rendered>
+					<xp:text escape="true" id="commentsSubmitted"
+						value="false" rendered="false">
+					</xp:text>
+					<xp:table themeId="Forms.FormTable"
+						id="commentTable">
+						<xp:tr>
+							<xp:td colspan="2"
+								styleClass="lotusFormTitle">
+								<h2>
+
+									<xp:label value=" Add Comment"
+										id="label3" style="font-weight:bold;font-size:20px;">
+									</xp:label>
+								</h2>
+							</xp:td>
+
+						</xp:tr>
+						<xp:tr>
+							<xp:td style="width:15%"
+								styleClass="lotusFormLabel">
+								<xp:label value="Name:" id="Label2"
+									styleClass="lotusFormLabel" style="font-weight:bold">
+								</xp:label>
+							</xp:td>
+							<xp:td>
+								<xp:inputText id="Name"
+									style="width:281.0px" styleClass="lotusText"
+									value="#{viewScope.Name}">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td style="width:15%"
+								styleClass="lotusFormLabel">
+								<xp:label value="Email:" id="label4"
+									styleClass="lotusFormLabel" style="font-weight:bold">
+								</xp:label>
+							</xp:td>
+							<xp:td>
+								<xp:inputText id="Email"
+									style="width:281.0px" styleClass="lotusText"
+									value="#{viewScope.Email}">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td style="width:15%"
+								styleClass="lotusFormLabel" rendered="false">
+								<xp:label value="Website:" id="label5"
+									styleClass="lotusFormLabel" style="font-weight:bold">
+								</xp:label>
+							</xp:td>
+							<xp:td rendered="false">
+								<xp:inputText id="Website"
+									style="width:281.0px" styleClass="lotusText"
+									value="#{viewScope.Website}">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td style="width:15.0%"
+								styleClass="lotusFormLabel" valign="top">
+								<xp:label value="Comments:" id="label7"
+									styleClass="lotusFormLabel" style="font-weight:bold">
+								</xp:label>
+							</xp:td>
+							<xp:td>
+								<xp:inputTextarea id="Comment" rows="5"
+									style="width:500px" multipleSeparator="**" multipleTrim="false"
+									value="#{viewScope.Comment}">
+								</xp:inputTextarea>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td colspan="2"
+								styleClass="lotusFormFooter">
+								<div class="lotusBtnContainer">
+									<xp:button value="Post Comment"
+										id="button1" styleClass="lotusFormButton">
+										<xp:eventHandler event="onclick"
+											submit="true" refreshMode="partial"
+											refreshId="section_comment">
+											<xp:this.action><![CDATA[#{javascript:
+var db:NotesDatabase=session.getDatabase("", configBean.BlogDbPath, false);
+// Create and populate new comment document
+var rdoc:NotesDocument=db.createDocument();
+rdoc.appendItemValue("Form","Comments");
+rdoc.appendItemValue("Name",getComponent("Name").getValue());
+rdoc.appendItemValue("Status", "Draft");
+var em=getComponent("Email");
+rdoc.appendItemValue("Email", em.getValue());
+rdoc.appendItemValue("Website", getComponent("Website").getValue());
+rdoc.appendItemValue("PermLink", compositeData.documentDataSource.getItemValueString("PermLink"));
+
+//Get comment field and get individual lines
+var o=getComponent("Comment");
+var p=o.getValue();
+
+//Create Array of lines
+var a=p.split("\n");
+
+//Convert Array to Vector
+var v:java.util.Vector = new java.util.Vector(java.util.Arrays.asList(a))
+
+var item:NotesItem=rdoc.appendItemValue("Comment",v);
+
+// Make response, compute default values and save
+rdoc.makeResponse(compositeData.documentDataSource.getDocument());
+rdoc.computeWithForm(false,false);
+rdoc.save();
+
+//Clear Comment Field
+o.setValue("");
+getComponent("Name").setValue("");
+getComponent("Email").setValue("");
+getComponent("Website").setValue("");
+getComponent("commentsSubmitted").setValue("true");
+}]]></xp:this.action>
+										</xp:eventHandler>
+									</xp:button>
+								</div>
+							</xp:td>
+						</xp:tr>
+					</xp:table>
+				</xp:panel>
+			</xp:panel>
+		</xp:section>
+	</xp:panel>
+	</xp:panel>
+				    </xp:panel>
+		</xp:panel>
+				
+			</xp:panel>
+		</xp:panel>
+
+	</xp:panel>
+
+</xp:view>

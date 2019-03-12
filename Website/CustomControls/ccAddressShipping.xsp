@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<xp:table styleClass="address-table">
+		<xp:tr rendered="#{javascript:@IsNewDoc()}">
+			<xp:td colspan="2">
+				<xp:label rendered="#{javascript:@IsNewDoc()}" id="label2">
+					<span class="glyphicon glyphicon-asterisk icon-required"
+						aria-hidden="true">
+					</span>
+				</xp:label>
+				<xp:label value="${langBean.labelRequiredFields}" id="label5"
+					style="color:rgb(255,0,0)" rendered="#{javascript:@IsNewDoc()}">
+				</xp:label>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td style="width:30%">
+				<xp:label value="${langBean.labelShippingCompany}: " id="shippingCompany_Label1"
+					for="shippingCompany1">
+				</xp:label>
+					<span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+			</xp:td>
+			<xp:td style="width:70%">
+				<xp:inputText value="#{document1.ShippingCompany}" id="shippingCompany1">
+					<xp:this.validators>
+						<xp:validateRequired
+							message="${langBean.labelShippingCompany} ${langBean.msgIsRequired}">
+						</xp:validateRequired>
+					</xp:this.validators>
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelShippingPerson}: " id="shippingPerson_Label1"
+					for="shippingPerson1">
+				</xp:label>
+				<span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+			</xp:td>
+			<xp:td>
+				<xp:inputText value="#{document1.ShippingPerson}" id="shippingPerson1">
+					<xp:this.validators>
+						<xp:validateRequired
+							message="${langBean.labelShippingPerson} ${langBean.msgIsRequired}">
+						</xp:validateRequired>
+					</xp:this.validators>
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelShippingAddress}: " id="shippingAddress_Label1"
+					for="shippingAddress1">
+				</xp:label>
+				<span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+			</xp:td>
+			<xp:td>
+				<xp:inputText value="#{document1.ShippingAddress}" id="shippingAddress1">
+					<xp:this.validators>
+						<xp:validateRequired
+							message="${langBean.labelShippingAddress} ${langBean.msgIsRequired}">
+						</xp:validateRequired>
+					</xp:this.validators>
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelShippingAddr_2}" id="shippingAddr_2_Label1"
+					for="shippingAddr_21">
+				</xp:label>
+			</xp:td>
+			<xp:td>
+				<xp:inputText value="#{document1.ShippingAddr_2}" id="shippingAddr_21">
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelShippingCity}: " id="shippingCity_Label1"
+					for="shippingCity1">
+				</xp:label>
+				<span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+			</xp:td>
+			<xp:td>
+				<xp:inputText value="#{document1.ShippingCity}" id="shippingCity1">
+					<xp:this.validators>
+						<xp:validateRequired
+							message="${langBean.labelShippingCity} ${langBean.msgIsRequired}">
+						</xp:validateRequired>
+					</xp:this.validators>
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelShippingState}: " id="shippingState_Label1"
+					for="shippingState1">
+				</xp:label>
+				<span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+			</xp:td>
+			<xp:td>
+				<xp:inputText value="#{document1.ShippingState}" id="shippingState1">
+					<xp:this.validators>
+						<xp:validateRequired
+							message="${langBean.labelShippingState} ${langBean.msgIsRequired}">
+						</xp:validateRequired>
+					</xp:this.validators>
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelShippingPostal}: " id="shippingPostalCode_Label1"
+					for="shippingPostalCode1">
+				</xp:label>
+				<span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+			</xp:td>
+			<xp:td>
+				<xp:inputText value="#{document1.ShippingPostalCode}"
+					id="shippingPostalCode1">
+					<xp:this.validators>
+						<xp:validateRequired
+							message="${langBean.labelShippingPostal} ${langBean.msgIsRequired}">
+						</xp:validateRequired>
+					</xp:this.validators>
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelShippingCountry}: " id="shippingCountry_Label1"
+					for="shippingCountry1">
+				</xp:label>
+				<span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+			</xp:td>
+			<xp:td>
+				<xp:inputText value="#{document1.ShippingCountry}" id="shippingCountry1">
+					<xp:this.validators>
+						<xp:validateRequired
+							message="${langBean.labelShippingCountry} ${langBean.msgIsRequired}">
+						</xp:validateRequired>
+					</xp:this.validators>
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelShippingPhone}: " id="shippingPhone_Label1"
+					for="shippingPhone1">
+				</xp:label>
+				<span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+			</xp:td>
+			<xp:td>
+				<xp:inputText value="#{document1.ShippingPhone}" id="shippingPhone1">
+					<xp:this.validators>
+						<xp:validateRequired
+							message="${langBean.labelShippingPhone} ${langBean.msgIsRequired}">
+						</xp:validateRequired>
+					</xp:this.validators>
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:this.rendered><![CDATA[${javascript:if(sessionScope.claimType=="warranty"){
+	false
+}else{
+	true
+}}]]></xp:this.rendered>
+			<xp:td>
+
+				<xp:label value="${langBean.labelShippingFax}"
+					id="shippingFax_Label1" for="shippingFax1">
+				</xp:label>
+			</xp:td>
+			<xp:td>
+				<xp:inputText value="#{document1.ShippingFax}"
+					id="shippingFax1">
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelShippingEmail}: " id="shippingEmail_Label1"
+					for="shippingEmail1">
+				</xp:label>
+				<span aria-hidden="true" class="required-icon glyphicon glyphicon-asterisk"></span>
+			</xp:td>
+			<xp:td>
+				<xp:inputText value="#{document1.ShippingEmail}" id="shippingEmail1">
+					<xp:this.validators>
+						<xp:validateConstraint message="${langBean.errorMsgEmail}">
+							<xp:this.regex><![CDATA[\b[A-Za-z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b]]></xp:this.regex>
+						</xp:validateConstraint>
+						<xp:validateRequired
+							message="${langBean.labelShippingEmail} ${langBean.msgIsRequired}">
+						</xp:validateRequired>
+					</xp:this.validators>
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+	</xp:table>
+
+</xp:view>

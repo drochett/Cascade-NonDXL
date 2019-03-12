@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xc:ccLayout>
+		<xp:panel id="mainPanel" disableOutputTag="true">
+			<div class="container" id="main">
+
+				<!-- BLUE HEADER -->
+				<div class="blue-header">
+					<xp:text escape="true" id="computedField1"
+						value="${langBean.PageHeadingUpdateRegistration}" styleClass="carousel-heading"
+						tagName="span">
+					</xp:text>
+				</div>
+
+				<xp:panel styleClass="row" id="row" tagName="div">
+					<xe:widgetContainer id="widgetContainer1"
+						titleBarText="${langBean.HeadingRegistrationUpdated}" styleClass="login-panel">
+
+						<div class="panel-body">
+							<div class="form-group">
+
+								<xp:text escape="true" id="computedField2" tagName="p">
+									<xp:this.value><![CDATA[#{javascript:if (context.getUrlParameter("emailchanged").equalsIgnoreCase("yes")){
+	//email changed message
+	return langBean.RegUpdateEmail;
+}
+else if (context.getUrlParameter("pwchanged").equalsIgnoreCase("yes")){
+	//pw changed message
+	return langBean.RegUpdatePW;
+	
+} else {
+	//something else changed
+	return langBean.RegUpdateConfirm;
+}}]]></xp:this.value>
+								</xp:text>
+								<xp:text escape="true" id="computedField4"
+									tagName="p">
+								<xp:this.value><![CDATA[#{javascript:if (context.getUrlParameter("emailchanged").equalsIgnoreCase("yes")){
+	//email changed message
+	return langBean.RegUpdateEmailSentNewEmail;
+} else {
+	//show generic sending email msg
+	return langBean.RegUpdateEmailSent;
+}}]]></xp:this.value></xp:text>
+
+								<xp:text escape="true"
+									id="computedField3" tagName="p"
+									value="${langBean.RegUpdateThankYou}">
+								</xp:text>
+								<xp:link escape="true" id="link1"
+									text="${langBean.AfterRegistrationHomeLink}" value="${configBean.HostURL}">
+								</xp:link>
+							</div>
+						</div>
+
+
+					</xe:widgetContainer>
+
+				</xp:panel>
+
+
+			</div>
+
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

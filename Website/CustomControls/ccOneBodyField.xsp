@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<xp:panel id="panelDocumentNOTmigrated"
+		styleClass="container cascade-content cascade-content-blocks">
+		<xp:this.loaded><![CDATA[${document1.DocumentMigrated eq "No"}]]></xp:this.loaded>
+		<xp:table>
+			<xp:tr>
+				<xp:td style="background-color:rgb(128,128,255)">
+					<xp:label value="Type = " id="label1" style="font-weight:bold">
+					</xp:label>
+					<xp:text escape="true" id="computedField2" value="${document1.Type}"
+						style="font-weight:bold">
+					</xp:text>
+					&#160; &#160;
+					<xp:label value="DocumentMigrated = " id="label2"
+						style="font-weight:bold">
+					</xp:label>
+					<xp:text escape="true" id="computedField3" value="${document1.DocumentMigrated}"
+						style="font-weight:bold">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td>
+					<xp:text escape="false" id="computedField1" value="#{document1.Body}">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+		</xp:table>
+	</xp:panel>
+	<xp:panel id="panelDocumentISmigrated" styleClass="container ">
+		<xp:this.loaded><![CDATA[${document1.DocumentMigrated eq "Yes"}]]></xp:this.loaded>
+		<!--		banner row-->
+		<xp:panel styleClass="banner-image">
+			<xp:this.loaded><![CDATA[${(document1.Image eq "" || document1.Image eq null) ? false : true}]]></xp:this.loaded>
+			<xp:image id="image2"
+				url="${configBean.HostURL}${configBean.HomeURL}/files/${document1.Image}/$FILE/${document1.Image}">
+			</xp:image>
+		</xp:panel>
+		<!--		main content row-->
+		<div class="row">
+			<xp:div styleClass="col-xs-12">
+				<xp:text escape="false" id="oneBodyField1" value="#{document1.OneBodyField}">
+				</xp:text>
+			</xp:div>
+		</div>
+	</xp:panel>
+</xp:view>

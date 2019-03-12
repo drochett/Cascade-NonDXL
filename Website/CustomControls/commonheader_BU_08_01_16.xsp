@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<div class="navbar navbar-default" role="navigation">
+		<div class="container cascade-header">
+			<div class="navbar-header">
+
+				<!--*********** Display the Cascade Logo **********************-->
+				<a
+					href="${configBean.HostURL}${sessionScope.LanguageURL}home">
+					<xp:image url="/logo@2x.png" id="image2" alt="">
+						<xp:this.styleClass><![CDATA[#{javascript:return (deviceBean.isMobile())? "cascade-logo-mobile" : "cascade-logo" ;}]]></xp:this.styleClass>
+					</xp:image>
+				</a>
+
+				<!--*********** Display the region's name  **********************-->
+				<xp:text escape="true" id="computedField1"
+					styleClass="header-region" value="#{langBean.hdrTagline1}">
+				</xp:text>
+
+				<!--*********** Display the region's tagline  **********************-->
+				<xp:text escape="true" id="computedField2"
+					styleClass="header-tagline1" value="#{langBean.tagline1}">
+				</xp:text>
+				<xp:text escape="true" id="computedField3"
+					styleClass="header-tagline2" value="#{langBean.tagline2}">
+				</xp:text>
+				<button type="button" class="navbar-toggle"
+					data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+
+			<!--*********** Dropdown Menu  **********************-->
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-left">
+
+					<!--*********** Attachments Dropdown Menu  **********************-->
+					<li class="dropdown">
+
+						<xp:link escape="true"
+							text="${langBean.attachments}" id="link1"
+							value="${configBean.HostURL}${sessionScope.LanguageURL}products">
+
+						</xp:link>
+
+						<ul class="dropdown-menu">
+
+							<xp:repeat id="repeat1" rows="30"
+								var="subMenuItem" disableOutputTag="true">
+								<xp:this.value><![CDATA[#{javascript:menuBean.getMenuChildren("products");}]]></xp:this.value>
+								<li>
+									<xp:link escape="true"
+										text="#{subMenuItem.value}" id="link13"
+										rendered="#{!subMenuItem.external}"
+										value="#{configBean.HostURL}#{sessionScope.LanguageURL}#{subMenuItem.key}">
+									</xp:link>
+									<xp:label value="" id="label1"></xp:label>
+									<xp:link escape="true"
+										text="#{subMenuItem.value}" id="link14"
+										rendered="#{subMenuItem.external}">
+										<xp:eventHandler event="onclick"
+											submit="false">
+											<xp:this.script><![CDATA[window.open('#{javascript: return subMenuItem.getKey();}','_blank');]]></xp:this.script>
+										</xp:eventHandler>
+									</xp:link>
+								</li>
+							</xp:repeat>
+						</ul>
+					</li>
+
+					<li class="divider-vertical"></li>
+					<!--*********** Forks Dropdown Menu  **********************-->
+					<li class="dropdown">
+
+						<xp:link escape="true"
+							text="${langBean.forkspage}" id="link15"
+							value="${configBean.HostURL}${sessionScope.LanguageURL}forkspage">
+						</xp:link>
+
+						<ul class="dropdown-menu">
+
+							<xp:repeat id="repeat2" rows="30"
+								var="subMenuItem" disableOutputTag="true">
+								<xp:this.value><![CDATA[#{javascript:menuBean.getMenuChildren("forkspage");}]]></xp:this.value>
+								<li>
+									<xp:link escape="true"
+										text="#{subMenuItem.value}" id="link16"
+										rendered="#{!subMenuItem.external}"
+										value="#{configBean.HostURL}#{sessionScope.LanguageURL}#{subMenuItem.key}">
+									</xp:link>
+									<xp:label value="" id="label2"></xp:label>
+									<xp:link escape="true"
+										text="#{subMenuItem.value}" id="link17"
+										rendered="#{subMenuItem.external}">
+										<xp:eventHandler event="onclick"
+											submit="false">
+											<xp:this.script><![CDATA[window.open('#{javascript: return subMenuItem.getKey();}','_blank');]]></xp:this.script>
+										</xp:eventHandler>
+									</xp:link>
+								</li>
+							</xp:repeat>
+						</ul>
+					</li>
+					<li class="divider-vertical"></li>
+
+
+					<!--*********** Order Dropdown Menu  **********************-->
+					<li class="dropdown">
+						<xp:link escape="true" text="${langBean.order}"
+							id="link3"
+							value="${configBean.HostURL}${sessionScope.LanguageURL}order">
+
+						</xp:link>
+
+						<ul class="dropdown-menu">
+							<xp:repeat id="repeat3" rows="30"
+								var="subMenuItem" disableOutputTag="true">
+								<xp:this.value><![CDATA[#{javascript:menuBean.getMenuChildren("order");}]]></xp:this.value>
+								<li>
+									<xp:link escape="true"
+										text="#{subMenuItem.value}" id="link2"
+										rendered="#{!subMenuItem.external}"
+										value="#{configBean.HostURL}#{sessionScope.LanguageURL}#{subMenuItem.key}">
+									</xp:link>
+									<xp:label value="" id="label3"></xp:label>
+									<xp:link escape="true"
+										text="#{subMenuItem.value}" id="link18"
+										rendered="#{subMenuItem.external}">
+										<xp:eventHandler event="onclick"
+											submit="false">
+											<xp:this.script><![CDATA[window.open('#{javascript: return subMenuItem.getKey();}','_blank');]]></xp:this.script>
+										</xp:eventHandler>
+									</xp:link>
+								</li>
+							</xp:repeat>
+						</ul>
+					</li>
+
+
+					<li class="divider-vertical"></li>
+					<!--*********** Support Dropdown Menu  **********************-->
+					<li class="dropdown">
+						<xp:link escape="true"
+							text="${langBean.support}" id="link21"
+							value="${configBean.HostURL}${sessionScope.LanguageURL}support">
+
+						</xp:link>
+
+						<ul class="dropdown-menu">
+							<xp:repeat id="repeat4" rows="30"
+								var="subMenuItem" disableOutputTag="true">
+								<xp:this.value><![CDATA[#{javascript:menuBean.getMenuChildren("support");}]]></xp:this.value>
+
+								<li>
+									<xp:link escape="true"
+										text="#{subMenuItem.value}" id="link19"
+										rendered="#{!subMenuItem.external}"
+										value="#{configBean.HostURL}#{sessionScope.LanguageURL}#{subMenuItem.key}">
+									</xp:link>
+									<xp:label value="" id="label4"></xp:label>
+									<xp:link escape="true"
+										text="#{subMenuItem.value}" id="link20"
+										rendered="#{subMenuItem.external}">
+										<xp:eventHandler event="onclick"
+											submit="false">
+											<xp:this.script><![CDATA[window.open('#{javascript: return subMenuItem.getKey();}','_blank');]]></xp:this.script>
+										</xp:eventHandler>
+									</xp:link>
+								</li>
+							</xp:repeat>
+						</ul>
+					</li>
+					<li class="divider-vertical"></li>
+					<!--*********** About Dropdown Menu  **********************-->
+					<li class="dropdown">
+						<xp:link escape="true" text="${langBean.about}"
+							id="link5"
+							value="${configBean.HostURL}${sessionScope.LanguageURL}aboutcascade">
+						</xp:link>
+						<ul class="dropdown-menu">
+							<xp:repeat id="repeat5" rows="30"
+								var="subMenuItem" disableOutputTag="true">
+								<xp:this.value><![CDATA[#{javascript:menuBean.getMenuChildren("aboutcascade");}]]></xp:this.value>
+
+								<li>
+									<xp:link escape="true"
+										text="#{subMenuItem.value}" id="link4"
+										rendered="#{!subMenuItem.external}"
+										value="#{configBean.HostURL}#{sessionScope.LanguageURL}#{subMenuItem.key}">
+									</xp:link>
+									<xp:label value="" id="label5"></xp:label>
+									<xp:link escape="true"
+										text="#{subMenuItem.value}" id="link22"
+										rendered="#{subMenuItem.external}">
+										<xp:eventHandler event="onclick"
+											submit="false">
+											<xp:this.script><![CDATA[window.open('#{javascript: return subMenuItem.getKey();}','_blank');]]></xp:this.script>
+										</xp:eventHandler>
+									</xp:link>
+								</li>
+							</xp:repeat>
+						</ul>
+					</li>
+					<li class="divider-vertical"></li>
+					<!--*********** Contact Dropdown Menu  **********************-->
+					<li class="dropdown">
+						<xp:link escape="true"
+							text="${langBean.contact}" id="link6"
+							value="${configBean.HostURL}${sessionScope.LanguageURL}contactus">
+
+						</xp:link>
+
+						<ul class="dropdown-menu">
+							<xp:repeat id="repeat6" rows="30"
+								var="subMenuItem" disableOutputTag="true">
+								<xp:this.value><![CDATA[#{javascript:menuBean.getMenuChildren("contactus");}]]></xp:this.value>
+
+								<li>
+									<xp:link escape="true"
+										text="#{subMenuItem.value}" id="link23"
+										value="#{configBean.HostURL}#{sessionScope.LanguageURL}#{subMenuItem.key}"
+										rendered="#{!subMenuItem.external}">
+									</xp:link>
+									<xp:label value="" id="label6"></xp:label>
+									<xp:link escape="true"
+										text="#{subMenuItem.value}" id="link24"
+										rendered="#{subMenuItem.external}">
+										<xp:eventHandler event="onclick"
+											submit="false">
+											<xp:this.script><![CDATA[window.open('#{javascript: return subMenuItem.getKey();}','_blank');]]></xp:this.script>
+										</xp:eventHandler>
+									</xp:link>
+								</li>
+							</xp:repeat>
+						</ul>
+					</li>
+					<li class="divider-vertical"></li>
+					<!--*********** Login /Logout Menu  **********************-->
+					<li>
+						<xp:link escape="true" id="link7"
+							text="${langBean.login}" styleClass="login"
+							value="${configBean.HostURL}login">
+							<xp:this.rendered><![CDATA[#{javascript:@Name('[CN]', session.getEffectiveUserName()) == "Anonymous"}]]></xp:this.rendered>
+						</xp:link>
+						<xp:link escape="false" id="link12"
+							styleClass="login" text="${langBean.logout}">
+							<xp:this.rendered><![CDATA[#{javascript:@Name('[CN]', session.getEffectiveUserName()) != "Anonymous"}]]></xp:this.rendered>
+							<xp:this.value><![CDATA[#{javascript:
+var redir = "/" + sessionScope.LanguageURL + "home";
+return "/" + configBean.getValue("WebsiteURL") + "?logout&redirectto=" + redir ;
+}]]></xp:this.value>
+						</xp:link>
+					</li>
+
+				</ul>
+				<!--*********** Right Navbar  **********************-->
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<div class="input-group cascade-search">
+							<xp:inputText id="searchSiteInput"
+								styleClass="form-control localsearchbox">
+								<xp:this.attrs>
+									<xp:attr name="placeholder"
+										value="${langBean.searchPlaceholder}">
+									</xp:attr>
+								</xp:this.attrs>
+								<xp:eventHandler event="onkeypress"
+									submit="false">
+									<xp:this.script><![CDATA[/*
+if (thisEvent.keyCode == 13) {
+	btn = dojo.byId("#{id:searchLink}");
+	console.log("pressed return");
+	btn.click();
+	hisEvent.preventDefault();
+       thisEvent.stopPropagation(); 
+} else {
+    return false;
+}
+*/
+if (typeof thisEvent == 'undefined' && window.event) { thisEvent = window.event; }
+if (thisEvent.keyCode == dojo.keys.ENTER)
+{
+    dojo.byId("#{id:searchLink}").click();
+    thisEvent.preventDefault();
+     
+}]]></xp:this.script>
+
+								</xp:eventHandler>
+							</xp:inputText>
+							<span class="input-group-btn">
+								<xp:link escape="true" id="searchLink"
+									styleClass="btn btn-primary">
+									<span
+										class="glyphicon glyphicon-search" aria-hidden="true">
+									</span>
+									<xp:eventHandler event="onclick"
+										submit="true" refreshMode="complete"
+										disableValidators="true">
+										<xp:this.action><![CDATA[#{javascript:var searchStr = getComponent("searchSiteInput").getValue();
+context.redirectToPage("SiteSearch.xsp?OpenXpage&search=" + searchStr );}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:link>
+
+
+							</span>
+						</div>
+					</li>
+				</ul>
+				<ul
+					class="nav navbar-nav navbar-right cascade-social-icons"
+					style="margin-top:0px; position:relative; z-index:100;">
+					<li>
+						<xp:link escape="true"
+							value="https://www.twitter.com/cascadecorp" id="link8"
+							target="Twitter"
+							style="display:inline-block; padding-right:0;">
+							<xp:image id="image1" url="/twitter.png"></xp:image>
+						</xp:link>
+						<xp:link escape="true"
+							value="https://www.youtube.com/user/CascadeCorporation/videos"
+							id="link9" target="Youtube"
+							style="display:inline-block; padding-right:0;">
+							<xp:image id="image3" url="/youtube.png"></xp:image>
+						</xp:link>
+						<xp:link escape="true"
+							value="https://www.facebook.com/800CASCADE" id="link10"
+							target="Facebook"
+							style="display:inline-block; padding-right:0;">
+							<xp:image id="image4" url="/facebook.png"></xp:image>
+						</xp:link>
+						<xp:link escape="true"
+							value="https://www.linkedin.com/company/cascade" id="link11"
+							target="Linkedin"
+							style="display:inline-block; padding-right:0;">
+							<xp:image id="image5" url="/linkedin.png"></xp:image>
+						</xp:link>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</xp:view>

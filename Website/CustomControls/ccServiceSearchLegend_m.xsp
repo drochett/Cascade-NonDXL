@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+  <xp:panel styleClass="row" id="panelColumns1">
+    <xp:panel styleClass="col-xs-6" id="panel3" >
+      <xp:image url="/v_Parts+Manual.gif" id="image1"></xp:image>
+      <xp:label value=" ${langBean.labelPartsManual}" id="label1"
+      	styleClass="ServiceLitLegen_m">
+      </xp:label>
+      <xp:br></xp:br>
+      <xp:image url="/v_Recommended+Spare+Parts.gif" id="image2"></xp:image>
+      <xp:label  	styleClass="ServiceLitLegen_m" value=" ${langBean.labelSpareParts}" id="label2"></xp:label>
+      <xp:br></xp:br>
+      <xp:image url="/v_Service+Manual.gif" id="image3"></xp:image>
+      <xp:label  	styleClass="ServiceLitLegen_m" value=" ${langBean.labelServiceManual}" id="label3"></xp:label>
+    </xp:panel>
+    <xp:panel styleClass="col-xs-6" id="panel8" >
+      <xp:image url="/v_Installation+Manual.gif" id="image4"></xp:image>
+      <xp:label 	styleClass="ServiceLitLegen_m"  value=" ${langBean.labelInstallationManual}" id="label4"></xp:label>
+      <xp:br></xp:br>
+      <xp:image url="/v_Operator+Guide.gif" id="image5"></xp:image>
+      <xp:label 	styleClass="ServiceLitLegen_m"  value=" ${langBean.labelOperatorGuide}" id="label5"></xp:label>
+      <xp:br></xp:br>
+      <xp:image url="/v_Technical+Bulletin.gif" id="image6"></xp:image>
+      <xp:label  	styleClass="ServiceLitLegen_m" value=" ${langBean.labelTechnicalBulletin}" id="label6"></xp:label>
+    </xp:panel>
+  </xp:panel>
+</xp:view>

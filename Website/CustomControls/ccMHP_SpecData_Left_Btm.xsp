@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	dojoTheme="true" xmlns:xe="http://www.ibm.com/xsp/coreex">
+<xp:this.resources>
+		<xp:styleSheet href="/other_websites.css"></xp:styleSheet>
+		<xp:styleSheet href="/cascade.css"></xp:styleSheet>
+	</xp:this.resources>
+	<xe:widgetContainer id="widgetContainer20"
+		styleClass="xspWidgetContainer.panel" titleBar="false">
+		<xp:panel styleClass="textmhplabel" id="panelLeft">
+			<div>
+				<div>
+					<xp:table style="border-style: hidden" styleClass="cell">
+						<xp:tr>
+							<xp:td style="width:40%; text-align:right; borderStyle:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecMaxPress} ="
+									style="align:Right" id="label19">
+								</xp:label>
+							</xp:td>
+							<xp:td style="width:15%; border-style:hidden">
+								<xp:inputText
+									style="width:44.0px;height:30.0px" readonly="true"
+									id="MAXIMUMOPERATINGPRESSURE-BAR" defaultValue="0">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+								<br></br>
+								<xp:inputText
+									style="width:44.0px;height:30.0px" readonly="true"
+									id="MAXIMUMOPERATINGPRESSURE-PSI" defaultValue="0">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+							</xp:td>
+							<xp:td style="text-align:left; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecBar}"
+									id="label20">
+								</xp:label>
+								<br></br>
+								<xp:label value="#{javascript:langBean.mhp_SpecPsi}"
+									id="label21">
+								</xp:label>
+							</xp:td>
+							<xp:td style="width:4%; border-style:hidden">
+							</xp:td>
+							<xp:td style="width:4%; border-style:hidden">
+							</xp:td>
+							<xp:td style="border-style:hidden"></xp:td>
+							<xp:td style="border-style:hidden"></xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td style="text-align: right; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecRecPress} ="
+									style="align:Right" id="label1" />
+							</xp:td>
+							<xp:td style="border-style:hidden">
+								<xp:inputText style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="DESIGNEDOPERATINGPRESSURE-BAR">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+
+								<br />
+								<xp:inputText style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="DESIGNEDOPERATINGPRESSURE-PSI">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+							</xp:td>
+							<xp:td style="text-align:left; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecBar}"
+									id="label2" />
+
+								<br />
+								<xp:label value="#{javascript:langBean.mhp_SpecPsi}"
+									id="label3" />
+
+							</xp:td>
+						</xp:tr>
+					</xp:table>
+				</div>
+			</div>
+		</xp:panel>
+	</xe:widgetContainer>
+
+	<xp:br></xp:br>
+</xp:view>

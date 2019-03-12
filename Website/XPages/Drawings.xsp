@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.beforePageLoad><![CDATA[#{javascript:
+//dBar.info("******");
+dBar.info("website.nsf userBean.accessRoles= "+userBean.accessRoles);
+try {
+//either the user will get the database or throw an error
+	var db:NotesDatabase = session.getDatabase(session.getServerName(), configBean.getValue("VaultDbPath"));
+	var accessLevel = db.queryAccess(session.getEffectiveUserName());
+	if (accessLevel >= NotesACL.LEVEL_READER) {
+		//var roles = db.queryAccessRoles(session.getUserName());
+		var roles = db.queryAccessRoles(session.getEffectiveUserName());
+		//dBar.info("db.title= " + db.getTitle() );
+	
+		//dBar.info("roles.length= " + roles.length );
+		//dBar.info("session.getUserName()= " + session.getUserName() );
+		//dBar.info("session.getEffectiveUserName()= " + session.getEffectiveUserName() );
+		//dBar.info("userBean.distinguishedName= " + userBean.distinguishedName );
+
+		sessionScope.roles = new java.util.HashMap();
+		if (@Contains(roles,"EditAllDocs")) sessionScope.roles.isEditAllDocs = true;
+		if (@Contains(roles,"ViewAll")) sessionScope.roles.isViewAll = true;
+		//if a reader or higher then show the search
+			dBar.info("User is a reader or higher");
+			viewScope.showSearchPanel = true;
+			viewScope.tabNbr="tab1";
+		} else {
+			//show the error panel
+			dBar.info("User is NOT a reader or higher");
+			viewScope.showSearchPanel = false;
+	} 
+} catch (e) {
+	//exception, show the error panel
+	dBar.info("Exception in drawings.xsp beforePageLoad event");
+	viewScope.showSearchPanel = false;
+}
+}]]></xp:this.beforePageLoad>
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+	<xc:ccLayout>
+		<xp:panel id="badAccessPanel1"
+			rendered="${javascript:return !viewScope.showSearchPanel;}"
+			styleClass="container">
+			<!--  new banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField1" value="${langBean.hdgPageNotFound}"
+							styleClass="carousel-heading">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<xp:panel id="panelUserAccessError" styleClass="alert alert-error">
+				<xp:table>
+					<xp:tr>
+						<xp:td style="width:8%">
+							<span class="glyphicon glyphicon-exclamation-sign"
+								aria-hidden="true">
+							</span>
+						</xp:td>
+						<xp:td>
+							<xp:text escape="true" id="cancelMsg1" value="${langBean.msgUserAccessError}"></xp:text>
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+			</xp:panel>
+		</xp:panel>
+
+		<xp:panel styleClass="container" id="main"
+			rendered="#{javascript:return viewScope.showSearchPanel;}">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							styleClass="carousel-heading">
+							<xp:this.value><![CDATA[#{javascript:if(viewScope.tabNbr =="tab5"){
+langBean.getValue("mhp_Title")
+}else{
+langBean.getValue("titleOemVendorVault")
+}}]]></xp:this.value>
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!--		button/selector row-->
+			<xp:panel styleClass="row" id="rowButton1">
+				<xp:panel styleClass="col-xs-12" id="col11">
+					<div class="btn-group btn-group-justified" role="group">
+						<div class="btn-group" role="group">
+							<xp:button value="${langBean.btnDrawings}" id="button1">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial" refreshId="main">
+									<xp:this.action><![CDATA[#{javascript:try{
+viewScope.tabNbr="tab1";
+var dc = getComponent("dcDrawingsView")
+dc.show("drawings")
+} catch(e){
+	dBar.error("Error in tab button1: " + e.toString());
+	println("Drawings.xsp---username " + session.getEffectiveUserName() + "--> Error in tab button1: " + e.toString());
+}}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</div>
+						<div class="btn-group" role="group">
+							<xp:button value="${langBean.btnSSDrawings}" id="button2">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial" refreshId="main">
+									<xp:this.action><![CDATA[#{javascript:try{
+viewScope.tabNbr="tab2";
+var dc = getComponent("dcDrawingsView")
+dc.show("ss_drawings")
+} catch(e){
+	dBar.error("Error in tab button2: " + e.toString());
+	println("Drawings.xsp---username " + session.getEffectiveUserName() + "--> Error in tab button2: " + e.toString());
+}}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</div>
+						<div class="btn-group" role="group">
+							<xp:button value="${langBean.btnNECs}" id="button3">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial" refreshId="main">
+									<xp:this.action><![CDATA[#{javascript:try{
+viewScope.tabNbr="tab3";
+var dc = getComponent("dcDrawingsView")
+dc.show("necs")
+} catch(e){
+	dBar.error("Error in tab button3: " + e.toString());
+	println("Drawings.xsp---username " + session.getEffectiveUserName() + "--> Error in tab button3: " + e.toString());
+}}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</div>
+						<div class="btn-group" role="group">
+							<xp:button value="${langBean.btnGeneralInfo}" id="button4">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial" refreshId="main">
+									<xp:this.action><![CDATA[#{javascript:try{
+viewScope.tabNbr="tab4";
+var dc = getComponent("dcDrawingsView")
+dc.show("general_info")
+} catch(e){
+	dBar.error("Error in tab button4: " + e.toString());
+	println("Drawings.xsp---username " + session.getEffectiveUserName() + "--> Error in tab button4: " + e.toString());
+}}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button></div>
+						<div class="btn-group" role="group">
+							<xp:button value="${langBean.mhp_btn_title}" id="button5">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial" refreshId="main">
+									<xp:this.action><![CDATA[#{javascript:try{
+viewScope.tabNbr="tab5";
+var dc = getComponent("dcDrawingsView")
+dc.show("mhpSpecs")
+} catch(e){
+	dBar.error("Error in tab button5: " + e.toString());
+	println("Drawings.xsp---username " + session.getEffectiveUserName() + "--> Error in tab button5: " + e.toString());
+}}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button></div>
+
+					</div>
+				</xp:panel>
+			</xp:panel>
+			<xp:br></xp:br>
+
+			<!-- START search-group -->
+			<div class="input-group">
+				<xp:inputText id="inputText1" styleClass="form-control"
+					value="#{viewScope.searchQuery}">
+					<xp:this.attrs>
+						<xp:attr name="placeholder" value="${langBean.searchPlaceholder}">
+						</xp:attr>
+					</xp:this.attrs>
+					<xp:this.rendered><![CDATA[#{javascript:viewScope.tabNbr!="tab5"}]]></xp:this.rendered><xp:eventHandler event="onkeyup" submit="false">
+						<xp:this.script><![CDATA[if (thisEvent.keyCode == 13) {
+	btn = dojo.byId("#{id:SearchButton1}");
+	btn.click();
+}]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:inputText>
+				<span class="input-group-btn">
+					<xp:button id="SearchButton1" styleClass="glyphicon glyphicon-search">
+						<xp:this.rendered><![CDATA[#{javascript:viewScope.tabNbr!="tab5"}]]></xp:this.rendered><xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="main">
+							<xp:this.action><![CDATA[#{javascript:
+var search = getComponent('inputText1').getValue();
+viewScope.searchQuery = search;
+}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button id="button6" styleClass="glyphicon glyphicon-ban-circle">
+						<xp:this.rendered><![CDATA[#{javascript:viewScope.tabNbr!="tab5"}]]></xp:this.rendered><xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="main">
+							<xp:this.action><![CDATA[#{javascript:
+viewScope.searchQuery = "";
+}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+				</span>
+			</div><!-- /search-group -->
+
+			<!--	START dynamicContent row-->
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-xs-12">
+					<xe:dynamicContent id="dcDrawingsView"
+						defaultFacet="ss_drawings">
+						<xp:this.facets>
+							<xc:ccVaultDrawings xp:key="drawings"></xc:ccVaultDrawings>
+							<xc:ccVaultDrawingsSS xp:key="ss_drawings">
+							</xc:ccVaultDrawingsSS>
+							<xc:ccVaultNECs xp:key="necs"></xc:ccVaultNECs>
+							<xc:ccVaultGenInfo xp:key="general_info"></xc:ccVaultGenInfo>
+							<xc:ccMHP_DataEntry xp:key="mhpSpecs"></xc:ccMHP_DataEntry>
+							
+						</xp:this.facets>
+					</xe:dynamicContent>
+
+				</xp:panel>
+			</xp:panel>
+
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

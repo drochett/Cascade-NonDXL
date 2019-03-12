@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.lotus.com/dxl" name="EloquaForm" publicaccess="false" renderpassthrough="true">
+  <code event="htmlhead">
+    <formula>"&lt;script src='https://code.jquery.com/jquery-2.2.4.min.js'
+  integrity='sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44='
+  crossorigin='anonymous'&gt;&lt;/script&gt;"</formula>
+  </code>
+  <code event="jsheader" for="web">
+    <javascript>function testPost() {
+
+	tURL = "http://s1808822285.t.eloqua.com/e/f2.aspx?elqFormName=Attachments-Contact&amp;elqSiteID=1808822285&amp;";
+	tURL = tURL + "emailAddress=~~eloqua..type--emailfield..syntax--EmailAddress..innerText--EmailAddress..encodeFor--url~~";
+	tURL = tURL + "&amp;firstName=Daryl";
+	tURL = tURL + "&amp;lastName=Rochette";
+	tURL = tURL + "&amp;emailAddress=mscdaryl@gmail.com";
+	tURL = tURL + "&amp;busPhone=1234567890";
+	tURL = tURL + "&amp;industry1=Test";
+	tURL = tURL + "&amp;zipPostal=99999";
+	tURL = tURL + "&amp;elqTrackId=25dee5e9a64c4c9daa960ca71726a6e2";
+	alert(tURL);
+	location.href = tURL;
+}
+
+function ajaxPost() {
+	var formData = {
+		'emailAddress': 'mscdaryl@gmail.com',
+		'firstName': 'Daryl2',
+		'lastName': 'Roch',
+		'busPhone': '123123123',
+		'industry1': 'Metal Industry',
+		'zipPostal': '99009',
+		'paragraphText': 'testing'
+		
+	};
+	$.ajaxSetup({ 
+		type: 'POST', 
+		headers: { "cache-control": "no-cache" } 
+	});
+
+	var currentTime = new Date();
+	var n = currentTime.getTime();
+	console.log(formData);
+	tURL = "https://s1808822285.t.eloqua.com/e/f2.aspx?nocache=" + n + "&amp;elqFormName=Attachments-Contact&amp;elqSiteID=1808822285";
+	tURL2 = 'https://secure.eloqua.com/e/f2?nocache=' + n;
+	
+	$.ajax({
+		url: tURL,
+		cache: false,
+		type: 'POST',
+		headers: { "cache-control": "no-cache" },
+		dataType: 'json',
+		data: formData,
+		
+		success: function (data) {
+			console.log("Success!");
+			console.log(data) 
+		},
+		
+		error: function (data) {
+			if (data['status'] != 200) {
+				alert('Not 200');
+	   			console.log(data);
+	 		} else {
+	 			alert('200');
+				console.log(data);
+			}
+		}
+		
+	});
+}</javascript>
+  </code>
+  <body>
+    <richtext>
+      <pardef id="1"/>
+      <par def="1">This is a test form!</par>
+      <par def="1">
+        <button width="2in" widthtype="maximum" maxlines="1" wraptext="true" bgcolor="system">
+          <code event="onClick" for="web">
+            <javascript>ajaxPost();</javascript>
+          </code>Test it!</button>
+      </par>
+    </richtext>
+  </body>
+</form>

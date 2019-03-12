@@ -1,0 +1,105 @@
+/*
+
+*/
+
+/*Tabulated tables*/
+tabulatedTable,
+.cell{
+	border-style: hidden;
+	font-size: 12px;
+	
+}
+/*cell1right data is for column-with of 1 inch Right*/
+.cell1right{
+	/*border-style: hidden;*/
+	column-width: 72px;
+	text-align:right;
+}
+/*cell25 data is for column-with of .25 inch*/
+.cell250{
+	border-style: hidden;
+	column-width: 30px;
+}
+/*cell40 data is for column-width of 40%*/
+.cell40{
+	border-style: hidden;
+	column-width:40%;
+	/*text-align:right;*/
+}
+/*cell10 data is for column-width of 10%*/
+.cell25{
+	border-style: hidden;
+	width:10%;
+	/*text-align:right;*/
+}
+/*cell325right data is for column-with of 3.25 inch*/
+.cell325right{
+	border-style: hidden;
+	column-width: 234px;
+	text-align:right;
+}
+.cellvaligncenter{
+	vertical-align:middle;
+	border-style: solid;
+	text-align: left;
+	}
+cellimage,
+
+.displaycenter{
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.displayright{
+	margin-right:auto;
+	}
+/*celldata is for data that is medium column wide*/
+.celldata{ 
+	border-style: 5px;
+	border-color:#003399;
+	column-width:144px;
+	font-size:8pt;
+}
+/*celldata1 is for data that is long column wide*/
+.celldata1{
+	border-style: 5px;
+	border-color:#003399;
+	column-width: 234px;
+	font-size:8pt;
+}
+/*celldata2 is for data that is short column wide .75"*/
+.celldata2{
+	border-style: 5px;
+	border-color:#003399;
+	column-width: 100px;
+	font-size:8pt;
+}
+/* text data */
+.textdatacenter{
+	text-decoration: underline;
+	font-size:12pt;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    color:#00338d;
+}
+.textmhplabel {
+	font-size:10pt;
+	text-align:right;
+	
+}
+.textmhplabelcenter {
+	text-declaration: none;
+	font-size:12pt;
+	text-align:center;
+	text-color: 255,0,0; 
+	text-align: center;
+}
+.textmhplabelerror {
+	text-declaration: none;
+	font-size:12pt;
+	text-align:left;
+	text-color: #FF0101; 
+	text-align: center;
+}

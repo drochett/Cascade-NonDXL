@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<!--
+		*********** Create heasder tags for mobile icons
+		**********************
+	-->
+	<xp:this.resources>
+
+		<!--
+			+++++ the following links are he Cascade icons used for adding icon
+			++++ +++++ to home page on mobile devices ++++++
+		-->
+
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="apple-touch-icon">
+				</xp:parameter>
+				<!-- <xp:parameter name="sizes" value="120x120"></xp:parameter>  -->
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/apple-touch-icon.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+		<!--
+			************* Removed this code because icon is duplicate
+			*************** <xp:headTag tagName="link" rendered="true"
+			loaded="true"> <xp:this.attributes> <xp:parameter name="rel"
+			value="apple-touch-icon"> </xp:parameter> <xp:parameter name="href"
+			value="${configBean.HostURL}${configBean.WebsiteURL}/apple-touch-icon.png">
+			</xp:parameter> </xp:this.attributes> </xp:headTag> ********** End of
+			code removed *************
+		-->
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="apple-touch-icon">
+				</xp:parameter>
+				<xp:parameter name="sizes" value="76x76"></xp:parameter>
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/apple-touch-icon-76x76.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="apple-touch-icon">
+				</xp:parameter>
+				<xp:parameter name="sizes" value="152x152"></xp:parameter>
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/apple-touch-icon-152x152.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="apple-touch-icon">
+				</xp:parameter>
+				<xp:parameter name="sizes" value="180x180"></xp:parameter>
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/apple-touch-icon-180x180.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="icon-hires">
+				</xp:parameter>
+				<xp:parameter name="sizes" value="192x192"></xp:parameter>
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/icon-hires.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="icon-normal">
+				</xp:parameter>
+				<xp:parameter name="sizes" value="128x128"></xp:parameter>
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/icon-normal.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+	</xp:this.resources>
+	<xp:this.beforePageLoad><![CDATA[#{javascript:	
+				
+		viewScope.images = null;
+		var images = new Array;
+		var iList = null;
+		var captionList = null;
+		var titleList = null;
+		var altList = null;
+		var nwList = null;
+		var pageURLList = null;
+		
+		iList = document1.getDocument().getItemValue( "ImageList");
+		titleList = document1.getDocument().getItemValue( "ctitleList");
+		altList = document1.getDocument().getItemValue( "caltList");
+		captionList = document1.getDocument().getItemValue( "captionList");
+		nwList = document1.getDocument().getItemValue( "NewWindowList");
+		pageURLList = document1.getDocument().getItemValue( "URLList");
+		
+		var imgURL = ""
+
+		if (iList != null && iList.length > 0){
+			for(var i=0; i<iList.length; i++){
+			  var imagename = iList[i];
+			  imageFile = configBean.getValue("HostURL")+ configBean.getValue("HomeURL")+"/files/" + iList[i] + "/$FILE/" + iList[i] ;			 
+			  			  
+			  if (imagename != ""){
+				  images.push({
+				     url: imageFile,
+				     caption: captionList[i],
+				     title: titleList[i],
+				     alt: altList[i],
+				     newwindow: nwList[i],
+				     pageurl: pageURLList[i],
+				     filename: imagename
+				  });
+			  } 				  
+			}
+			viewScope.put("images", images);
+			// viewScope.put("CarouselCount" , iList.length); ****** Put in for Carousel update
+			viewScope.put("MainPage", "true");
+		}
+		
+		//viewScope.docUNIDs = null;
+		//var docUNIDs = new Array;						
+		//var docUNIDList = null;	
+		//docUNIDList = @DbColumn(@DbName(), "Products", 4);					
+		//viewScope.put("docUNIDs", docUNIDList);}]]>
+	</xp:this.beforePageLoad>
+
+	<xp:panel id="panelDocumentNOTmigrated"
+		styleClass="container cascade-content cascade-content-blocks">
+		<xp:this.rendered><![CDATA[${document1.DocumentMigrated eq "No"}]]></xp:this.rendered>
+		<xp:table>
+			<xp:tr>
+				<xp:td style="background-color:rgb(255,255,128)">
+					<xp:label value="Type = " id="label1" style="font-weight:bold">
+					</xp:label>
+					<xp:text escape="true" id="computedField2" value="${document1.Type}"
+						style="font-weight:bold">
+					</xp:text>
+					&#160; &#160;
+					<xp:label value="DocumentMigrated = " id="label2"
+						style="font-weight:bold">
+					</xp:label>
+					<xp:text escape="true" id="computedField3" value="${document1.DocumentMigrated}"
+						style="font-weight:bold">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td>
+					<xp:text escape="false" id="computedField1" value="#{document1.Body}">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+		</xp:table>
+	</xp:panel>
+	<xp:panel id="panelDocumentISmigrated">
+		<xp:this.rendered><![CDATA[${document1.DocumentMigrated eq "Yes"}]]></xp:this.rendered>
+		<xp:panel id="main" styleClass="container">
+			<!-- Slide show -->
+			<xp:panel styleClass="cascade-carousel homepage-carousel blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-cs-12">
+						<!--
+							NO WRAPPER: FULL WIDTH <xp:panel styleClass="carousel-wrapper">
+						-->
+						<xc:ccHomepageCarousel></xc:ccHomepageCarousel>
+						<!-- </xp:panel> -->
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<xp:panel styleClass="row cascade-homepage-content">
+				<xp:panel styleClass="col-sm-8 cascade-homepage-content-left">
+					<!-- Promo Item -->
+					<xp:panel id="panel1" styleClass="promo-item">
+						<xp:this.rendered><![CDATA[${javascript:document1.getItemValueString('PromoImageUrl') != "" ? true : false;}]]></xp:this.rendered>
+						<xp:image id="image1">
+							<xp:this.url><![CDATA[#{javascript: var imgURL = document1.getItemValueString("PromoImageUrl");
+						configBean.getValue("HostURL")+ configBean.getValue("HomeURL")+"/files/" + imgURL + "/$FILE/" + imgURL ;	
+		                }]]>
+							</xp:this.url>
+							<xp:eventHandler event="onclick" submit="true"
+								refreshMode="complete">
+								<xp:this.action><![CDATA[#{javascript:
+var href = document1.getItemValueString('PromoUrl');
+return facesContext.getExternalContext().redirect(href);
+							}]]></xp:this.action>
+							</xp:eventHandler>
+						</xp:image>
+					</xp:panel>
+					<xp:panel id="panel2" styleClass="promo-item" style = "padding: 8pt">
+						<xp:this.loaded><![CDATA[${javascript:document1.getItemValueString('stPost') == "True"}]]></xp:this.loaded>
+						<xp:text escape="false" id="computedField7"
+							value="${document1.specialNotice}">
+						</xp:text>
+					</xp:panel>
+					
+					<xc:ccNewsBlog>
+						<xc:this.rendered><![CDATA[#{javascript:try {
+	if(configBean.getValue('BlogNewsLanguages').indexOf(sessionScope.LanguageP)>= 0 ) {
+		return true;
+	} else {
+		return false;
+	}
+} catch(e) {
+	return false;
+}}]]></xc:this.rendered>
+					</xc:ccNewsBlog>
+
+					<xc:ccNews>
+						<xc:this.rendered><![CDATA[#{javascript:try {
+	if(configBean.getValue('BlogNewsLanguages').indexOf(sessionScope.LanguageP)>= 0 ) {
+		return false;
+	} else {
+		return true;
+	}
+} catch(e) {
+	return true;
+}}]]></xc:this.rendered>
+					</xc:ccNews>
+
+				</xp:panel>
+				<!-- Tweeter Feeds -->
+				<xp:panel styleClass="col-sm-4 cascade-homepage-content-right">
+
+					<!--                     <h4 id="h42" class="subheading">-->
+					<!--						<xp:text id="computedField8" value="${langBean.social}">-->
+					<!--						</xp:text>-->
+					<!--					</h4>-->
+					<xp:text escape="false" id="computedField9" value="#{document1.TwitterWidget}">
+					</xp:text>
+				</xp:panel>
+			</xp:panel>
+			<!--**************  Old Body field  **************-->
+			<!--		<xp:text escape="false" id="computedField6"-->
+			<!--			value="#{document1.Body}">-->
+			<!--		</xp:text>-->
+		</xp:panel>
+	</xp:panel>
+</xp:view>

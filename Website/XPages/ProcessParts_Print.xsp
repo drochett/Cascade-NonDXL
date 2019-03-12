@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar"
+	style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+	
+	<xp:this.data>
+		<xp:dominoDocument var="document1" action="openDocument"
+			documentId="sessionScope.unid">
+		</xp:dominoDocument>
+	</xp:this.data>
+	<xp:this.resources>
+		<xp:styleSheet href="/printPage.css"></xp:styleSheet>
+		<xp:script src="/custom.jss" clientSide="false"></xp:script>
+	</xp:this.resources>
+	<xp:this.beforePageLoad><![CDATA[#{javascript:getOrderData();}]]></xp:this.beforePageLoad>
+	<xp:panel>
+	<debug:toolbar defaultCollapsed="false" collapseTo="left">
+
+		<debug:this.loaded><![CDATA[${javascript:if (requestScope.session=="CN=PTL-WWWDEV-01/O=PTLWWWDV"){
+	return true;
+} else {
+return false;}}]]></debug:this.loaded>
+	</debug:toolbar>
+	</xp:panel>
+	<xp:panel
+		style="margin-top:0.0px;margin-bottom:0.0px;padding-top:0.0px;padding-bottom:0.0px">
+
+		
+		<xp:button value="#{langBean.labelPrint}" id="Print">
+			<xp:eventHandler event="onclick" submit="false">
+				<xp:this.script>
+					<xp:executeClientScript script="window.print()"></xp:executeClientScript>
+				</xp:this.script>
+			</xp:eventHandler>
+		</xp:button>
+		&#160;&#160; &#160;
+		<xp:button value="#{langBean.labelClose}" id="button1">
+			<xp:eventHandler event="onclick" submit="false">
+				<xp:this.script>
+					<xp:executeClientScript script="window.close()"></xp:executeClientScript>
+				</xp:this.script>
+			</xp:eventHandler>
+		</xp:button>
+	</xp:panel>
+	<xp:panel
+		style="margin-top:0.0px;margin-bottom:0.0px;padding-top:0.0px;padding-bottom:0.0px">
+		<xp:table
+			style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+			<xp:tr
+				style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+				<xp:td
+					style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+					
+					<xp:table cellspacing="0" cellpadding="1"
+						style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+						<xp:tr></xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td colspan="2"
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:14pt">
+								<xp:text escape="true"
+									id="computedField5"
+									style="font-weight:bold;color:rgb(255,0,0)">
+									<xp:this.value><![CDATA[#{javascript:var urgent = viewScope.urgency
+var dispUrgent = langBean.PartsOrderUrgent;
+if (urgent == "true"){dispUrgent.toUpperCase()}}]]></xp:this.value>
+								</xp:text>
+								</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td colspan="2"
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								<xp:label
+									value="#{langBean.titleOrderDetails}" id="label14"
+									style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:label>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td
+								style="width:40.0%;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+
+								<xp:label
+									value="${langBean.labelOrderDate}" id="label3"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-weight:bold">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="text-align: left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText id="inputText2"
+									value="#{document1.orderDate}"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+									<xp:this.converter>
+										<xp:convertDateTime type="both"
+											timeStyle="long">
+										</xp:convertDateTime>
+									</xp:this.converter>
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td
+								style="width:40.0%;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:this.rendered><![CDATA[#{javascript:if (viewScope.orderStatus == "Processed") {
+return true;
+} else {
+return false;
+}}]]></xp:this.rendered>
+								<xp:label
+									value="${langBean.LabelOrderProcessDate}" id="label2"
+									style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+									<xp:this.rendered><![CDATA[#{javascript:if (viewScope.orderStatus == "Processed") {
+return true;
+} else {
+return false;
+}}]]></xp:this.rendered>
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="ext-align: left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:this.rendered><![CDATA[#{javascript:if (viewScope.orderStatus == "Processed") {
+return true;
+} else {
+return false;
+}}]]></xp:this.rendered>
+								<xp:inputText id="inputText21"
+									value="#{document1.processedDate}"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+									<xp:this.converter>
+										<xp:convertDateTime type="both"
+											timeStyle="long">
+										</xp:convertDateTime>
+									</xp:this.converter>
+									<xp:this.rendered><![CDATA[#{javascript:if (viewScope.orderStatus == "Processed") {
+return true;
+} else {
+return false;
+}}]]></xp:this.rendered>
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td
+								style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label
+									value="${langBean.LabelOrderID}" id="label5"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="text-align: left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText
+									value="#{document1.orderID}" id="inputText5"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td
+								style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label
+									value="${langBean.labelAcctNumber}"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px" id="label25">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="text-align: left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText id="acctNumber"
+									value="#{document1.accountNbr}" readonly="true"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td
+								style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label
+									value="${langBean.LabelOrderOwner}" id="label6"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="text-align: left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText
+									value="#{document1.orderOwner}" id="inputText6"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td
+								style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label
+									value="${langBean.LabelOrderStatus}" id="label7"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="text-align: left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText
+									value="#{document1.orderStatus}" id="inputText7"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td
+								style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label
+									value="${langBean.labelPurchaseOrder}" id="label9"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="text-align: left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText
+									value="#{document1.PONumber}" id="inputText8"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td
+								style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label
+									value="${langBean.labelEndUserPurchaseOrder}" id="label10"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="text-align:left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText
+									value="#{document1.CustomerPONumber}" id="inputText9"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td
+								style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label
+									value="${langBean.titleShippingInstructions}" id="label4"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="text-align: left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText
+									value="#{document1.shippingInstructions}" id="inputText3"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td
+								style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label
+									value="${langBean.titlePromoCode}" id="label11"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="text-align: left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText
+									value="#{document1.promoCode}" id="inputText1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td
+								style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label
+									value="${langBean.labelEmailNotification}" id="email_Label1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="text-align: left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText id="email1"
+									value="#{document1.orderEmail}"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td
+								style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label
+									value="${langBean.labelPriceTotal}" id="priceTotal_Label1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="text-align: left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label
+									value="#{document1.CustomerCurrency}" id="label8"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:label>
+								&#160;&#160;
+								<xp:inputText id="inputText4"
+									value="#{document1.PriceTotal}"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+									<xp:this.converter>
+										<xp:convertNumber
+											pattern=" #,##0.00">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+					</xp:table>
+					<xp:br
+						style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px"></xp:br>
+					<xp:table
+						style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px"
+						cellpadding="0" cellspacing="0">
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td colspan="2"
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px">
+								<xp:label value="#{langBean.titleShippingAddress}" id="label1"
+									style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:label>
+							</xp:td>
+							<xp:td colspan="2"
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="#{langBean.titleBillingAddress}" id="label12"
+									style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+							<xp:td
+								style="width:20%;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelCompany}:" id="company_Label1"
+									for="company1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.shippingCompany}"
+									id="company1" required="true"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+									<xp:this.validators>
+										<xp:validateRequired
+											message="${langBean.labelCompany} ${langBean.msgIsRequired}">
+										</xp:validateRequired>
+									</xp:this.validators>
+								</xp:inputText>
+							</xp:td>
+							<xp:td
+								style="width:20%;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelCompany}:" id="label15"
+									for="inputText1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.billingCompany}"
+									id="inputText10"
+									style="width:100%;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt"
+									required="true">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelPerson}:" id="person_Label1"
+									for="person1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.shippingPerson}"
+									id="person1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelPerson}:" id="label17"
+									for="inputText2"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.billingPerson}"
+									id="inputText11"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelAddress}:" id="address_Label1"
+									for="address1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.shippingAddress}"
+									id="address1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelAddress}:" id="label19"
+									for="inputText3"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.billingAddress}"
+									id="inputText12"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelAddress_2}:" id="address_2_Label1"
+									for="address_21"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.shippingAddress_2}"
+									id="address_21"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelAddress_2}:" id="label21"
+									for="inputText4"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.billingAddress_2}"
+									id="inputText14"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelCity}:" id="city_Label1"
+									for="city1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.shippingCity}" id="city1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelCity}:" id="label22"
+									for="inputText5"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.billingCity}" id="inputText15"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelState}:" id="state_Label1"
+									for="state1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.shippingState}"
+									id="state1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelState}:" id="label24"
+									for="inputText6"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.billingState}" id="inputText16"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelPostalCode}:" id="postalCode_Label1"
+									for="postalCode1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.shippingPostalCode}"
+									id="postalCode1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelPostalCode}:" id="label26"
+									for="inputText7"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.billingPostalCode}"
+									id="inputText17"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelCountry}:" id="country_Label1"
+									for="country1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.shippingCountry}"
+									id="country1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelCountry}:" id="label28"
+									for="inputText8"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.billingCountry}"
+									id="inputText18"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelPhone}:" id="phone_Label1"
+									for="phone1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.shippingPhone}"
+									id="phone1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelPhone}:" id="label30"
+									for="inputText9"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.billingPhone}" id="inputText19"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelFax}:" id="fax_Label1"
+									for="fax1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.shippingFax}" id="fax1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelFax}:" id="label32"
+									for="inputText10"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.billingFax}" id="inputText20"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.labelEmail}:" id="label13"
+									for="email1"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText value="#{document1.shippingEmail}"
+									id="inputText13"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:inputText>
+							</xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt"></xp:td>
+							<xp:td
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt"></xp:td>
+						</xp:tr>
+					</xp:table>
+					<xp:br
+						style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt"></xp:br>
+					<xp:table
+						style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td style="width:10%">
+								<xp:label value="${langBean.thQuantity}" id="label20"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="width:20%;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px">
+								<xp:label value="${langBean.thOrderNumber}" id="label16"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="background-color:rgb(255,255,255);padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label value="${langBean.thDescription}" id="label18"
+									style="color:rgb(0,0,0);background-color:rgb(255,255,255);padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+
+							<xp:td
+								style="width:10%;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt"
+								styleClass="text-right">
+								<xp:label value="${langBean.thPrice}" id="label23"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+								</xp:label>
+							</xp:td>
+						</xp:tr>
+					</xp:table>
+					<xp:table styleClass="order-table"
+						style="background-color:rgb(255,255,255);padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+						<!-- Repeat over the rows to show the items to order -->
+						<xp:repeat id="OrderItemRepeat" rows="30" var="lineItem"
+							indexVar="indLineItem">
+							<xp:this.value><![CDATA[#{javascript:
+var unid = document1.getDocument().getUniversalID();
+salesOrderBean.getOrderedItemsFromDoc(unid,sessionAsSigner); }]]></xp:this.value>
+							<xp:tr
+								style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+								<xp:td style="width:10%">
+									<xp:text escape="true" value="#{lineItem.orderQty}" id="computedField3"
+										style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+										<xp:this.converter>
+											<xp:convertNumber pattern="#,##0">
+											</xp:convertNumber>
+										</xp:this.converter>
+									</xp:text>
+								</xp:td>
+								<xp:td
+									style="width:20%;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+									<xp:text escape="true" value="#{lineItem.partNumber}"
+										id="computedField1"
+										style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+									</xp:text>
+								</xp:td>
+								<xp:td
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+									<xp:text escape="true" value="#{lineItem.description}"
+										id="computedField2"
+										style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+									</xp:text>
+								</xp:td>
+								<xp:td
+									style="width:10%;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+									<span
+										style="float:right;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+
+									</span>
+								</xp:td>
+								<xp:td
+									style="width:10%;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px">
+									<span
+										style="float:right;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+										<xp:text escape="true" value="#{lineItem.price}" id="computedField4"
+											style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;font-size:9pt">
+											<xp:this.converter>
+												<xp:convertNumber pattern=" #,##0.00">
+												</xp:convertNumber>
+											</xp:this.converter>
+										</xp:text>
+									</span>
+								</xp:td>
+							</xp:tr>
+							<!-- End repeat over the item rows -->
+						</xp:repeat>
+					</xp:table>
+				</xp:td>
+			</xp:tr>
+		</xp:table>
+	</xp:panel>
+</xp:view>

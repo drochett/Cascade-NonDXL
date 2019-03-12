@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:xe="http://www.ibm.com/xsp/coreex"> 
+
+	<xp:this.acl>
+		<xp:acl>
+			<xp:this.entries>
+				<xp:aclEntry type="ANONYMOUS" right="NOACCESS"></xp:aclEntry>
+          		<xp:aclEntry type="DEFAULT" right="EDITOR"></xp:aclEntry>
+			</xp:this.entries>
+		</xp:acl>
+	</xp:this.acl>
+	
+		<xc:ccBlogAdminHeader rendered="true"></xc:ccBlogAdminHeader>
+		
+		<xp:panel>
+			<xp:label value="added in MSC" id="label7"></xp:label>
+			<xp:button value="Submit" id="button1">
+				<xp:eventHandler event="onclick" submit="true"
+					refreshMode="complete" immediate="false" save="true">
+					<xp:this.action>
+						<xp:actionGroup>
+							<xp:saveDocument></xp:saveDocument>
+							<xp:openPage name="/BlogAdmin.xsp"></xp:openPage>
+						</xp:actionGroup>
+					</xp:this.action>
+				</xp:eventHandler>
+			</xp:button>
+			<xp:label value="added in DV version" id="label8"></xp:label>
+			<xp:button value="Cancel" id="button2">
+				<xp:eventHandler event="onclick" submit="true"
+					refreshMode="complete" immediate="true" save="false">
+					<xp:this.action>
+						<xp:openPage name="/BlogAdmin.xsp"></xp:openPage>
+					</xp:this.action>
+				</xp:eventHandler>
+			</xp:button>
+		</xp:panel>
+		
+		<xp:br></xp:br>
+		<xp:messages id="messages1"></xp:messages>
+		 
+		<xp:span style="font-weight:bold"></xp:span>
+		<xp:table>
+			<xp:tr>
+				<xp:td>
+					<xp:label value="Title" id="title_Label1"
+						for="title1">
+					</xp:label>
+				</xp:td>
+				<xp:td>
+					<xp:inputText
+						value="#{compositeData.documentDataSource.Title}" id="title1"
+						required="true">
+						<xp:this.validators>
+							<xp:validateRequired
+								message="You must enter a Title before saving.">
+							</xp:validateRequired>
+						</xp:this.validators>
+					</xp:inputText>
+				</xp:td>
+			</xp:tr>
+
+			<xp:tr>
+				<xp:td>
+					<xp:label value="URL Key" id="label6"
+						for="urlkey1">
+					</xp:label>
+				</xp:td>
+				<xp:td>
+					<xp:inputText
+						value="#{compositeData.documentDataSource.URLKey}" id="urlkey1"
+						required="true">
+						<xp:this.validators>
+							<xp:validateRequired
+								message="You must enter a URL Key before saving.">
+							</xp:validateRequired>
+							<xp:validateConstraint
+								message="Pleae enter a URL friendly key, no spaces or special characters.">
+								<xp:this.regex><![CDATA[^[a-zA-Z0-9_-]*$]]></xp:this.regex>
+							</xp:validateConstraint>
+							<xp:validateExpression
+								message="Please enter a unique URL Key.">
+
+								<xp:this.expression><![CDATA[#{javascript:try{
+								var dbname = new Array(@Subset(@DbName(),1), configBean.BlogDbPath);
+								print("Check URL Key for uniqueness");
+								var doc = compositeData.documentDataSource.getDocument();
+								var keyVal = getComponent("urlkey1").getValueAsString();
+								var unid = new String(@DbLookup(dbname, "web", keyVal , 1, "[RETURNDOCUMENTUNIQUEID]:[FAILSILENT]"));
+								print(unid);
+								if (unid == "") {
+									return true;
+								} else {
+									print("Found unid");
+								    if (doc.isNewNote()) {
+								    	return false;
+							        } else {
+							        	return unid == doc.getUniversalID();
+							        }
+							    }
+							} catch(e) {
+								return true;
+							}}]]></xp:this.expression>
+							</xp:validateExpression>
+						</xp:this.validators>
+					</xp:inputText>
+				</xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td>
+					<xp:label value="Posted by" id="postedBy_Label1"
+						for="postedBy1">
+					</xp:label>
+				</xp:td>
+				<xp:td>
+					<xp:inputText
+						value="#{compositeData.documentDataSource.PostedBy}"
+						id="postedBy1"
+						defaultValue="#{javascript:@Name('[CN]', @UserName());}">
+					</xp:inputText>
+				</xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td>
+					<xp:label value="Posted on" id="postedOn_Label1"
+						for="postedOn1">
+					</xp:label>
+				</xp:td>
+				<xp:td>
+					<xp:inputText
+						value="#{compositeData.documentDataSource.PostedOn}"
+						id="postedOn1">
+						<xp:this.converter>
+							<xp:convertDateTime type="date"></xp:convertDateTime>
+						</xp:this.converter>
+						<xp:dateTimeHelper id="dateTimeHelper1"></xp:dateTimeHelper>
+					</xp:inputText>
+				</xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td>
+					<xp:label id="label5" for="postedOn1"
+						value="Languages">
+					</xp:label>
+				</xp:td>
+				<xp:td>
+
+					<xp:checkBoxGroup id="checkBoxGroup1"
+						value="#{compositeData.documentDataSource.ContentLanguage}">
+
+						<xp:selectItems id="selectItems1">
+							<xp:this.value><![CDATA[#{javascript:configBean.BrowserLanguages}]]></xp:this.value>
+						</xp:selectItems>
+					</xp:checkBoxGroup>
+				</xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td>View on Portal(s)</xp:td>
+				<xp:td><xp:checkBoxGroup id="checkBoxGroup2" 
+					value="#{compositeData.documentDataSource.ViewPortal}">
+
+						<xp:selectItems id="selectItems2">
+							<xp:this.value><![CDATA[#{javascript:configBean.PortalTypes}]]></xp:this.value>
+						</xp:selectItems>
+					</xp:checkBoxGroup></xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td>View on Blog?</xp:td>
+				<xp:td>
+					<xp:checkBoxGroup id="checkBoxGroup3"
+						value="#{compositeData.documentDataSource.ViewBlog}">
+						<xp:selectItem itemLabel="Yes" itemValue="Y"></xp:selectItem>
+					</xp:checkBoxGroup></xp:td>
+			</xp:tr>
+			<xp:tr>
+				<xp:td>
+					<xp:label value="Current Thumbnail FileName"
+						id="label1" for="Thumbnail">
+					</xp:label>
+				</xp:td>
+				<xp:td>
+					<xp:inputText id="Thumbnail"
+						value="#{compositeData.documentDataSource.Thumbnail}">
+						<xp:this.attrs>
+							<xp:attr name="readonly" value="true" />
+						</xp:this.attrs>
+					</xp:inputText>
+				</xp:td>
+			</xp:tr>
+
+			<xp:tr>
+				<xp:td>
+					<xp:label id="label3" for="fileUpload1">
+						<xp:this.value><![CDATA[Thumbnail Image
+(333px Wide)
+
+
+]]></xp:this.value>
+					</xp:label>
+				</xp:td>
+				<xp:td>
+					<xp:fileUpload id="fileUpload1"
+						mimetype="image/jpeg"
+						value="#{compositeData.documentDataSource.Images}">
+						<xp:eventHandler event="onchange" submit="true"
+							refreshMode="complete" refreshId="Thumbnail"
+							id="eventHandler1">
+							<xp:this.script>
+								<xp:executeClientScript>
+									<xp:this.script><![CDATA[
+						var fullname = document.getElementById("#{id:fileUpload1}").value;
+						var splitFN = fullname.split("\\");
+						var fn = splitFN[splitFN.length-1];
+						document.getElementById("#{id:Thumbnail}").value= fn;]]></xp:this.script>
+								</xp:executeClientScript>
+							</xp:this.script>
+						</xp:eventHandler>
+					</xp:fileUpload>
+				</xp:td>
+			</xp:tr>
+
+
+			<xp:tr>
+				<xp:td>
+					<xp:label value="Current Banner FileName"
+						id="label2" for="FullSize">
+					</xp:label>
+				</xp:td>
+				<xp:td>
+					<xp:inputText id="FullSize"
+						value="#{compositeData.documentDataSource.FullSize}">
+						<xp:this.attrs>
+							<xp:attr name="readonly" value="true" />
+						</xp:this.attrs>
+					</xp:inputText>
+
+				</xp:td>
+			</xp:tr>
+
+			<xp:tr>
+				<xp:td>
+					<xp:label id="label4" for="fileUpload2">
+						<xp:this.value><![CDATA[Banner Image
+(1053px Wide)
+
+]]></xp:this.value>
+					</xp:label>
+				</xp:td>
+				<xp:td>
+					<xp:fileUpload id="fileUpload2"
+						value="#{compositeData.documentDataSource.Images}">
+						<xp:eventHandler event="onchange" submit="true"
+							refreshMode="partial" refreshId="Thumbnail" id="eventHandler2">
+							<xp:this.script>
+								<xp:executeClientScript>
+									<xp:this.script><![CDATA[
+						var fullname = document.getElementById("#{id:fileUpload2}").value;
+						var splitFN = fullname.split("\\");
+						var fn = splitFN[splitFN.length-1];
+						document.getElementById("#{id:FullSize}").value= fn;]]></xp:this.script>
+								</xp:executeClientScript>
+							</xp:this.script>
+						</xp:eventHandler>
+					</xp:fileUpload>
+
+				</xp:td>
+			</xp:tr>
+
+			<xp:tr>
+				<xp:td>
+					<xp:label value="Body" id="body_Label1"
+						for="body1">
+					</xp:label>
+				</xp:td>
+				<xp:td>
+					<xp:inputRichText
+						value="#{compositeData.documentDataSource.Body}" id="body1"
+						htmlFilter="identity" htmlFilterIn="identity">
+
+
+						<xp:this.dojoAttributes>
+							<xp:dojoAttribute name="customConfig">
+								<xp:this.value><![CDATA[#{javascript:@FullUrl("CKECustomConfig.js?open")}]]></xp:this.value>
+							</xp:dojoAttribute>
+							<xp:dojoAttribute name="toolbarType"
+								value="Full">
+							</xp:dojoAttribute>
+
+							<xp:dojoAttribute
+								name="extraAllowedContent">
+								<xp:this.value><![CDATA[iframe[*]]]></xp:this.value>
+							</xp:dojoAttribute>
+							<xp:dojoAttribute name="allowedContent"
+								value="true">
+							</xp:dojoAttribute>
+						</xp:this.dojoAttributes>
+					</xp:inputRichText>
+				</xp:td>
+			</xp:tr>
+		</xp:table>
+
+
+</xp:view>

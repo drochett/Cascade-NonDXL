@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xc:ccLayout>
+		<xp:panel id="main" styleClass="container">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7" value="${langBean.nameplatelocator}"
+							styleClass="carousel-heading">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!--			MAIN CONTENT-->
+			<!-- nameplate view -->
+			<xe:pagerSaveState id="pagerSaveState1" for="viewPanel1"></xe:pagerSaveState>
+
+			<xp:viewPanel rows="30" id="viewPanel1" pageName="/Nameplate.xsp"
+				showColumnHeader="false">
+				<xp:this.facets>
+					<xp:pager partialRefresh="true" layout="Previous Group Next"
+						xp:key="footerPager" id="pager2">
+					</xp:pager>
+				</xp:this.facets>
+				<xp:this.data>
+					<xp:dominoView var="viewFaq1" databaseName="${configBean.HomeDbPath}"
+						viewName="Nameplate" categoryFilter="${sessionScope.LanguageP}">
+					</xp:dominoView>
+				</xp:this.data>
+				<xp:viewColumn columnName="Subject" id="viewColumn3"
+					displayAs="link" openDocAsReadonly="true">
+					<xp:viewColumnHeader value="Subject" id="viewColumnHeader3">
+					</xp:viewColumnHeader>
+				</xp:viewColumn>
+			</xp:viewPanel>
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>
+

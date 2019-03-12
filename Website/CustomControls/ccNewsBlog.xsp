@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+		xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+					<!-- News Feeds -->
+					<xp:panel styleClass="news-feed">
+						<xp:button value="Clear add to home" id="button1">
+							<xp:this.loaded><![CDATA[${javascript:if (requestScope.session=="CN=PTL-WWWDEV-01/O=PTLWWWDV"){
+	return false;
+} else {
+return false;}}]]></xp:this.loaded>
+							<xp:eventHandler event="onclick" submit="false">
+								<xp:this.script><![CDATA[addToHomescreen.removeSession();]]></xp:this.script>
+							</xp:eventHandler>
+						</xp:button>
+						<h4 id="h41" class="subheading">
+										<xp:text id="computedField4" value="${langBean.news}">
+							</xp:text>
+						</h4>
+						
+						
+						<xe:dataView id="dataView1" rows="4" var="viewEntry"
+							styleClass="news-table" expandedDetail="true">
+							<xe:this.data>
+								<xp:dominoView
+									databaseName="${configBean.BlogDbPath}"
+									viewName="BlogByLanguage" var="view1"
+									categoryFilter="#{sessionScope.LanguageP}">
+
+								</xp:dominoView>
+							</xe:this.data>
+							
+							<xp:this.facets>
+								<xp:panel id="detailPanel"
+									xp:key="detail">
+
+									<xp:link escape="true" id="link1"
+										value="#{configBean.HostURL}#{viewEntry.Link}">
+
+										<xp:table
+											styleClass="news-story">
+											<xp:tr>
+												<xp:td
+													styleClass="image">
+													<xp:panel
+														styleClass="image-wrapper">
+														<xp:image
+															id="image1">
+															<xp:this.url><![CDATA[#{javascript:varLink = viewEntry.getColumnValue("Thumbnail");
+varUNID = viewEntry.getColumnValue("UNID");
+varHostURL = configBean.HostURL;
+varBlogURL = configBean.BlogURL;
+varHostURL + varBlogURL + "/0/" + varUNID + "/$FILE/" + varLink}]]></xp:this.url>
+														</xp:image>
+													</xp:panel>
+												</xp:td>
+												<xp:td
+													styleClass="description">
+													<xp:text
+														value="#{viewEntry.Title}" id="computedField5"
+														styleClass="newsfeedtitle" escape="false">
+													</xp:text>
+													<xp:br></xp:br>
+													<xp:text
+														id="computedField6" escape="false"
+														value="#{viewEntry.ShortText} #{langBean.readMore}">
+													</xp:text>
+												</xp:td>
+											</xp:tr>
+										</xp:table>
+									</xp:link>
+								</xp:panel>
+							</xp:this.facets>
+						</xe:dataView>
+					</xp:panel>
+
+</xp:view>

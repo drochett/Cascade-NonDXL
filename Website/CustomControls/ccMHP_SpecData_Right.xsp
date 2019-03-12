@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" dojoParseOnLoad="true"
+	dojoTheme="true" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<br />
+
+	<xe:widgetContainer id="widgetContainer20"
+		styleClass="login-panel" titleBar="false">
+		<xp:panel styleClass="textmhplabel">
+			<div>
+				<div>
+					<xp:table style="border-style: hidden" styleClass="cell">
+						<xp:tr>
+							<xp:td style="width:60%; text-align:right; borderStyle:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecAddInfo}"
+									style="textAlign:Right" id="label1" />
+
+							</xp:td>
+							<xp:td style="text-align:left">
+								<xp:text escape="true" id="ADDITIONALINFORMATION" />
+
+								<br />
+								<br />
+							</xp:td>
+						</xp:tr>
+					</xp:table>
+
+					<xp:table style="border-style: hidden" styleClass="cell">
+						<xp:tr>
+							<xp:td style="width:40%; text-align:right; borderStyle:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecHorzExt} ="
+									style="align:Right" id="label4" />
+
+							</xp:td>
+							<xp:td style="width:6%; border-style:hidden;text-align:right">
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION2HORIZONTALCG-MM">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+								<br />
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" defaultValue="0"
+									id="POSITION2HORIZONTALCG-IN" readonly="true">
+									<xp:this.converter>
+										<xp:convertNumber
+											pattern="0.0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+							</xp:td>
+							<xp:td style="width:12%; text-align:left; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecMm}" id="label5" />
+
+								<br />
+								<xp:label value="#{javascript:langBean.mhp_SpecInch}"
+									id="label6" />
+
+							</xp:td>
+							<xp:td style="width:8%; border-style:hidden" />
+
+							<xp:td style="border-style:hidden" />
+							<xp:td style="border-style:hidden" />
+						</xp:tr>
+						<xp:tr>
+
+							<xp:td style="text-align: right; border-style:hidden">
+
+								<xp:label value="#{javascript:langBean.mhp_SpecVertExt} ="
+									style="align:Right" id="label7" />
+
+							</xp:td>
+							<xp:td style="border-style:hidden">
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION2VERTICALCG-MM">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+								<br />
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION2VERTICALCG-IN">
+									<xp:this.converter>
+										<xp:convertNumber
+											pattern="0.0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+							</xp:td>
+							<xp:td style="text-align:left; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecMm}" id="label8" />
+
+								<br />
+								<xp:label value="#{javascript:langBean.mhp_SpecInch}"
+									id="label9" />
+
+							</xp:td>
+							<xp:td style="width:8%; border-style:hidden" />
+
+							<xp:td style="border-style:hidden" />
+							<xp:td style="border-style:hidden" />
+						</xp:tr>
+						<xp:tr>
+
+							<xp:td style="text-align: right; border-style:hidden">
+
+								<xp:label value="#{javascript:langBean.mhp_SpecLatMaxOpen} ="
+									style="align:Right" id="label16" />
+
+							</xp:td>
+							<xp:td style="border-style:hidden">
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION2LATERALCG-MM">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+								<br />
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION2LATERALCG-IN">
+									<xp:this.converter>
+										<xp:convertNumber
+											pattern="0.0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+							</xp:td>
+							<xp:td style="text-align:left; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecMm}" id="label26" />
+
+								<br />
+								<xp:label value="#{javascript:langBean.mhp_SpecInch}"
+									id="label27" />
+
+							</xp:td>
+							<xp:td style="width:8%; border-style:hidden" />
+
+							<xp:td style="border-style:hidden" />
+						</xp:tr>
+						<xp:tr>
+
+							<xp:td style="text-align: right; border-style:hidden">
+
+								<xp:label value="#{javascript:langBean.mhp_SpecHorzOpen} ="
+									style="align:Right" id="label30" />
+
+							</xp:td>
+							<xp:td style="border-style:hidden">
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION4HORIZONTALCG-MM">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+								<br />
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION4HORIZONTALCG-IN">
+									<xp:this.converter>
+										<xp:convertNumber
+											pattern="0.0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+							</xp:td>
+							<xp:td style="text-align:left; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecMm}" id="label31" />
+
+								<br />
+								<xp:label value="#{javascript:langBean.mhp_SpecInch}"
+									id="label32" />
+
+							</xp:td>
+							<xp:td style="width:8%; border-style:hidden" />
+
+							<xp:td style="border-style:hidden" />
+						</xp:tr>
+						<xp:tr>
+
+							<xp:td style="text-align: right; border-style:hidden">
+
+								<xp:label value="#{javascript:langBean.mhp_SpecVertOpen} ="
+									style="align:Right" id="label33" />
+
+							</xp:td>
+							<xp:td style="border-style:hidden">
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION4VERTICALCG-MM">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+								<br />
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION4VERTICALCG-IN">
+									<xp:this.converter>
+										<xp:convertNumber
+											pattern="0.0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+							</xp:td>
+							<xp:td style="text-align:left; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecMm}" id="label34" />
+
+								<br />
+								<xp:label value="#{javascript:langBean.mhp_SpecInch}"
+									id="label35" />
+
+							</xp:td>
+							<xp:td style="width:8%; border-style:hidden" />
+
+							<xp:td style="border-style:hidden" />
+						</xp:tr>
+						<xp:tr>
+
+							<xp:td style="width: 50%; text-align: right; border-style:hidden">
+
+								<xp:label value="#{javascript:langBean.mhp_SpecLatRotated} ="
+									style="align:Right" id="label36" />
+
+							</xp:td>
+							<xp:td style="border-style:hidden">
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION4LATERALCG-MM">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+								<br />
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION4LATERALCG-IN">
+									<xp:this.converter>
+										<xp:convertNumber
+											pattern="0.0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+							</xp:td>
+							<xp:td style="text-align:left; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecMm}" id="label37" />
+
+								<br />
+								<xp:label value="#{javascript:langBean.mhp_SpecInch}"
+									id="label38" />
+
+							</xp:td>
+							<xp:td style="width:8%; border-style:hidden" />
+
+							<xp:td style="border-style:hidden" />
+						</xp:tr>
+						<xp:tr>
+
+							<xp:td style="text-align: right; border-style:hidden">
+
+								<xp:label value="#{javascript:langBean.mhp_SpecLostExt} ="
+									style="align:Right" id="label39" />
+
+							</xp:td>
+							<xp:td style="border-style:hidden">
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION2LOSTLOAD-MM">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+								<br />
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION2LOSTLOAD-IN">
+									<xp:this.converter>
+										<xp:convertNumber
+											pattern="0.0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+							</xp:td>
+							<xp:td style="text-align:left; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecMm}" id="label40" />
+
+								<br />
+								<xp:label value="#{javascript:langBean.mhp_SpecInch}"
+									id="label41" />
+
+							</xp:td>
+							<xp:td style="width:8%; border-style:hidden" />
+
+							<xp:td style="border-style:hidden" />
+						</xp:tr>
+						<xp:tr>
+							<xp:td style="text-align: right; border-style:hidden">
+
+								<xp:label value="#{javascript:langBean.mhp_SpecCapOnExt} ="
+									style="align:Right" id="label13" />
+
+							</xp:td>
+							<xp:td style="border-style:hidden">
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION2CAPACITYONARMS-KG">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+								<br />
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION2CAPACITYONARMS-LB">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+							</xp:td>
+							<xp:td style="text-align:left; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecKg} @"
+									id="label14" />
+
+								<br />
+								<xp:label value="#{javascript:langBean.mhp_SpecLbs} @"
+									id="label15" />
+
+							</xp:td>
+							<xp:td style="border-style:hidden; text-align:left">
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION2LOADCENTER-MM">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+
+								<br />
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION2LOADCENTER-IN">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+							</xp:td>
+
+							<xp:td style="border-style:hidden; text-align:left">
+								<xp:label value="#{javascript:langBean.mhp_SpecMm}" id="label28" />
+
+								<br />
+								<xp:label value="#{javascript:langBean.mhp_SpecInch}"
+									id="label29" />
+
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td style="text-align: right; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecCapInExt} ="
+									style="align:Right" id="label2" />
+
+							</xp:td>
+							<xp:td style="border-style:hidden">
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION2CAPACITYBETWEENARMS-KG">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+								<br />
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION2CAPACITYBETWEENARMS-LB">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+							</xp:td>
+							<xp:td style="text-align:left; border-style:hidden">
+								<xp:label value="#{javascript:langBean.mhp_SpecKg} @"
+									id="label3" />
+
+								<br />
+								<xp:label value="#{javascript:langBean.mhp_SpecLbs} @"
+									id="label17" />
+
+							</xp:td>
+							<xp:td style="border-style:hidden; text-align:left">
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION2LOADCENTER2-MM">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+
+								<br />
+								<xp:inputText
+									style="width:44.0px;height:30.0px"
+									disableClientSideValidation="true" readonly="true"
+									defaultValue="0" id="POSITION2LOADCENTER2-IN">
+									<xp:this.converter>
+										<xp:convertNumber pattern="0">
+										</xp:convertNumber>
+									</xp:this.converter>
+								</xp:inputText>
+
+
+							</xp:td>
+
+							<xp:td style="border-style:hidden; text-align:left">
+								<xp:label value="#{javascript:langBean.mhp_SpecMm}" id="label18" />
+
+								<br />
+								<xp:label value="#{javascript:langBean.mhp_SpecInch}"
+									id="label25" />
+							</xp:td>
+						</xp:tr>
+						<xp:tr><xp:td style="border-style:hidden; text-align:left"></xp:td></xp:tr>
+						<xp:tr><xp:td style="border-style:hidden; text-align:left"></xp:td></xp:tr>
+						<xp:tr><xp:td></xp:td></xp:tr>
+					</xp:table>
+				</div>
+			</div>
+		</xp:panel>
+	</xe:widgetContainer>
+
+	<xp:br />
+</xp:view>

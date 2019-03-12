@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom">
+
+  <xp:panel id="AddressSummary">
+    <xp:panel id="panel1">
+      <!--start panelAddressAll row-->
+      <xp:panel styleClass="row" id="panelAddressAll">
+        <!--start shipping column-->
+        <xp:panel styleClass="col-md-6" id="panelShipping">
+          <xp:panel id="PanelShipping2">
+
+            <xp:table styleClass="address-table">
+              <xp:tr>
+                <xp:panel styleClass="tableHeading" tagName="th">
+                  <xp:this.attrs>
+                    <xp:attr name="colspan" value="2">
+                    </xp:attr>
+                  </xp:this.attrs>
+                  <xp:label value="${langBean.titleShippingAddress}" id="label3">
+                  </xp:label>
+                </xp:panel>
+              </xp:tr>
+              <xp:tr>
+                <xp:td style="width:40%">
+                  <xp:label value="${langBean.labelCompany}:" id="company_Label1" for="company1">
+                  </xp:label>
+
+                </xp:td>
+                <xp:td>
+                  <xp:inputText value="#{document1.shippingCompany}" id="company1"
+                    required="true">
+                    <xp:this.validators>
+                      <xp:validateRequired message="${langBean.labelCompany} ${langBean.msgIsRequired}">
+                      </xp:validateRequired>
+                    </xp:this.validators>
+                  </xp:inputText>
+                </xp:td>
+              </xp:tr>
+              <xp:tr>
+                <xp:td>
+                  <xp:label value="${langBean.labelPerson}:" id="person_Label1" for="person1">
+                  </xp:label>
+
+                </xp:td>
+                <xp:td>
+                  <xp:inputText value="#{document1.shippingPerson}" id="person1">
+
+                  </xp:inputText>
+                </xp:td>
+              </xp:tr>
+              <xp:tr>
+                <xp:td>
+                  <xp:label value="${langBean.labelAddress}:" id="address_Label1" for="address1">
+                  </xp:label>
+
+                </xp:td>
+                <xp:td>
+                  <xp:inputText value="#{document1.shippingAddress}" id="address1">
+                  </xp:inputText>
+                </xp:td>
+              </xp:tr>
+              <xp:tr>
+                <xp:td>
+                  <xp:label value="${langBean.labelAddress_2}:" id="address_2_Label1" for="address_21">
+                  </xp:label>
+                </xp:td>
+                <xp:td>
+                  <xp:inputText value="#{document1.shippingAddress_2}" id="address_21">
+                  </xp:inputText>
+                </xp:td>
+              </xp:tr>
+              <xp:tr>
+                <xp:td>
+                  <xp:label value="${langBean.labelCity}:" id="city_Label1" for="city1">
+                  </xp:label>
+
+                </xp:td>
+                <xp:td>
+                  <xp:inputText value="#{document1.shippingCity}" id="city1">
+
+                  </xp:inputText>
+                </xp:td>
+              </xp:tr>
+              <xp:tr>
+                <xp:td>
+                  <xp:label value="${langBean.labelState}:" id="state_Label1" for="state1">
+                  </xp:label>
+                </xp:td>
+                <xp:td>
+                  <xp:inputText value="#{document1.shippingState}" id="state1">
+                  </xp:inputText>
+                </xp:td>
+              </xp:tr>
+              <xp:tr>
+                <xp:td>
+                  <xp:label value="${langBean.labelPostalCode}:" id="postalCode_Label1"
+                    for="postalCode1">
+                  </xp:label>
+
+                </xp:td>
+                <xp:td>
+                  <xp:inputText value="#{document1.shippingPostalCode}" id="postalCode1">
+
+                  </xp:inputText>
+                </xp:td>
+              </xp:tr>
+              <xp:tr>
+                <xp:td>
+                  <xp:label value="${langBean.labelCountry}:" id="country_Label1" for="country1">
+                  </xp:label>
+                </xp:td>
+                <xp:td>
+                  <xp:inputText value="#{document1.shippingCountry}" id="country1">
+
+                  </xp:inputText>
+                </xp:td>
+              </xp:tr>
+              <xp:tr>
+                <xp:td>
+                  <xp:label value="${langBean.labelPhone}:" id="phone_Label1" for="phone1">
+                  </xp:label>
+
+                </xp:td>
+                <xp:td>
+                  <xp:inputText value="#{document1.shippingPhone}" id="phone1">
+
+                  </xp:inputText>
+                </xp:td>
+              </xp:tr>
+              <xp:tr>
+                <xp:td>
+                  <xp:label value="${langBean.labelFax}:" id="fax_Label1" for="fax1">
+                  </xp:label>
+                </xp:td>
+                <xp:td>
+                  <xp:inputText value="#{document1.shippingFax}" id="fax1">
+                  </xp:inputText>
+                </xp:td>
+              </xp:tr>
+              <xp:tr>
+                <xp:td>
+                  <xp:label value="${langBean.labelEmail}:" id="label1" for="email1">
+                  </xp:label>
+                </xp:td>
+                <xp:td>
+                  <xp:inputText value="#{document1.shippingEmail}" id="inputText13">
+                  </xp:inputText>
+
+
+                </xp:td>
+              </xp:tr>
+            </xp:table>
+
+          </xp:panel>
+
+        </xp:panel>
+        <!--					start panel billing column-->
+        <xp:panel styleClass="col-md-6" id="panelBilling">
+
+          <xp:this.loaded><![CDATA[${javascript:return !!document1.getItemValueString("BillingCompany");}]]></xp:this.loaded>
+
+          <xp:table styleClass="address-table">
+            <xp:tr>
+              <xp:panel styleClass="tableHeading" tagName="th">
+                <xp:this.attrs>
+                  <xp:attr name="colspan" value="2">
+                  </xp:attr>
+                </xp:this.attrs>
+                <xp:label value="${langBean.titleBillingAddress}" id="label8">
+                </xp:label>
+              </xp:panel>
+            </xp:tr>
+            <xp:tr>
+              <xp:td style="width:40%">
+                <xp:label value="${langBean.labelCompany}:" id="label15" for="inputText1">
+                </xp:label>
+
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.billingCompany}" id="inputText1"
+                  style="width:100%" required="true">
+
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelPerson}:" id="label17" for="inputText2">
+                </xp:label>
+
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.billingPerson}" id="inputText2">
+
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelAddress}:" id="label19" for="inputText3">
+                </xp:label>
+
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.billingAddress}" id="inputText3">
+
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelAddress_2}:" id="label21" for="inputText4">
+                </xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.billingAddress_2}" id="inputText4">
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelCity}:" id="label22" for="inputText5">
+                </xp:label>
+
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.billingCity}" id="inputText5">
+
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelState}:" id="label24" for="inputText6">
+                </xp:label>
+
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.billingState}" id="inputText6">
+
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelPostalCode}:" id="label26" for="inputText7">
+                </xp:label>
+
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.billingPostalCode}" id="inputText7">
+
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelCountry}:" id="label28" for="inputText8">
+                </xp:label>
+
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.billingCountry}" id="inputText8">
+
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelPhone}:" id="label30" for="inputText9">
+                </xp:label>
+
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.billingPhone}" id="inputText9">
+
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+            <xp:tr>
+              <xp:td>
+                <xp:label value="${langBean.labelFax}:" id="label32" for="inputText10">
+                </xp:label>
+              </xp:td>
+              <xp:td>
+                <xp:inputText value="#{document1.billingFax}" id="inputText10">
+                </xp:inputText>
+              </xp:td>
+            </xp:tr>
+          </xp:table>
+        </xp:panel>
+      </xp:panel>
+
+
+    </xp:panel>
+  </xp:panel>
+
+
+
+
+</xp:view>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="(Populate  Cascorp-External-Dealers Group Doc)" hide="v3" publicaccess="false">
+  <trigger type="agentlist"/>
+  <documentset type="runonce"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent Populate  Cascorp-External-Dealers Group Doc
+	Created May 15, 2017 by Michael Zens/PTL/CASCADE
+	Description: This agent opens the cascweb2.nsf database and finds all person documents whose AccessType is "D" sand populates
+	the group docuent "Cascorp-External-Dealers" with their internet address.
+%END REM
+Option Public
+Option Declare
+
+
+</lotusscript>
+  </code>
+  <code event="declarations">
+    <lotusscript>Dim totalCount As Integer
+Dim doc As NotesDocument
+Dim accessCode As Variant
+Dim ret As Boolean    'Return value for error handling\
+Dim retGroupStatus As Boolean   'If user added to group true is returned if user is not added false is returned.
+Dim strGroupName As String
+Dim hadError As Boolean
+Dim addressBookDB As NotesDatabase
+Dim docGroup As NotesDocument
+Dim view As NotesView
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	Dim st As String
+	On Error Goto Error_Trap
+	st = Cstr(Getthreadinfo(1)) + ":  " 
+	Dim s As New NotesSession
+	Dim thisdb As NotesDatabase
+	Dim a As NotesAgent
+	Dim v As NotesView
+	Dim setupDoc As NotesDocument
+	Dim dc As NotesDocumentCollection
+	Dim addedCount As Integer
+	
+	'set importLog doc stuff
+	Set thisdb = s.Currentdatabase
+	'set up more Notes Stuff
+	Set v = thisdb.getView("ActiveSetupValues")
+	Set a = s.Currentagent
+	st = a.Name + " / " + st
+	'set the database to point to the cascweb addressbook
+	Set setupDoc = v.getDocumentByKey("UserDominoDirectoryPath",True)
+	If setupDoc Is Nothing Then
+		Msgbox(st + "BIG TIME ERROR:: unable to find setup document for UserDominoDirectoryPath in website.nsf")
+		Exit Sub
+	End If 
+	Set addressBookDB = s.Getdatabase(thisdb.server,setupDoc.value(0), False)
+	If addressBookDB Is Nothing Then
+		'major error - need to exit
+		Msgbox(st + "BIG TIME ERROR:: unable to open database " + setupDoc.value(0))
+		Exit Sub
+	End If
+	
+	Set setupDoc = v.getDocumentByKey("DealerGroupName",True)
+	strGroupName = setUpDoc.value(0)
+	If setupDoc Is Nothing Then
+		'major error need to exit
+		Msgbox(st + "BIG TIME ERROR:: unable to find setup document for DealerGroupName in website.nsf")
+
+		Exit Sub
+	End If 
+	
+	Dim view As NotesView
+	'Get group view
+	Set view = AddressBookDB.GetView("Groups")
+	'Get the group
+	Set docGroup = view.Getdocumentbykey(strGroupName, True)
+	
+	Set dc = addressBookDB.Search( "", Nothing, 0 ) 'init the document collection
+	
+	'get the view with the documents we are going  process
+	Set v = addressBookDB.getview("People")
+	Set doc = v.Getfirstdocument()
+	'add all documents in view whose AccessType = "D" to document collection. When we process them, 
+	Do Until doc Is Nothing
+		If doc.accessType(0) = "D" Or doc.accessType(0) = "B" Then
+			Call dc.Adddocument(doc)
+		End If
+		Set doc = v.Getnextdocument(doc)
+	Loop
+	totalCount = dc.Count
+	
+	Msgbox(st + "total count for AccessType = D (Dealers) is " + Cstr(totalCount))
+	Set doc = dc.getFirstDocument
+	Do Until doc Is Nothing
+		'init the variables
+		hadError = False
+		Call AddUserToGroup()
+		addedCount = addedCount+1
+		If hadError Then Goto End_Of_Code
+		Set doc = dc.getNextDocument(doc)
+	Loop
+	
+	Goto End_Of_Code
+ERROR_TRAP:
+	Msgbox st + "Error " + Cstr(Err) + " on line " + Cstr(Erl) + ": " + Error
+
+	Resume End_Of_Code
+END_OF_CODE:
+	Msgbox("Total added to group " + strGroupName + ":  " + Cstr(addedCount))
+End Sub
+
+</lotusscript>
+  </code>
+  <code event="AddUserToGroup">
+    <lotusscript>Sub AddUserToGroup
+	Dim ServerNum As String
+	Dim saveGroupMainDoc As Integer
+	Dim st As String
+	st = Cstr(Getthreadinfo(1)) + ":  " 
+	On Error Goto errorTrap
+	ret = False  'assume failure
+	retGroupStatus = False 'assume failure
+    ' Determine Server Number to append to group.
+	ServerNum = "Mail"
+	
+     'Get group view
+	Set view = addressBookDB.GetView("Groups")
+	
+'	groupNameIE = settingsDoc.GroupName(0)
+	
+          'Get International group
+	Set docGroup = view.Getdocumentbykey(strGroupName)
+	
+          'Test to see if International  group exists.
+	If (docGroup Is Nothing) Then
+		Set docGroup = addressBookDB.CreateDocument
+		Call docGroup.ReplaceItemValue("Form", "Group")
+		Call docGroup.ReplaceItemValue("ListName", strGroupName)
+		Call docGroup.ReplaceItemValue("Members",  strGroupName &amp; " 1")
+		Call docGroup.ReplaceItemValue("GroupType", "0")
+		Call docGroup.ReplaceItemValue("ListDescription", "Do NOT edit this group manually, " _
+		&amp; "it is maintained by an agent.")
+		Call docGroup.ComputeWithForm( False, False )
+		
+               'Test to make sure new group was saved.
+		ret = docGroup.Save(False, False)
+		If (ret = True) Then
+			retGroupStatus = True
+		Else
+       	'status "Status", "Failed - group document not saved"
+			Msgbox st+"An error occured while processing groupDoc "+strGroupName+" at line " +Cstr(Getthreadinfo(0))
+			retGroupStatus = False
+			Exit Sub
+		End If
+	End If
+	
+	
+%REM
+Adds a user to a group.
+Because Notes stores group members in text lists, and text lists can have
+only 15K bytes in them, simple groups are limited to around 1000 members. 
+To have more members than that, the group must be broken into a number of 
+other groups, which are then referenced as members of a master group.
+
+The following code handles all of that complexity. The group name passed is 
+in the name of the master group, and this sub will handle the creation
+and populating of the sub-groups as needed. The sub-groups will
+be named by appending numbers to the master group name, and will
+have slightly more than 10K bytes of members in them.
+%END REM
+	
+	Dim groupMainMembers As NotesItem
+	Dim groupMainName As String
+	
+	Set groupMainMembers = docGroup.GetFirstItem( "Members" )
+	groupMainName = docGroup.GetItemValue("ListName")(0)  'this will return 
+	
+     ' Find last subgroup entry in the members list
+	Dim subGroup As String
+	subGroup = ""
+	
+	Forall s In groupMainMembers.Values
+		If Left$( s, Len( groupMainName  ) ) = groupMainName Then
+			subGroup = s
+		End If
+	End Forall
+    ' Open the subgroup, and keep trying until we find one with room
+	Dim groupNum As Integer
+	groupNum = 0
+	' Which subgroup was the last one
+	If subGroup &lt;&gt; "" Then
+		groupNum = Val( Right( subGroup, Len( subGroup ) - Len( groupMainName ) - 1 ) )
+	Else
+		groupNum = 1
+		subGroup = groupMainName  &amp; " 1"
+	End If
+	
+	Dim groupSubDoc As NotesDocument
+	
+	Do
+		Set groupSubDoc = view.GetDocumentByKey( subGroup )
+		
+		If groupSubDoc Is Nothing Then
+               ' Create a new subgroup document
+			Set groupSubDoc = New NotesDocument(addressBookDB)
+			Call groupSubDoc.ReplaceItemValue("Form", "Group")
+			Call groupSubDoc.ReplaceItemValue("ListName", subGroup)
+			Call groupSubDoc.ReplaceItemValue("GroupType", "0")
+			Call groupSubDoc.ReplaceItemValue("ListDescription", "Do NOT edit this group manually, " _
+			&amp; "it is maintained by an agent.")
+			Call groupSubDoc.ComputeWithForm( False, False )
+			
+               ' Add it to the main group if needed
+			If Not groupMainMembers.Contains( subGroup ) Then
+				Call groupMainMembers.AppendToTextList( subGroup )
+				saveGroupMainDoc = True
+			End If
+		End If
+		
+       ' See if the subgroup still has room, if so, we've found our subgroup
+		Dim groupSubMembers As NotesItem
+		Set groupSubMembers = groupSubDoc.GetFirstItem( "Members" )
+		
+		If groupSubMembers.ValueLength &lt; 10000 Then
+			Exit Do
+		End If
+		
+		' If no room, try the next one
+		groupNum = groupNum + 1
+		subGroup = groupMainName &amp; " " &amp; groupNum
+	Loop
+    'Finally: add the user to the subgroup
+	Call groupSubMembers.AppendtoTextList(doc.GetItemValue("FullName")(0))
+	ret = groupSubDoc.Save( False, True )
+	
+	If saveGroupMainDoc Then
+		ret = docGroup.Save( False, True )
+	End If
+	
+	If (ret = True) Then
+		retGroupStatus = True
+	Else
+                    'status "Status", "Failed - group document not saved"
+		Msgbox "An error occured while submitting registration." _
+		&amp; "Your registration will not be processed"
+		retGroupStatus = False
+		hadError  = True ' need to set it to zero each time a doc is processed
+		Exit Sub
+	End If
+
+	Goto EndOfCode
+errorTrap:
+	Msgbox  st &amp; " - Error in line "  &amp; Erl &amp; " (ERROR " &amp; Err &amp;" - "  &amp; Error &amp; ")"
+	Resume EndOfCode
+EndOfCode:
+End Sub</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101939,39-08</datetime>
+  </item>
+</agent>

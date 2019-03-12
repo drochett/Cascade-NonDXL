@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+  xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+
+  <!--panel main content -->
+
+  <xp:panel styleClass="row" id="panel1">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel5">
+
+      <div class="form-horizontal">
+
+        <div class="form-group">
+          <div class="col-sm-3">
+            <xp:text value="Name (optional):" id="txt_CF_Name_Label1" for="txt_CF_Name1"
+              tagName="label" styleClass="control-label">
+            </xp:text>
+          </div>
+          <div class="col-sm-9">
+            <xp:inputText value="#{document1.txt_CF_Name}" id="txt_CF_Name1">
+            </xp:inputText>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-3">
+            <xp:text value="Email Address (optional):" id="txt_CF_Email_Label1" for="txt_CF_Email1"
+              tagName="label" styleClass="control-label">
+            </xp:text>
+          </div>
+          <div class="col-sm-9">
+            <xp:inputText value="#{document1.txt_CF_Email}" id="txt_CF_Email1">
+            </xp:inputText>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-3">
+            <xp:text value="May we contact you?" id="txt_CF_Contact_Label1" for="txt_CF_Contact1"
+              tagName="label" styleClass="control-label">
+            </xp:text>
+          </div>
+          <div class="col-sm-9">
+            <xp:radioGroup id="radioGroup1" value="#{document1.txt_CF_Contact}">
+              <xp:selectItem itemLabel="Yes"></xp:selectItem>
+              <xp:selectItem itemLabel="No"></xp:selectItem>
+            </xp:radioGroup>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-3">
+            <xp:text value="Comments or Suggestions:" id="rtf_Comment_Label1" for="rtf_Comment1"
+              tagName="label" styleClass="control-label">
+            </xp:text>
+            <xp:label rendered="#{javascript:currentDocument.isEditable()}">
+              <span class="glyphicon glyphicon-asterisk icon-required" aria-hidden="true">
+              </span>
+            </xp:label>
+          </div>
+          <div class="col-sm-9">
+            <xp:inputTextarea value="#{document1.rtf_Comment}" id="rtf_Comment1"
+              rows="5" required="true">
+              <xp:this.validators>
+                <xp:validateRequired message="Please enter a comment">
+                </xp:validateRequired>
+              </xp:this.validators>
+            </xp:inputTextarea>
+          </div>
+        </div>
+      </div>
+
+      <hr></hr>
+
+      <!--submit button-->
+      <xp:button value="Submit" id="button3" styleClass="btn btn-primary pull-right"
+        rendered="#{javascript:@IsNewDoc()}">
+        <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+          refreshId="main" immediate="false" save="true">
+          <xp:this.action><![CDATA[#{javascript:
+// buttonType is "submit" ... see querySaveDocument on containing XPage
+viewScope.orderPlaced = "1";
+viewScope.orderStep = "step_2";
+var dc = getComponent("dcOrderStep");
+dc.show("step_2")
+}]]></xp:this.action>
+        </xp:eventHandler>
+      </xp:button>
+      <!--processing buttons -->
+      <xp:panel rendered="#{javascript:!@IsNewDoc()}">
+        <xc:ccOrderQuoteProcessButtons></xc:ccOrderQuoteProcessButtons>
+      </xp:panel>
+    </xp:panel>
+  </xp:panel>
+</xp:view>
+

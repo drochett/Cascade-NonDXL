@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	
+	 
+	
+	<xp:this.beforePageLoad><![CDATA[#{javascript:dBar.info("Entering Forks beforePageLoad");
+if (viewScope.orderStep == "" || viewScope.orderStep == null) {
+	viewScope.orderStep = "step_1";
+	sessionScope.BillingAddressRequired = "1";
+	dBar.info("====================");
+	dBar.info("viewScope.orderStep > " + viewScope.orderStep);
+}
+//print("=+=+=+=+=+=+=");
+//print("Orderforks.xsp----user name: "+session.getEffectiveUserName());
+//print("=+=+=+=+=+=+=");
+}]]></xp:this.beforePageLoad>
+
+	<xp:this.afterPageLoad><![CDATA[#{javascript:importPackage(com.cascorp);
+dBar.info("Entering Forks afterPageLoad");
+//set region and account number and countryCode
+if (salesOrderBean.getRegion() == "" || salesOrderBean.getRegion() == null){
+	//get the region from the person document
+	var rtnMap = RegistrationUtilities.getAccountNumber(session.getEffectiveUserName(),sessionAsSigner);
+	salesOrderBean.setRegion(rtnMap.get("region"));
+	salesOrderBean.setAccountNumber(rtnMap.get("acctnumber"));
+	salesOrderBean.setCountryCode(rtnMap.get("countryCode"));
+	dBar.info("user account number is " + salesOrderBean.getAccountNumber());
+	dBar.info("user region is " + salesOrderBean.getRegion());
+	dBar.info("user countryCode is " + salesOrderBean.getCountryCode());
+}
+var region = salesOrderBean.getRegion();
+dBar.info("REGION IS:  " + region);
+sessionScope.region = region;
+sessionScope.accountNbr = salesOrderBean.getAccountNumber();
+var countryCode = salesOrderBean.getCountryCode();
+sessionScope.countryCode = countryCode
+if (region!=null || region != ""){
+	var jde = new JDESupport();
+	var serverValid = jde.testJDE(region);
+	if (!serverValid){
+		//redirect to error XPage
+		context.redirectToPage("Error.xsp");
+	}
+}
+
+//get the customer currency from the JDE system
+if(salesOrderBean.getCustCurrency()== "" || salesOrderBean.getCustCurrency() == null){
+	var jde = new JDESupport();
+	var currency = jde.getCustomerCurrency(salesOrderBean.getAccountNumber(),salesOrderBean.getRegion());
+	if (currency =="INR") {
+	currency = "USD";
+	}
+	salesOrderBean.setCustCurrency(currency);
+	dBar.info("Currency is " + currency);
+}}]]></xp:this.afterPageLoad>
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+	<xc:ccLayout>
+		<xp:panel styleClass="container" id="main">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							styleClass="carousel-heading"
+							value="${langBean.HeadingOrderForks}">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			
+			<xe:dynamicContent id="dcOrderStep" defaultFacet="step_1"
+				useHash="true">
+				<xp:this.facets>
+					<xc:ccOrderForks xp:key="step_1"></xc:ccOrderForks>
+					<xc:ccOrderAddress xp:key="step_2.xsp"></xc:ccOrderAddress>
+					<xc:ccOrderSummary xp:key="step_3"></xc:ccOrderSummary>
+					<xc:ccOrderConfirmationSummary xp:key="step_4"></xc:ccOrderConfirmationSummary>
+				</xp:this.facets>
+			</xe:dynamicContent>
+			<xp:br></xp:br>
+  
+			<xp:br></xp:br>
+
+			</xp:panel>
+	</xc:ccLayout>
+	
+</xp:view>

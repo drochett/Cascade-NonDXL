@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="(Export New Lang Docs to Excel Spreadsheet)" hide="v3" publicaccess="false">
+  <trigger type="agentlist"/>
+  <documentset type="runonce"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent Import Labels from Excel Spreadshett
+	Created May 2, 2016 by Michael Zens/PTL/CASCADE
+	Description: This agent grabs a few views which contain language and menu labels
+		and populate excel spreadsheets with them. The spreadsheet will be used to 
+		send out for language translations
+%END REM
+Option Public
+Option Declare
+'Use "LogLibraryLS"
+
+
+</lotusscript>
+  </code>
+  <code event="declarations">
+    <lotusscript>Dim aname As String
+Dim doc As NotesDocument
+Dim logDb As NotesDatabase
+Dim profileDoc As NotesDocument
+Dim logDoc As NotesDocument
+
+Dim dcCareers As NotesDocumentCollection
+Dim dcOther As NotesDocumentCollection
+Dim dcHome As NotesDocumentCollection
+Dim dcLocations As NotesDocumentCollection
+Dim dcMain As NotesDocumentCollection
+Dim dcContacts As NotesDocumentCollection
+Dim dcOneBody As NotesDocumentCollection
+Dim dcProduct As NotesDocumentCollection
+Dim dcProductMaster As NotesDocumentCollection
+
+Dim xlApp As Variant, xlsheet As Variant, rows As Integer, cols As Integer
+Dim wsNbr As Integer
+
+Dim logging As Boolean
+Dim logLevel As Integer
+'Dim dfLog As dfLog
+Dim count As Integer
+Dim logSet As Boolean
+Dim logMsgRT As NotesRichTextItem
+'added to seperate the error messages
+Dim docNbr As Integer
+Dim logErrorRT As NotesRichTextItem
+Dim logWarningRT As NotesRichTextItem
+Dim logInfoRT As NotesRichTextItem
+Dim changeCount As Long
+Dim deleteCount As Long
+Dim errorCount As Integer
+Dim warningcount As Long
+Dim infoCount As Long
+Dim unknownError As Long
+Dim thisServer As String
+Dim lastLogMessage As Boolean
+Dim written As Integer
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	On Error GoTo ErrorTrap
+	Dim Field As String
+	Dim s As New NotesSession,db As NotesDatabase, w As New NotesUIWorkspace, a As NotesAgent, st As String, title As String
+	Dim v As NotesView, vString As String
+	Dim maxcols As Integer
+	Dim vList As Variant, k As Integer, n As Integer, aliasName As String, i As Integer, fieldName As String
+	Dim sname As String
+
+	
+	'===========================Set up Notes Stuff ==========================
+	Set db = s.CurrentDatabase   'link to current database
+	'Set profileDoc = db.GetProfileDocument("Settings") 
+	Set a = s.Currentagent
+	'setup other stuff
+	If InStr(a.name,"|") Then
+		aName = Left(a.name,InStr(a.name,"|")-1)
+	Else
+		aName = a.Name
+	End If
+	sName = db.server
+	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	title =  db.title +" db | "+ aname +" agent"
+	'========================= set up logging ===============================
+	
+	'=========================================================================
+	'-------------- have user select view to get docs from  --------------
+	Vlist= db.views
+	K=UBound(Vlist)  'get size of list
+	ReDim Preserve ShowView(K)
+	N=-1
+	For i = 0 To K
+		If Len(Vlist(i).Name) &gt;0 Then	
+			If Not IsEmpty(vlist(i).aliases) Then
+				AliasName=Trim(Vlist(i).Aliases(0))
+				'If Mid(AliasName,1,3) = "rpt" Then  'show only report views
+					FieldName=Trim(Vlist(i).Name)
+					N=N+1				
+					ShowView(N) = FieldName
+				'End If
+			End If
+		End If	
+	Next i	
+	
+	If N = -1 Then
+		MessageBox "there are no report views available for this database", 16, title
+		GoTo EndOfCode
+	End If
+	
+	ReDim Preserve ShowView(N)
+	'now sort the list - by default views are listing in the order that they were created
+	For i=0 To N
+		For K=i To N
+			If  ShowView(i) &gt; ShowView(k) Then
+				FieldName=ShowView(i)	
+				ShowView(i) = ShowView(k)
+				ShowView(k)=FieldName
+			End If
+		Next k
+	Next i	
+GETVIEW:
+	vString= w.Prompt(PROMPT_OKCANCELLIST,title,"Choose a View","",ShowView )
+	 If vString = "" Then
+	 	MsgBox "View not selectect - aborting agent",16,title
+		msgBox"View not selected on line " + CStr(GetThreadInfo(0) - 3) +" - aborting agent",16, st
+	 	GoTo EndOfCode
+	 End If
+	
+	
+	If Len(vString)=0 Then Exit Sub
+	Set v = db.getview(VString)  'get selected view
+	'-------------- END OF have user select view to get docs from  --------------
+	'-------------- initialize the documentcollection-------------- 
+	Set dcCareers = v.Getalldocumentsbykey("Shaving Cream", True)
+	Set dcHome = v.Getalldocumentsbykey("Shaving Cream", True)
+	Set dcMain = v.Getalldocumentsbykey("Shaving Cream", True)
+	Set dcLocations = v.Getalldocumentsbykey("Shaving Cream", True)
+	Set dcContacts = v.Getalldocumentsbykey("Shaving Cream", True)
+	Set dcOneBody = v.Getalldocumentsbykey("Shaving Cream", True)
+	Set dcProduct = v.Getalldocumentsbykey("Shaving Cream", True)
+	Set dcProductMaster = v.Getalldocumentsbykey("Shaving Cream", True)
+	Set dcOther = v.Getalldocumentsbykey("Shaving Cream", True)
+	'-------------- END OF initialize the documentcollection--------------
+
+	'=========================================================================
+	'===========================Populate the doc collections =================
+	'populate based on document type
+	Set doc = v.Getfirstdocument()
+	Do Until doc Is Nothing
+		Dim docType As String
+		docType = doc.Type(0)
+		Select Case docType
+			Case "Careers"
+				Call dcCareers.Adddocument(doc)
+			Case "OneBodyField" 
+				Call dcOneBody.Adddocument(doc)
+			Case "ContactsListing"
+				Call dcContacts.Adddocument(doc)
+			Case "Locations"
+		  		Call dcLocations.Adddocument(doc)
+			Case "Home"
+				Call dcHome.Adddocument(doc)
+			Case "MainCategoryPage"
+				Call dcMain.Adddocument(doc)
+			Case "Product"
+				Call dcProduct.Adddocument(doc)
+			Case "ProductMaster"	
+			Call dcProductMaster.Adddocument(doc)
+		Case Else
+			Call dcOther.Adddocument(doc)
+		End Select
+		
+		Set doc = v.getNextDocument(doc)
+	Loop
+
+	
+	'GoTo Process_Collections
+	'GoTo EndOfCode
+	'=========================================================================
+	'===========================Set up excel =================================
+	Set xlApp = CreateObject("Excel.Application")  'start Excel with OLE Automation
+	xlApp.StatusBar = "Creating WorkSheet. Please be patient..."
+	xlApp.Visible = True
+	xlApp.Workbooks.Add
+	xlApp.ReferenceStyle = 2	
+	'=========================================================================
+PROCESS_COLLECTIONS:
+	ProcessCollections("subject")
+	ProcessCollections("metaTitle")
+	ProcessCollections("metaDescr")
+	ProcessCollections("keywords")
+	ProcessCollections("description")
+	ProcessCollections("features")
+	ProcessCollections("options")
+	ProcessCollections("oneBodyField")
+	ProcessCollections("productFamilyName")
+	ProcessCollections("subjectTagline")
+	ProcessCollections("specialText")
+	ProcessCollections("specialText_2")
+	ProcessCollections("cTitleList")
+	ProcessCollections("captionList")
+	ProcessCollections("specialNotice")
+	ProcessCollections("footerRTF")
+	
+	xlApp.StatusBar = "Importing Data from Lotus Notes Application completed."
+	GoTo EndOfCode
+ERRORTRAP:
+'	Call setLogMessage(st + "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ ,"Error")
+	MsgBox "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ ,16,st
+	Resume EndOfCode
+ENDOFCODE:
+'	Stop
+	Set xlapp=Nothing   'stop OLE
+	Set db=Nothing
+	Call logDoc.Save(True,False)  
+	
+End Sub
+
+</lotusscript>
+  </code>
+  <code event="z_getArrayValues">
+    <lotusscript>%REM
+	Function z_getArrayValues
+	Description: multiValue - get array vals and add as one string with chr(10)
+%END REM
+Function z_getArrayValues(item As NotesItem) As String
+	Dim x As integer
+	ForAll a In item.values
+		If x = 0 Then
+			z_getArrayValues = a
+			x=x+1
+		Else
+			z_getArrayValues = z_getArrayValues + Chr(10)+a
+			x=x+1
+		End If
+	End ForAll
+		
+	
+End Function
+
+</lotusscript>
+  </code>
+  <code event="setUpAdditionalSheet">
+    <lotusscript>%REM
+	Function setUpSheet
+	Description: Comments for Function
+%END REM
+Function setUpAdditionalSheet(sheetName As String)
+	On Error GoTo ErrorTrap
+	Dim st As String, range As String, item As NotesItem
+	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	wsNbr = 1
+	Set xlsheet = xlapp.Worksheets.Add()
+	Set xlsheet = xlapp.worksheets(wsNbr)
+	cols = 0  'init the value to zero so code works
+	rows = 0  'init the value to zero so code works
+
+	Set xlsheet = xlapp.worksheets(wsNbr)
+	xlsheet.Name = sheetName
+	cols = cols+1
+	rows=rows+1
+	range = "A"+Cstr(rows)+":J"+Cstr(rows)
+	xlsheet.Cells(rows,cols).Value = "UNID"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "Type"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "Subject"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "Field"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "Alias"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "English (to be translated)"
+	cols = cols+1
+	xlsheet.Cells(rows,cols).Value = "Translation"
+	
+	GoTo EndOfCode
+ERRORTRAP:
+	msgBox "Error on line " &amp; Format$(Erl)&amp;":  " &amp;  Error$ ,16,st
+	Resume EndOfCode
+ENDOFCODE:
+	
+End Function
+
+</lotusscript>
+  </code>
+  <code event="getRTText">
+    <lotusscript>%REM
+	Function getFieldValue
+	Description: Comments for Function
+%END REM
+Function getRTText(Field As String, dc As NotesDocumentCollection)
+
+	On Error GoTo ErrorTrap
+	Dim st As String, range As String, item As NotesItem, aliasVal As String, value As String
+	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	Set doc = dc.getFirstDocument
+	Do Until doc Is Nothing
+		' it's a richText so we need just text
+		If doc.hasItem(Field) Then 
+			Set item =doc.getFirstItem(Field)
+			value = item.text
+		Else
+			GoTo NextDoc
+		End If
+		If Value = "" Then GoTo NextDoc
+		cols = 0  'init the value to zero so code works
+		cols = cols+1
+		rows=rows+1
+		range = "A"+Cstr(rows)+":J"+Cstr(rows)
+		xlSheet.cells(rows,1).value =  doc.Universalid
+		xlSheet.cells(rows,2).value = doc.Type(0)
+		xlSheet.cells(rows,3).value = doc.Subject(0)
+		xlSheet.cells(rows,4).value = Field
+		xlSheet.cells(rows,5).value = aliasVal
+		xlSheet.cells(rows,6).value = value
+NEXTDOC:
+	Set doc = dc.Getnextdocument(doc)
+	Loop
+	GoTo EndOfCode
+ERRORTRAP:
+	msgBox "(" &amp; Field +") Error on line " &amp; Format$(Erl)&amp;":  "&amp;  Error$ &amp; Chr(10) + "&gt;&gt;&gt;&gt; " &amp;doc.type(0) + " - " &amp; doc.subject(0) ,16,st
+	Resume EndOfCode
+ENDOFCODE:
+	
+End Function
+
+</lotusscript>
+  </code>
+  <code event="x_getRichTextValue">
+    <lotusscript>%REM
+	Function x_getRichTextValue
+	Description: Comments for Function
+%END REM
+Function x_getRichTextValue(item As NotesItem) As String
+	x_getRichTextValue = item.Text
+End Function
+
+</lotusscript>
+  </code>
+  <code event="formatColumnColor">
+    <lotusscript>%REM
+	Function formatSheet
+	Description: Comments for Function
+%END REM
+Function formatColumnColor(range As String)
+	xlApp.Range(range).Select
+	xlApp.Selection.Font.Color = -16776961
+End Function
+
+</lotusscript>
+  </code>
+  <code event="formatSheet">
+    <lotusscript>%REM
+	Function formatSheet
+	Description: Comments for Function
+%END REM
+Function formatSheet(range As String)
+	xlApp.Range(range).Select
+	xlApp.Selection.Font.Name = "Arial"
+	xlApp.Selection.Font.Size = 9
+	'xlApp.Selection.Font.Color = -16776961
+	xlApp.Selection.Columns.AutoFit
+	xlApp.Selection.VerticalAlignment = 1
+	xlApp.Selection.Borders.LineStyle = 1
+	xlApp.Selection.Borders.Weight = 2
+	xlApp.Range("1:1").Select
+	xlApp.Selection.Font.Bold = True
+	
+End Function
+
+</lotusscript>
+  </code>
+  <code event="ProcessCollections">
+    <lotusscript>%REM
+	Function ProcessCollections
+	Description: Comments for Function
+%END REM
+Function ProcessCollections(Field As String)
+	On Error goTo ErrorTrap
+	Dim st As String, range As String
+	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	'field = "subject"
+	Select Case Field
+		Case "subject", "metaTitle","metaDescr"
+			Call setUpAdditionalSheet(Field)
+			Call getArrayValue(Field,dcCareers)
+			Call getArrayValue(Field,dcHome)
+			Call getArrayValue(Field,dcMain)
+			Call getArrayValue(Field,dcProduct)
+			Call getArrayValue(Field,dcProductMaster)
+			Call getArrayValue(Field,dcOneBody)
+			Call getArrayValue(Field,dcLocations)
+			Call getArrayValue(Field,dcContacts)
+			range = "A1:G"+Cstr(Rows)
+			formatSheet(range)
+			range = "F2:G"+Cstr(Rows)
+			formatColumnColor(range)
+			
+		Case "keywords"
+			Call setUpAdditionalSheet(Field)
+			Call getArrayValue(Field,dcCareers)
+			Call getArrayValue(field,dcHome)
+			Call getArrayValue(Field,dcMain)
+			Call getArrayValue(Field,dcProduct)
+			Call getArrayValue(Field,dcProductMaster)
+			Call getArrayValue(Field,dcOneBody)
+			Call getArrayValue(Field,dcLocations)
+			Call getArrayValue(Field,dcContacts)
+			range = "A1:G"+Cstr(Rows)
+			formatSheet(range)
+			range = "F2:G"+Cstr(Rows)
+			formatColumnColor(range)
+		
+		Case "description"
+			Call setUpAdditionalSheet(Field)
+			Call getArrayValue(Field,dcMain)
+			Call getArrayValue(Field,dcProduct)
+			Call getArrayValue(Field,dcProductMaster)
+			Call getArrayValue(Field,dcContacts)
+			range = "A1:G"+Cstr(Rows)
+			formatSheet(range)
+			range = "F2:G"+Cstr(Rows)
+			formatColumnColor(range)
+			
+		Case"features", "options"
+			Call setUpAdditionalSheet(Field)
+'			Call getArrayValue(Field,dcProduct)
+'			Call getArrayValue(Field,dcCareers)
+			Call getRTText(Field,dcProduct)
+			Call getRTText(Field,dcCareers)
+			range = "A1:G"+Cstr(Rows)
+			formatSheet(range)
+			range = "F2:G"+Cstr(Rows)
+			formatColumnColor(range)
+		
+		Case "oneBodyField"
+			Call setUpAdditionalSheet(Field)
+			Call getRTText(Field,dcOneBody)
+			Call getRTText(Field,dcLocations)
+			Call getRTText(Field,dcContacts)
+			range = "A1:G"+Cstr(Rows)
+			formatSheet(range)
+			range = "F2:G"+Cstr(Rows)
+			formatColumnColor(range)
+		
+		Case "productFamilyName"
+			Call setUpAdditionalSheet(Field)
+			Call getArrayValue(Field,dcProduct)
+			range = "A1:G"+Cstr(Rows)
+			formatSheet(range)
+			range = "F2:G"+Cstr(Rows)
+			formatColumnColor(range)
+			
+		Case "subjectTagline"
+			Call setUpAdditionalSheet(Field)
+			Call getArrayValue(Field,dcProduct)
+			range = "A1:G"+Cstr(Rows)
+			formatSheet(range)
+			range = "F2:G"+Cstr(Rows)
+			formatColumnColor(range)
+			
+		Case "specialText"
+			Call setUpAdditionalSheet(Field)
+			Call getRTText(Field,dcMain)
+			range = "A1:G"+Cstr(Rows)
+			formatSheet(range)
+			range = "F2:G"+Cstr(Rows)
+			formatColumnColor(range)
+			
+		Case "specialText_2"
+			Call setUpAdditionalSheet(Field)
+			Call getRTText(Field,dcMain)
+			range = "A1:G"+Cstr(Rows)
+			formatSheet(range)
+			range = "F2:G"+Cstr(Rows)
+			formatColumnColor(range)
+		
+		Case "cTitleList"
+			Call setUpAdditionalSheet(Field)
+			Call getArrayValue(Field,dcHome)
+			range = "A1:G"+Cstr(Rows)
+			formatSheet(range)
+			range = "F2:G"+Cstr(Rows)
+			formatColumnColor(range)
+			
+		Case "captionList"
+			Call setUpAdditionalSheet(Field)
+			Call getArrayValue(Field,dcHome)
+			range = "A1:G"+Cstr(Rows)
+			formatSheet(range)
+			range = "F2:G"+Cstr(Rows)
+			formatColumnColor(range)
+		
+		Case "specialNotice"
+			Call setUpAdditionalSheet(Field)
+			Call getArrayValue(Field,dcHome)
+			range = "A1:G"+Cstr(Rows)
+			formatSheet(range)
+			range = "F2:G"+Cstr(Rows)
+			formatColumnColor(range)
+		
+		Case "footerRTF"
+			Call setUpAdditionalSheet(Field)
+			Call getRTText(Field,dcContacts)
+			range = "A1:G"+Cstr(Rows)
+			formatSheet(range)
+			range = "F2:G"+Cstr(Rows)
+			formatColumnColor(range)
+		
+		Case "video"
+			Call setUpAdditionalSheet(Field)
+			Call getRTText(Field,dcCareers)
+			range = "A1:G"+Cstr(Rows)
+			formatSheet(range)
+			range = "F2:G"+Cstr(Rows)
+			formatColumnColor(range)
+	End Select
+	
+	GoTo EndOfCode
+ERRORTRAP:
+	msgBox "Error on line " &amp; format$(Erl)&amp;":  " &amp;  Error$ ,16,st
+	Resume EndOfCode
+ENDOfCODE:
+	
+End function
+
+</lotusscript>
+  </code>
+  <code event="y_getArrayValues">
+    <lotusscript>%REM
+	Function y_getArrayValues
+	Description: Comments for Function
+%END REM
+Function y_getArrayValues(item As NotesItem) As String
+	Dim x As Integer
+	ForAll a In item.values
+		If x = 0 Then
+			y_getArrayValues = a
+			x=x+1
+		Else
+			y_getArrayValues = y_getArrayValues + Chr(10)+a
+			x=x+1
+		End If
+	End ForAll
+End Function
+
+</lotusscript>
+  </code>
+  <code event="getFieldValue">
+    <lotusscript>%REM
+	Function getFieldValue
+	Description: Comments for Function
+%END REM
+Function getFieldValue(Field As String, dc As NotesDocumentCollection)
+	On Error goTo ErrorTrap
+	Dim st As String, range As String, item As NotesItem, aliasVal As String, value As String
+	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	Set doc = dc.getFirstDocument
+	
+	Do Until doc Is Nothing
+		cols = 0  'init the value to zero so code works
+		cols = cols+1
+		rows=rows+1
+		range = "A"+Cstr(rows)+":J"+Cstr(rows)
+		If doc.hasItem(Field) Then 
+			Set item =doc.getFirstItem(Field)
+			value = item.Values(0)
+			'check If it has an alias ie: the bar symbol "|" exists
+			If InStr(item.values(0),"|") Then
+				'parse out alias and value
+				aliasVal = parseItem(value,"Right","|")
+				value = parseItem(value,"Left","|")
+			Else
+				aliasVal = ""
+			End If
+		Else
+			value = ""
+			aliasVal = ""
+		End If
+		xlSheet.cells(rows,1).value =  doc.Universalid
+		xlSheet.cells(rows,2).value = doc.Type(0)
+		xlSheet.cells(rows,3).value = doc.Subject(0)
+		xlSheet.cells(rows,4).value = Field
+		xlSheet.cells(rows,5).value = aliasVal
+		xlSheet.cells(rows,6).value = value
+NEXTDOC:	
+		Set doc = dc.Getnextdocument(doc)
+	Loop
+	GoTo EndOfCode
+ERRORTRAP:
+	MsgBox "(" &amp; Field +") Error on line " &amp; Format$(Erl)&amp;":  "&amp;  Error$ &amp; Chr(10) + "&gt;&gt;&gt;&gt; " &amp;doc.type(0) + " - " &amp; doc.subject(0) ,16, st
+	Resume EndOfCode
+ENDOFCODE:
+	
+End Function
+
+</lotusscript>
+  </code>
+  <code event="getArrayValue">
+    <lotusscript>%REM
+	Function getFieldValue
+	Description: Comments for Function
+%END REM
+Function getArrayValue(Field As String, dc As NotesDocumentCollection)
+	On Error GoTo ErrorTrap
+	Dim st As String, range As String, item As NotesItem, aliasVal As String, value As String, x As Integer
+	st = aname + " / " + CStr(GetThreadInfo(1)) + ":  " 
+	Set doc = dc.getFirstDocument
+	Do Until doc Is Nothing
+		x=0  'init it
+		cols = 0  'init the value to zero so code works
+		'If doc.type(0) = "MainCategoryPage" And doc.subject(0) = "Forks" And Field = "description" Then Stop
+		'If doc.type(0) = "Product" And doc.subject(0) = "Contact Us" Then Stop
+		'If doc.type(0) = "ProductMaster" And doc.subject(0) = "Cascade Forks+" Then Stop
+		'get array values
+		If field = "options" Or Field = "features" Then
+'			Call setLogMessage(st + "(" &amp; Field +") &gt;&gt;&gt;&gt; " &amp;doc.type(0) + " - " &amp; doc.subject(0),"Info")
+		End If
+		'If Field = "subject" Then stop
+		If doc.hasItem(Field) Then 
+			Set item =doc.getFirstItem(Field)
+			
+			If IsArray(item.values) Then 
+				If item.values(0) = "" Then GoTo NextDoc
+				cols = cols+1
+				rows=rows+1
+				range = "A"+Cstr(rows)+":J"+Cstr(rows)
+				Do Until x = UBound(item.Values)+1
+					'check If it has an alias ie: the bar symbol "|" exists
+					If InStr(item.values(x),"|") Then
+						'parse out alias and value
+						value = item.values(x)
+						aliasVal = parseItem(value,"Right","|")
+						value = parseItem(value,"Left","|")
+					Else
+						value = item.values(x)
+						aliasVal = ""
+					End If
+					xlSheet.cells(rows,1).value =  doc.Universalid
+					xlSheet.cells(rows,2).value = doc.Type(0)
+					xlSheet.cells(rows,3).value = doc.Subject(0)
+					xlSheet.cells(rows,4).value = Field
+					xlSheet.cells(rows,5).value = aliasVal
+					xlSheet.cells(rows,6).value = value
+					 If x+1 &lt;= UBound(item.values) Then rows = rows+1
+					x = x+1
+				Loop
+			End If
+		End If
+NEXTDOC:
+		Set doc = dc.Getnextdocument(doc)
+	Loop
+	GoTo EndOfCode
+ERRORTRAP:
+	msgBox "(" &amp; Field +") Error on line " &amp; Format$(Erl)&amp;":  "&amp;  Error$ &amp; Chr(10) + "&gt;&gt;&gt;&gt; " &amp;doc.type(0) + " - " &amp; doc.subject(0),16,st
+	Resume EndOfCode
+ENDOFCODE:
+	
+End Function
+
+</lotusscript>
+  </code>
+  <code event="parseItem">
+    <lotusscript> %REM
+	Function parseListItem
+	Description: given a value, this function returns the verbiage after the symbol passed over
+		minus spaces to the right or left of the symbol based on the symbol passed over
+%END REM
+Function parseItem(value As String, parseType As String, symbol As String) As String
+	
+	Dim itemLen As Integer, pos As Integer
+	Dim st As String
+	st = aname +  " / "+ CStr(GetThreadInfo(1)) + ": " 'Used for error trapping
+	On Error GoTo error_handler
+	itemLen = Len(value)
+	'		dflog.info(st + "langLen = " +CStr(langLen))
+	pos = InStr(value,symbol)
+	'		dfLog.info(st + "pos =" + CStr(pos))
+	'		dfLog.info(st + "langLen - pos =" + CStr(langLen -pos))
+	If parseType = "Right" Then
+		parseItem = Trim(Right(value,itemLen - (Pos)))
+	Else
+		parseItem = Trim(Left(value,pos-1))
+	End If
+	GoTo End_Of_Code
+ERROR_HANDLER:
+
+		MsgBox (st &amp; " - Error in line "  &amp; Erl &amp; " (ERROR " &amp; Err &amp;" - "  &amp; Error &amp; ")")
+
+	Resume End_Of_Code
+END_OF_CODE:
+	
+	
+End Function</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101957,27-08</datetime>
+  </item>
+</agent>

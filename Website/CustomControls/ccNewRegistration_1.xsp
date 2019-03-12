@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xe:widgetContainer id="widgetContainer1"
+		titleBarText="${javascript:langBean.newregistration}" styleClass="login-panel">
+		<div class="panel-body">
+			<p>
+				<xp:text value="${langBean.newregintro}"></xp:text>
+			</p>
+			<p>
+				<xp:text value="${langBean.gainaccess}"></xp:text>
+				&#160;
+				<xp:link escape="true" text="${javascript:langBean.accessform}"
+					id="link1" target="_blank" value="TO SETUP LINK!!!!">
+				</xp:link>
+			</p>
+			<p>
+				<xp:text value="${langBean.serverdown}" style="font-weight:bold;color:rgb(0,51,141);font-size:16pt"></xp:text>
+			</p>
+
+			<xp:panel id="showCountry" disableOutputTag="true"
+				
+				rendered="#{registrationBean.person.showCountry}"><div class="form-group"><div class="row"><div class="col-sm-8"></div></div></div></xp:panel></div><div class="panel-footer"><xp:panel
+				rendered="#{javascript:return registrationBean.getPerson().isValidAcctNumber();}"
+				disableOutputTag="true"></xp:panel>
+		</div>
+	</xe:widgetContainer>
+
+	<xp:this.navigationRules>
+		<xp:navigationRule outcome="xsp-success"
+			viewId="/Phase2NewRegistration.xsp">
+		</xp:navigationRule>
+	</xp:this.navigationRules>
+
+</xp:view>

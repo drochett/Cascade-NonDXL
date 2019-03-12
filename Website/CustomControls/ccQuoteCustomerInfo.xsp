@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:panel styleClass="tableHeading" tagName="th">
+        <xp:this.attrs>
+          <xp:attr name="colspan" value="2"></xp:attr>
+        </xp:this.attrs>
+        <xp:label value="${langBean.titleContactInformation}" id="label33"
+          style="font-weight:bold;color:rgb(255,255,255)">
+        </xp:label>
+      </xp:panel>
+    </xp:tr>
+  </xp:table>
+  <!-- START 1 row 3 column -->
+  <xp:panel styleClass="row" id="panelColumns2">
+    <xp:panel styleClass="col-xs-12 col-md-4" id="panel1">
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelShippingCompany}: " id="shippingCompany_Label1"
+              for="shippingCompany1">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ShippingCompany}" id="shippingCompany1"
+              readonly="true">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelShippingPerson}: " id="shippingPerson_Label1"
+              for="shippingPerson1">
+            </xp:label>
+
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ShippingPerson}" id="shippingPerson1"
+              readonly="true">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelShippingAddress}: " id="shippingAddress_Label1"
+              for="shippingAddress1">
+            </xp:label>
+
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ShippingAddress}" id="shippingAddress1"
+              readonly="true">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelShippingAddr_2}" id="shippingAddr_2_Label1"
+              for="shippingAddr_21">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ShippingAddr_2}" id="shippingAddr_21"
+              readonly="true">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+    </xp:panel>
+    <xp:panel styleClass="col-xs-12 col-md-4" id="panel2">
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelShippingCity}: " id="shippingCity_Label1" for="shippingCity1">
+            </xp:label>
+
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ShippingCity}" id="shippingCity1"
+              readonly="true">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelShippingState}: " id="shippingState_Label1"
+              for="shippingState1">
+            </xp:label>
+
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ShippingState}" id="shippingState1"
+              readonly="true">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelShippingPostal}: " id="shippingPostalCode_Label1"
+              for="shippingPostalCode1">
+            </xp:label>
+
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ShippingPostalCode}" id="shippingPostalCode1"
+              readonly="true">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelShippingCountry}: " id="shippingCountry_Label1"
+              for="shippingCountry1">
+            </xp:label>
+
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ShippingCountry}" id="shippingCountry1"
+              readonly="true">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+    </xp:panel>
+    <xp:panel styleClass="col-xs-12 col-md-4" id="panel4">
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelShippingPhone}: " id="shippingPhone_Label1"
+              for="shippingPhone1">
+            </xp:label>
+
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ShippingPhone}" id="shippingPhone1"
+              readonly="true">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelShippingFax}" id="shippingFax_Label1" for="shippingFax1">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ShippingFax}" id="shippingFax1" readonly="true">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelShippingEmail}: " id="shippingEmail_Label1"
+              for="shippingEmail1">
+            </xp:label>
+
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.ShippingEmail}" id="shippingEmail1"
+              readonly="true">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+    </xp:panel>
+  </xp:panel>
+  <!-- END 1 row 3 column -->
+
+</xp:view>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.data>
+		<xp:dominoDocument var="document1" databaseName="${configBean.HomeDbPath}"
+			formName="Document" action="openDocument">
+		</xp:dominoDocument>
+	</xp:this.data>
+	<xc:ccLayout>
+		<xp:panel id="main" styleClass="container">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7" value="${langBean.nameplatelocator}"
+							styleClass="carousel-heading">
+						</xp:text>
+						<xp:text escape="false" id="computedField14" value="#{document1.Subject}"
+							styleClass="carousel-text">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!--			MAIN CONTENT-->
+			<!-- faq doc -->
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-xs-12">
+					<xp:button value="${langBean.btnLabelBackNameplateView}" id="button2"
+						styleClass="btn btn-primary">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="complete">
+							<xp:this.action><![CDATA[#{javascript:viewStateBean.restoreState = true;
+return "xsp-success";}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:br></xp:br>
+					<xp:br></xp:br>
+					<xp:text escape="false" id="computedField1" value="#{document1.Body}">
+					</xp:text>
+					<xp:br></xp:br>
+					<xp:br></xp:br>
+					<xp:button value="${langBean.btnLabelBackNameplateView}" id="button1"
+						styleClass="btn btn-primary">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="complete">
+							<xp:this.action><![CDATA[#{javascript:viewStateBean.restoreState = true;
+return "xsp-success";}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:br></xp:br>
+					<xp:br></xp:br>
+				</xp:panel>
+			</xp:panel>
+
+		</xp:panel>
+	</xc:ccLayout>
+	<xp:this.navigationRules>
+		<xp:navigationRule outcome="xsp-success" viewId="/NameplateView.xsp"></xp:navigationRule>
+	</xp:this.navigationRules>
+</xp:view>

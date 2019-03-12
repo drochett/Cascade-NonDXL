@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:panel styleClass="tableHeading" tagName="th">
+        <xp:this.attrs>
+          <xp:attr name="colspan" value="2"></xp:attr>
+        </xp:this.attrs>
+        <xp:label value="${langBean.title3cShaftPin}" id="label2"
+          style="font-weight:bold;color:rgb(255,255,255)">
+        </xp:label>
+      </xp:panel>
+    </xp:tr>
+  </xp:table>
+
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:td style="width:60.0%">
+        <xp:label value="${langBean.spb_W_Label1}:" for="spb_W1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_W}" id="spb_W1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.spb_T_Label1}:" for="spb_T1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_T}" id="spb_T1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.spb_BL_Label1}:" for="spb_BL1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_BL}" id="spb_BL1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.spb_BH_Label1}:" for="spb_BH1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_BH}" id="spb_BH1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.spb_CL_Label1}:" for="spb_CL1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_CL}" id="spb_CL1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+  </xp:table>
+
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:td style="width:60.0%">
+        <xp:label value="${langBean.offset_Inset_Inline_Label1}:" for="offset_Inset_Inline1">
+        </xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text escape="true" id="computedField2" value="#{document1.Offset_Inset_Inline}"></xp:text>
+      </xp:td>
+    </xp:tr>
+    <xp:tr rendered="#{document1.Offset_Inset_Inline eq 'Offset (OS)'}">
+      <xp:td>
+        <xp:label value="${langBean.spb_OS_Label1}:" for="spb_OS1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_OS}" id="spb_OS1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr rendered="#{document1.Offset_Inset_Inline eq 'Inset (IS)'}">
+      <xp:td>
+        <xp:label value="${langBean.spb_IS_Label1}:" for="spb_IS1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_IS}" id="spb_IS1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr rendered="#{document1.Offset_Inset_Inline eq 'RearShaft (RS)'}">
+      <xp:td>
+        <xp:label value="${langBean.spb_RS_Label1}:" for="spb_RS1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_RS}" id="spb_RS1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr rendered="#{document1.Offset_Inset_Inline eq 'Inline (IL)'}">
+      <xp:td>
+        <xp:label value="${langBean.spb_IL_Label1}:" for="spb_RS1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text escape="true" id="computedField1">
+          <xp:this.value><![CDATA[#{javascript:return "0"}]]></xp:this.value>
+        </xp:text>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.spb_stampInfo_Label1}:" for="spb_stampInfo1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_stampInfo}" id="spb_stampInfo1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+  </xp:table>
+
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:td style="width:60.0%">
+        <xp:label value="${langBean.spb_BPDiam_Label1}:" for="spb_BPDiam1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_BPDiam}" id="spb_BPDiam1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.spb_TIDiam_Label1}:" for="spb_TIDiam1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_TIDiam}" id="spb_TIDiam1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.spb_TODiam_Label1}:" for="spb_TODiam1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_TODiam}" id="spb_TODiam1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.tubeSloted_Label1}" for="tubeSloted1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:text escape="true" id="computedField3" value="#{document1.TubeSloted}"></xp:text>
+      </xp:td>
+    </xp:tr>
+  </xp:table>
+
+  <xp:table styleClass="address-table" rendered="#{document1.TubeSloted eq 'Yes'}">
+    <xp:tr>
+      <xp:td style="width:60.0%">
+        <xp:label value="${langBean.spb_sa_Label1}:" for="spb_sa1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_sa}" id="spb_sa1" readonly="true"></xp:inputText> 
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.spb_sd_Label1}:" for="spb_sd1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_sd}" id="spb_sd1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.spb_sl_Label1}:" for="spb_sl1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_sl}" id="spb_sl1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.spb_sw_Label1}:" for="spb_sw1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_sw}" id="spb_sw1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:label value="${langBean.spb_TU_Label1}:" for="spb_TU1"></xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:inputText value="#{document1.spb_TU}" id="spb_TU1" readonly="true"></xp:inputText>
+      </xp:td>
+    </xp:tr>
+  </xp:table>
+
+</xp:view>

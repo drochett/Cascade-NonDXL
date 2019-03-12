@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+  <xp:div styleClass="row">
+    <xp:div styleClass="col-md-12">
+      <xe:dynamicContent id="dynamicContent1" defaultFacet="list" useHash="true">
+        <xp:this.facets>
+          <!--			dynamic content		start view listing-->
+          <xp:div xp:key="list">
+            <xp:text escape="false" id="computedField5" value="#{document1.OneBodyField}">
+            </xp:text>
+            <xe:dataView id="dataView1" var="viewEntry" openDocAsReadonly="true" rows="999"
+              indexVar="idxVar">
+              <xp:this.facets>
+                <xe:pagerSaveState id="pagerSaveState1" xp:key="pagerBottom">
+                </xe:pagerSaveState>
+                <xp:panel xp:key="categoryRow" id="panelCategory1">
+                  <xp:text escape="true" id="computedField6" value="#{viewEntry.Country}">
+                  </xp:text>
+                </xp:panel>
+                <xp:panel xp:key="summary" id="panelDetail1">
+                  <xp:link escape="true" id="link1">
+                    <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+                      refreshId="dynamicContent1">
+                      <xp:this.action><![CDATA[#{javascript:
+//var ve:NotesXspViewEntry = viewEntry;
+//viewScope.unid = ve.getUniversalID();
+//viewScope.photoURL = ve.getColumnValue("PhotoURL");
+var ve:NotesXspViewEntry = viewEntry;
+viewScope.unid = ve.getUniversalID();
+viewScope.photoURL = ve.getColumnValue("PhotoURL");
+getComponent("dynamicContent1").show("detail", 
+		{documentId: viewEntry.getNoteID(), action:"openDocument"});}]]></xp:this.action>
+                    </xp:eventHandler>
+                    <div class="pull-right">
+                      <i class="glyphicon glyphicon-chevron-right" style="font-size:12pt;font-weight:bold;color:rgb(128,128,128)"></i>
+                    </div>
+                    <xp:div>
+                      <xe:multiImage id="multiImage1" styleClass="img-rounded pull-left"
+                        style="max-height:50px; max-width:34px;margin-right:10px;">
+                        <xe:this.icons>
+                          <xe:iconEntry url="/noPhoto.png" selectedValue="noPhoto">
+                          </xe:iconEntry>
+                          <xe:iconEntry selectedValue="yesPhoto"
+                            url="#{configBean.HostURL}#{configBean.HomeURL}/#{viewEntry.PhotoURL}">
+                          </xe:iconEntry>
+                          <xe:iconEntry url="/.ibmxspres/.extlib/icons/noPhoto.png"
+                            selectedValue="notUsed">
+                          </xe:iconEntry>
+                        </xe:this.icons>
+                        <xe:this.value><![CDATA[#{javascript:
+importPackage(com.cascorp);
+var ve:NotesXspViewEntry = viewEntry;
+var doc:NotesDocument = ve.getDocument();
+var HTMLfromRT:String = RegistrationUtilities.getHTMLfromRT(doc, "rtf_PersonGraphic");
+if (HTMLfromRT.contains("<img") && HTMLfromRT.contains(".jpg") ) {
+	 	return "yesPhoto";
+ 	}else{
+		return "noPhoto";
+}
+}]]></xe:this.value>
+                      </xe:multiImage>
+                    </xp:div>
+                    <xp:div>
+                      <xp:text escape="true" id="computedField2" value="#{viewEntry.Subject}"
+                        style="font-size:12pt;color:rgb(0,0,0)">
+                      </xp:text>
+                      <xp:br></xp:br>
+                      <xp:text escape="true" id="computedField3" value="#{viewEntry.Title}"
+                        style="color:rgb(128,128,128);font-size:11pt">
+                      </xp:text>
+                      <xp:br></xp:br>
+                      <xp:text escape="true" id="computedField1" value="#{viewEntry.StateRegion}"
+                        style="color:rgb(128,128,128);font-size:10pt">
+                      </xp:text>
+                    </xp:div>
+                  </xp:link>
+                </xp:panel>
+              </xp:this.facets>
+              <xe:this.data>
+                <xp:dominoView var="view1" databaseName="${configBean.HomeDbPath}"
+                  viewName="PeopleEmbedded2"
+                  categoryFilter="${document1.Continent}#${sessionScope.LanguageP}#${document1.Department}"
+                  expandLevel="1">
+                </xp:dominoView>
+              </xe:this.data>
+            </xe:dataView>
+          </xp:div>
+          <!--		dynamic content			start doc detail-->
+          <xp:panel xp:key="detail">
+            <xp:this.data>
+              <xp:dominoDocument var="person1" action="openDocument" databaseName="${configBean.HomeDbPath}"
+                formName="Person">
+              </xp:dominoDocument>
+            </xp:this.data>
+            <xe:widgetContainer id="widgetContainer2" titleBar="true"
+              titleBarText="${langBean.titleDetails}" rendered="#{javascript:!!(viewScope.photoURL)}">
+              <xp:button id="button1" styleClass="glyphicon glyphicon-backward">
+                <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+                  refreshId="dynamicContent1">
+                  <xp:this.action><![CDATA[#{javascript:
+viewStateBean.restoreState = true;
+getComponent("dynamicContent1").show("list"); }]]></xp:this.action>
+                </xp:eventHandler>
+              </xp:button>
+              <xp:table>
+                <xp:tr>
+                  <xp:td rowspan="9" style="width:150px">
+                    <xe:multiImage id="multiImage2" styleClass="img-rounded pull-left"
+                      style="max-height:155px; margin-right:10px;">
+                      <xe:this.icons>
+                        <xe:iconEntry url="/noPhoto.png" selectedValue="noPhoto">
+                        </xe:iconEntry>
+                        <xe:iconEntry selectedValue="yesPhoto"
+                          url="#{configBean.HostURL}#{configBean.HomeURL}/#{viewScope.photoURL}">
+                        </xe:iconEntry>
+                        <xe:iconEntry url="/.ibmxspres/.extlib/icons/noPhoto.png"
+                          selectedValue="notUsed">
+                        </xe:iconEntry>
+                      </xe:this.icons>
+                      <xe:this.value><![CDATA[#{javascript:
+importPackage(com.cascorp);
+var doc:NotesDocument = person1.getDocument();
+var HTMLfromRT:String = RegistrationUtilities.getHTMLfromRT(doc, "rtf_PersonGraphic");
+if (HTMLfromRT.contains("<img") && HTMLfromRT.contains(".jpg") ) {
+	 	return "yesPhoto";
+ 	}else{
+		return "noPhoto";
+}
+}]]></xe:this.value>
+                    </xe:multiImage>
+                  </xp:td>
+                  <xp:td>
+                    <xp:inputText value="#{person1.Name}" id="name1">
+                    </xp:inputText>
+                  </xp:td>
+                </xp:tr>
+                <xp:tr>
+                  <xp:td>
+                    <xp:inputText value="#{person1.Title}" id="title1">
+                    </xp:inputText>
+                  </xp:td>
+                </xp:tr>
+                <xp:tr>
+                  <xp:td>
+                    <xp:inputText value="#{person1.Address}" id="address1">
+                      <xp:this.multipleSeparator><![CDATA[#{javascript:"\n"}]]></xp:this.multipleSeparator>
+                    </xp:inputText>
+                  </xp:td>
+                </xp:tr>
+                <xp:tr>
+                  <xp:td>
+                    <xp:inputText value="#{person1.StateRegion}" id="stateRegion1">
+                      <xp:this.multipleSeparator><![CDATA[#{javascript:"\n"}]]></xp:this.multipleSeparator>
+                    </xp:inputText>
+                  </xp:td>
+                </xp:tr>
+                <xp:tr>
+                  <xp:td>
+                    <xp:link escape="true" text="#{person1.Phone}" id="link3" value="tel:#{person1.Phone}">
+                    </xp:link>
+                  </xp:td>
+                </xp:tr>
+                <xp:tr>
+                  <xp:this.rendered><![CDATA[#{javascript:
+var fax = person1.getItemValueString("Fax");
+return !!fax ;
+}]]></xp:this.rendered>
+                  <xp:td>
+                    <xp:inputText value="Fax: #{person1.Fax}" id="inputText1">
+                    </xp:inputText>
+                  </xp:td>
+                </xp:tr>
+                <xp:tr>
+                  <xp:td>
+                    <xp:link escape="true" text="#{person1.Email}" id="link2"
+                      value="mailto:#{person1.Email}">
+                    </xp:link>
+                  </xp:td>
+                </xp:tr>
+                <xp:tr>
+                  <xp:this.rendered><![CDATA[#{javascript:
+var val = person1.getItemValueString("Comments");
+return !!val ;
+}]]></xp:this.rendered>
+                  <xp:td>
+                    <xp:inputText value="#{person1.Comments}" id="comments1">
+                    </xp:inputText>
+                  </xp:td>
+                </xp:tr>
+                <xp:tr>
+                  <xp:td>
+                    <xp:fileDownload rows="30" id="fileDownload1"
+                      displayLastModified="false" value="#{person1.Body}" hideWhen="true"
+                      fileNameTitle="${langBean.vCardLabel}" displaySize="false" displayType="false"
+                      displayCreated="false">
+                    </xp:fileDownload>
+                  </xp:td>
+                </xp:tr>
+              </xp:table>
+            </xe:widgetContainer>
+          </xp:panel>
+        </xp:this.facets>
+      </xe:dynamicContent>
+    </xp:div>
+  </xp:div>
+</xp:view>

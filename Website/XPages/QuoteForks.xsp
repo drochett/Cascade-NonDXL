@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<!--  login required-->
+	
+	
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+	<xc:ccLayout>
+		<xp:panel styleClass="container" id="main">
+			<xp:this.data>
+				<xp:dominoDocument var="document1"
+					formName="americas-en-QuoteForks"
+					databaseName="${configBean.OrdersDbPath}">
+					<xp:this.querySaveDocument><![CDATA[#{javascript:
+if (currentDocument.isNewNote()) {
+  var doc:NotesDocument = currentDocument.getDocument();
+  var item:NotesItem;
+  // CHANGE EDITORARRAY
+  var editorArray = new Array ("[EditAllDocs]","[EditForkquote]");
+  item = doc.replaceItemValue("AccessEditor",editorArray);
+  item.setAuthors(true);
+  var username =  session.getEffectiveUserName();
+  dBar.info("username="+username);
+  var reader = (username != "Anonymous") ? username : "[EditAllDocs]" ;
+  dBar.info("reader="+reader);
+  item = doc.replaceItemValue("OrderOwner", reader);
+  item.setReaders(true);
+  
+  var dt:NotesDateTime = session.createDateTime("Today");
+  dt.setNow();
+  dBar.info("dt="+dt);
+    item = doc.appendItemValue("OrderDate", dt);
+    item = doc.appendItemValue("OrderStatus", "New");
+    // CHANGE ORDERFORM 
+    item = doc.appendItemValue("OrderType", "Quote Request - Forks");
+    item = doc.appendItemValue("OrderForm", "quoterequestfork");
+    var languageP = (!!sessionScope.LanguageP) ? sessionScope.LanguageP : "americas-en";
+    item = doc.appendItemValue("MsgLanguage", languageP);
+    return true ;
+  //dBar.info("return true in querySaveDocument to continue" );
+  //doc.save(); no need to save back end doc in this querySaveDocument event, save will follow
+}}]]></xp:this.querySaveDocument>
+					<xp:this.postSaveDocument><![CDATA[#{javascript:
+dBar.info("((( postSaveDocument ))) ");
+dBar.info("Form="+document1.getItemValueString("Form"));
+importPackage(com.cascorp);
+dBar.info("Submit to Eloqua");
+Eloqua.submitToEloqua(document1.getDocument());
+}]]></xp:this.postSaveDocument>
+				</xp:dominoDocument>
+			</xp:this.data>
+			<!--  new banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							value="${langBean.titleQuoteForks}"
+							styleClass="carousel-heading">
+						</xp:text>
+						<xp:text escape="false" id="computedField8"
+							value="${langBean.subQuoteForksInstructions}"
+							styleClass="carousel-text">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<xe:dynamicContent id="dcOrderStep">
+				<xe:this.defaultFacet><![CDATA[#{javascript:
+if (@IsNewDoc()) {
+  viewScope.orderStep = "step_1"; 
+   } else {
+    viewScope.orderStep = "step_5";
+}}]]></xe:this.defaultFacet>
+				<xp:this.facets>
+					<xc:ccQuoteForks1 xp:key="step_1"></xc:ccQuoteForks1>
+					<xc:ccQuoteForks2 xp:key="step_2"></xc:ccQuoteForks2>
+					<xc:ccQuoteForks3 xp:key="step_3"></xc:ccQuoteForks3>
+					<xc:ccQuoteForks4 xp:key="step_4"></xc:ccQuoteForks4>
+					<xc:ccQuoteForks5 xp:key="step_5"></xc:ccQuoteForks5>
+					<xc:ccQuoteForksConfirm xp:key="step_6"></xc:ccQuoteForksConfirm>
+				</xp:this.facets>
+			</xe:dynamicContent>
+			<xp:br></xp:br>
+
+			<xp:br></xp:br>
+
+		</xp:panel>
+	</xc:ccLayout>
+
+</xp:view>
+

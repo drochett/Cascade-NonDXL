@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+  xmlns:debug="http://www.openntf.org/xsp/debugtoolbar" xmlns:xe="http://www.ibm.com/xsp/coreex">
+  <xc:ccLayout>
+    <xp:panel id="main" styleClass="container">
+      <!--	new	banner row-->
+      <xp:panel styleClass="blue-header">
+        <xp:panel styleClass="row">
+          <xp:panel styleClass="col-xs-12">
+            <xp:text escape="false" id="computedField7" value="${langBean.freqasked}"
+              styleClass="carousel-heading">
+            </xp:text>
+          </xp:panel>
+        </xp:panel>
+      </xp:panel>
+      <!--			MAIN CONTENT-->
+      <!-- faq view -->
+      <xe:dataView id="dataView1" rows="30" pageName="/Faq.xsp">
+        <xe:this.categoryColumn>
+          <xe:viewCategoryColumn columnName="Categories" style="font-weight:bold"></xe:viewCategoryColumn>
+        </xe:this.categoryColumn>
+        <xe:this.summaryColumn>
+          <xe:viewSummaryColumn columnName="Subject"></xe:viewSummaryColumn>
+        </xe:this.summaryColumn>
+        <xp:this.facets>
+          <xe:pagerSaveState id="pagerSaveState1" xp:key="pagerBottom"></xe:pagerSaveState>
+          <xp:pager layout="Previous Group Next" partialRefresh="true" id="pager2"
+            xp:key="pagerBottomLeft">
+          </xp:pager>
+          <xp:pager layout="Previous Group Next" partialRefresh="true" id="pager1"
+            xp:key="pagerTopLeft">
+          </xp:pager>
+        </xp:this.facets>
+        <xe:this.data>
+          <xp:dominoView var="view1" databaseName="${configBean.HomeDbPath}"
+            viewName="faq2" categoryFilter="${sessionScope.LanguageP}">
+          </xp:dominoView>
+        </xe:this.data>
+      </xe:dataView>
+
+    </xp:panel>
+  </xc:ccLayout>
+</xp:view>

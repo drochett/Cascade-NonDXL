@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:panel id="panelWorkOrder1">
+		<xp:table styleClass="address-table">
+			<xp:tr>
+				<xp:panel styleClass="tableHeading" tagName="th">
+					<xp:this.attrs>
+						<xp:attr name="colspan" value="2"></xp:attr>
+					</xp:this.attrs>
+					<xp:label value="Work Order Information" id="label8"
+						style="font-weight:bold;color:rgb(255,255,255)">
+					</xp:label>
+				</xp:panel>
+			</xp:tr>
+		</xp:table>
+		<!--      work order row and columns-->
+		<xp:panel styleClass="row" id="panel9">
+			<xp:panel styleClass="col-xs-12 col-md-6" id="panel10">
+				<xp:table styleClass="address-table">
+					<xp:tr>
+						<xp:td style="width:70.0%">
+							<xp:label value="Labor hours claimed:" id="warrantylaborhours_Label1"
+								for="warrantylaborhours1">
+							</xp:label>
+						</xp:td>
+						<xp:td style="width:30.0%">
+							<xe:djNumberTextBox value="#{document1.warrantylaborhours}"
+								id="warrantylaborhours1" defaultValue="0" promptMessage="Enter number of hours"
+								rangeMessage="Enter a positive number" invalidMessage="Must be a number">
+								<xe:this.constraints>
+									<xe:djNumberConstraints min="0"></xe:djNumberConstraints>
+								</xe:this.constraints>
+								<xp:eventHandler event="onChange"
+									submit="true" refreshMode="partial" refreshId="panelWorkOrder1"
+									disableValidators="true">
+									<xe:this.action><![CDATA[#{javascript:var laborHrs = currentDocument.getItemValueDouble("warrantylaborhours");
+var travelHrs = currentDocument.getItemValueDouble("warrantytravelhours");
+currentDocument.setValue("Totalhours", laborHrs + travelHrs ) ;}]]></xe:this.action>
+								</xp:eventHandler>
+							</xe:djNumberTextBox>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="Travel hours claimed:" id="warrantytravelhours_Label1"
+								for="warrantytravelhours1">
+							</xp:label>
+						</xp:td>
+						<xp:td>
+							<xe:djNumberTextBox value="#{document1.warrantytravelhours}"
+								id="warrantytravelhours1" defaultValue="0" promptMessage="Enter number of hours"
+								rangeMessage="Enter a positive number" invalidMessage="Must be a number">
+								<xe:this.constraints>
+									<xe:djNumberConstraints min="0"></xe:djNumberConstraints>
+								</xe:this.constraints>
+								<xp:eventHandler event="onChange" submit="true"
+									refreshMode="partial" refreshId="panelWorkOrder1"
+									disableValidators="true">
+									<xe:this.action><![CDATA[#{javascript:
+var laborHrs = currentDocument.getItemValueDouble("warrantylaborhours");
+var travelHrs = currentDocument.getItemValueDouble("warrantytravelhours");
+currentDocument.setValue("Totalhours", laborHrs + travelHrs ) ;}]]></xe:this.action>
+								</xp:eventHandler>
+							</xe:djNumberTextBox>
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+				<xp:table>
+					<xp:tr>
+						<xp:td style="width:70.0%">
+							<xp:label value="Total travel and labor hours:" id="totalHours_Label1"
+								for="totalHours1"></xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:inputText value="#{document1.TotalHours}" id="totalHours1"
+								readonly="true">
+								<xp:this.converter>
+									<xp:convertNumber type="number"></xp:convertNumber>
+								</xp:this.converter>
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+			</xp:panel>
+			<xp:panel styleClass="col-xs-12 col-md-6" id="panel11">
+				<xp:table styleClass="address-table">
+					<xp:tr>
+						<xp:td style="width:65.0%">
+							<xp:label value="Posted Retail Labor rate:" id="warrantylaborrate_Label1"
+								for="warrantylaborrate1">
+							</xp:label>
+							<span aria-hidden="true"
+								class="required-icon glyphicon glyphicon-asterisk"></span>
+						</xp:td>
+						<xp:td>
+							<xe:djNumberTextBox value="#{document1.warrantylaborrate}"
+								id="warrantylaborrate" defaultValue="0" promptMessage="Enter labor rate"
+								rangeMessage="Enter a positive number" invalidMessage="Must be a number">
+								<xe:this.constraints>
+									<xe:djNumberConstraints min="0"></xe:djNumberConstraints>
+								</xe:this.constraints><xp:this.validators>
+									<xp:validateRequired
+										message="Work Order Information - Posted Retail Labor rate is required">
+									</xp:validateRequired>
+								</xp:this.validators>
+								<xp:eventHandler event="onchange"
+									submit="true" disableValidators="true" refreshMode="partial"
+									refreshId="panelWorkOrder1">
+									<xp:this.action><![CDATA[#{javascript:var laborRate = currentDocument.getItemValueDouble("warrantylaborrate");
+var calcLaborRate = laborRate * .7 ;
+currentDocument.setValue("adjLbrRate", calcLaborRate) ;}]]></xp:this.action>
+								</xp:eventHandler>
+							</xe:djNumberTextBox>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="Claim, work order or invoice number:"
+								id="warrantyclaimnumber_Label1" for="warrantyclaimnumber1">
+							</xp:label>
+							<span aria-hidden="true"
+								class="required-icon glyphicon glyphicon-asterisk"></span>
+						</xp:td>
+						<xp:td>
+							<xp:inputText value="#{document1.warrantyclaimnumber}"
+								id="warrantyclaimnumber1">
+								<xp:this.validators>
+									<xp:validateRequired
+										message="Work Order Information - Claim, work order or invoice number is required">
+									</xp:validateRequired>
+								</xp:this.validators>
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+				<!-- Added 08/31/2018 MCR WSCR-B45Q37 Warranty Claim Form - New	Calculation	-->
+				<xp:table>
+					<xp:tr>
+						<xp:td style="width:70.0%">
+							<xp:label value="Adjusted Labor rate:" id="label1"
+								for="warrantylaborrate">
+							</xp:label>
+							<br></br>
+							<xp:label value="*Cascade Warranty pays 70% of your posted labor rate."
+								id="label3"></xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:inputText value="#{document1.adjLbrRate}" id="adjLbrRate"
+								readonly="true" styleClass="btn btn-primary pull-left">
+								<xp:this.converter>
+									<xp:convertNumber type="currency"></xp:convertNumber>
+								</xp:this.converter>
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+				<!-- END OF Added 08/31/2018 MCR WSCR-B45Q37 Warranty Claim Form - New Calculation -->
+			</xp:panel>
+		</xp:panel><!--END work order row and columns-->
+	</xp:panel>
+
+</xp:view>

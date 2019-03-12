@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+
+	<!-- Meta tags for social media-->
+	<meta charset="utf-8"></meta>
+	<xp:this.resources>
+		
+	<!-- the following is for Social Media stuff -->
+	<!-- Usefule sites
+	https://moz.com/blog/meta-data-templates-123
+	https://stackoverflow.com/questions/18849746/xpages-how-to-write-meta-tag-with-a-property-attribute-and-not-name-attribu#18850124
+	http://www.iacquire.com/blog/18-meta-tags-every-webpage-should-have-in-2013
+	http://xpagesbeast.com/uxdesign/xpages-meets-twitter-bootstrap-with-downloadable-template/
+	https://cards-dev.twitter.com/validator
+	this site is XPage based and uses twitter etc:
+			view-source:http://www.justfordomino.com/appreviews.nsf/name/Rebecca+Holmberg%7CFT+Search+Manager%7C866VHV
+	we want something like this to get it to work:
+			http://twitter.com/?status=http://www.cascorp.com/americas/en/10hpaperrollclamp
+	 -->
+		<!-- Twitter Card data -->
+		<xp:metaData name="twitter:card" content="summary"></xp:metaData>
+		
+		
+		<xp:metaData name="twitter:url" content="@publisher_handle"> </xp:metaData>
+		
+		
+		<xp:metaData name="twitter:title" content="Page Title"> </xp:metaData>
+		
+		
+		<xp:metaData name="twitter:description" content="@description"> </xp:metaData>
+		
+		
+		<xp:metaData name="twitter:creator" content="@author_handle"> </xp:metaData>
+		
+		
+		<xp:metaData name="twitter:image" content="https://wwwdev.cascorp.com/web2/home.nsf/files/Sideshifter-55F-SSS_800x600.png/$FILE/Sideshifter-55F-SSS_800x600.png"> </xp:metaData>
+		
+		
+		
+		
+<!--		<xp:headTag
+			tagName="meta"
+			rendered="true"
+			loaded="true">
+			<xp:this.attributes>
+      			<xp:parameter
+        		    name="property"
+       		    	value="og:image">
+   		    	</xp:parameter>
+	        	<xp:parameter
+	            	name="content"
+    	        	value="url to image">
+    	    	</xp:parameter>
+			
+			
+			</xp:this.attributes>
+		</xp:headTag>
+		  -->
+		
+		
+		
+	</xp:this.resources>
+
+
+</xp:view>

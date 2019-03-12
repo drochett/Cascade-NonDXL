@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" 
+	xmlns:xe="http://www.ibm.com/xsp/coreex"> 
+	
+	<xe:carousel id="carousel1" autoCycle="true"
+		rendered="${viewScope.images ne null}">
+		<xe:this.slideNodes>
+			<xe:slide loaded="${viewScope.images[0].url ne null}">
+				<xe:this.backgroundSrc><![CDATA[${javascript:viewScope.images[0].url}]]></xe:this.backgroundSrc>
+			</xe:slide>
+			<xe:slide loaded="${viewScope.images[0].url ne null}">
+				<xe:this.backgroundSrc><![CDATA[${javascript:viewScope.images[0].url}]]></xe:this.backgroundSrc>
+			</xe:slide>
+			<xe:slide loaded="${viewScope.images[2].url ne null}">
+				<xe:this.backgroundSrc><![CDATA[${javascript:viewScope.images[2].url}]]></xe:this.backgroundSrc>
+			</xe:slide>
+			<xe:slide loaded="${viewScope.images[3].url ne null}">
+				<xe:this.backgroundSrc><![CDATA[${javascript:viewScope.images[3].url}]]></xe:this.backgroundSrc>
+			</xe:slide>
+			<xe:slide loaded="${viewScope.images[4].url ne null}">
+				<xe:this.backgroundSrc><![CDATA[${javascript:viewScope.images[4].url}]]></xe:this.backgroundSrc>
+			</xe:slide>
+			<xe:slide loaded="${viewScope.images[5].url ne null}">
+				<xe:this.backgroundSrc><![CDATA[${javascript:viewScope.images[5].url}]]></xe:this.backgroundSrc>
+			</xe:slide>
+			<xe:slide loaded="${viewScope.images[6].url ne null}">
+				<xe:this.backgroundSrc><![CDATA[${javascript:viewScope.images[6].url}]]></xe:this.backgroundSrc>
+			</xe:slide>
+			<xe:slide loaded="${viewScope.images[7].url ne null}">
+				<xe:this.backgroundSrc><![CDATA[${javascript:viewScope.images[7].url}]]></xe:this.backgroundSrc>
+			</xe:slide>
+			<xe:slide loaded="${viewScope.images[8].url ne null}">
+				<xe:this.backgroundSrc><![CDATA[${javascript:viewScope.images[8].url}]]></xe:this.backgroundSrc>
+			</xe:slide>
+			<xe:slide loaded="${viewScope.images[9].url ne null}">
+				<xe:this.backgroundSrc><![CDATA[${javascript:viewScope.images[9].url}]]></xe:this.backgroundSrc>
+			</xe:slide>
+		</xe:this.slideNodes>
+	</xe:carousel>
+</xp:view>

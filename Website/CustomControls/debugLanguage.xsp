@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+	
+	<xp:br></xp:br>
+	<xp:table border="1">
+		<xp:tr>
+			<xp:td>sScp.LanguageURL</xp:td>
+			<xp:td>sScp.LanguageP</xp:td>
+			<xp:td>context.getLocale</xp:td>
+			<xp:td>cookie.languagePref</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:text escape="true" id="computedField1" value="#{sessionScope.LanguageURL}">
+				</xp:text>
+			</xp:td>
+			<xp:td>
+				<xp:text escape="true" id="computedField4" value="#{sessionScope.LanguageP}">
+				</xp:text>
+			</xp:td>
+			<xp:td>
+				<xp:text escape="true" id="computedField2"
+					value="#{javascript:context.getLocaleString()}">
+				</xp:text>
+			</xp:td>
+			<xp:td>
+				<xp:text escape="true" id="computedField3">
+					<xp:this.value><![CDATA[#{javascript:
+if (cookie.containsKey("languagePref")) {
+	languageSel = cookie.get("languagePref").getValue();
+	return languageSel;
+	} else {
+	return "lang not set";
+};}]]></xp:this.value>
+				</xp:text>
+			</xp:td>
+		</xp:tr>
+	</xp:table>
+	<xp:table border="1">
+		<xp:tr>
+			<xp:td>cfgBn.HomeDbPath</xp:td>
+			<xp:td>vScp.unid</xp:td>
+			<xp:td>cfgBn.HostURL</xp:td>
+			<xp:td>sScp.LanguageURL</xp:td>
+			<xp:td>doc1.DocumentURL</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:text escape="true" id="computedField12" value="${configBean.HomeDbPath}">
+				</xp:text>
+			</xp:td>
+			<xp:td>
+				<xp:text escape="true" id="computedField13" value="#{viewScope.unid}">
+				</xp:text>
+			</xp:td>
+			<xp:td>
+				<xp:text escape="true" id="computedField14" value="${configBean.HostURL}"
+					style="font-weight:bold">
+				</xp:text>
+			</xp:td>
+			<xp:td>
+				<xp:text escape="true" id="computedField5" value="${sessionScope.LanguageURL}"
+					style="font-weight:bold">
+				</xp:text>
+			</xp:td>
+			<xp:td>
+				<xp:text escape="true" id="computedField6"
+					style="font-weight:bold">
+					<xp:this.value><![CDATA[#{document1.DocumentURL}]]></xp:this.value>
+				</xp:text>
+			</xp:td>
+		</xp:tr>
+	</xp:table>
+	<xp:button value="Reset configBean" id="button1">
+		<xp:eventHandler event="onclick" submit="true"
+			refreshMode="complete">
+			<xp:this.action><![CDATA[#{javascript:configBean.resetConfig();}]]></xp:this.action>
+		</xp:eventHandler>
+	</xp:button>
+	</xp:view>

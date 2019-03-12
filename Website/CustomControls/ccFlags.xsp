@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+	
+	
+	<ul
+		class="nav navbar-nav navbar-right cascade-social-icons"
+		style="margin-top:0px; position:relative; z-index:100;">
+		<xc:ccFlags_americas_en>
+			<xc:this.rendered><![CDATA[#{javascript:if (sessionScope.LanguageP=="americas-en"){
+	return true;
+} else {
+return false;}}]]></xc:this.rendered>
+		</xc:ccFlags_americas_en>
+		
+		<xc:ccFlags_americas_es>
+			<xc:this.rendered><![CDATA[#{javascript:if (sessionScope.LanguageP=="americas-es"){
+	return true;
+} else {
+return false;}}]]></xc:this.rendered>
+		</xc:ccFlags_americas_es>
+
+<!--**** Added DSR - 9/27/17-->
+	<xc:ccFlags_americas_ca>
+			<xc:this.rendered><![CDATA[#{javascript:if (sessionScope.LanguageP=="americas-ca"){
+	return true;
+} else {
+return false;}}]]></xc:this.rendered>
+		</xc:ccFlags_americas_ca>
+		
+		<xc:ccFlags_americas_fr>
+			<xc:this.rendered><![CDATA[#{javascript:if (sessionScope.LanguageP=="americas-fr"){
+	return true;
+} else {
+return false;}}]]></xc:this.rendered>
+		</xc:ccFlags_americas_fr>	
+		
+<!--*** End Add - DSR 9/27/17-->
+		
+		<xc:ccFlags_eme_de>
+			<xc:this.rendered><![CDATA[#{javascript:if (sessionScope.LanguageP=="eme-de"){
+	return true;
+} else {
+return false;}}]]></xc:this.rendered>
+		</xc:ccFlags_eme_de>
+		
+		
+		<xc:ccFlags_eme_en>
+			<xc:this.rendered><![CDATA[#{javascript:if (sessionScope.LanguageP=="eme-en"){
+	return true;
+} else {
+return false;}}]]></xc:this.rendered>
+		</xc:ccFlags_eme_en>
+		<xc:ccFlags_eme_es>
+			<xc:this.rendered><![CDATA[#{javascript:if (sessionScope.LanguageP=="eme-es"){
+	return true;
+} else {
+return false;}}]]></xc:this.rendered>
+		</xc:ccFlags_eme_es>
+		<xc:ccFlags_eme_fi>
+			<xc:this.rendered><![CDATA[#{javascript:if (sessionScope.LanguageP=="eme-fi"){
+	return true;
+} else {
+return false;}}]]></xc:this.rendered>
+		</xc:ccFlags_eme_fi>
+		<xc:ccFlags_eme_fr>
+			<xc:this.rendered><![CDATA[#{javascript:if (sessionScope.LanguageP=="eme-fr"){
+	return true;
+} else {
+return false;}}]]></xc:this.rendered>
+		</xc:ccFlags_eme_fr>
+		<xc:ccFlags_eme_it>
+			<xc:this.rendered><![CDATA[#{javascript:if (sessionScope.LanguageP=="eme-it"){
+	return true;
+} else {
+return false;}}]]></xc:this.rendered>
+		</xc:ccFlags_eme_it>
+		<xc:ccFlags_eme_nl>
+			<xc:this.rendered><![CDATA[#{javascript:if (sessionScope.LanguageP=="eme-nl"){
+	return true;
+} else {
+return false;}}]]></xc:this.rendered>
+		</xc:ccFlags_eme_nl>
+		<xc:ccFlags_eme_se>
+			<xc:this.rendered><![CDATA[#{javascript:if (sessionScope.LanguageP=="eme-se"){
+	return true;
+} else {
+return false;}}]]></xc:this.rendered>
+		</xc:ccFlags_eme_se>
+	</ul>
+	</xp:view>

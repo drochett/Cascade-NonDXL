@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config>
+  <faces-config-extension>
+    <namespace-uri>http://www.ibm.com/xsp/custom</namespace-uri>
+    <default-prefix>xc</default-prefix>
+  </faces-config-extension>
+  <composite-component>
+    <component-type>ccMetaData</component-type>
+    <composite-name>ccMetaData</composite-name>
+    <composite-file>/ccMetaData.xsp</composite-file>
+    <composite-extension>
+      <designer-extension>
+        <in-palette>true</in-palette>
+        <render-markup>&lt;?xml version="1.0" encoding="UTF-8"?&gt; &#xd;
+&lt;xp:view xmlns:xp="http://www.ibm.com/xsp/core"&gt;&#xd;
+&lt;xp:panel style="border-color:rgb(191,148,116);border-style:solid;border-width:thin"&gt;&#xd;
+ccMetaData&#xd;
+&lt;/xp:panel&gt;&#xd;
+&lt;/xp:view&gt;</render-markup>
+      </designer-extension>
+    </composite-extension>
+    <property>
+      <property-name>pageTitle</property-name>
+      <property-class>string</property-class>
+    </property>
+    <property>
+      <property-name>metaDescription</property-name>
+      <property-class>string</property-class>
+    </property>
+    <property>
+      <property-name>metaRobots</property-name>
+      <property-class>string</property-class>
+    </property>
+    <property>
+      <property-name>metaKeywords</property-name>
+      <property-class>string</property-class>
+    </property>
+    <property>
+      <property-name>metaData</property-name>
+      <property-class>string</property-class>
+    </property>
+  </composite-component>
+</faces-config>

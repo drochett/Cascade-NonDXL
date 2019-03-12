@@ -1,0 +1,2878 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<helpaboutdocument xmlns="http://www.lotus.com/dxl" publicaccess="false" default="true" renderpassthrough="true">
+  <body>
+    <richtext>
+      <pardef id="1"/>
+      <par def="1"/>
+      <par def="1">
+        <run>
+          <font size="9pt" style="bold" name="Arial" pitch="variable" truetype="true" familyid="20"/>Change History </run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" style="bold" name="Arial" pitch="variable" truetype="true" familyid="20"/>
+        </run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <pardef id="2" leftmargin="1in" tabs="L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in"/>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>1-31-2018 - DSR</run>
+      </par>
+      <pardef id="3" leftmargin="1in" rightmargin="100%"/>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>NoAccess xPage </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- added</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>SearchSiteBean.java  </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- added support for searching blog db</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccRestrictAccess  </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- added support for resticting access to pages for End Users</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Custom..js Script Library </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- added support for determing if End User</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>11/30/2018 - DSR</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Modifeid ccBlogEdit to include View on Portals and View on Blog fields</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>RegistrationUtilities </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- added support for getting UserType from NAB, used to determine portal type</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>OrderStatusBeen </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- added support for getting UserType from NAB, used to determine portal type</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>10/09/2018 - MDZ</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-B4BSU9 - Web Content Change - Email notice for new Accounts</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>ValidNotifyCodes</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - New setup document. Holds access type codes that are checked when someone registers for the first time.</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>RegistrationUtilities </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>java script - </run>
+      </par>
+      <pardef id="4" leftmargin="1.2500in" rightmargin="100%"/>
+      <par def="4">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>sendRegNotifyEmail</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> new function</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- Sends email to webmaster if new resgistrants access type matches an access type in the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>ValidNotifyCodes</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> setup document.</run>
+      </par>
+      <par def="4">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>activateRegistration</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> function - added call to </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>sendRegNotifyEmail</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> at line 350</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>08/31/2018 - MDZ</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-B45Q37 - Warranty Claim Form - New Calculation</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccWarranty</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>WorkOrder</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control - added the read only </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="fuchsia"/>adjlbrrate</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> field which displays the calculated value warrantylaborrate * .7</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccWarrantyClaimSummary </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>custom control - added the read only </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="fuchsia"/>adjlbrrate</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> fiel</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>d</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> which dislays the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="fuchsia"/>adjlbrrate</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> data above.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>07/18/2018 - DSR - Martin Scott</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AQKL5N - Surface Images and add Alt / Title Tags </run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-B25KJZ - Add blog that powers the news section - updates</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Design Element Updates</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Custom Controls - ccBlogAdminHeader, ccBlogAdminMod, ccBlogAdminView, ccBlogEdit, ccBlogHeader, ccBlogNoAccess, ccBlogPost, ccBlogView, ccHomepage, ccHomepageCarousel, ccIndustryMaster, ccMainCategoryPage, ccMainIndustryPage, ccNewsBlog, ccOtherCarousel, ccProduct, ccProductMaster</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Style Sheets - Cascade.css &amp; Cascade.less.css</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>07/18/2018 - MDZ</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-B25KJZ - Add blog that powers the news section</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>(Export English Language Vals to Excel Spreadsheet)</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> agent - new agen t that export just the american emglish values from all Labels and Menus conffig beans.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>06/29/2018 - MDZ</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AZWMDQ - Add blog that powers the news section</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>custom </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>script library</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Added function</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/> setOtherProcessingRoles</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>MainOrdersPage</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> XPage - added </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>link16</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> with code </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>redirectToPage("BlogAdmin")</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> onClick.  It is hidden if user does not have role</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/> [BlogAdmin]</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> in the weblog.nsf db.</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccLayout </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>custom control -</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/> beforePageLoad</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added call to  </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>setOtherProcessingRoles</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Work done by MartinScott:</run>
+      </par>
+      <par def="4">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>
+        </run>
+      </par>
+      <par def="4">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>
+        </run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>06/08/2018 - MDZ</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AZBRBS - Add Fork Positioner / Sideshifter Order</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>SalesOrderBean.java library</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Added code at bottom for Promo Order processing.  Added code aat various other areas for same.</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>cascade.css</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> stylesheet - addedcarousel-heading2 style. Added bluer-header2 and @media styles for blue-header2.</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccOrderAddress </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>custom control - added PO section to display if orderType is propmoitem.</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccOrderSummary_Promo</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new custom control</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccOrderPromoItems</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new custom control</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>OrderPromoItems</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> XPage - new Xpage</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>SetupForm</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> form - added Comment field</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>MainOrdersPage</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> XPage - Added link for processing Promotional Orders</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>PromoEnded</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> XPage - new XPage - to be displayed via redirect rule</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>common</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> javascript library - added code for</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/> isEditPromotional</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Added new setup document named </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>PromoImage </run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Added the following label bean documents</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/> processpromoitems</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>,</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/> labelLBRQuanti</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>t</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>y</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>,</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>HeadingPromoItems</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>05/24/2018 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AYESFX - New/Old Part Numbers</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>JDESupport.java library</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Added debugging code</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>salesOrderBean</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.Java library code - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>function</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/> addPartItem </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>added lines 1373 to 139</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>1</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.  function </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>addPartItemQty</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>, added lines1581 to 1597.</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>SEE BELOW FOR ADDITIONAL CHANGES MADE OR THIS MCR</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>05/16/2018 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AYTN49 </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>- </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Backout Parts Order Cross Reference Cha</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>nge</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccOrderParts </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>custom Control -</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="fuchsia"/> partNumberInput</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> field</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> and </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="fuchsia"/>QtyItemInput</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> field, </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>onKeyPress </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>event added lines 15 &gt;&gt;&gt; 18 which comments out code added  for </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-AYESFX - New/Old Part numbers</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.  </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="fuchsia"/> button1</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>, </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>onClick</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> event added lines 15 &gt;&gt;&gt; 18 which comments out code added  for</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/> WSCR-AYESFX - New/Old Part numbers</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>04/24/2018 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AYESFX - New/Old Part Numbers</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>JDESupport.java library</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Added</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> function</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/> getPartCrossOverInformation</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> @line1664.  changed </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>getCrossOverInformation</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> to </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>getForkCrossOverInformation </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>@ line 1567.</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>salesOrderBean</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.Java library code - Added function </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>getPartCrossoverNum</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>.</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>C</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>hanged funcion</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>getCrossoverNum</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> to</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>getForkCrossoverNum</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>. </run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccOrderParts </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>custom Control - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>partNumber Input Box, QtyInput  Number Text Box, and button1 - added code to check </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>getPartCrossOverInformation</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>
+        </run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccOrderForks</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control - partNumber Input Box, QtyInput  Number Text Box, and button1 -changed code to check </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>getForkCrossOverInformation</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> from </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>getCrossOverInformation.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>01/15/2018 - MDZ</run>
+      </par>
+      <pardef id="5" leftmargin="1.2340in" firstlineleftmargin="0.9840in"/>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-ARMRBP -Misc. Web Fixes</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Issue was Breadcrumbst displaying Attachments for Forks documents</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccProductMasterBreadcrumbs </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Custom Control - changed render to </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>document1.ProductFamilyName ne "Forks"</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>  in the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>BasicLeafNode[1] </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>properties.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>04/24/2018 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AY5N2Q - Urgent Check Box for Parts Order </run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ProcessOrders</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> xpage - fixed visible code for </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccOrderPrintButtons</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control so it does not render if </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>sessionScope</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>.roles.isEditParts eq false || </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>sessionScope</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>.roles.isEditForks eq false</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ProcessPsrts_Print - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>added text field to display "</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>URGENT</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>" if</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>order is Urgent.</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccOrderParts </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>custom Control - added </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="fuchsia"/>checkBox</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> named </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>urgentCheckBox</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccOrderDispPO, ccOrderProcessInformation, ccOrderConfirmationSummary</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom controls - added text field to display "</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>URGENT</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>" if urgentCheckBo0x is checked in cccOrderPats custom control</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>custom </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>scrpt library - added code to </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>getOrderData</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> function that puts the value of the document's</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="fuchsia"/> Urgent</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> field in to </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>viewScope</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> when a document is opened from My Orders view on website.</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>salesOrderBean </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>java library - added code to get handle of and save the value captured by the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="fuchsia"/>urgentCheckBox</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Added new label Notes documents named </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>PartsOrderUrgent </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>and </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>PartsOrderUrgentNotice</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>04/18/2018 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AQKL5N - SEO Improvements </run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccProduct, ccProductMaster, ccInduxtryMaster, ccIndustry, ccMainCatagoryPage, ccContactListing, ccOfficers,ccCareers, and cclocations</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom controls - added &lt;h1&gt;, &lt;h2&gt;, &lt;h3&gt;, and &lt;h4&gt; tags where requested.</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>cascade.css</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> cascading style sheet - added </run>
+        <run>
+          <font name="Courier New" pitch="fixed" truetype="true" familyid="30" color="purple"/>font-weight</run>
+        <run>
+          <font name="Courier New" pitch="fixed" truetype="true" familyid="30"/>:</run>
+        <run>
+          <font style="italic" name="Courier New" pitch="fixed" truetype="true" familyid="30" color="#4100c2"/>normal</run>
+        <run>
+          <font name="Courier New" pitch="fixed" truetype="true" familyid="30"/>;</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> at line 251 added</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="teal"/> carousel-text</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> function at line 138.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>04/12/2018 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AXJJV</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>S - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>New Product Page for Microsites</run>
+      </par>
+      <pardef id="6" leftmargin="1in"/>
+      <par def="6">
+        <run>
+          <font color="maroon"/>ccProduc</run>t custom control - Added computed field 9 to display topOfPageCode field of document rendered.</par>
+      <par def="6">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>03/12/2018 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AWSL6R - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Allow Upper/Lower Case in postal code</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>registrationBean</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.Java library code - line 214 - added </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>.toUpperCase()</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> to setZipCode</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>OrderPriceList</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>; OrderSalesVideos;</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>XPage</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>s - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>afterPageLoad</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> event - added code to base county code on region if </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>eme-en</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> or </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>americas-en</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>01/15/2018 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-ARMRBP -Misc. Web Fixes</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>salesOrderBean</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.Java library code - Added code to saveOrder function to set language for ALL Central and South America countries to americas-es (except Brazil and French Guana).</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>01/15/2018 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-ARMRBP -Misc. Web Fixes</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Issue was</run>
+        <run>
+          <font size="9pt" style="bold" name="Arial" pitch="variable" truetype="true" familyid="20"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>if No languaePref cookie has been set, then website delivers a stack trace error.  </run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>custom</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> Script Library -setScpLanguage function - added lines 110-114 which will send them to the International page where a languagePref cookie is set upon selection a region to go to.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>01/08/2018 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AQKL5N - SEO Improvements </run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>c</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ommonfooter</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control - added JSON script to footer.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>01/08/2018 - MDZ</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AS9KFX - Price List Login Text</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccDownloads</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control - removed code limiting login link limiting loading only if browser is is in americas.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>01/08/2018 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-ARMRBP -Misc. Web Fixes</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Issue was that when a Warranty Claim submitted, Mail was not going to proper fulfillment group.</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>WarrantClaimNew</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> XPage - In source code altered embedded JavaScript code. Enalbled line 43, commented out line 44.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>01/08/2018 - DSR (Martin Scott Consulting)</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-AMXPCZ</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/> - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Industry Pages</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>XPages</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Document</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Added 2 custom controls for Industrypage and MainIndustryPage. Search for DSR</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Custom Controls</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccIndustryMaster</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Added new CC</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccIndustryMasterBreadcrumbs</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Added new CC</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccMainIndustryPage</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Added new CC</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Style Sheets</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>cascade.css</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Added classes to support new Industry header format, Modified other classes. Please do a text compare</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>01/08/2018 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR-</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>JHEK-ALULWN - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MHP Item ID Specification</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>MHP_SpecificationsPrint</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new XPage - For web printing of information pulled on web</run>
+      </par>
+      <pardef id="7" leftmargin="1.2500in" rightmargin="100%" firstlineleftmargin="1in"/>
+      <par def="7">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Drawings</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> XPage - Added </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>buitton5</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> (aka fifth tab) named </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>MHP Item Specification</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> (labelBean mhp_Title). Changed the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>onCLick</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> event code to populate the</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>dcDrawing</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>sView</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>via javascript code and add tabNbr reference to the viewScope . Changed the text value for </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>computedField7</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> (Page Title) to display verbiage based on the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>viewScope</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.tabNbr value.  Hid the search bar if </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>viewScope</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.tabNbr = </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>tab5</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccVaultGenInfo</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Changhed the view heading title to display proper verbiage from the</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/> titleGeneralInfo</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> label bean.  It was displaying the value in the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>titleNECs</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> label bean.</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>New Custom Controls for displaying MHP Item Specification data:</run>
+      </par>
+      <par def="4">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccMHP_DataEntry</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>, </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccMHP_DataEntry_Print</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>, </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccMHP_DataEntry_Print</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>, </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccMHP_SpecData_Left</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>, </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccMHP_SpecData_Left_Btm</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>, </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccMHP_SpecData_Left_Print</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>, </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccMHP_SpecData_Right</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>, </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccMHP_SpecData_Right_Btm</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>, </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccMHP_SpecSheetTitle</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Added several language beans (</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>mhp_*</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>) and setup documents.</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>other_websites.css </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- new cascading style sheet for formatting the new custom controls styles above.</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>J</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>DESupport.java</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> script library - added new </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>getMHPdata </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>and </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>getModelNbrData</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> functions used to retrive data needed display on web page.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>12/11/2017 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-ARMRBP - Web Content Change - Misc. Website Fixes</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Issue was EuropeanCookieConsent code was missing</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccLayout</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom contro - added ccEuropeanCookieCode custom control which loads only if </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>sessionScope</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.Region = </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>"Europe"</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>custom </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>script library - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>setScpLanguage function</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added lines 294 to 299 which sets the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>sessionScope</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.Region variable based on the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>languageLocale</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> variable.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>12/11/2017 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-ARMRBP - Web Content Change - Misc. Website Fixes</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Added debugging code so info is logged to server log</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>RegistrationUtilities.java</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - java library - Added code to </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>activateRegistration</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> so debugging info about adding to dealer group is sent to server log instead of debug toolbar.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>12/07/2017 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-ARMRBP - Web Content Change - Misc. Website Fixes</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Issue was passwords</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>RegistrationUtilities.java</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - java library - Added code to </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>activateRegistration</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> and </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>registrationUpdate functions </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>to remove password data after changes passed over to addressbook.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccUpdateRegistration </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>custom control - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>saveUpdateButton</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>onClick</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> event - altered code to send NoteID over to </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>updateRegistration</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>function</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> above.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>12/05/2017 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-ARERCH - Web Content Change - Add Canada - ADDITIONAL CHANGES MADE</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>RemanRentalView</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> XPage - </run>
+      </par>
+      <pardef id="8" leftmargin="1.2500in"/>
+      <par def="8">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>panel loaded code at line 37 changed so it would also load if </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>sessionScope</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.LanguageP is </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>'americas-ca</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>' and '</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>americas-es</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>'</run>
+      </par>
+      <par def="8">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>table data (lines 47-61) changed code so text is taken from language beans.  Text was originally hard coded in.</run>
+      </par>
+      <par def="8">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>panel loaded code at line 74 changed so it would also  NOT load if</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>sessionScope</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.LanguageP  is </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>'americas-ca</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>' and '</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>americas-es</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>'</run>
+      </par>
+      <par def="6">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>WarrantyClaimNew</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> XPage - In source code, lines 43 and 44 were activated and line 45 was deactivated.  This was done so emails would be sent to proper fulfillment group based on </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>sessionScope</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.LanguageP value.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>11/09/2017 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR-WSCR-ASES6S  - Vendor / DXF Files</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>custom</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>script library - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>setOrderProcessingRoles</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> function - added lines 412-447</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccDownloads</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="fuchsia"/>xp:panel id="panelPriceList"</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - changed rendered to: </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>viewScope.mt6 &amp;&amp; !(sessionScope.isVendor)</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccRestrictAccess</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control - added lines 22-30 + ammended line 31</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>RegistrationUtilities.java</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> java library - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>findVendorAccount function</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new function added</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>RegistrationBean.java -</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>java library - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>validatePhase1</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added lines 372-389</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Added new </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>setup document</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> named </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>"VendorAccounts"</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>---------------------------------------</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>-----------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>11/08/2017 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR-WSCR-ASUQN4  - MSDS Documents Searchable in Technical</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>No Design Changed - Added </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>"MSDS Documents|MSDS"</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> to </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>selKeywordFilte</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>r</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> label and </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>sel</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>DocType</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> labels </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>in database.  NOTE: there must be documents for MSDS in the downloads database for search to return results.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>10/05/2017 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR-WSCR-ASAJQQ  - Special Notice Text</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccHomePage</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control - Added new computed field named </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>"computedField7"</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>. This field gets its data from </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>document1.specialNotice</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> field and only displays is </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>document1.stPost==True</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>10/18/2017 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR-WSCR-AS9KFX  - Price List Login Text</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccDownloads</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control - removed code limiting login link limiting loading only if browser is is in americas.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>10/05/2017 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR-WSCR-AQWSPU  - Add field to Menu pages</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccMainCategoryPage</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control - added new panel to hold new Rich Text field (read onloy) to display the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>SpecialText</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>_2</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> field contrents of the document being displayed.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>10/02/2017 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-ARERCH - Web Content Change - Add Canada</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>custom </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>script library - added code for Canadian users</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>JDESupport.java</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> Java librar</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>y - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>getPartInformation</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> function - added code so broper branch list can be accessed if Canadian user</run>
+      </par>
+      <section onread="collapse" onpreview="collapse">
+        <sectiontitle pardef="6" borderstyle="shadow" color="maroon">
+          <font size="9pt" color="navy" style="bold" name="Arial" pitch="variable" truetype="true" familyid="20"/>
+          <text>Work done by Martin Scott Conculting (Daryl Rochette)</text>
+        </sectiontitle>
+        <pardef id="9" leftmargin="1.5000in"/>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Forms </run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               MenuForm</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca fields</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               LabelForm</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca fields</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Java</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               MenuBean</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added code for Canadian users</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               LangBean</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added code for Canadian users</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               SalesOrderBean</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added code for Canadian users</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Custom Controls</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               ccFlags</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               ccFlags_americas_ca </run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- new custom Control</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               ccFlags_americas_fr</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new custom control</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Views</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               (ActiveLabelValues)</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> columns</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               (AllLabelValues2)</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca columns</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               (NotProcessedLabelValues)</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca columns</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               (SingleLabelValues_w_Aiases)</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca columns</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               Development\ActiveLabelValues</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca columns</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               Development\ActiveLabelValues - MultiValues</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca columns</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               Development\ActiveLabelValues - Null isMulti</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca columns</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               Development\Labels by ModDate</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca columns</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               Development\Missing Label Values</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca columns</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               Labels\ActiveLabelValues</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca columns</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               Labels\AllLabelValues</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca columns</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               Labels\Not Processed</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca columns</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               Labels\Not Processed\am-ca</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new view</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               Labels\Not Processed\am-fr</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- new view</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               Labels\Not Processed\am-es</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> (renamed from es-am)</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               Labels\Processed</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca columns</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               Menus</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca columns</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               Menus\Unprcessed</run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added val_americas_fr and val_americas_ca columns</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Agents</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               (clearOtherLabels) </run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- new agent</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>               (createMenuItem) </run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- new agent</run>
+        </par>
+        <par def="9">
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="#1f497d"/>               </run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>(generateLabels) </run>
+          <run>
+            <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- new agent</run>
+        </par>
+        <par def="8">
+          <run>
+            <font size="9pt" style="bold" name="Arial" pitch="variable" truetype="true" familyid="20"/>
+          </run>
+        </par>
+      </section>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>10/02/2017 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-ARMRBP - Web Content Change - Misc. Website Fixes</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Issue was Special Text field needed to be Pass Thru HTML.</run>
+      </par>
+      <pardef id="10" leftmargin="1.4840in" firstlineleftmargin="1.2340in"/>
+      <par def="10">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccMainCategoryPage</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control - changed Rich Text field to computed field named </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>computedField</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>4 - Properites for Computed Field &gt;&gt; Options, changed Content type to </run>
+        <run>
+          <font size="9pt" style="bold" name="Arial" pitch="variable" truetype="true" familyid="20"/>HTML</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> from </run>
+        <run>
+          <font size="9pt" style="bold" name="Arial" pitch="variable" truetype="true" familyid="20"/>Text</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>09/28/2017 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-AQKL5N - SEO Improvements (Add phone number link)</run>
+      </par>
+      <par def="8">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>commonFooter</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control -  line 89 - xp:repeat area - added additional code to refer to utilsBean and parse out text and phone numbers using phone numbers as link</run>
+      </par>
+      <par def="8">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>utilities.java </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- New java code library - holds functions to do parsing mentioned above.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>09/28/2017 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-ARMRBP - Web Content Change - Misc. Website Fixes</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Issue was Pass Thru HTML was not working for News articles on Home Page.</run>
+      </par>
+      <par def="8">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccHomePage</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>computedField5</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> and </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>computedField6</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Properites for Computed Field &gt;&gt; Options, changed Content type to </run>
+        <run>
+          <font size="9pt" style="bold" name="Arial" pitch="variable" truetype="true" familyid="20"/>HTML</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> from </run>
+        <run>
+          <font size="9pt" style="bold" name="Arial" pitch="variable" truetype="true" familyid="20"/>Text</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>09/25/2017 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-ARCLCC - Web Content Change - Carousel Changes - Entire Image a Link </run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" style="bold" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Work done by Martin Scott Conulting</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/> (Daryl Rochette):</run>
+      </par>
+      <pardef id="11" leftmargin="1.2500in" tabs="L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in"/>
+      <par def="11">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccHomeCarousel custom control - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>recoded the source code so the image carousel is a link and will open in new Tab or exisiting tab, as required by settings for the home page document (home.nsf).</run>
+      </par>
+      <par def="11">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccHomePage</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - added code to accept new code from </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccHomeCarousel.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>09/21/2017 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-AQKL5N - SEO Improvements</run>
+      </par>
+      <par def="8">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Document</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> XPage -</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/> beforePageLoad</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> event - changed code to reference new fields </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>metaTitle</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> and </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>metaDescr</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> in the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>home.nsf</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/> Document </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>form</run>
+      </par>
+      <par def="6">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>-------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>09/19/2017 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR - WCR-ARCLCC  - Make images on home pages links</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccHomePageCarousel </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- Added code at top in Source area of custom control</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>09/06/2017 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR-WSCR-AQWSPU  - Add field to Menu pages</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccMainCategoryPage</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control - added new panel to hold new Rich Text field (read onloy) to display the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>SpecialText</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> field contrents of the document being displayed.</run>
+      </par>
+      <pardef id="12" spaceafter="1.5"/>
+      <par def="12">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>08/25/2017 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-AQKL5N </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>- </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>SEO Improvements</run>
+      </par>
+      <par def="4">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Created a custom control nam</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>ed </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccHeadCode</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>(we can use later put additional head code in)</run>
+      </par>
+      <par def="4">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Added </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccHeadCode</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> to the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>International.xsp</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> and </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccLayout</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control</run>
+      </par>
+      <par def="4">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Added the body code to the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccInternationalHeader</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control</run>
+      </par>
+      <par def="4">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Added the body code to the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>commonHeader</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>
+        </run>
+      </par>
+      <par def="12">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>08/03/2017 - MDZ</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-APNLMN - Global HR Database - Careers Section</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Under_Construction</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new XPage - for future use<break/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccDownloadsMedia2</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custiom control - beforePageLoad Event coded so Open Positions will be hidden if there are no Open Postisions to display</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccCareers_Americas</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - copy of original ccCareers custom control made for </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR-WSCR-AMMNDX  - New Careers Page</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> below</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccCareers</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - rework of original custom control so it will display data based on region-language</run>
+      </par>
+      <par def="12">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>07/17/2017 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-AP2NH6</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/> - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Create Spanish-Americas Section on Webs</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>ite</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>MenuForm </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>and</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/> LabelForm</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> forms - added field </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>val_americas_es_data</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>to display</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/> val_americas_es_data</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>Several Labels and Menu views</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Added a column to display the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>val_americas_es</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> data</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" style="bold" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Work done by Martin Scott Conulting</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/> (Daryl Rochette):</run>
+      </par>
+      <par def="11">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>0. Temp \ val_</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>americas_es = val_eme_es </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- New agent that runs agains selected documents in views.  It creates a new field call </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>val_americas_es</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> and copies the content from </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>val_eme_es</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> into it,=.</run>
+      </par>
+      <par def="11">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Work was also don on home..sf and downloads.nsf databases</run>
+      </par>
+      <par def="12">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>07/17/2017 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-AN3TET - Online Fork Orders</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccOrderForks</run>
+        <run>
+          <font size="9pt" style="bold" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- changed code in </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>Add</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> button,</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/> forkNumberInput</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> field, and </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>qtyInput </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>field so a quantity is required and the quantity of "</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>1</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>" is NOT automatically placed in the Quatity field when added.</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>05/27/2017 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-AN3TET</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/> - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Online Fork Orders</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>JDESupportBean.Java </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- Added code to look up Cascades Part number from Crossover Table F4104</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>SalesOrderBean.Java</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Added code to lookup Cascades Part number from Crossover Table F4104.  Added code to pass Account Number from JDE to Order documents</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Parts_Order_Print.xsp, custom.js, ProcessOrderInformation.xsp,ProcessParts_Print.xsp, ccOrderForks, ccOrderPrintButtons, ccOrderConfirmationSummary,ccOrderSummary,ccOrderDisplayPO,OrderForks.xsp </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- Added code to record account number from JDE to documents</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" style="bold" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Work done by Martin Scott Conulting</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/> (Daryl Rochette):</run>
+      </par>
+      <par def="10">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>JDESupport.Java </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- Code added to look up Fork part numbers in JDE</run>
+      </par>
+      <par def="10">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>SalesOrderBean.Java</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Code added to lookup Fork Part Numbers and process Fork Orders.</run>
+      </par>
+      <par def="10">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccOrderForks</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new custom control for </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>OrderForks</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> XPage</run>
+      </par>
+      <par def="10">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>OrderForks XPage</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new XPage for fork ordering</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>05/27/2017 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-ALHS7L</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/> - Warranty Claim Form</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>WarrantyClaimNew </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>-</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> New XPage which uses dynasmic content to break up form into several pages, each page being a customControl.</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Several new custom controls created in order to break up infoprmation gathering in several pages.</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Note: </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR ASCR-AKMNXS - Warranty Claim Form - Multiple Attachments</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> was also fixed with this MCR </run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>05/27/2017 - MDZ</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR-WSCR-AMMNDX  - New Careers Page</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccCareers</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - New custom control - displays document with category Careers selected - also displays </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccDownloadsMediaView2</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccDownloadsMediaView2</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new custom control - displays the documents in the </run>
+        <run>
+          <font size="9pt" style="bold" name="Arial" pitch="variable" truetype="true" familyid="20"/>downloads.nsf</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> view </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/> Web2\links3 - docURL lookup view | links3</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> which allows for displaying of documents by </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="fuchsia"/>Product Family</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>05/16/2017 - MDZ</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AKHTEC - New Page and Web Form for Dealers Only (Not public or OEMs)</run>
+      </par>
+      <par def="7">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>RegistrationUtilities</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Java Library Script - added code to </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>activateRegistration</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> function lines 197 to 209 - check if user's acccessType is "D" or user's accessType is "B" and if it is then add h/him to the Cascorp-External-Dealers group in the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>CascWeb Address Book</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.</run>
+      </par>
+      <pardef id="13" leftmargin="1.2500in" firstlineleftmargin="1in" tabs="L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in"/>
+      <par def="13">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>(Populate  Cascorp-External-Dealers Group Doc)</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new agent - goes through all person documents in the cascweb2.nsf database and if their accessType is "D" or user's accessType is "B" then it adds them to the Cascorp-External-Dealers group.</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>cascweb2.nsf</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Added new group document named </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>Cascorp-External-Dealers</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>04/17/2017 - MDZ</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-ALLTK4</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/> - Web Content Change - Fix Access Type - OEM Vendor Vault Not Populating</run>
+      </par>
+      <par def="7">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Notification_Of_Registration_Deletion</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new Agent- To run manually at server console - Finds all documents which the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>AccessType</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> is </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>"JO"</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> and sends emails telling user their access has been revoked. It thenchanged the internet password and the Chalenge answer of their person document which prevents them from logging in without contacting the webmaster.</run>
+      </par>
+      <par def="13">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>DeleteDeactivatedCascwebAddressDocs</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new agent.  Scheduled to run every morning at 1:30 AM. deletes all documents which </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>deletionDT</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> item is 10 days or older.</run>
+      </par>
+      <par def="13">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>(Change deletionDate</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>)</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new agent used to manipulate the</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/> deletionD</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>T values of person documents  documentsin the view </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>"To Be Deleted"</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> in the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Cascweb Address Book</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - used for testing only.</run>
+      </par>
+      <par def="13">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>(Remove Deletion Date)</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new agent used for testing - removes the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>deletionDT</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> item from all documents in the view </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>"To Be Deleted"</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> in the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Cascweb Address Book</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>  -  used for testing only.</run>
+      </par>
+      <par def="7">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Populate AccessType Field</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new agent - This code goes through all Existing </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>Person</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> documents in the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Cascweb Address Book</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> which do not have the AccessType field and populates the with proper information form JDE table f0101.</run>
+      </par>
+      <par def="7">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>JDESupport java script</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - altered code in getAccountDetails - to pull fromabac06 jde field instead oif abat1 JDE field.</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>04/07/2017 - MDZ</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AKHTEC - New Page and Web Form for Dealers Only (Not public or OEMs)</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Registration Bean</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Java Library - Added code to capture AccessType</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Registration Utilities</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - Java Library - added code to put AccessType in </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>Person </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>document of </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Cascweb Address Book</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>JDESupportLite</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - New LotusScript library - Contains functions for JDE code</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>03/31/2017 - MD</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Z</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AHKRMH - Web Content Change - Add to home screen script</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccAddToHomeScreen</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> – new custom control which holds head tag pointers to code below</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccLayout </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>– added </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccAddToHomeScreen</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> Custom Control</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>addtohomescreen.css</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> – new style sheet added to Package Explorer &gt;&gt; WebContent&gt;WEB-INF&gt;addtohome folder</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>addtohomescreen.js</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> – new javascript library added to Package Explorer &gt;&gt; WebContent&gt;WEB-INF&gt;addtohome folder</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>03/31/2017 - MDZ</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-AKHTEC</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/> -</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>New Page and Web Form for Dealers Only (Not public or OEMs)</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>New XPages – </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>DealerClaim, DealerClaimProcessing, Dealers</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>New Custom Controls used in above XPages –</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/> ccDealerAttachment, ccDealerClaim, ccDealerClaimAddress, ccDealerClaimAddressHeader, ccDealerClaimAddressSummary, ccDealerClaimAttachmentHeader, ccDealerClaimConfirmation, ccDealerClaimConfirmationHeader, ccDealerClaimSummary, ccDealerClaimSummaryHeader</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Several language beans added to database for above Custom Controls and XPages</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Redirection rules added to Domino Address Book for website - /americas/en/dealers and /americas/en/dealerclaim</run>
+      </par>
+      <pardef id="14" leftmargin="1.2500in" firstlineleftmargin="1in"/>
+      <par def="14">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="7">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>02/27/2017 - MDZ</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AJTV72</run>
+        <run>
+          <font color="navy"/>  Add Print Buttons in New Screen</run>
+      </par>
+      <par def="2">
+        <run>
+          <font color="maroon"/>ccOrderPrintButtons</run>
+        <run>
+          <font color="blue"/>
+        </run>custom control - new - holds buttons for logged in user who are looking at their web order.  Allows them to open the <run>
+          <font color="maroon"/>PartsOrder_Print</run> XPage (Print Friendly) and easily navigate back to the <run>
+          <font color="maroon"/>MyOrders</run> XPage</par>
+      <par def="2">
+        <run>
+          <font color="maroon"/>ccOrderProcessButtons</run> - added style class to buttons so they are same as rest of buttons on website</par>
+      <par def="2">
+        <run>
+          <font color="maroon"/>ProcessOrders</run> - added ccOrderPrintButtons custom control that is visible only if <run>
+          <font color="blue"/>sessionScope.roles.isEditParts eq null</run>
+      </par>
+      <par def="2">
+        <run>
+          <font color="maroon"/>ProcessParts_Print</run>  xPage - added Close button</par>
+      <par def="2">
+        <run>
+          <font color="maroon"/>PartsOrder_Print</run>  xPage - added Close button</par>
+      <par def="14">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="7">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>02/07/2017 - MDZ</run>
+      </par>
+      <par def="6">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-AHSMRF -  Web Content Change - Custom 404 Page</run>
+      </par>
+      <par def="14">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>error404 </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>XPage</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/> - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Reformatted the page to not load the Error Messages and Stack Trace.  We can turn them on in Production if needed to resolve issues. Removed the email links since that is not going to be used. Added new </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccErrorHeader</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.  Added </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>widgetContainers</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> and put Error Messages and Stack Trace Information in them.</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccErrorHeader</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new custom control - copied </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccInternational </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>and altered it by adding menu Items</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Added the following language Beans:</run>
+      </par>
+      <par def="8">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>errorHeaderMsg1</run>
+      </par>
+      <par def="8">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>errorStackTitle2</run>
+      </par>
+      <par def="8">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/>errorStackTitle3</run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>Moved the beans to PY. </run>
+      </par>
+      <par def="5">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Xsp Properties</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - changed Error Handling - Error page to display to be</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/> error404</run>
+      </par>
+      <par def="14">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="7">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>01/23/2017 - MDZ</run>
+      </par>
+      <par def="14">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-AHVT9T: Web Content Change - Saved Profile Address - Modify Bug</run>
+      </par>
+      <par def="14">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>MyProfileView</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>XPage - </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>changed line #37 in the source section to: </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="purple"/>openDocAsReadonly</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>=</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="#4200ff"/>"false"</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>. Now the document opened in the next page will be in edit mode by default allowing the nuser to move freely from field to field by clicking on it.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>12/15/2016 - MDZ</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-AFTPHJ</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/> – </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Web Content Change - Order Confirmation Page</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccOrderConfirmationSummary</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new custom control replaced the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccOrderConfirmation</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>MyOrders</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> XPage - redesigned so users can Print a particular order.</run>
+      </par>
+      <par def="2">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>PartsOrder_Print </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- New Xpage</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>so users can Print a particular order.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>12/15/2016 - MDZ</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>AFQP9A</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/> – </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Web Content Change - Password Change/Re-set Bug</run>
+      </par>
+      <par def="14">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccPasswordReset_Challenge</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> - new custom control- used for the users who need to reset both password and challenge question and answers due to change password email sent revealing their answer to their challenge question.</run>
+      </par>
+      <par def="14">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>passwordChallengeReset </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>- new Xpage which displays the </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccPasswordRest_Challenge</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> custom control</run>
+      </par>
+      <par def="14">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>RegistrationUtilities java</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> library - added new function named</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="blue"/> changePasswordChallenge</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> which changes all the fields entered in the passwordChallengeReset  webpage. </run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>12/15/2016 - MDZ</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>WSCR-AG9QFJ</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/> – IE Compatibility issuer</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccCompatibility</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> -  new custom control with special code that fixes the issue.  Added this to </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>ccLayou</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>t and </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>Document.xsp</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>.</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>12/15/2016 - MDZ</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>AFTPJV</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>
+        </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>– </run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>Order Status - Not Authorized Page</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="maroon"/>OrderStatus</run>
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/> XPage -  Added link to  that opens window explaining order status access (orderStatus_intro link).</run>
+      </par>
+      <par def="1">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>05/09/2015- MDZ</run>
+      </par>
+      <par def="3">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>MCR WSCR-9WANP8 – New Website - Update web UI to be mobile friendly</run>
+      </par>
+      <par def="6">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20" color="navy"/>New database - XpPages technology. Moved to PROD</run>
+      </par>
+      <par def="6">
+        <run>
+          <font size="9pt" name="Arial" pitch="variable" truetype="true" familyid="20"/>--------------------------------------------------------------------------------------------------</run>
+      </par>
+    </richtext>
+  </body>
+</helpaboutdocument>

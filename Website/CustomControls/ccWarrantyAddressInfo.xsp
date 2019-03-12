@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xc:ccOrderQuoteMyOrderButton></xc:ccOrderQuoteMyOrderButton>
+	<xp:panel styleClass="row" id="panel1">
+		<xp:panel styleClass="col-xs-12 col-md-10" id="panel5">
+			<!--  MyOrder button block -->
+			<xc:ccOrderQuoteMyOrderButton></xc:ccOrderQuoteMyOrderButton>
+			<xp:br></xp:br>
+			<xp:panel id="panelSelectors1"
+				rendered="#{javascript:@IsNewDoc()}">
+				<!--PHOTO MSG AND login to select address from profile-->
+				<xp:panel styleClass="alert alert-warning"
+					rendered="#{userBean.commonName eq 'Anonymous'}">
+					<xp:table>
+						<xp:tr>
+							<xp:td style="width:8%">
+								<span class="glyphicon glyphicon-lock"
+									aria-hidden="true">
+								</span>
+							</xp:td>
+							<xp:td>
+								<xp:link escape="true" id="link7"
+									text="Login " value="${configBean.HostURL}login">
+								</xp:link>
+								<xp:text escape="true"
+									id="computedField2"
+									value=" to select an address from your profile.">
+								</xp:text>
+							</xp:td>
+						</xp:tr>
+					</xp:table>
+				</xp:panel>
+				<!--SELECTION panel-->
+				<xp:panel id="PanelShipping1"
+					rendered="#{userBean.commonName ne 'Anonymous'}">
+					<xp:table
+						styleClass="address-table address-table-selection">
+						<xp:tr>
+							<xp:panel styleClass="tableHeading"
+								tagName="th">
+								<xp:this.attrs>
+									<xp:attr name="colspan" value="2">
+									</xp:attr>
+								</xp:this.attrs>
+								<xp:label
+									value="Dealer Address Selection" id="label1">
+								</xp:label>
+							</xp:panel>
+						</xp:tr>
+						<xp:tr>
+							<xp:td style="width:25%">
+								<xp:label value="Descriptive Name: "
+									id="shippingAddressSelection_Label1"
+									for="shippingAddressSelection1">
+								</xp:label>
+							</xp:td>
+							<xp:td>
+								<xp:comboBox
+									value="#{salesOrderBean.shipAddress.profileUNID}"
+									id="shippingAddressSelection1">
+									<xp:selectItem
+										itemLabel="(Select Address)" itemValue="">
+									</xp:selectItem>
+									<xp:selectItems>
+										<xp:this.value><![CDATA[#{javascript:
+var db:NotesDatabase = configBean.UserprofilesDbPath ;
+var dbName = new Array("",db);
+var vw:NotesView = "addressesbyowner2" ;
+var key = userBean.distinguishedName ;
+var tmp = @DbLookup(dbName,vw,key,2);
+var val = @DbLookup(dbName,vw,key,3);
+return @If(@IsError(tmp), "(No addresses available)", tmp + "|" + val ) ;}]]></xp:this.value>
+									</xp:selectItems>
+									<xp:eventHandler event="onchange"
+										submit="true" refreshMode="partial" refreshId="main"
+										disableValidators="true">
+										<xp:this.action><![CDATA[#{javascript:dBar.info("ship profile doc is " + salesOrderBean.getShipAddress().getprofileUNID());
+salesOrderBean.getShipAddress().setAddress(sessionAsSigner);
+dBar.info("salesOrderBean.shipAddress.company = " + salesOrderBean.shipAddress.company);
+dBar.info("salesOrderBean.getShipAddress().getCompany() = " + salesOrderBean.getShipAddress().getCompany());
+getComponent("shippingCompany1").setValue(salesOrderBean.shipAddress.company) ;
+getComponent("shippingPerson1").setValue(salesOrderBean.shipAddress.person) ;
+getComponent("shippingAddress1").setValue(salesOrderBean.shipAddress.address) ;
+getComponent("shippingAddr_21").setValue(salesOrderBean.shipAddress.address_2) ;
+getComponent("shippingCity1").setValue(salesOrderBean.shipAddress.city) ;
+getComponent("shippingState1").setValue(salesOrderBean.shipAddress.state) ;
+getComponent("shippingPostalCode1").setValue(salesOrderBean.shipAddress.postalCode) ;
+getComponent("shippingCountry1").setValue(salesOrderBean.shipAddress.country) ;
+getComponent("shippingPhone1").setValue(salesOrderBean.shipAddress.phone) ;
+getComponent("shippingFax1").setValue(salesOrderBean.shipAddress.fax) ;
+getComponent("shippingEmail1").setValue(salesOrderBean.shipAddress.email) ;}]]></xp:this.action>
+									</xp:eventHandler>
+
+								</xp:comboBox>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td colspan="2">
+								<xp:div styleClass="btn-group">
+									<xp:link escape="true"
+										text="New Address" id="link2" styleClass="btn btn-link"
+										value="${configBean.HostURL}${configBean.WebsiteURL}/MyProfileAddress.xsp?action=newDocument">
+									</xp:link>
+									<xp:link escape="true"
+										text="Manage Addresses" id="link3" styleClass="btn btn-link"
+										value="${configBean.HostURL}${sessionScope.LanguageURL}myprofile">
+									</xp:link>
+								</xp:div>
+							</xp:td>
+						</xp:tr>
+					</xp:table>
+				</xp:panel>
+			</xp:panel>
+			<!--			address row and columns-->
+			<xp:panel styleClass="row" id="panel4">
+				<xp:panel styleClass="col-xs-12 col-md-6" id="panel6">
+					<!--Table Heading Dealers -->
+					<xp:table styleClass="address-table">
+						<xp:tr>
+							<xp:panel styleClass="tableHeading"
+								tagName="th">
+								<xp:this.attrs>
+									<xp:attr name="colspan" value="2"></xp:attr>
+								</xp:this.attrs>
+								<xp:label value="Dealer Address"
+									id="label33" style="font-weight:bold;color:rgb(255,255,255)">
+								</xp:label>
+							</xp:panel>
+						</xp:tr>
+					</xp:table>
+					<xc:ccAddressShipping></xc:ccAddressShipping>
+					
+					
+					
+					<!--Table Shipping Fields -->
+
+				</xp:panel>
+				<xp:panel styleClass="col-xs-12 col-md-6" id="panel7">
+					<!--Table Billing Fields -->
+
+					<xc:ccAddressBilling></xc:ccAddressBilling></xp:panel>
+			</xp:panel><!--END	address row and columns-->
+		</xp:panel>
+	</xp:panel>
+</xp:view>

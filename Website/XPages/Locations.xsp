@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+	<xp:this.resources>
+		<xp:script src="/custom.jss" clientSide="false"></xp:script>
+	</xp:this.resources>
+	<xp:this.beforePageLoad><![CDATA[#{javascript:
+//setScpLanguage() ;
+if (sessionScope.LanguageURL == "eme/intl/") {
+    sessionScope.LanguageP = "eme-en" ;
+    sessionScope.LanguageURL == "eme/en/"
+};
+setScpUnid() ;}]]></xp:this.beforePageLoad>
+	
+	<xc:ccInternationalHeader></xc:ccInternationalHeader>
+	<xp:panel id="badUrlPanel1"
+			rendered="${javascript:return (!viewScope.unid)?true:false;}">
+			<xp:div
+				styleClass="container cascade-content cascade-content-blocks">
+				<xp:div styleClass="row">
+					<xp:div id="badurl" styleClass="col-sm-12"
+						style="padding-top:30.0px;padding-left:30.0px;padding-right:30.0px;padding-bottom:30.0px">
+						<xp:text value="${langBean.hdgPageNotFound}" id="label1"
+							tagName="h3">
+						</xp:text>
+						<xp:br></xp:br>
+						<xp:text
+							value="${langBean.msgPageNotFound}" tagName="h4"
+							id="label2" >
+						</xp:text>
+					</xp:div>
+				</xp:div>
+			</xp:div>
+		</xp:panel>
+		<xp:panel id="panel1"
+			rendered="${javascript:return (!!viewScope.unid)?true:false;}">
+			<xp:panel id="panelDocument1">
+				<xp:this.data>
+					<xp:dominoDocument var="document1"
+						databaseName="${configBean.HomeDbPath}" formName="Document"
+						action="openDocument" documentId="${viewScope.unid}">
+					</xp:dominoDocument>
+				</xp:this.data>
+				<xc:ccLocations></xc:ccLocations>
+			</xp:panel>
+		</xp:panel>
+		<xc:commonfooter></xc:commonfooter>
+</xp:view>

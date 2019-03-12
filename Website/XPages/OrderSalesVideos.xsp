@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	
+	<xp:this.beforePageLoad><![CDATA[#{javascript:if (viewScope.orderStep == "" || viewScope.orderStep == null) {
+	viewScope.orderStep = "step_1";
+	sessionScope.BillingAddressRequired = "0";
+	dBar.info("====================");
+	dBar.info("viewScope.orderStep > " + viewScope.orderStep);
+}
+}]]></xp:this.beforePageLoad>
+	<xp:this.afterPageLoad><![CDATA[#{javascript://set region and and countryCode
+var language = sessionScope.LanguageP
+var n = language.indexOf("-");
+var l = language.length;
+var countryCode;
+var region = language.substr(0,n)
+if (sessionScope.LanguageP == "americas-en" ){
+countryCode = "US";
+} else if (sessionScope.LanguageP == "eme-en"){
+countryCode = "GB"
+} else {
+countryCode = language.substring(n+1,l)
+}
+sessionScope.region = region;
+sessionScope.countryCode = countryCode
+}]]></xp:this.afterPageLoad>
+	<xc:ccLayout>
+		<xp:panel styleClass="container" id="main">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							value="Sales Video Order Form"
+							styleClass="carousel-heading">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<xp:br></xp:br>
+			<xe:dynamicContent id="dcOrderStep" defaultFacet="step_1">
+				<xp:this.facets>
+					<xc:ccOrderSalesVideos xp:key="step_1"></xc:ccOrderSalesVideos>
+					<xc:ccOrderAddress xp:key="step_2.xsp"></xc:ccOrderAddress>
+					<xc:ccOrderSummary xp:key="step_3"></xc:ccOrderSummary>
+					<xc:ccOrderConfirmation xp:key="step_4"></xc:ccOrderConfirmation>
+				</xp:this.facets>
+			</xe:dynamicContent>
+			<xp:br></xp:br>
+  
+			<xp:br></xp:br>
+
+		</xp:panel>
+	</xc:ccLayout>
+	
+</xp:view>

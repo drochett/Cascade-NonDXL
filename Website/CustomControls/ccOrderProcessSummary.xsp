@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom">
+
+
+  <!-- Build table for headings -->
+  <xp:table styleClass="tableColumnHeadings">
+    <xp:tr>
+      <xp:td style="width:20%">
+        <xp:label value="${langBean.thOrderNumber}" id="label1">
+        </xp:label>
+      </xp:td>
+      <xp:td>
+        <xp:label value="${langBean.thDescription}" id="label2">
+        </xp:label>
+      </xp:td>
+      <xp:td style="width:10%" styleClass="text-right">
+        <xp:label value="${langBean.thQuantity}" id="label3">
+        </xp:label>
+      </xp:td>
+      <xp:td style="width:10%" styleClass="text-right">
+        <xp:label value="${langBean.thPrice}" id="label4">
+        </xp:label>
+      </xp:td>
+    </xp:tr>
+  </xp:table>
+
+  <xp:table styleClass="order-table">
+    <!-- Repeat over the rows to show the items to order -->
+    <xp:repeat id="OrderItemRepeat" rows="30" var="lineItem" indexVar="indLineItem">
+      <xp:this.value><![CDATA[#{javascript:
+var unid = document1.getDocument().getUniversalID();
+salesOrderBean.getOrderedItemsFromDoc(unid,sessionAsSigner); }]]></xp:this.value>
+      <xp:tr>
+        <xp:td style="width:20%">
+          <xp:text escape="true" value="#{lineItem.partNumber}" id="computedField1">
+          </xp:text>
+        </xp:td>
+        <xp:td>
+          <xp:text escape="true" value="#{lineItem.description}" id="computedField2">
+          </xp:text>
+
+        </xp:td>
+        <xp:td style="width:10%">
+          <span style="float:right">
+            <xp:text escape="true" value="#{lineItem.orderQty}" id="computedField3">
+              <xp:this.converter>
+                <xp:convertNumber pattern="#,##0">
+                </xp:convertNumber>
+              </xp:this.converter>
+            </xp:text>
+          </span>
+        </xp:td>
+        <xp:td style="width:10%">
+          <span style="float:right">
+            <xp:text escape="true" value="#{lineItem.price}" id="computedField4">
+              <xp:this.converter>
+                <xp:convertNumber pattern=" #,##0.00"></xp:convertNumber>
+              </xp:this.converter>
+            </xp:text>
+          </span>
+        </xp:td>
+      </xp:tr>
+      <!-- End repeat over the item rows -->
+    </xp:repeat>
+  </xp:table><!-- -End table for the order items -->
+
+</xp:view>

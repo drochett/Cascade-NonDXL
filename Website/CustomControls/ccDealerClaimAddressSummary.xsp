@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	
+
+
+
+	<xp:this.beforePageLoad><![CDATA[#{javascript:salesOrderBean.getShipAddress().setAddress(sessionAsSigner);}]]></xp:this.beforePageLoad>
+	<xp:br></xp:br>
+
+	<!--start panelAddressAll row-->
+	<xp:panel styleClass="row" id="panelAddressAll" readonly="true">
+		<!--start shipping column-->
+		<xp:panel id="panelShipping" style="padding-right: 0px;">
+
+			<xp:this.styleClass><![CDATA[#{javascript:if (sessionScope.BillingAddressRequired == "1"){
+	//use two columns for shipping AND billing, otherwise shipping gets full width
+	return "col-md-6";
+	
+	} else {
+	
+	return "col-md-12";
+	}}]]></xp:this.styleClass>
+			<xp:panel id="PanelShipping2">
+
+				<xp:table styleClass="address-table">
+					<xp:tr>
+						<xp:panel styleClass="tableHeading"
+							tagName="th">
+							<xp:this.attrs>
+								<xp:attr name="colspan" value="2">
+								</xp:attr>
+							</xp:this.attrs>
+							<xp:label
+								value="${langBean.titleDealerAddress}" id="label3">
+							</xp:label>
+						</xp:panel>
+					</xp:tr>
+					<xp:tr>
+						<xp:td style="width:40%">
+							<xp:label value="${langBean.labelCompany}:"
+								id="company_Label1" for="company">
+							</xp:label>
+
+						</xp:td>
+						<xp:td>
+							<xp:inputText value="#{salesOrderBean.shipAddress.company}" id="company" >
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="${langBean.labelPerson}:"
+								id="person_Label1" for="person">
+							</xp:label>
+
+						</xp:td>
+						<xp:td>
+							<xp:inputText value="#{salesOrderBean.shipAddress.person}"
+								id="person">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="${langBean.labelAddress}:"
+								id="address_Label1" for="address">
+							</xp:label>
+
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{salesOrderBean.shipAddress.address}"
+								id="address">
+
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label
+								value="${langBean.labelAddress_2}:" id="address_2_Label1"
+								for="address_2">
+							</xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{salesOrderBean.shipAddress.address_2}"
+								id="address_2">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="${langBean.labelCity}:"
+								id="city_Label1" for="city">
+							</xp:label>
+
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{salesOrderBean.shipAddress.city}" id="city">
+
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="${langBean.labelState}:"
+								id="state_Label1" for="state">
+							</xp:label>
+
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{salesOrderBean.shipAddress.state}" id="state">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label
+								value="${langBean.labelPostalCode}:" id="labelshippingPostalCode"
+								for="postalCode1">
+							</xp:label>
+
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{salesOrderBean.shipAddress.postalCode}"
+								id="postalCode">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="${langBean.labelCountry}:"
+								id="country_Label1" for="country">
+							</xp:label>
+
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{salesOrderBean.shipAddress.country}"
+								id="shippingCountry">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="${langBean.labelPhone}:"
+								id="phone_Label1" for="phone">
+							</xp:label>
+
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{salesOrderBean.shipAddress.phone}" id="phone">
+
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="${langBean.labelFax}:"
+								id="fax_Label1" for="fax">
+							</xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{salesOrderBean.shipAddress.fax}" id="fax">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr></xp:tr>
+				</xp:table>
+
+			</xp:panel>
+
+		</xp:panel>
+		<!--					start panel billing column-->
+		<xp:panel id="panelBilling"
+			loaded="${sessionScope.BillingAddressRequired eq '1'}"
+			styleClass="col-md-6" style="padding-left:0px;">
+
+
+			<xp:panel id="PanelBillingAddressDisplay">
+				<xp:this.rendered><![CDATA[#{javascript:return (salesOrderBean.getBillingAddressSameAsShip()!="1") ? true : false;
+//return true; }]]></xp:this.rendered>
+				<xp:table styleClass="address-table">
+					<xp:tr>
+						<xp:panel styleClass="tableHeading"
+							tagName="th">
+							<xp:this.attrs>
+								<xp:attr name="colspan" value="2">
+								</xp:attr>
+							</xp:this.attrs>
+							<xp:label
+								value="${langBean.titleBillingAddress}" id="label8">
+							</xp:label>
+						</xp:panel>
+					</xp:tr>
+					<xp:tr>
+						<xp:td style="width:40%">
+							<xp:label value="${langBean.labelCompany}:"
+								id="label15" for="custCompany">
+							</xp:label>
+
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{salesOrderBean.billAddress.company}" id="custCompany"
+								style="width:100%" required="true">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="${langBean.labelAddress}:"
+								id="label19" for="custAddress">
+							</xp:label>
+
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{salesOrderBean.billAddress.address}"
+								id="custAddress">
+
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label
+								value="${langBean.labelAddress_2}:" id="label21"
+								for="custAddress_2">
+							</xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{salesOrderBean.billAddress.address_2}"
+								id="custAddress_2">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="${langBean.labelCity}:"
+								id="label22" for="custCity">
+							</xp:label>
+
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{salesOrderBean.billAddress.city}" id="custCity">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="${langBean.labelState}:"
+								id="label24" for="custState">
+							</xp:label>
+
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{salesOrderBean.billAddress.state}" id="custState">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label
+								value="${langBean.labelPostalCode}:" id="label26"
+								for="custPostalCode">
+							</xp:label>
+
+						</xp:td>
+						<xp:td>
+							<xp:inputText
+								value="#{salesOrderBean.billAddress.postalCode}"
+								id="custPostalCode">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+			</xp:panel>
+		</xp:panel>
+	</xp:panel>
+	<xp:br></xp:br>
+
+</xp:view>

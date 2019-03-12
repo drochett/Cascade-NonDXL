@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+
+	<xp:this.data>
+		<xp:dominoDocument var="document1"
+			databaseName=" web2\orders.nsf" formName="prcCredit"
+			action="openDocument">
+			<xp:this.querySaveDocument><![CDATA[#{javascript:
+if (currentDocument.isNewNote()) {
+	var doc:NotesDocument = currentDocument.getDocument();
+	var item:NotesItem;
+	// CHANGE EDITORARRAY
+	var editorArray = new Array ("[EditAllDocs]","[EditDealerClaim]");
+	item = doc.replaceItemValue("AccessEditor",editorArray);
+	item.setAuthors(true);
+	var username =  session.getEffectiveUserName();
+	dBar.info("username="+username);
+	var reader = (username != "Anonymous") ? username : "[EditAllDocs]" ;
+	dBar.info("reader="+reader);
+	item = doc.replaceItemValue("OrderOwner", reader);
+	item.setReaders(true);
+	
+	var dt:NotesDateTime = session.createDateTime("Today");
+	dt.setNow();
+	dBar.info("dt="+dt);
+    item = doc.appendItemValue("OrderDate", dt);
+    item = doc.appendItemValue("OrderStatus", "New");
+    // CHANGE ORDERFORM 
+    item = doc.appendItemValue("OrderType", "Dealer Claim");
+    item = doc.appendItemValue("OrderForm", "dealerclaims");
+    //var languageP = (!!sessionScope.LanguageP) ? sessionScope.LanguageP : "americas-en";
+    //item = doc.appendItemValue("MsgLanguage", languageP);
+    item = doc.appendItemValue("MsgLanguage", "americas-en");
+    item = doc.appendItemValue("showRows", viewScope.showRows);
+    return true ;
+	//dBar.info("return true in querySaveDocument to continue" );
+	//doc.save(); no need to save back end doc in this querySaveDocument event, save will follow
+}}]]></xp:this.querySaveDocument>
+					<xp:this.postSaveDocument><![CDATA[#{javascript:
+dBar.info("((( postSaveDocument ))) ");
+dBar.info("Form="+document1.getItemValueString("Form"));}]]></xp:this.postSaveDocument>
+		</xp:dominoDocument>
+	</xp:this.data>
+	<xc:ccRestrictAccess></xc:ccRestrictAccess>
+
+
+
+	<xc:ccLayout>
+		<xp:panel styleClass="container" id="main">
+
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							value="${langBean.titleDealerClaim}"
+							styleClass="carousel-heading">
+						</xp:text>
+						<!--
+							<xp:text escape="false" id="computedField8" value=" Attach photos
+							for faster warranty processing." styleClass="carousel-text">
+							<span class="glyphicon glyphicon-camera" aria-hidden="true">
+							</span> </xp:text>
+						-->
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!-- =========The code below is from dealerClaimSummary======= -->
+			<xp:panel styleClass="row" id="panelEmail1">
+				<xp:panel styleClass="col-xs-12 col-md-10"
+					id="panel5">
+					<xp:table styleClass="address-table">
+						<xp:tr>
+							<xp:panel styleClass="tableHeading"
+								tagName="th">
+								<xp:this.attrs>
+									<xp:attr name="colspan" value="2"></xp:attr>
+								</xp:this.attrs>
+								<xp:label
+									value="${langBean.titleEmailNotification}" id="label33"
+									style="font-weight:bold;color:rgb(255,255,255)">
+								</xp:label>
+							</xp:panel>
+						</xp:tr>
+						<xp:tr>
+							<xp:td style="width:40%">
+								<xp:label
+									value="${langBean.labelEmailNotification}:" id="email_Label1"
+									for="dealerEmail">
+								</xp:label>
+
+							</xp:td>
+							<xp:td>
+								<xp:inputText id="dealerEmail"
+									value="#{document1.shippingEmail}" readonly="true">
+								</xp:inputText>
+							</xp:td>
+						</xp:tr>
+					</xp:table>
+
+					<!-- add panel for address -->
+					<xp:panel styleClass="row" id="panelAddressAll"
+						readonly="true">
+						<!--start shipping column-->
+						<xp:panel id="panelShipping"
+							style="padding-right: 0px;">
+
+							<xp:this.styleClass><![CDATA[#{javascript:if (sessionScope.BillingAddressRequired == "1"){
+	//use two columns for shipping AND billing, otherwise shipping gets full width
+	return "col-md-6";
+	
+	} else {
+	
+	return "col-md-12";
+	}}]]></xp:this.styleClass>
+							<xp:panel id="PanelShipping2">
+
+								<xp:table styleClass="address-table">
+									<xp:tr>
+										<xp:panel
+											styleClass="tableHeading" tagName="th">
+											<xp:this.attrs>
+												<xp:attr name="colspan"
+													value="2">
+												</xp:attr>
+											</xp:this.attrs>
+											<xp:label
+												value="${langBean.titleDealerAddress}" id="label3">
+											</xp:label>
+										</xp:panel>
+									</xp:tr>
+									<xp:tr>
+										<xp:td style="width:40%">
+											<xp:label
+												value="${langBean.labelCompany}:" id="company_Label1"
+												for="company">
+											</xp:label>
+
+										</xp:td>
+										<xp:td>
+											<xp:inputText
+												value="#{document1.shippingcompany}" id="company">
+											</xp:inputText>
+										</xp:td>
+									</xp:tr>
+									<xp:tr>
+										<xp:td>
+											<xp:label
+												value="${langBean.labelPerson}:" id="person_Label1"
+												for="person">
+											</xp:label>
+
+										</xp:td>
+										<xp:td>
+											<xp:inputText
+												value="#{document1.shippingperson}" id="person">
+											</xp:inputText>
+										</xp:td>
+									</xp:tr>
+									<xp:tr>
+										<xp:td>
+											<xp:label
+												value="${langBean.labelAddress}:" id="address_Label1"
+												for="address">
+											</xp:label>
+
+										</xp:td>
+										<xp:td>
+											<xp:inputText
+												value="#{document1.shippingaddress}" id="address">
+
+											</xp:inputText>
+										</xp:td>
+									</xp:tr>
+									<xp:tr>
+										<xp:td>
+											<xp:label
+												value="${langBean.labelAddress_2}:" id="address_2_Label1"
+												for="address_2">
+											</xp:label>
+										</xp:td>
+										<xp:td>
+											<xp:inputText
+												value="#{document1.shippingaddress_2}" id="address_2">
+											</xp:inputText>
+										</xp:td>
+									</xp:tr>
+									<xp:tr>
+										<xp:td>
+											<xp:label
+												value="${langBean.labelCity}:" id="city_Label1"
+												for="city">
+											</xp:label>
+
+										</xp:td>
+										<xp:td>
+											<xp:inputText
+												value="#{document1.shippingcity}" id="city">
+
+											</xp:inputText>
+										</xp:td>
+									</xp:tr>
+									<xp:tr>
+										<xp:td>
+											<xp:label
+												value="${langBean.labelState}:" id="state_Label1"
+												for="state">
+											</xp:label>
+
+										</xp:td>
+										<xp:td>
+											<xp:inputText
+												value="#{document1.shippingstate}" id="state">
+											</xp:inputText>
+										</xp:td>
+									</xp:tr>
+									<xp:tr>
+										<xp:td>
+											<xp:label
+												value="${langBean.labelPostalCode}:"
+												id="labelshippingPostalCode" for="postalCode1">
+											</xp:label>
+
+										</xp:td>
+										<xp:td>
+											<xp:inputText
+												value="#{document1.shippingpostalCode}" id="postalCode">
+											</xp:inputText>
+										</xp:td>
+									</xp:tr>
+									<xp:tr>
+										<xp:td>
+											<xp:label
+												value="${langBean.labelCountry}:" id="country_Label1"
+												for="country">
+											</xp:label>
+
+										</xp:td>
+										<xp:td>
+											<xp:inputText
+												value="#{document1.shippingcountry}" id="shippingCountry">
+											</xp:inputText>
+										</xp:td>
+									</xp:tr>
+									<xp:tr>
+										<xp:td>
+											<xp:label
+												value="${langBean.labelPhone}:" id="phone_Label1"
+												for="phone">
+											</xp:label>
+
+										</xp:td>
+										<xp:td>
+											<xp:inputText
+												value="#{document1.shippingphone}" id="phone">
+
+											</xp:inputText>
+										</xp:td>
+									</xp:tr>
+									<xp:tr>
+										<xp:td>
+											<xp:label
+												value="${langBean.labelFax}:" id="fax_Label1" for="fax">
+											</xp:label>
+										</xp:td>
+										<xp:td>
+											<xp:inputText
+												value="#{document1.shippingfax}" id="fax">
+											</xp:inputText>
+										</xp:td>
+									</xp:tr>
+									<xp:tr></xp:tr>
+								</xp:table>
+
+							</xp:panel>
+
+						</xp:panel>
+						<!--					start panel billing column-->
+						<xp:panel id="panelBilling"
+							styleClass="col-md-6" style="padding-left:0px;">
+							<xp:table styleClass="address-table">
+								<xp:tr>
+									<xp:panel styleClass="tableHeading"
+										tagName="th">
+										<xp:this.attrs>
+											<xp:attr name="colspan"
+												value="2">
+											</xp:attr>
+										</xp:this.attrs>
+										<xp:label
+											value="${langBean.titleBillingAddress}" id="label8">
+										</xp:label>
+									</xp:panel>
+								</xp:tr>
+								<xp:tr>
+									<xp:td style="width:40%">
+										<xp:label
+											value="${langBean.labelCompany}:" id="label15"
+											for="custCompany">
+										</xp:label>
+
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.billingcompany}" id="custCompany"
+											style="width:100%" required="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label
+											value="${langBean.labelAddress}:" id="label19"
+											for="custAddress">
+										</xp:label>
+
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.billingaddress}" id="custAddress">
+
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label
+											value="${langBean.labelAddress_2}:" id="label21"
+											for="custAddress_2">
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.billingaddress_2}" id="custAddress_2">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label
+											value="${langBean.labelCity}:" id="label22" for="custCity">
+										</xp:label>
+
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.billingcity}" id="custCity">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label
+											value="${langBean.labelState}:" id="label24"
+											for="custState">
+										</xp:label>
+
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.billingstate}" id="custState">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label
+											value="${langBean.labelPostalCode}:" id="label26"
+											for="custPostalCode">
+										</xp:label>
+
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.billingpostalCode}" id="custPostalCode">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+							</xp:table>
+						</xp:panel>
+					</xp:panel>
+
+					<xp:panel>
+						<!-- Enter Service Information -->
+						<xp:panel id="panelServiceInfo1">
+							<xp:table styleClass="address-table">
+								<xp:tr>
+									<xp:panel styleClass="tableHeading"
+										tagName="th">
+										<xp:this.attrs>
+											<xp:attr name="colspan"
+												value="2">
+											</xp:attr>
+										</xp:this.attrs>
+										<xp:text tagName="label"
+											value="${langBean.titleServiceInformation}"
+											id="computedField15" styleClass="control-label">
+										</xp:text>
+									</xp:panel>
+								</xp:tr>
+								<xp:tr>
+									<xp:td style="width:25%">
+										<xp:text tagName="label"
+											value="${langBean.labelServiceContract}:"
+											id="computedField16" styleClass="control-label">
+										</xp:text>
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.ServiceContract}" id="serviceContract"
+											readonly="true">
+											<xp:this.validators>
+												<xp:validateRequired
+													message="Service contact is required">
+												</xp:validateRequired>
+											</xp:this.validators>
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+							</xp:table>
+						</xp:panel>
+						<!-- Build Table for Attachment Information -->
+						<xp:panel id="panelAttachemntInformation">
+							<xp:table styleClass="address-table">
+								<xp:tr>
+									<xp:panel styleClass="tableHeading"
+										tagName="th">
+										<xp:this.attrs>
+											<xp:attr name="colspan"
+												value="2">
+											</xp:attr>
+										</xp:this.attrs>
+										<xp:text tagName="label"
+											value="${langBean.titleAttachmentInformation}"
+											id="computedField2" styleClass="control-label">
+										</xp:text>
+									</xp:panel>
+								</xp:tr>
+
+								<xp:tr>
+									<xp:td style="width:25%">
+										<xp:text tagName="label"
+											value="${langBean.labelModelCatalog}:" id="computedField1"
+											styleClass="control-label">
+										</xp:text>
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.modelcatalog}" id="modelCatalog"
+											readonly="true">
+											<xp:this.validators>
+												<xp:validateRequired
+													message="Attachment Information - Model/Catalog Number is required">
+												</xp:validateRequired>
+											</xp:this.validators>
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:text tagName="label"
+											value="${langBean.labelSerialNumber}:" id="computedField3"
+											styleClass="control-label">
+										</xp:text>
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.serialNbr}" id="serialNbr"
+											readonly="true">
+											<xp:this.validators>
+												<xp:validateRequired
+													message="Attachment Information - Serial Number is required">
+												</xp:validateRequired>
+											</xp:this.validators>
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:text tagName="label"
+											value="${langBean.labelInstallationDate}:"
+											id="computedField4" styleClass="control-label">
+										</xp:text>
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.dateInstall}" id="dateInstall"
+											readonly="true">
+											<xp:this.validators>
+												<xp:validateRequired
+													message="Attachment Information - Installation Date is required">
+												</xp:validateRequired>
+											</xp:this.validators>
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:text tagName="label"
+											value="${langBean.labelPressure}:" id="computedField5"
+											styleClass="control-label">
+										</xp:text>
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.pressure}" id="pressure"
+											readonly="true">
+											<xp:this.validators>
+												<xp:validateRequired
+													message="Attachment Information - Pressure is required">
+												</xp:validateRequired>
+											</xp:this.validators>
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:text tagName="label"
+											value="${langBean.labelFlow}:" id="computedField6"
+											styleClass="control-label">
+										</xp:text>
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.flow}" id="flow" readonly="true">
+											<xp:this.validators>
+												<xp:validateRequired
+													message="Flow Information - Flow Data is required">
+												</xp:validateRequired>
+											</xp:this.validators>
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:text tagName="label"
+											value="${langBean.labelDateDealer}:" id="computedField17"
+											styleClass="control-label">
+										</xp:text>
+									</xp:td>
+									<xp:td>
+										<xp:inputText
+											value="#{document1.dateComplete}" id="dateComplete"
+											readonly="true">
+											<xp:this.validators>
+												<xp:validateRequired
+													message="Attachment Information - Date Dealer Completed Repair is required">
+												</xp:validateRequired>
+											</xp:this.validators>
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td></xp:td>
+									<xp:td></xp:td>
+								</xp:tr>
+							</xp:table>
+						</xp:panel>
+						<xp:panel id="panel1">
+							<xp:table styleClass="address-table">
+								<xp:tr>
+									<xp:panel styleClass="tableHeading"
+										tagName="th">
+										<xp:this.attrs>
+											<xp:attr name="colspan"
+												value="2">
+											</xp:attr>
+										</xp:this.attrs>
+										<xp:text tagName="label"
+											value="${langBean.titleAccessories}" id="computedField8"
+											styleClass="control-label">
+										</xp:text>
+									</xp:panel>
+									<xp:td></xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td style="width:25%">
+										<xp:text tagName="label"
+											value="${langBean.labelHFC}:" id="computedField13"
+											styleClass="control-label">
+										</xp:text>
+									</xp:td>
+									<xp:td>
+										<xp:inputText id="hfc"
+											value="#{document1.hfc}" readonly="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:text tagName="label"
+											value="${langBean.labelLoadCushion}:" id="computedField9"
+											styleClass="control-label">
+										</xp:text>
+									</xp:td>
+									<xp:td>
+										<xp:inputText id="load"
+											value="#{document1.load}" readonly="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:text tagName="label"
+											value="${langBean.labelDigitalTilt}:" id="computedField14"
+											styleClass="control-label">
+										</xp:text>
+									</xp:td>
+									<xp:td>
+										<xp:inputText id="digital"
+											value="#{document1.digital}" readonly="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td></xp:td>
+									<xp:td></xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:panel styleClass="tableHeading"
+										tagName="th">
+										<xp:this.attrs>
+											<xp:attr name="colspan"
+												value="2">
+											</xp:attr>
+										</xp:this.attrs>
+										<xp:text tagName="label"
+											value="${langBean.titleTruckInformation}"
+											id="computedField10" styleClass="control-label">
+										</xp:text>
+									</xp:panel>
+									<xp:td></xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:text tagName="label"
+											value="${langBean.labelTruckMakeModel}:" id="computedField11"
+											styleClass="control-label">
+										</xp:text>
+									</xp:td>
+									<xp:td>
+										<xp:inputText id="truckModel"
+											value="#{document1.truckModel}" readonly="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:text tagName="label"
+											value="${langBean.labelTruckSerial}:" id="computedField12"
+											styleClass="control-label">
+										</xp:text>
+									</xp:td>
+									<xp:td>
+										<xp:inputText id="truckSerial"
+											value="#{document1.truckSerial}" readonly="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+							</xp:table>
+						</xp:panel>
+						
+						<xc:ccOrderQuoteProcessButtons></xc:ccOrderQuoteProcessButtons>
+						<xp:table styleClass="address-table">
+							<xp:tr>
+
+							</xp:tr>
+							<xp:td></xp:td>
+						</xp:table>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!-- =========end of code from dealer claim summary==== -->
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

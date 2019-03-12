@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xp:panel styleClass="row" id="panel1">
+		<xp:panel styleClass="col-xs-12 col-md-10" id="panel2">
+			<xp:br></xp:br>
+			<xp:br></xp:br>
+			<!--			panelClaimConfirmed1-->
+			<xp:panel id="panelOrderConfirmed1">
+				<xp:panel styleClass="alert alert-info">
+					<xp:table>
+						<xp:tr>
+							<xp:td style="width:8%">
+								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+							</xp:td>
+							<xp:td>
+								<xp:text escape="true" id="confirmMsg1" value="${langBean.msgQuoteSDConfirm}">
+								</xp:text>
+							</xp:td>
+						</xp:tr>
+					</xp:table>
+				</xp:panel>
+				<xp:br></xp:br>
+			</xp:panel>
+		</xp:panel>
+	</xp:panel>
+</xp:view>

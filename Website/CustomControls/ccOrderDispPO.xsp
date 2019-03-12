@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+<xp:br></xp:br>
+
+    <xp:panel styleClass="row" id="panel5"
+    	readonly="true">
+    	<xp:panel id="displayPOInfo" styleClass="col-md-12">
+
+    		<xp:table styleClass="address-table">
+    			<xp:tr>
+    				<xp:panel styleClass="tableHeading" tagName="th">
+    					<xp:this.attrs>
+    						<xp:attr name="colspan" value="2"></xp:attr>
+    					</xp:this.attrs>
+    					<xp:label
+    						value="${langBean.PartsOrderPOHeading}" id="label33"
+    						style="font-weight:bold;color:rgb(255,255,255)">
+    					</xp:label>
+    				</xp:panel>
+    			</xp:tr>
+    			<xp:tr>
+ 		   			<xp:td style="width:40%">
+ 		   				<xp:text
+ 		   					style="color:rgb(255,0,0);font-size:12pt;font-weight:bold">
+ 		   					<xp:this.value><![CDATA[#{javascript:var urgent = salesOrderBean.urgentCheckBox;
+var dispUrgent = langBean.PartsOrderUrgent;
+if (urgent == "true"){dispUrgent}}]]></xp:this.value>
+ 		   					<xp:this.rendered><![CDATA[#{javascript:var urgent = salesOrderBean.urgentCheckBox;
+if(urgent=="true"){true}else{false}}]]></xp:this.rendered>
+ 		   				</xp:text>
+ 		   			</xp:td>
+ 		   			</xp:tr>
+    			<xp:tr>
+    				<xp:td style="width:40%">
+    					<xp:label
+    						value="${langBean.labelPurchaseOrder}:" id="email_Label1"
+    						for="email1">
+    					</xp:label>
+    				</xp:td>
+    				<xp:td>
+    					<xp:inputText id="dealerPONumberInput"
+    						value="#{salesOrderBean.dealerPONumber}">
+    					</xp:inputText>
+    				</xp:td>
+    			</xp:tr>
+    			<xp:tr>
+
+    				<xp:td style="width:40%">
+    					<xp:label
+    						value="${langBean.labelEndUserPurchaseOrder}:" id="label1"
+    						for="email1">
+
+    						<xp:this.rendered><![CDATA[${javascript:viewScope.typeOrder!="promoitems"}]]></xp:this.rendered>
+    					</xp:label>
+    				</xp:td>
+    				<xp:td>
+    					<xp:inputText id="inputText2"
+    						value="#{salesOrderBean.endUserPONumber}">
+    					</xp:inputText>
+    				</xp:td>
+    			</xp:tr>
+    			<xp:tr>
+    				<xp:td style="width:40%">
+    					<xp:label
+    						value="${langBean.labelAcctNumber}:" id="label2"
+    						for="acctNumber">
+    					</xp:label>
+    				</xp:td>
+    				<xp:td>
+    					<xp:inputText id="acctNumber"
+    						value="#{salesOrderBean.accountNumber}">
+    					</xp:inputText>
+    				</xp:td>
+    			</xp:tr>
+    		</xp:table>
+    	</xp:panel>
+    	</xp:panel>
+
+</xp:view>

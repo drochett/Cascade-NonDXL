@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<xp:panel>
+		<xp:span style="text-decoration:underline">
+				<xp:panel style="text-align: center">
+					<xp:text escape="false" id="computedField01"
+						value="${langBean.mhp_SpecData}" styleClass="textdatacenter">
+					</xp:text>
+				</xp:panel>
+			</xp:span>
+		</xp:panel></xp:view>

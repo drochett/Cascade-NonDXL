@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.lotus.com/dxl" name="Menus" alias="Menus" showinmenu="false" publicaccess="false" unreadmarks="none" onopengoto="lastopened" onrefresh="displayindicator" headers="beveled" opencollapsed="false" showresponsehierarchy="true" showmargin="true" shrinkrows="false" extendlastcolumn="true" showhierarchies="false" unreadcolor="black" rowlinecount="1" headerlinecount="1" rowspacing="1" bgcolor="white" totalscolor="black" headerbgcolor="white" boldunreadrows="false" evaluateactions="false" allownewdocuments="false" allowcustomizations="false" hidemarginborder="false" marginwidth="0px" marginbgcolor="white" uniquekeys="false">
+  <globals>
+    <code event="options">
+      <lotusscript/>
+    </code>
+  </globals>
+  <code event="selection">
+    <formula>SELECT Form = "MenuForm"</formula>
+  </code>
+  <actionbar bgcolor="#f0f0f0" bordercolor="black">
+    <actionbuttonstyle bgcolor="#f0f0f0"/>
+    <font color="system"/>
+    <border style="solid" width="0px 0px 1px"/>
+    <action title="Categori_ze" showinbar="false" systemcommand="categorize"/>
+    <action title="_Edit Document" showinbar="false" systemcommand="edit"/>
+    <action title="_Send Document" showinbar="false" systemcommand="send"/>
+    <action title="_Forward" showinbar="false" systemcommand="forward"/>
+    <action title="_Move To Folder..." showinbar="false" systemcommand="movetofolder"/>
+    <action title="_Remove From Folder" showinbar="false" systemcommand="removefromfolder"/>
+    <action title="_Read" showinbar="false" systemcommand="markread"/>
+    <action title="_Unread" showinbar="false" systemcommand="markunread"/>
+    <action title="_Open in New Window" showinbar="false" systemcommand="openinnewwindow"/>
+    <action title="_Print..." showinbar="false" systemcommand="print"/>
+    <action title="_Delete" showinbar="false" systemcommand="delete"/>
+    <action title="_Document Properties" showinbar="false" systemcommand="properties"/>
+    <action title="C_ut" showinbar="false" systemcommand="cut"/>
+    <action title="_Copy" showinbar="false" systemcommand="copy"/>
+    <action title="Copy as Document _Link" showinbar="false" systemcommand="copyasdoclink"/>
+    <action title="Copy as _Table" showinbar="false" systemcommand="copyastable"/>
+    <action title="P_aste" showinbar="false" systemcommand="paste"/>
+    <action title="_Open" showinbar="false" systemcommand="open"/>
+    <action title="Bookmark" showinbar="false" systemcommand="bookmark"/>
+    <action title="Create MenuItem">
+      <code event="click">
+        <formula>@Command([Compose];"MenuForm")</formula>
+      </code>
+    </action>
+    <action title="Generate other Language labels">
+      <code event="action">
+        <simpleaction action="runagent" agent="(generateLabels)"/>
+      </code>
+    </action>
+    <action title="Set sortOrder">
+      <code event="action">
+        <simpleaction action="runagent" agent="(set sortOder)"/>
+      </code>
+    </action>
+    <action title="Clear other language menu items ">
+      <code event="action">
+        <simpleaction action="runagent" agent="(clearOtherLabels)"/>
+      </code>
+    </action>
+  </actionbar>
+  <column sort="ascending" hidedetailrows="false" itemname="menu" width="1.1250" resizable="true" separatemultiplevalues="true" sortnoaccent="false" sortnocase="true" showaslinks="false" categorized="true" twisties="true">
+    <font size="12pt" color="navy" style="bold"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column align="center" sort="ascending" hidedetailrows="false" itemname="SortOrder" width="3.3750" resizable="true" separatemultiplevalues="true" sortnoaccent="false" sortnocase="true" showaslinks="false" twisties="true">
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column hidedetailrows="false" itemname="$15" width="8" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="Last Modified">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <datetimeformat show="date" date="yearmonthday" fourdigityearfor21stcentury="true" time="hourminute" zone="never" dateformat="weekdaymonthdayyear" dayformat="twodigitday" monthformat="twodigitmonth" yearformat="fourdigityear" weekdayformat="shortname" dateseparator1=" " dateseparator2="/" dateseparator3="/" timeseparator=":" preference="usersetting"/>
+    <numberformat format="general" punctuated="false" parens="false" percent="false" bytes="false"/>
+    <code event="value">
+      <formula>@Modified</formula>
+    </code>
+  </column>
+  <column hidedetailrows="false" itemname="$16" width="11.6250" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="Modified By">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@Name([CN]; @Subset(@Trim( $UpdatedBy); -1))</formula>
+    </code>
+  </column>
+  <column sort="ascending" hidedetailrows="false" itemname="key" width="10.2500" resizable="true" separatemultiplevalues="false" sortnoaccent="true" sortnocase="true" showaslinks="false">
+    <font style="bold"/>
+    <columnheader title="Key">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column hidedetailrows="false" itemname="externalURL" width="13" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font color="navy" style="bold underline"/>
+    <columnheader title="externalURL">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column hidedetailrows="false" itemname="val_americas_en" width="12.5000" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="val_americas_en">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column hidedetailrows="false" itemname="val_eme_de" width="12.2500" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="val_eme_de">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column hidedetailrows="false" itemname="val_eme_en" width="12" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="val_eme_en">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column hidedetailrows="false" itemname="val_eme_es" width="10" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="val_eme_es">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column hidedetailrows="false" itemname="val_eme_fi" width="10" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="val_eme_fi">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column hidedetailrows="false" itemname="val_eme_fr" width="10" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="val_eme_fr">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column hidedetailrows="false" itemname="val_eme_it" width="10" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="val_eme_it">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column hidedetailrows="false" itemname="val_eme_nl" width="10" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="val_eme_nl">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column hidedetailrows="false" itemname="val_eme_se" width="10" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="val_eme_se">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column hidedetailrows="false" itemname="val_americas_es" width="10" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="val_americas_es">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column hidedetailrows="false" itemname="val_americas_ca" width="10" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="val_americas_ca">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column hidedetailrows="false" itemname="val_americas_fr" width="10" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <columnheader title="val_americas_fr">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+</view>

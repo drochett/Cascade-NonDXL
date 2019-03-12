@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<!-- Meta tags -->
+	<meta charset="utf-8"></meta>
+	<xp:this.resources>
+		<xp:metaData name="description"
+			content="${javascript:compositeData.metaDescription}"
+			rendered="${javascript:compositeData.metaDescription}">
+		</xp:metaData>
+		<xp:metaData name="robots"
+			content="${javascript:compositeData.metaRobots}"
+			rendered="${javascript:compositeData.metaRobots}">
+		</xp:metaData>
+		<xp:metaData name="keywords"
+			content="${javascript:compositeData.metaKeywords}"
+			rendered="${javascript:compositeData.metaKeywords}">
+		</xp:metaData>
+
+
+	</xp:this.resources>
+
+	<!-- The page title -->
+	<xp:this.beforePageLoad><![CDATA[#{javascript:if (compositeData.pageTitle != "") { 
+	view.setPageTitle(compositeData.pageTitle);	
+}
+}]]></xp:this.beforePageLoad>
+
+	</xp:view>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	
+	<xp:panel>
+		<xe:dataView id="dataView1" expandedDetail="true" var="viewEntry"
+			rows="200">
+			<xp:this.facets>
+				<xp:panel xp:key="detail" id="panelDetail1">
+					<xp:link escape="true"
+						text="#{viewEntry.Description}" id="link1"
+						value="#{configBean.HostURL}#{configBean.DownloadsURL}#{viewEntry.linkURL}"
+						target="_blank">
+						<xp:image id="image1" url="/pdf.gif"></xp:image>
+					</xp:link>
+				</xp:panel>
+			</xp:this.facets>
+			<xe:this.data>
+				<xp:dominoView var="view1" databaseName="${configBean.DownloadsDbPath}"
+					viewName="links2"
+					categoryFilter="${sessionScope.LanguageP}~${document1.DocumentURL}~${compositeData.MediaType}">
+				</xp:dominoView>
+			</xe:this.data>
+		</xe:dataView>
+	</xp:panel>
+</xp:view>

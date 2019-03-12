@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imageresource xmlns="http://www.lotus.com/dxl" comment="Common Design Element" imagename="Icon-L_Price.gif" language="en-US" name="vl_Price List.gif" publicaccess="true">
+  <item name="$LastBuildTime" sign="true">
+    <datetime dst="true">20080424T084915,73-07</datetime>
+  </item>
+  <item name="$BabelInfo" sign="true">
+    <textlist>
+      <text>AC2BD9CB5AE9E5A288256D020073CDF7P</text>
+      <text>en-US</text>
+    </textlist>
+  </item>
+</imageresource>

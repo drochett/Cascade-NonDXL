@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:div styleClass="row">
+		<xp:div styleClass="col-md-12">
+			<xe:dynamicContent id="dynamicContent1"
+				defaultFacet="list" useHash="true">
+				<xp:this.facets>
+					<xp:div xp:key="list">
+						
+					</xp:div>
+					<xp:div xp:key="detail">
+						
+					</xp:div>
+				</xp:this.facets>
+			</xe:dynamicContent>
+		</xp:div>
+	</xp:div>
+</xp:view>

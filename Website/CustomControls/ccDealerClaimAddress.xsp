@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	
+
+	<xp:this.beforePageLoad><![CDATA[#{javascript:viewScope.OrderPlaced = "0";}]]></xp:this.beforePageLoad>
+	<xc:ccDealerClaimAddressHeader></xc:ccDealerClaimAddressHeader>
+	<xp:br></xp:br>
+	<!--
+		============================================================== this
+		panel is for users who are not logged in
+		=====================================================================
+	-->
+	<!--
+		================================================================
+		<xp:panel styleClass="alert alert-warning"
+		rendered="#{userBean.commonName eq 'Anonymous'}"> <xp:table> <xp:tr>
+		<xp:td style="width:8%"> <span class="glyphicon glyphicon-lock"
+		aria-hidden="true"> </span> </xp:td> <xp:td> <xp:text escape="true"
+		id="computedField2" value="#{langBean.msgLoginForAddressSelection}">
+		</xp:text> <xp:br></xp:br> <xp:link escape="true" id="link7"
+		text="${langBean.login}" value="${configBean.HostURL}login">
+		</xp:link> </xp:td> </xp:tr> </xp:table> </xp:panel>
+		========================================================================
+	-->
+	<!--========================= Start panelAddress ====================-->
+	<!-- <xp:panel styleClass="row" id="panelAddress">  -->
+
+	<!-- ===================== Start panelDealerSelect =============== -->
+	<xp:panel styleClass="row" id="panelStep2">
+		<xp:panel styleClass="col-xs-12 col-md-10" id="panel1">
+			<xp:panel id="panelDealerSelect">
+				<xp:panel id="PanelShipping1" rendered="#{userBean.commonName ne 'Anonymous'}">
+					<xp:table styleClass="address-table address-table-selection">
+						<xp:tr>
+							<xp:panel styleClass="tableHeading" tagName="th">
+								<xp:this.attrs>
+									<xp:attr name="colspan" value="3">
+									</xp:attr>
+								</xp:this.attrs>
+								<xp:label value="${langBean.titleDealerSelection}" id="label1">
+								</xp:label>
+							</xp:panel>
+						</xp:tr>
+						<xp:tr>
+							<xp:td style="width:20%">
+								<xp:label value="${langBean.labelShippingSel}:" id="shippingAddressSelection_Label1"
+									for="shippingAddressSelection1">
+								</xp:label>
+							</xp:td>
+							<xp:td style="width:28%">
+								<xp:comboBox value="#{salesOrderBean.shipAddress.profileUNID}"
+									id="shippingAddressSelection1">
+									<xp:selectItem itemLabel="#{langBean.selectDealerAddress}"
+										itemValue="">
+									</xp:selectItem>
+									<xp:selectItems>
+										<xp:this.value><![CDATA[#{javascript:
+var db:NotesDatabase = configBean.UserprofilesDbPath ;
+var dbName = new Array("",db);
+var vw:NotesView = "addressesbyowner2" ;
+var key = userBean.distinguishedName ;
+var tmp = @DbLookup(dbName,vw,key,2);
+var val = @DbLookup(dbName,vw,key,3);
+return @If(@IsError(tmp), "(No addresses available)", tmp + "|" + val ) ;}]]></xp:this.value>
+									</xp:selectItems>
+									<xp:eventHandler event="onchange"
+										submit="true" refreshMode="partial"
+										refreshId="panelDealerAddress" disableValidators="true">
+										<xp:this.action><![CDATA[#{javascript:dBar.info("ship profile doc is " + salesOrderBean.getShipAddress().getprofileUNID());
+salesOrderBean.getShipAddress().setAddress(sessionAsSigner);
+dBar.info("salesOrderBean.shipAddress.company = " + salesOrderBean.shipAddress.company);
+dBar.info("salesOrderBean.getShipAddress().getCompany() = " + salesOrderBean.getShipAddress().getCompany());
+//getComponent("dealer").setValue(salesOrderBean.shipAddress.company) ;
+//getComponent("dealerPerson").setValue(salesOrderBean.shipAddress.person) ;
+//getComponent("dealerAddress").setValue(salesOrderBean.shipAddress.address) ;
+//getComponent("dealerAddress_2").setValue(salesOrderBean.shipAddress.address_2) ;
+//getComponent("dealerCity").setValue(salesOrderBean.shipAddress.city) ;
+//getComponent("dealerState").setValue(salesOrderBean.shipAddress.state) ;
+//getComponent("dealerPostalCode").setValue(salesOrderBean.shipAddress.postalCode) ;
+//getComponent("dealerCountry").setValue(salesOrderBean.shipAddress.country) ;
+//getComponent("dealerPhone").setValue(salesOrderBean.shipAddress.phone) ;
+//getComponent("dealerFax").setValue(salesOrderBean.shipAddress.fax) ;
+//getComponent("dealerEmail").setValue(salesOrderBean.shipAddress.email) ;}]]></xp:this.action>
+									</xp:eventHandler>
+
+								</xp:comboBox>
+							</xp:td>
+							<xp:td>
+								<xp:text></xp:text>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td colspan="2">
+								<xp:div styleClass="btn-group">
+									<xp:link escape="true" text="${langBean.linkNewAddress}"
+										id="link2" styleClass="btn btn-link"
+										value="${configBean.HostURL}${configBean.WebsiteURL}/MyProfileAddress.xsp?action=newDocument">
+										<xp:eventHandler event="onclick" submit="true"
+											refreshMode="norefresh" immediate="true">
+											<xp:this.action><![CDATA[#{javascript:println("vStO: " + viewScope.typeOrder);
+var orderType = viewScope.typeOrder;
+println("oT: " + orderType);
+sessionScope.orderType = viewScope.typeOrder;
+println("sCtO: " + sessionScope.orderType);
+println("vSoS: " + viewScope.orderStep);
+sessionScope.orderStep = viewScope.orderStep;
+println("sCoS: " + sessionScope.orderStep);}]]></xp:this.action>
+										</xp:eventHandler>
+									</xp:link>
+									<xp:link escape="true" text="${langBean.linkManageAddresses}"
+										id="link3" styleClass="btn btn-link"
+										value="${configBean.HostURL}${sessionScope.LanguageURL}myprofile">
+									</xp:link>
+								</xp:div>
+							</xp:td>
+						</xp:tr>
+					</xp:table>
+				</xp:panel>
+			</xp:panel>
+			<!--
+				================================================================
+				start panelAddressAll row which includes Dealer Address info End
+				User Address info
+				=====================================================================
+			-->
+			<!-- Start panelDealerAddress  -->
+			<!--			address row and columns-->
+			<xp:panel styleClass="row" id="panel4">
+				<xp:panel id="panelDealerAddress" styleClass="col-xs-12 col-md-6">
+					<xp:table styleClass="address-table">
+						<xp:tr rendered="#{javascript:@IsNewDoc()}">
+							<xp:panel styleClass="tableHeading" tagName="th">
+								<xp:this.attrs>
+									<xp:attr name="colspan" value="2">
+									</xp:attr>
+								</xp:this.attrs>
+								<xp:label value="${langBean.titleDealerAddress}" id="label3">
+								</xp:label>
+							</xp:panel>
+						</xp:tr>
+
+						<xp:table styleClass="address-table">
+							<xp:tr>
+								<xp:td style="width:50%">
+									<xp:label value="${langBean.labelCompany}:" id="company_Label1"
+										for="company">
+									</xp:label>
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td style="width:50%">
+									<xp:inputText
+										value="#{salesOrderBean.shipAddress.company}" id="company">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelCompany} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelPerson}:" id="person_Label1"
+										for="person">
+									</xp:label>
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{salesOrderBean.shipAddress.person}"
+										id="person">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelPerson} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelAddress}:" id="address_Label1"
+										for="address">
+									</xp:label>
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{salesOrderBean.shipAddress.address}"
+										id="address">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelAddress} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelAddress_2}:" id="address_2_Label1"
+										for="dealerAddress_2">
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{salesOrderBean.shipAddress.address_2}"
+										id="dealerAddress_2">
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelCity}:" id="city_Label1"
+										for="city">
+									</xp:label>
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{salesOrderBean.shipAddress.city}"
+										id="city">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelCity} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelState}:" id="state_Label1"
+										for="state">
+									</xp:label>
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{salesOrderBean.shipAddress.state}"
+										id="state">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelState} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelPostalCode}:" id="postalCode_Label1"
+										for="postalCode">
+									</xp:label>
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{salesOrderBean.shipAddress.postalCode}"
+										id="postalCode">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelPostalCode} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelCountry}:" id="country_Label1"
+										for="country">
+									</xp:label>
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{salesOrderBean.shipAddress.country}"
+										id="country">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelCountry} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelPhone}:" id="phone_Label1"
+										for="phone">
+									</xp:label>
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{salesOrderBean.shipAddress.phone}"
+										id="phone">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelPhone} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelFax}:" id="fax_Label1"
+										for="fax">
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{salesOrderBean.shipAddress.fax}"
+										id="fax">
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td style="width:40%">
+									<xp:label value="${langBean.labelEmail}:" id="email_Label1"
+										for="email">
+									</xp:label>
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{salesOrderBean.shipAddress.email}"
+										id="email">
+										<xp:this.validators>
+											<xp:validateConstraint message="${langBean.errorMsgEmail}">
+												<xp:this.regex><![CDATA[\b[A-Za-z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b]]></xp:this.regex>
+											</xp:validateConstraint>
+											<xp:validateRequired
+												message="${langBean.labelShippingEmail} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td colspan="2">
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk">
+										</span>
+									</xp:label>
+									<xp:label value="${langBean.labelRequiredFields}" id="label5"
+										style="color:rgb(255,0,0)">
+									</xp:label>
+								</xp:td>
+							</xp:tr>
+
+						</xp:table>
+					</xp:table>
+				</xp:panel>
+				<!-- End panelDealerAddress  -->
+				<!-- Start panelEndUser-->
+				<xp:panel styleClass="col-md-6" id="panelEndUser">
+
+					<!-- =================Start panelEndUserAddress=================== -->
+					<xp:panel id="panelEndUserAdrress">
+						<xp:table styleClass="address-table">
+							<xp:tr>
+								<xp:panel styleClass="tableHeading" tagName="th">
+									<xp:this.attrs>
+										<xp:attr name="colspan" value="2">
+										</xp:attr>
+									</xp:this.attrs>
+									<xp:label value="${langBean.titleEndUserAddress}" id="label8">
+									</xp:label>
+								</xp:panel>
+							</xp:tr>
+							<xp:tr>
+								<xp:td style="width:40%">
+									<xp:label value="${langBean.labelCompany}:" id="label15"
+										for="billcompany">
+									</xp:label>
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText id="billcompany" style="width:100%"
+										required="true" value="#{salesOrderBean.billAddress.company}">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelCompany} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelAddress}:" id="label19"
+										for="billAddress">
+									</xp:label>
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{salesOrderBean.billAddress.address}"
+										id="billAddress">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelAddress} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelAddress_2}:" id="label21"
+										for="billAddress_2">
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{salesOrderBean.billAddress.address_2}"
+										id="billAddress_2">
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelCity}:" id="label22"
+										for="billCity">
+									</xp:label>
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{salesOrderBean.billAddress.city}"
+										id="billCity">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelCity} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelState}:" id="label24"
+										for="billState">
+									</xp:label>
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{salesOrderBean.billAddress.state}"
+										id="billState">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelState} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:label value="${langBean.labelPostalCode}:" id="label26"
+										for="billPostalCode">
+									</xp:label>
+									<xp:label>
+										<span aria-hidden="true"
+											class="required-icon glyphicon glyphicon-asterisk">
+										</span>
+									</xp:label>
+								</xp:td>
+								<xp:td>
+									<xp:inputText value="#{salesOrderBean.billAddress.postalCode}"
+										id="billPostalCode">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="${langBean.labelPostalCode} ${langBean.msgIsRequired}">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+						</xp:table>
+					</xp:panel>
+
+					<!-- End panelEndUserAddress-->
+				</xp:panel>
+				<!-- End panelEndUser-->
+
+			</xp:panel>
+
+			<!--
+				========================================================================
+				panel promo code >>>> Removed because n ot needed at this time <<<<
+				===========================================================================
+			-->
+			<!--
+				======================================================================
+				<xp:panel styleClass="row" id="panel10"> <xp:panel
+				styleClass="col-xs-12 col-md-10" id="panel11"> <xp:table
+				styleClass="address-table"> <xp:tr> <xp:panel
+				styleClass="tableHeading" tagName="th"> <xp:label
+				value="${langBean.titlePromoCode}" id="label35"
+				style="font-weight:bold;color:rgb(255,255,255)"> </xp:label>
+				</xp:panel> </xp:tr> <xp:tr> <xp:td colspan="2"> <xp:inputText
+				value="#{salesOrderBean.promoCode}" id="inputText12">
+				</xp:inputText> </xp:td> </xp:tr> </xp:table> </xp:panel>
+				</xp:panel>
+				===========================================================================
+			-->
+
+			<!-- Start panelButtons-->
+			<xp:panel styleClass="row" id="panelButtons">
+				<xp:table styleClass="address-table">
+				<xp:tr>
+					<xp:button value="${langBean.btnNextStep}" id="buttonNext1"
+						styleClass="btn btn-primary pull-right">
+						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true">
+						</span>
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="main">
+							<xp:this.action><![CDATA[#{javascript://set order email to ship email
+dBar.info("starting Next button on ccWarrantyAddress: ship email is " + salesOrderBean.getShipAddress().getEmail());
+//println("starting Next button on orderAddress: ship email is " + salesOrderBean.getShipAddress().getEmail());
+try{
+	if (salesOrderBean.getOrderEmail()=="" || salesOrderBean.getOrderEmail() == null){
+		salesOrderBean.setOrderEmail(salesOrderBean.getShipAddress().getEmail());
+	}
+			// add logic to validate step 1 input first
+	viewScope.claimStep = "step_2";
+	var dc = getComponent("dcClaimStep");
+	dc.show("step_2");
+} catch(e) {
+	dBar.error("Error in ccWarrantyAddress Next button: " + e.toString());
+	println("ccWarrantyAddress---username " + session.getEffectiveUserName() + "--> Error in Next button: " + e.toString());
+	}
+//println("=+=+=+=+=+=+=");
+//println("Finished Order Address input");
+//println("=+=+=+=+=+=+=");	}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					</xp:tr>
+					
+					<xp:tr>
+					<xp:td></xp:td>
+					</xp:tr>
+					</xp:table>
+				</xp:panel>
+			</xp:panel>
+	</xp:panel>
+	<!-- End panelButtons-->
+	<!-- End panelAddressAll-->
+	<!-- End panelFormat  -->
+	<!-- </xp:panel> -->
+	<!-- End panelAddress -->
+</xp:view>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+	<xp:this.resources>
+		<xp:script src="/custom.jss" clientSide="false"></xp:script>
+	</xp:this.resources>
+	
+	<xp:this.acl>
+		<xp:acl>
+			<xp:this.entries>
+				<xp:aclEntry type="ANONYMOUS" right="READER"></xp:aclEntry>
+				<xp:aclEntry type="DEFAULT" right="EDITOR"></xp:aclEntry>
+			</xp:this.entries>
+		</xp:acl>
+	</xp:this.acl>
+	
+	<xp:this.data>
+		<xp:dominoDocument var="document1"
+			databaseName=" web2\weblog.nsf" formName="Entry"
+			action="openDocument" computeWithForm="onsave">
+
+			<xp:this.querySaveDocument><![CDATA[#{javascript:
+		print("query save");
+		try {
+			var doc = compositeData.documentDataSource.getDocument();
+			var tn = getComponent("Thumbnail").getValue();
+			var fs = getComponent("FullSize").getValue();
+			var rtFiles:NotesRichTextItem = doc.getFirstItem("Images");
+			var allFiles:Vector = rtFiles.getEmbeddedObjects();
+			for (i=0;i<allFiles.length;i++) {
+				thisName = allFiles[i].getName();
+				if (thisName != tn && thisName != fs){
+					print("Should Delete File : " + thisName);
+					allFiles[i].remove();
+				} else {
+					print("Should Keep File : " + thisName);
+				}
+			}
+		} catch(e) {
+			print(e.toString());
+		}
+		print("Done");
+		return true;
+}]]></xp:this.querySaveDocument>
+
+			<xp:this.documentId><![CDATA[#{javascript:var val = context.getUrlParameter('title');;
+var db:NotesDatabase = session.getDatabase(session.getCurrentDatabase().getServer(), configBean.BlogDbPath);
+var nd:NotesDocument = db.getView('web').getDocumentByKey(val);
+if (nd == null) {
+	context.redirectToPage("Error404.xsp");
+} else {
+	return nd.getUniversalID();
+}}]]></xp:this.documentId>
+		</xp:dominoDocument>
+	</xp:this.data>
+
+
+	<xc:ccMetaData metaRobots="index,follow">
+		<xc:this.pageTitle><![CDATA[#{javascript:viewScope.get("pageTitle")}]]></xc:this.pageTitle>
+		<xc:this.metaKeywords><![CDATA[#{javascript:viewScope.get("pageKeywords")}]]></xc:this.metaKeywords>
+		<xc:this.metaDescription><![CDATA[#{javascript:viewScope.get("pageDescription")}]]></xc:this.metaDescription>
+	</xc:ccMetaData>
+
+	<xc:ccLayout>
+		
+		
+		<xc:ccBlogNoAccess documentDataSource="#{document1}">
+			<xc:this.rendered><![CDATA[#{javascript:ie = document1.isEditable();
+				var userName:NotesName = session.createName(@UserName());
+				un=userName.getCommon();
+				if (ie && un == "Anonymous") {
+					return true;
+				} else {
+					return false;
+				}}]]>
+			</xc:this.rendered>
+		</xc:ccBlogNoAccess>
+		
+		<xp:panel styleClass="container" style="background: #E1E1E1;">
+		
+			<xc:ccBlogEdit documentDataSource="#{document1}"> 
+				<xc:this.rendered><![CDATA[#{javascript:ie = document1.isEditable();
+					var userName:NotesName = session.createName(@UserName());
+					un=userName.getCommon();
+					if (ie && un != "Anonymous") {
+						return true;
+					} else {
+						return false;
+					}}]]></xc:this.rendered>
+			</xc:ccBlogEdit>
+			
+			<xc:ccBlogPost documentDataSource="#{document1}">
+				<xc:this.rendered><![CDATA[#{javascript:ie = document1.isEditable();
+				var userName:NotesName = session.createName(@UserName());
+				un=userName.getCommon();
+				if (ie & un != "Anonymous") {
+					return false;
+				} else {
+					return true;
+				}}]]></xc:this.rendered>
+			</xc:ccBlogPost>
+			
+			<xc:ccBlogView>
+				<xc:this.rendered><![CDATA[#{javascript:ie = document1.isEditable();
+					var userName:NotesName = session.createName(@UserName());
+					un=userName.getCommon();
+					if (ie && un != "Anonymous") {
+						return false;
+					} else {
+						return true;
+					}}]]></xc:this.rendered>
+			</xc:ccBlogView>
+			
+		<xp:label
+			value="#{javascript:var userName:NotesName = session.createName(@UserName());
+					un=userName.getCommon();
+					return document1.isEditable();}"
+			id="label1" rendered="false">
+		</xp:label>
+	
+		</xp:panel>
+	</xc:ccLayout>
+
+</xp:view>

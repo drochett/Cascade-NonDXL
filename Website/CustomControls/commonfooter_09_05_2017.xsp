@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+	
+	<div class="container cascade-footer">
+		<div class="row">
+			<div class="col-md-7">
+				<p>
+					<xp:link escape="true"
+						text="${langBean.cookiepolicy}" id="link1"
+						value="${configBean.HostURL}${sessionScope.LanguageURL}privacy"
+						styleClass="smalltext">
+					</xp:link>
+					<xp:image url="/empty.gif" style="width:5px"></xp:image>
+					|
+					<xp:image url="/empty.gif" style="width:5px"></xp:image>
+					<xp:link escape="true"
+						text="${langBean.international}" id="link2"
+						value="${configBean.HostURL}international"
+						styleClass="smalltext">
+					</xp:link>
+					<xp:image url="/empty.gif" style="width:5px"></xp:image>
+					|
+					<xp:image url="/empty.gif" style="width:5px"></xp:image>
+					<xp:link escape="true"
+						text="${langBean.codeofethics}" id="link3"
+						value="${configBean.HostURL}${sessionScope.LanguageURL}ethics"
+						styleClass="smalltext">
+					</xp:link>
+					<xp:image url="/empty.gif" style="width:5px"></xp:image>
+					|
+					<xp:image url="/empty.gif" style="width:5px"></xp:image>
+					<xp:link escape="true"
+						text="${langBean.contactFooter}" id="link4"
+						value="${configBean.HostURL}${sessionScope.LanguageURL}contacts"
+						styleClass="smalltext">
+					</xp:link>
+					<xp:image url="/empty.gif" style="width:5px"></xp:image>
+					<xp:label value="|" id="label1">
+						<xp:this.rendered><![CDATA[${sessionScope.LanguageP eq "americas-en"}]]></xp:this.rendered>
+					</xp:label>
+					<xp:image url="/empty.gif" style="width:5px"></xp:image>
+					<xp:link escape="true"
+						text="${langBean.msdsdocuments}" id="link5"
+						value="${configBean.HostURL}${sessionScope.LanguageURL}msds"
+						styleClass="smalltext">
+						<xp:this.rendered><![CDATA[${sessionScope.LanguageP eq "americas-en"}]]></xp:this.rendered>
+					</xp:link>
+				</p>
+				<p>
+					<xp:link escape="true" id="link10"
+						text="${langBean.myprofile}" styleClass="smalltext"
+						value="${configBean.HostURL}${sessionScope.LanguageURL}myprofile">
+					</xp:link>
+					<xp:image url="/empty.gif" style="width:5px"></xp:image>
+					|
+					<xp:image url="/empty.gif" style="width:5px"></xp:image>
+					<xp:link escape="true" id="link9"
+						text="${langBean.myorders}" styleClass="smalltext"
+						value="${configBean.HostURL}${sessionScope.LanguageURL}myorders">
+					</xp:link>
+					<xp:image url="/empty.gif" style="width:5px"></xp:image>
+					|
+					<xp:image url="/empty.gif" style="width:5px"></xp:image>
+					<xp:link escape="true" id="link8"
+						text="${langBean.registered}" styleClass="smalltext"
+						value="${configBean.HostURL}${sessionScope.LanguageURL}registeredusers">
+					</xp:link>
+					<xp:image url="/empty.gif" style="width:5px"></xp:image>
+					|
+					<xp:image url="/empty.gif" style="width:5px"></xp:image>
+					<xp:link escape="true" id="link7"
+						text="${langBean.login}" styleClass="smalltext"
+						value="${configBean.HostURL}login">						
+						<xp:this.rendered><![CDATA[#{javascript:@Name('[CN]', session.getEffectiveUserName()) == "Anonymous"}]]></xp:this.rendered>
+					</xp:link>
+					<xp:link escape="false" id="link6"
+						styleClass="smalltext">
+						<xp:this.rendered><![CDATA[#{javascript:@Name('[CN]', session.getEffectiveUserName()) != "Anonymous"}]]></xp:this.rendered>
+						<xp:this.text><![CDATA[${javascript:langBean.getValue("logout") + ' ' + @Name('[CN]', session.getEffectiveUserName())}]]></xp:this.text>
+						<xp:this.value><![CDATA[#{javascript:
+var redir = "/" + sessionScope.LanguageURL + "home";
+return "/" + configBean.getValue("WebsiteURL") + "?logout&redirectto=" + redir ;
+}]]></xp:this.value>
+					</xp:link>
+				</p>
+				<p class="smalltext2 cascade-copyright">
+					<xp:text id="computedField11">
+						<xp:this.value><![CDATA[#{javascript:
+var circC = "©" ;
+var yr = @Text(@Year(@Now()));
+return circC + yr + " " + langBean.getValue("copyright");}]]></xp:this.value>
+					</xp:text>
+				</p>
+			</div>
+			<div class="col-md-5">
+
+			<xp:repeat id="repeat1" rows="30" var="phoneVal"
+				indexVar="ind" value="#{langBean.phone}">
+
+				<p class="smalltext2 cascade-phone"
+					style="color: #339900;">
+					<xp:text id="computedField10" value="#{phoneVal}">
+					</xp:text>
+				</p>
+			</xp:repeat>
+
+			</div>
+		</div>
+	</div>
+</xp:view>

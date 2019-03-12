@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="Get Icon Notes" hide="v3" publicaccess="false">
+  <trigger type="actionsmenu"/>
+  <documentset type="runonce"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent Get Icon Notes
+	Created Mar 25, 2016 by Cascade Corp/CASCADE
+	Description: Comments for Agent
+%END REM
+Option Public
+Option Declare
+Use "Windows Clipboard"
+
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	Dim sess As New NotesSession
+	Dim db As NotesDatabase
+	Dim doc As NotesDocument
+	Dim item As NotesItem
+	Dim newFF As String, FlagFldStr As String
+	Dim itemFF As NotesItem
+	Dim x As Integer
+	Dim ans As Variant
+	Dim msg As String
+	Set db = sess.CurrentDatabase
+	Dim session As New NotesSession
+
+	Dim n As String
+	Set db = session.CurrentDatabase
+	n = "FFFF0010"'default noteID for the database
+	'give the user a chance to change the noteId to a particular document making the default db noteID
+	'as the default value
+	'	n = InputBox("Enter the noteId of the document you want yo work on:", "Update Note Icon Values", n)
+	'	If n = "" Then 'the user selected Cancel or returned an empty value
+	'		MsgBox ("Request to update Icon Note has been cancelled.")
+	'		Exit Sub
+	'	End If
+	Set doc = db.GetDocumentByID (n)
+	Set item = doc.getFirstItem("$TITLE")
+	'return a list of all the icon notes for that particular document
+	msg = "Data following Icon Notes in this database for will be copied to the clipboard:"
+	Forall i In doc.Items
+		msg = msg + Chr(10) + Chr(9) + i.name 
+	End Forall
+	Msgbox msg
+	msg = ""
+	Forall i In doc.Items
+		If i.name &lt;&gt; "IconBitmap" Then
+			Set itemFF = doc.GetFirstItem(i.name)
+			msg = msg + Chr(10) + Chr(10) + i.name + ":  " + itemFF.Text
+		Else
+			msg = msg + Chr(10) + i.name 
+		End If
+	End Forall
+	sendDataToClipboard(msg)
+End Sub
+
+</lotusscript>
+  </code>
+  <code event="sendDataToClipboard">
+    <lotusscript>%REM
+	Function sendDataToClipboard
+	Description: Comments for Function
+%END REM
+Function sendDataToClipboard(data As String)
+	Dim x As WindowsClipboard
+	Set x = New WindowsClipboard()
+	x.Contents = data
+End Function</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101954,07-08</datetime>
+  </item>
+</agent>

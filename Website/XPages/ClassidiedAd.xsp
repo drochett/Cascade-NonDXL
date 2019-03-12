@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.beforePageLoad><![CDATA[#{javascript:
+if (viewScope.orderStep == "" || viewScope.orderStep == null) {
+	viewScope.orderStep = "step_1";
+}
+}]]></xp:this.beforePageLoad>
+	<xp:this.data>
+		<xp:dominoDocument var="document1"
+			databaseName="${configBean.ClassifiedsDBPath}" formName="Classified"
+			computeWithForm="both">
+		</xp:dominoDocument>
+	</xp:this.data>
+	<xc:ccLayout>
+		<xp:panel id="main" styleClass="container">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7" value="Cascade Classified Ad"
+							styleClass="carousel-heading">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!--			MAIN CONTENT-->
+			<!-- Classified Ad Document -->
+			<xp:br></xp:br>
+			<xe:dynamicContent id="dcOrderStep" defaultFacet="step_1">
+				<xp:this.facets>
+					<!-- Ad input facet xp:key="step_1"-->
+					<xp:panel styleClass="row" id="panelInput1" xp:key="step_1">
+						<xp:panel styleClass="col-xs-12 col-md-10" id="panel3">
+							<xp:table>
+								<xp:tr rendered="#{javascript:@IsNewDoc()}">
+									<xp:td colspan="2">
+										<xp:label rendered="#{javascript:@IsNewDoc()}" id="label2">
+											<span class="glyphicon glyphicon-asterisk icon-required"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+										<xp:label value="${langBean.labelRequiredFields}" id="label5"
+											style="color:rgb(255,0,0)" rendered="#{javascript:@IsNewDoc()}">
+										</xp:label>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td style="width:30%">
+										<xp:label value="Name: " id="txt_Name_Label1" for="txt_Name1">
+										</xp:label>
+										<xp:label rendered="#{javascript:@IsNewDoc()}" id="label3">
+											<span class="glyphicon glyphicon-asterisk icon-required"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+									</xp:td>
+									<xp:td style="width:70%">
+										<xp:inputText value="#{document1.txt_Name}" id="txt_Name1"
+											required="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="Company:" id="txt_Company_Label1"
+											for="txt_Company1">
+										</xp:label>
+										<xp:label rendered="#{javascript:@IsNewDoc()}" id="label4">
+											<span class="glyphicon glyphicon-asterisk icon-required"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:inputText value="#{document1.txt_Company}"
+											id="txt_Company1" required="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="Address:" id="txt_Address_Label1"
+											for="txt_Address1">
+										</xp:label>
+										<xp:label rendered="#{javascript:@IsNewDoc()}" id="label6">
+											<span class="glyphicon glyphicon-asterisk icon-required"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:inputText value="#{document1.txt_Address}"
+											id="txt_Address1" required="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="City/State:" id="txt_CityState_Label1"
+											for="txt_CityState1">
+										</xp:label>
+										<xp:label rendered="#{javascript:@IsNewDoc()}" id="label7">
+											<span class="glyphicon glyphicon-asterisk icon-required"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:inputText value="#{document1.txt_CityState}"
+											id="txt_CityState1" required="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="Zip:" id="txt_Zip_Label1" for="txt_Zip1">
+										</xp:label>
+										<xp:label rendered="#{javascript:@IsNewDoc()}" id="label8">
+											<span class="glyphicon glyphicon-asterisk icon-required"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:inputText value="#{document1.txt_Zip}" id="txt_Zip1"
+											required="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="Phone:" id="txt_Phone_Label1" for="txt_Phone1">
+										</xp:label>
+										<xp:label rendered="#{javascript:@IsNewDoc()}" id="label9">
+											<span class="glyphicon glyphicon-asterisk icon-required"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:inputText value="#{document1.txt_Phone}" id="txt_Phone1"
+											required="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="E-Mail:" id="txt_Email_Label1" for="txt_Email1">
+										</xp:label>
+										<xp:label rendered="#{javascript:@IsNewDoc()}" id="label10">
+											<span class="glyphicon glyphicon-asterisk icon-required"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:inputText value="#{document1.txt_Email}" id="txt_Email1"
+											required="true" rendered="#{javascript:@IsNewDoc()}">
+											<xp:this.validators>
+												<xp:validateConstraint message="${langBean.errorMsgEmail}">
+													<xp:this.regex><![CDATA[\b[A-Za-z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b]]></xp:this.regex>
+												</xp:validateConstraint>
+												<xp:validateRequired message="Email ${langBean.msgIsRequired}">
+												</xp:validateRequired>
+											</xp:this.validators>
+										</xp:inputText>
+										<xp:link escape="true" text="#{document1.txt_Email}" id="link2"
+											value="mailto:#{document1.txt_Email}" rendered="#{javascript:!@IsNewDoc()}">
+										</xp:link>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="Product Category:" id="txt_ProductCategory_Label1"
+											for="txt_ProductCategory1">
+										</xp:label>
+										<xp:label rendered="#{javascript:@IsNewDoc()}" id="label11">
+											<span class="glyphicon glyphicon-asterisk icon-required"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:comboBox id="txt_ProductCategory1" value="#{document1.txt_ProductCategory}">
+											<xp:this.validators>
+												<xp:validateRequired message="Select a Product Category">
+												</xp:validateRequired>
+											</xp:this.validators>
+											<xp:selectItem itemLabel="-- select category --"
+												itemValue="" id="selectItem1">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Bale Clamp" id="selectItem2">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Carton Clamp" id="selectItem3">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Drum Clamp" id="selectItem4">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Fork Clamp" id="selectItem5">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Fork Positioner" id="selectItem6">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Load Stabilizer" id="selectItem7">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Miscellaneous" id="selectItem8">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Multi-Purpose Clamp"
+												id="selectItem9">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Other Clamp" id="selectItem10">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Pallet Handler" id="selectItem11">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Push Pull" id="selectItem12">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Roll Clamp" id="selectItem13">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Rotator" id="selectItem14">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Sideshifter" id="selectItem15">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Turn-A-Load" id="selectItem16">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Turnafork" id="selectItem17">
+											</xp:selectItem>
+										</xp:comboBox>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="Manufacturer:" id="txt_Manufacturer_Label1"
+											for="txt_Manufacturer1">
+										</xp:label>
+										<xp:label rendered="#{javascript:@IsNewDoc()}" id="label12">
+											<span class="glyphicon glyphicon-asterisk icon-required"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:inputText value="#{document1.txt_Manufacturer}"
+											id="txt_Manufacturer1" required="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="Model Number:" id="txt_ModelNumber_Label1"
+											for="txt_ModelNumber1">
+										</xp:label>
+										<xp:label rendered="#{javascript:@IsNewDoc()}" id="label13">
+											<span class="glyphicon glyphicon-asterisk icon-required"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:inputText value="#{document1.txt_ModelNumber}"
+											id="txt_ModelNumber1" required="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="Condition:" id="txt_Condition_Label1"
+											for="txt_Condition1">
+										</xp:label>
+										<xp:label rendered="#{javascript:@IsNewDoc()}" id="label14">
+											<span class="glyphicon glyphicon-asterisk icon-required"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:comboBox value="#{document1.txt_Condition}"
+											id="txt_Condition1" required="true">
+											<xp:this.validators>
+												<xp:validateRequired message="Select a Condition">
+												</xp:validateRequired>
+											</xp:this.validators>
+											<xp:selectItem itemLabel="-- select condition --"
+												itemValue="" id="selectItem18">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Excellent" id="selectItem19">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Good" id="selectItem20">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Fair" id="selectItem21">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="Poor" id="selectItem22">
+											</xp:selectItem>
+										</xp:comboBox>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="Title/Short Description:" id="txt_ShortDesc_Label1"
+											for="txt_ShortDesc1">
+										</xp:label>
+										<xp:label rendered="#{javascript:@IsNewDoc()}" id="label15">
+											<span class="glyphicon glyphicon-asterisk icon-required"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:inputText value="#{document1.txt_ShortDesc}"
+											id="txt_ShortDesc1" required="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="Long Description:" id="rtf_Description_Label1"
+											for="rtf_Description1">
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:inputTextarea value="#{document1.rtf_Description}"
+											id="rtf_Description1" style="height:8em;width:100.0%">
+										</xp:inputTextarea>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="Price:" id="txt_Price_Label1" for="txt_Price1">
+										</xp:label>
+										<xp:label rendered="#{javascript:@IsNewDoc()}" id="label16">
+											<span class="glyphicon glyphicon-asterisk icon-required"
+												aria-hidden="true">
+											</span>
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:inputText value="#{document1.txt_Price}" id="txt_Price1"
+											required="true">
+										</xp:inputText>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td>
+										<xp:label value="This Add Expires In: (months)" id="key_Expires_Label1"
+											for="key_Expires1" rendered="#{javascript:@IsNewDoc()}"
+											style="color:rgb(128,0,79)">
+										</xp:label>
+										<xp:label value="This Add Expires On:" id="label1"
+											style="color:rgb(128,0,79)" for="key_Expires1" rendered="#{javascript:!@IsNewDoc()}">
+										</xp:label>
+									</xp:td>
+									<xp:td>
+										<xp:radioGroup id="key_Expires1" style="color:rgb(128,0,79)"
+											value="#{document1.key_Expires}" rendered="#{javascript:@IsNewDoc()}">
+											<xp:selectItem itemLabel="3" id="selectItem23">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="6" id="selectItem24">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="9" id="selectItem25">
+											</xp:selectItem>
+											<xp:selectItem itemLabel="12" id="selectItem26">
+											</xp:selectItem>
+										</xp:radioGroup>
+										<xp:text escape="true" rendered="#{javascript:!@IsNewDoc()}"
+											id="computedField1" value="#{document1.date_ExpDate}" style="color:rgb(128,0,79)">
+											<xp:this.converter>
+												<xp:convertDateTime type="date"
+													dateStyle="long">
+												</xp:convertDateTime>
+											</xp:this.converter>
+										</xp:text>
+									</xp:td>
+								</xp:tr>
+								<xp:tr rendered="#{javascript:@IsNewDoc()}">
+									<xp:td colspan="2">
+										<xp:label
+											value="You may attach a photograph (JPEG or GIF formats only). Note that the photo won't appear with your ad until our administrator has had an opportunity to review and approve it. Click the browse button to select the photo file from your hard drive or disk:"
+											id="label17">
+										</xp:label>
+										<xp:fileUpload id="fileUpload1" rendered="#{javascript:@IsNewDoc()}"
+											mimetype="image/jpeg" useUploadname="true"
+											accept="image/jpeg,image/gif,image/png" value="#{document1.Body}">
+										</xp:fileUpload>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:this.rendered><![CDATA[#{javascript:!@IsNewDoc() && @Attachments() > 0}]]></xp:this.rendered>
+									<xp:td colspan="2">
+										<xp:panel
+											id="panelAttachmentLinks">
+											<xp:repeat id="repeat1"
+												rows="30" var="fileName">
+												<xp:this.value><![CDATA[#{javascript:
+var doc:NotesDocument = document1.getDocument();
+viewScope.docUnid = doc.getUniversalID();
+var attachmentNames = @AttachmentNames() ;
+dBar.info(attachmentNames);
+return attachmentNames ;}]]></xp:this.value>
+												<xp:label
+													value="#{langBean.labelClickToViewPhoto}" id="label18">
+												</xp:label>
+												&#160;
+												<xp:link escape="true"
+													text="#{fileName}" target="_blank" id="link3"
+													value="#{configBean.HostURL}#{configBean.ClassifiedsURL}/0/#{viewScope.docUnid}/$FILE/#{fileName} ">
+													<span
+														class="glyphicon glyphicon-picture" aria-hidden="true">
+													</span>
+													&#160;
+												</xp:link>
+												<xp:br></xp:br>
+											</xp:repeat>
+											<xp:br></xp:br>
+										</xp:panel>
+									</xp:td>
+								</xp:tr>
+								<xp:tr>
+									<xp:td></xp:td>
+									<xp:td>
+
+										<!--submit button-->
+										<xp:button value="Submit" id="button3"
+											styleClass="btn btn-primary pull-right" rendered="#{javascript:@IsNewDoc()}">
+											<xp:eventHandler event="onclick" submit="true"
+												refreshMode="partial" refreshId="main" immediate="false"
+												save="true" id="eventHandler1">
+												<xp:this.action><![CDATA[#{javascript:
+// buttonType is "submit" ... see computeWithForm on Document data source
+viewScope.orderPlaced = "1";
+viewScope.orderStep = "step_2";
+var dc = getComponent("dcOrderStep");
+dc.show("step_2")
+}]]></xp:this.action>
+											</xp:eventHandler>
+										</xp:button>
+										<!--cancel button-->
+										<xp:button id="button2">
+											<xp:this.value><![CDATA[#{javascript:
+return (@IsNewDoc()) ? "Cancel" : "Return to Classifieds Listing" ;}]]></xp:this.value>
+											<span class="glyphicon glyphicon-chevron-left"
+												aria-hidden="true">
+											</span>
+											<xp:eventHandler event="onclick" submit="true"
+												refreshMode="complete" immediate="true" id="eventHandler2">
+												<xp:this.action><![CDATA[#{javascript:
+viewStateBean.restoreState = true ;
+return "xsp-classifieds" ;}]]></xp:this.action>
+											</xp:eventHandler>
+										</xp:button>
+									</xp:td>
+								</xp:tr>
+							</xp:table>
+						</xp:panel>
+					</xp:panel>
+					<!-- Confirmation facet xp:key="step_2"-->
+					<xp:panel styleClass="row" id="panel1" xp:key="step_2">
+						<xp:panel styleClass="col-xs-12 col-md-10" id="panel2">
+							<xp:br></xp:br>
+							<xp:panel id="panelOrderConfirmed1">
+								<xp:panel styleClass="alert alert-info">
+									<xp:table>
+										<xp:tr>
+											<xp:td style="width:8%">
+												<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+											</xp:td>
+											<xp:td>
+												<xp:text escape="true" id="confirmMsg1"
+													value="Thanks for using Cascade Corporation's Free Classifieds Site! Your ad will appear once it has been approved.">
+												</xp:text>
+											</xp:td>
+										</xp:tr>
+									</xp:table>
+								</xp:panel>
+								<xp:br></xp:br>
+								<!--return button-->
+								<xp:button id="button1" value="Return to Classifieds Listing">
+									<span class="glyphicon glyphicon-chevron-left"
+										aria-hidden="true"></span>
+									<xp:eventHandler event="onclick" submit="true"
+										refreshMode="complete" immediate="true">
+										<xp:this.action><![CDATA[#{javascript:
+viewStateBean.restoreState = true ;
+return "xsp-classifieds" ;}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:button>
+							</xp:panel>
+						</xp:panel>
+					</xp:panel>
+				</xp:this.facets>
+			</xe:dynamicContent>
+			<xp:br></xp:br>
+
+
+
+		</xp:panel>
+	</xc:ccLayout>
+	<xp:this.navigationRules>
+		<xp:navigationRule outcome="xsp-classifieds" viewId="/Classifieds.xsp"></xp:navigationRule>
+	</xp:this.navigationRules>
+</xp:view>
+

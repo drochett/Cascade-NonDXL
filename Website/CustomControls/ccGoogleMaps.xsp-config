@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config>
+  <faces-config-extension>
+    <namespace-uri>http://www.ibm.com/xsp/custom</namespace-uri>
+    <default-prefix>xc</default-prefix>
+  </faces-config-extension>
+  <composite-component>
+    <component-type>ccGoogleMaps</component-type>
+    <composite-name>ccGoogleMaps</composite-name>
+    <composite-file>/ccGoogleMaps.xsp</composite-file>
+    <composite-extension>
+      <designer-extension>
+        <in-palette>true</in-palette>
+        <category/>
+        <render-markup>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&#xd;
+&lt;xp:view xmlns:xp="http://www.ibm.com/xsp/core"&gt;&#xd;
+&lt;xp:panel style="border-color:rgb(191,148,116);border-style:solid;border-width:thin"&gt;&#xd;
+ccGoogleMaps&#xd;
+&lt;/xp:panel&gt;&#xd;
+&lt;/xp:view&gt;</render-markup>
+      </designer-extension>
+    </composite-extension>
+    <property>
+      <property-name>map_height</property-name>
+      <property-class>int</property-class>
+      <display-name>height of the map*</display-name>
+      <property-extension>
+        <designer-extension>
+          <editor>com.ibm.std.Integer</editor>
+          <default-value>500</default-value>
+        </designer-extension>
+        <required>true</required>
+      </property-extension>
+      <description>This value is required.&#xd;
+Specify the height of the map in pixels if the property "map_width_height_measurement" is set to "px" or if the property "map_width_height_measurement" is set to "%" then specify the percentage of the height of the map.</description>
+    </property>
+    <property>
+      <property-name>map_width</property-name>
+      <property-class>int</property-class>
+      <display-name>width of the map*</display-name>
+      <property-extension>
+        <designer-extension>
+          <editor>com.ibm.std.Integer</editor>
+          <default-value>500</default-value>
+        </designer-extension>
+        <required>true</required>
+      </property-extension>
+      <description>Specify the width of the map in pixels if the property "map_width_height_measurement" is set to "px" or if the property "map_width_height_measurement" is set to "%" then specify the percentage of the width of the map.</description>
+    </property>
+    <property>
+      <property-name>map_width_measurement</property-name>
+      <property-class>string</property-class>
+      <display-name>width measurement of the map*</display-name>
+      <property-extension>
+        <designer-extension>
+          <editor>com.ibm.workplace.designer.property.editors.comboParameterEditor</editor>
+          <editor-parameter>px&#xd;
+%</editor-parameter>
+          <default-value>px</default-value>
+        </designer-extension>
+        <required>true</required>
+      </property-extension>
+      <description>This value is required.&#xd;
+The measurement of the width of the map. Specify "px" or "%".</description>
+    </property>
+    <property>
+      <property-name>map_height_measurement</property-name>
+      <property-class>string</property-class>
+      <display-name>height measurement of the map*</display-name>
+      <description>This value is required.&#xd;
+The measurement of the width of the map. Specify "px" or "%".</description>
+      <property-extension>
+        <designer-extension>
+          <editor>com.ibm.workplace.designer.property.editors.comboParameterEditor</editor>
+          <editor-parameter>px&#xd;
+%</editor-parameter>
+          <default-value>px</default-value>
+        </designer-extension>
+      </property-extension>
+    </property>
+    <property>
+      <property-name>map_zoom</property-name>
+      <property-class>int</property-class>
+      <display-name>zoom factor of the map*</display-name>
+      <property-extension>
+        <designer-extension>
+          <editor>com.ibm.workplace.designer.property.editors.comboParameterEditor</editor>
+          <editor-parameter>0&#xd;
+1&#xd;
+2&#xd;
+3&#xd;
+4&#xd;
+5&#xd;
+6&#xd;
+7&#xd;
+8&#xd;
+9&#xd;
+10&#xd;
+11&#xd;
+12&#xd;
+13&#xd;
+14&#xd;
+15&#xd;
+16&#xd;
+17&#xd;
+18</editor-parameter>
+          <default-value>10</default-value>
+        </designer-extension>
+        <required>true</required>
+      </property-extension>
+      <description>This value is required.&#xd;
+Value between 0 and 18. The higher the number how more details you will see.</description>
+    </property>
+    <property>
+      <property-name>map_type</property-name>
+      <property-class>string</property-class>
+      <display-name>Type of the map*</display-name>
+      <property-extension>
+        <designer-extension>
+          <editor>com.ibm.workplace.designer.property.editors.comboParameterEditor</editor>
+          <editor-parameter>ROADMAP&#xd;
+SATELLITE&#xd;
+HYBRID&#xd;
+TERRAIN</editor-parameter>
+          <default-value>ROADMAP </default-value>
+        </designer-extension>
+        <required>true</required>
+      </property-extension>
+      <description>This value is required. Specify "ROADMAP", "SATELLITE", "HYBRID" or "TERRAIN".</description>
+    </property>
+    <property>
+      <property-name>map_center_type</property-name>
+      <property-class>string</property-class>
+      <display-name>map center type*</display-name>
+      <property-extension>
+        <designer-extension>
+          <editor>com.ibm.workplace.designer.property.editors.comboParameterEditor</editor>
+          <editor-parameter>Coordinates&#xd;
+Address</editor-parameter>
+          <default-value>Address</default-value>
+        </designer-extension>
+        <required>true</required>
+      </property-extension>
+      <description>This value is required.&#xd;
+Specify how you want to assign the center of the map. If you choose "Coordinates" you have to enter values for the properties "map_center_latitude" and "map_center_longitude". If  you choose "Address" you have to enter the address of the center for the property "mapcenteraddress".</description>
+    </property>
+    <property>
+      <property-name>map_center_latitude</property-name>
+      <property-class>double</property-class>
+      <display-name>Latitude of the center of the map (*)</display-name>
+      <property-extension>
+        <designer-extension>
+          <default-value/>
+        </designer-extension>
+      </property-extension>
+      <description>Required if property "map_center_type" is set to "Coordinates".&#xd;
+If the property "map_center_type" is set to "Coordinates" the center of the map is determined by the combination of the properties map_center_latitude (this property) and map_center_longitude.</description>
+    </property>
+    <property>
+      <property-name>map_center_longitude</property-name>
+      <property-class>string</property-class>
+      <display-name>Longitude of the center of the map (*)</display-name>
+      <property-extension>
+        <designer-extension>
+          <default-value/>
+        </designer-extension>
+      </property-extension>
+      <description>Required if property "map_center_type" is set to "Coordinates".&#xd;
+If the property "map_center_type" is set to "Coordinates" the center of the map is determined by the combination of the properties map_center_latitude and map_center_longitude (this property).</description>
+    </property>
+    <property>
+      <property-name>map_center_address</property-name>
+      <property-class>string</property-class>
+      <display-name>Address used for the center of the map (*)</display-name>
+      <description>Required if property "map_center_type" is set to "Address".&#xd;
+If the property "map_center_type" is set to "Address" the center of the map will be the address you specify here.</description>
+      <property-extension>
+        <designer-extension>
+          <default-value>Lonneker</default-value>
+        </designer-extension>
+      </property-extension>
+    </property>
+    <property-type>
+      <property-name>marker</property-name>
+      <display-name>marker</display-name>
+      <property-extension>
+        <collection-property>true</collection-property>
+        <container-class>java.util.Collection</container-class>
+      </property-extension>
+      <property>
+        <property-name>title</property-name>
+        <property-class>string</property-class>
+        <display-name>Title of the marker</display-name>
+        <property-extension>
+          <required>false</required>
+        </property-extension>
+        <description>You will see the title if you hover over the marker.</description>
+      </property>
+      <property>
+        <property-name>layer</property-name>
+        <property-class>int</property-class>
+        <display-name>Layer of the marker</display-name>
+        <property-extension>
+          <required>false</required>
+        </property-extension>
+        <description>With layer you can specify which marker is on top if they are overlapping because they are to close together. The highest number is on top.</description>
+      </property>
+      <property>
+        <property-name>infotext</property-name>
+        <property-class>string</property-class>
+        <display-name>Infotext of the marker</display-name>
+        <property-extension>
+          <required>false</required>
+        </property-extension>
+        <description>You can put in here just text or HTML. If you click on the marker you will see a textbox with the information you specify here.</description>
+      </property>
+      <property>
+        <property-name>icon</property-name>
+        <property-class>string</property-class>
+        <display-name>Icon of the marker</display-name>
+        <property-extension>
+          <designer-extension>
+            <editor>com.ibm.workplace.designer.property.editors.ImagePicker</editor>
+            <default-value/>
+          </designer-extension>
+          <required>false</required>
+        </property-extension>
+        <description>If you leave this empty a default Google Maps Marker will show up. If you want a custom marker specify it here by selecting it from the image resources.</description>
+      </property>
+      <property>
+        <property-name>location_address</property-name>
+        <property-class>string</property-class>
+        <display-name>Address of the marker*</display-name>
+        <property-extension>
+          <required>false</required>
+        </property-extension>
+        <description>This value is required if the value of the property location_type is 'Address'.&#xd;
+This is the address where the marker should show up.</description>
+      </property>
+      <property>
+        <property-name>animation</property-name>
+        <property-class>string</property-class>
+        <display-name>Animation of the marker</display-name>
+        <property-extension>
+          <designer-extension>
+            <editor>com.ibm.workplace.designer.property.editors.comboParameterEditor</editor>
+            <editor-parameter>DROP&#xd;
+BOUNCE</editor-parameter>
+            <default-value/>
+          </designer-extension>
+          <required>false</required>
+        </property-extension>
+        <description>If you leave this blank, there is no animation of the marker. You can select "DROP" or "BOUNCE" to add animatioin to your marker.</description>
+      </property>
+      <property>
+        <property-name>location_type</property-name>
+        <property-class>string</property-class>
+        <display-name>Type of specification of the locaion*</display-name>
+        <property-extension>
+          <required>true</required>
+          <designer-extension>
+            <editor>com.ibm.workplace.designer.property.editors.comboParameterEditor</editor>
+            <editor-parameter>Coordinates&#xd;
+Address</editor-parameter>
+            <default-value>Address</default-value>
+          </designer-extension>
+        </property-extension>
+        <description>This value is required. You can select 'Coordinates' or 'Address'.</description>
+      </property>
+      <property>
+        <property-name>location_latitude</property-name>
+        <property-class>double</property-class>
+        <display-name>Latitude of the marker (*)</display-name>
+        <description>This value is required if the value of the property location_type is 'Coordinates'.</description>
+      </property>
+      <property>
+        <property-name>location_longitude</property-name>
+        <property-class>double</property-class>
+        <display-name>Longitude of the marker (*)</display-name>
+        <description>This value is required if the value of the property location_type is 'Coordinates'.</description>
+      </property>
+      <description>You can create a marker on the map.</description>
+    </property-type>
+    <icon>
+      <small-icon/>
+    </icon>
+    <property>
+      <property-name>marker_string_array</property-name>
+      <property-class>string</property-class>
+      <display-name>String for marker array</display-name>
+      <description>You can create markers programmatically. The result must be a string.&#xd;
+The format is:&#xd;
+[title1~~layer1~~infotext1~~icon1~~animation1~~location_type1~~location_address1~~location_latitude1~~location_longitude1],[title2~~layer2~~infotext2~~icon2~~animation2~~location_type2~~location_address2~~location_latitude2~~location_longitude2]</description>
+    </property>
+    <property-type>
+      <property-name>circle</property-name>
+      <property>
+        <property-name>center_type</property-name>
+        <property-class>string</property-class>
+        <display-name>Center type*</display-name>
+        <property-extension>
+          <designer-extension>
+            <editor>com.ibm.workplace.designer.property.editors.comboParameterEditor</editor>
+            <editor-parameter>Address&#xd;
+Coordinates</editor-parameter>
+            <default-value>Address</default-value>
+          </designer-extension>
+          <required>true</required>
+        </property-extension>
+        <description>This value is Required.&#xd;
+You can select 'Address' or 'Coordinates'.</description>
+      </property>
+      <display-name>circle</display-name>
+      <property>
+        <property-name>center_address</property-name>
+        <property-class>string</property-class>
+        <display-name>Address of the center (*)</display-name>
+        <description>Required if the property 'center_type' is 'Address'. This is the address of the center of the circle.</description>
+      </property>
+      <property>
+        <property-name>center_latitude</property-name>
+        <property-class>string</property-class>
+        <display-name>center_latitude</display-name>
+        <property-extension>
+          <required>false</required>
+        </property-extension>
+        <description>Required if property "center_type" is set to "Coordinates".&#xd;
+If the property "center_type" is set to "Coordinates" the center of the circle is determined by the combination of the properties center_latitude (this property) and center_longitude.</description>
+      </property>
+      <property>
+        <property-name>center_longitude</property-name>
+        <property-class>double</property-class>
+        <display-name>center_longitude</display-name>
+        <property-extension>
+          <required>false</required>
+        </property-extension>
+        <description>Required if property "center_type" is set to "Coordinates".&#xd;
+If the property "center_type" is set to "Coordinates" the center of the circle is determined by the combination of the properties center_latitude and center_longitude (this property).</description>
+      </property>
+      <property>
+        <property-name>radius</property-name>
+        <property-class>int</property-class>
+        <display-name>Radius*</display-name>
+        <description>This value is required.&#xd;
+The radius in meters on the Earth's surface</description>
+        <property-extension>
+          <required>true</required>
+          <designer-extension>
+            <default-value>10000</default-value>
+          </designer-extension>
+        </property-extension>
+      </property>
+      <property>
+        <property-name>fillColor</property-name>
+        <property-class>string</property-class>
+        <display-name>fillColor</display-name>
+        <description>The fill color. All CSS3 colors are supported except for extended named colors.</description>
+      </property>
+      <property>
+        <property-name>fillOpacity</property-name>
+        <property-class>double</property-class>
+        <display-name>fillOpacity</display-name>
+        <description>The fill opacity between 0.0 and 1.0</description>
+      </property>
+      <property>
+        <property-name>strokeColor</property-name>
+        <property-class>string</property-class>
+        <display-name>strokeColor</display-name>
+        <description>The stroke color. All CSS3 colors are supported except for extended named colors.</description>
+        <property-extension>
+          <designer-extension>
+            <default-value>#FF0000</default-value>
+          </designer-extension>
+        </property-extension>
+      </property>
+      <property>
+        <property-name>strokeOpacity</property-name>
+        <property-class>string</property-class>
+        <display-name>Stroke Opacity*</display-name>
+        <description>This value is required.&#xd;
+The stroke opacity between 0.0 and 1.0</description>
+        <property-extension>
+          <designer-extension>
+            <default-value>0.5</default-value>
+          </designer-extension>
+          <required>true</required>
+        </property-extension>
+      </property>
+      <property>
+        <property-name>strokeWeight</property-name>
+        <property-class>int</property-class>
+        <display-name>Stroke Weight*</display-name>
+        <description>This value is required.&#xd;
+The stroke width in pixels.</description>
+        <property-extension>
+          <designer-extension>
+            <default-value>1</default-value>
+          </designer-extension>
+          <required>true</required>
+        </property-extension>
+      </property>
+      <property>
+        <property-name>visible</property-name>
+        <property-class>boolean</property-class>
+        <display-name>visible</display-name>
+        <property-extension>
+          <designer-extension>
+            <default-value>true</default-value>
+            <editor>com.ibm.workplace.designer.property.editors.comboParameterEditor</editor>
+            <editor-parameter>true&#xd;
+false</editor-parameter>
+          </designer-extension>
+        </property-extension>
+        <description>Default value is true. If visible is set to false the circle is not rendered.</description>
+      </property>
+      <property>
+        <property-name>zIndex</property-name>
+        <property-class>int</property-class>
+        <display-name>zIndex</display-name>
+        <description>The zIndex compared to other circles.</description>
+      </property>
+      <property-extension>
+        <container-class>java.util.Collection</container-class>
+        <collection-property>true</collection-property>
+      </property-extension>
+      <description>You can create a circle on the map.</description>
+    </property-type>
+  </composite-component>
+</faces-config>

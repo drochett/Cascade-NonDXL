@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+  xmlns:xe="http://www.ibm.com/xsp/coreex">
+  <!--  Step Header -->
+  <xc:ccQuoteForksHdr1></xc:ccQuoteForksHdr1>
+  <xp:br></xp:br>
+  <xp:panel styleClass="row" id="panel1">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel5">
+      <xp:panel id="panelSelectors1" rendered="#{javascript:@IsNewDoc()}">
+        <!-- Message Login to select address from profile-->
+        <xp:panel styleClass="alert alert-warning" rendered="#{userBean.commonName eq 'Anonymous'}">
+          <xc:ccAddressLogin></xc:ccAddressLogin>
+        </xp:panel>
+        <!--SELECTION panel-->
+        <xp:panel id="PanelShipping1" rendered="#{userBean.commonName ne 'Anonymous'}">
+          <xc:ccAddressSelection></xc:ccAddressSelection>
+        </xp:panel>
+      </xp:panel>
+      <!--			address row and columns-->
+      <xp:panel styleClass="row" id="panel4">
+        <xp:panel styleClass="col-xs-12" id="panel6">
+          <!--Table Heading Contact Information -->
+          <xp:table styleClass="address-table">
+            <xp:tr>
+              <xp:panel styleClass="tableHeading" tagName="th">
+                <xp:this.attrs>
+                  <xp:attr name="colspan" value="2"></xp:attr>
+                </xp:this.attrs>
+                <xp:label value="${langBean.titleContactInformation}" id="label33"
+                  style="font-weight:bold;color:rgb(255,255,255)">
+                </xp:label>
+              </xp:panel>
+            </xp:tr>
+          </xp:table>
+          <!--Table Shipping Fields -->
+          <xc:ccAddressShipping></xc:ccAddressShipping>
+        </xp:panel>
+      </xp:panel><!--END	address row and columns-->
+
+    </xp:panel><!--END Quote Form -->
+  </xp:panel>
+  <!--END Quote Form -->
+
+
+  <!--panel navigation buttons-->
+  <xp:panel styleClass="row" id="panel7">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel8">
+      <hr></hr>
+      <xp:button value="${langBean.btnNextStep}" id="button1" styleClass="btn btn-primary pull-right">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+          refreshId="main">
+          <xp:this.action><![CDATA[#{javascript:
+    viewScope.orderStep = "step_2";
+    var dc = getComponent("dcOrderStep");
+    dc.show("step_2")
+    }]]></xp:this.action>
+        </xp:eventHandler>
+      </xp:button>
+
+    </xp:panel>
+  </xp:panel>
+
+</xp:view>
+
+

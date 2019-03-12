@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"> 
+
+	<xp:this.beforePageLoad><![CDATA[#{javascript:
+
+var url = facesContext.getExternalContext().getRequestPathInfo() ;
+dBar.info("url getRequestPathInfo is " + url + " type is " + typeof(url));
+if (url==null) {
+	url = facesContext.getExternalContext().getRequest().getRequestURL().toString() ;
+	dBar.info("url getRequestURL is " + url + " type is " + typeof(url));
+}
+
+dBar.info("Entering ccRestrictAccess beforePageLoad");
+var urlRequest = facesContext.getExternalContext().getRequest() ;
+var url = urlRequest.getRequestURL().toString();
+var qs = urlRequest.getQueryString();
+if (!!qs){
+	//add on querystring
+	url = url + "?" + qs;
+}
+dBar.info("url is " + url);
+//WSCR-ASES6S - Vendors / DXF Files - added code to not allow vendors to order
+var pos = url.search("OrderPriceList");
+var opPos = url.search("OrderParts");
+var ofPos = url.search("OrderForks");
+var odvPos = url.search("OrderDriverVideos");
+
+//DSR 1-31-19 - Restrict access to End Users
+var osPos = url.search("OrderStatus");
+var totPos = pos+opPos+ofPos+odvPos+osPos;
+
+dBar.info("1.. pos= " + pos);
+dBar.info("opPos= " + opPos);
+dBar.info("ofPos= " + ofPos);
+dBar.info("odvPos= " + odvPos);
+dBar.info("totPos= " + totPos);
+dBar.info("1. " + sessionScope.notVendor + " && " + pos)
+
+/* Restrict access for End Users to 
+Order Parts
+Order Forks
+Order Status
+My Addresses (no need)
+Driver Training Videos
+Pricelists
+*/
+
+//WSCR-ASES6S - Vendors / DXF File end of code added
+if (sessionScope.isEndUser && (totPos>0)) {
+	sessionScope.prevPage = url;
+	context.redirectToPage("NoAccess.xsp");
+} else if (@UserName() == "Anonymous" || (sessionScope.isVendor && (pos>0)) || (sessionScope.isVendor && opPos>0) || (sessionScope.isVendor && ofPos>0) || (sessionScope.isVendor && odvPos>0)){
+	sessionScope.prevPage = url;
+	context.redirectToPage("login.xsp");
+};
+}]]></xp:this.beforePageLoad></xp:view>

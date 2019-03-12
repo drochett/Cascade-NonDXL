@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xc:ccLayout>
+		<xp:panel styleClass="container" id="main">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7"
+							value="${langBean.labelRegisterAttachment}" styleClass="carousel-heading">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!--	main content row-->
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-xs-12 col-md-10">
+					<xp:panel styleClass="alert alert-info">
+						<xp:table>
+							<xp:tr>
+								<xp:td style="width:8%">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+								</xp:td>
+								<xp:td>
+									<xp:this.rendered><![CDATA[#{javascript:session.getEffectiveUserName() != "Anonymous"}]]></xp:this.rendered>
+									<xp:text escape="true"
+										id="computedField2"
+										value="${langBean.msgRegisterNewAttachment}">
+									</xp:text>
+								</xp:td>
+								<xp:td>
+									<xp:this.rendered><![CDATA[#{javascript:session.getEffectiveUserName() == "Anonymous"}]]></xp:this.rendered>
+									<xp:text escape="true"
+										id="computedField1"
+										value="${langBean.msgLoginToRegister}">
+									</xp:text>
+								</xp:td>
+							</xp:tr>
+						</xp:table>
+					</xp:panel>
+					<xp:div styleClass="btn-group-vertical">
+						<xp:link escape="true"
+							text="${langBean.labelRegisterAttachment}" id="link1"
+							styleClass="btn btn-link text-left"
+							value="${configBean.HostURL}${sessionScope.LanguageURL}registerAttachment">
+							<xp:this.rendered><![CDATA[#{javascript:session.getEffectiveUserName() != "Anonymous"}]]></xp:this.rendered>
+						</xp:link>
+						<xp:link escape="true"
+							text="${langBean.AfterRegistrationLoginLink}" id="link3"
+							styleClass="btn btn-link text-left"
+							value="${configBean.HostURL}${sessionScope.LanguageURL}login">
+							<xp:this.rendered><![CDATA[#{javascript:session.getEffectiveUserName() == "Anonymous"}]]></xp:this.rendered>
+						</xp:link>
+					</xp:div>
+					<xp:br></xp:br>
+					<xp:br></xp:br>
+					<xp:br></xp:br>
+				</xp:panel>
+			</xp:panel>
+
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

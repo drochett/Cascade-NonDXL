@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config>
+  <faces-config-extension>
+    <namespace-uri>http://www.ibm.com/xsp/custom</namespace-uri>
+    <default-prefix>xc</default-prefix>
+  </faces-config-extension>
+  <composite-component>
+    <component-type>ccDebug</component-type>
+    <composite-name>ccDebug</composite-name>
+    <composite-file>/ccDebug.xsp</composite-file>
+    <composite-extension>
+      <designer-extension>
+        <in-palette>true</in-palette>
+        <render-markup>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&#xd;
+&lt;xp:view xmlns:xp="http://www.ibm.com/xsp/core"&gt;&#xd;
+	&lt;xp:panel style="background-color:rgb(22,30,122)"&gt;&#xd;
+		&lt;xp:label value="ccDebug" id="label1" style="color:rgb(255,255,255)"&gt;&#xd;
+		&lt;/xp:label&gt;&#xd;
+	&lt;/xp:panel&gt;&#xd;
+&lt;/xp:view&gt;</render-markup>
+      </designer-extension>
+    </composite-extension>
+  </composite-component>
+</faces-config>

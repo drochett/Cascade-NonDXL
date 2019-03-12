@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+<xp:panel style="height:600px">
+			
+				<xp:panel styleClass="col-md-6" tagName="div">
+					<xc:ccMyCompanyInfo></xc:ccMyCompanyInfo>
+					<xc:ccMyAttachments></xc:ccMyAttachments>
+				</xp:panel>
+				
+				<xp:panel styleClass="col-md-6" tagName="div">
+					<xc:ccMyResources portalType="Internal"></xc:ccMyResources>
+					<xc:ccMyNews></xc:ccMyNews>
+				</xp:panel>
+
+				<xp:panel styleClass="col-md-12" tagName="div">
+					<xc:ccMyCheckOrderStatus rendered="${orderStatusBean.inOrderStatusGroup}"></xc:ccMyCheckOrderStatus>
+					<xc:ccNotInOrderStatusGroup rendered="${!orderStatusBean.inOrderStatusGroup}"></xc:ccNotInOrderStatusGroup>
+				</xp:panel>
+			</xp:panel>
+
+
+</xp:view>

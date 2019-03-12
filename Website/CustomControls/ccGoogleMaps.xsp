@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+
+	<xp:this.resources>
+		<xp:script src="http://maps.google.com/maps/api/js?sensor=true"
+			clientSide="true">
+		</xp:script>
+	</xp:this.resources>
+
+	<style type="text/css">
+		html { height: 100% }
+		body, body form { height: 100%;
+		margin: 0px; padding: 0px }
+		#map_canvas { height: 100% }
+	</style>
+
+	<xp:eventHandler event="onClientLoad" submit="false">
+		<xp:this.script><![CDATA[var geocoder;
+
+function initialize(){
+
+	geocoder = new google.maps.Geocoder();    
+	var myOptions = {
+      zoom: #{javascript:compositeData.map_zoom},
+      mapTypeId: google.maps.MapTypeId.#{javascript:compositeData.map_type}
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);	
+	var mapcentertype = #{javascript: "\"" + compositeData.map_center_type + "\""};
+	
+	if(mapcentertype == "Coordinates"){
+	    var map_center_latitude = document.getElementById("#{id:hdnMapCenterLatitude}").value;
+    	var map_center_longitude = document.getElementById("#{id:hdnMapCenterLongitude}").value;
+		centerMap = new google.maps.LatLng(parseFloat(map_center_latitude),parseFloat(map_center_longitude));
+		map.setCenter(centerMap);
+	}else if(mapcentertype == "Address"){
+		var address = #{javascript: "\"" + compositeData.map_center_address + "\""};	
+		geocoder.geocode( {'address': address}, function(results, status) {	
+		if(status == google.maps.GeocoderStatus.OK){
+			map.setCenter(results[0].geometry.location);
+     	}else{
+        	alert("Geocode center was not successful for the following reason: " + status + " -> " + address);
+		};
+	});
+	}else{
+		alert("You forgot to set the property map_center_type.");
+	}
+	
+	//Check if there are markers
+	if(#{javascript: "\"" + compositeData.marker + "\""} != "null"){
+		codeAddress();		
+	};
+	
+	//Check for markkerarray
+	if(#{javascript: "\"" + compositeData.marker_string_array + "\""} != "null"){
+		codeAddressArray();		
+	};
+	
+	//Check if there are circles
+	if(#{javascript: "\"" + compositeData.circle + "\""} != "null"){
+		codeCircle();	
+	};
+	
+ }
+
+function codeAddress(){
+
+	var valueTitle = document.getElementById("#{id:hdnTitle}").value.split("~~");	
+	var valueLayer = document.getElementById("#{id:hdnLayer}").value.split("~~");
+	var valueInfotext = document.getElementById("#{id:hdnInfotext}").value.split("~~");
+	var valueIcon = document.getElementById("#{id:hdnIcon}").value.split("~~");
+	var valueAddress = document.getElementById("#{id:hdnAddress}").value.split("~~");
+	var valueAnimation = document.getElementById("#{id:hdnAnimation}").value.split("~~");	
+	var valueLocation_type = document.getElementById("#{id:hdnLocation_type}").value.split("~~");
+	var valueLocation_longitude = document.getElementById("#{id:hdnLocation_longitude}").value.split("~~");
+	var valueLocation_latitude = document.getElementById("#{id:hdnLocation_latitude}").value.split("~~");	
+	for (var i=0 ; i<valueTitle.length ; i++) {		
+		showMap(valueAddress[i], valueAnimation[i], valueLayer[i], valueIcon[i], valueInfotext[i], valueTitle[i], valueLocation_type[i], valueLocation_longitude[i], valueLocation_latitude[i]);		
+	}	
+}
+
+function codeCircle(){
+
+	var valueCenter_type = document.getElementById("#{id:hdnCircle_center_type}").value.split("~~");
+	var valueCenter_address = document.getElementById("#{id:hdnCircle_center_address}").value.split("~~");
+	var valueCenter_latitude = document.getElementById("#{id:hdnCircle_center_latitude}").value.split("~~");
+	var valueCenter_longitude = document.getElementById("#{id:hdnCircle_center_longitude}").value.split("~~");
+	var valueRadius = document.getElementById("#{id:hdnCircle_radius}").value.split("~~");
+	var valueFillColor = document.getElementById("#{id:hdnCircle_fillColor}").value.split("~~");
+	var valueFillOpacity = document.getElementById("#{id:hdnCircle_fillOpacity}").value.split("~~");
+	var valueStrokeColor = document.getElementById("#{id:hdnCircle_strokeColor}").value.split("~~");
+	var valueStrokeOpacity = document.getElementById("#{id:hdnCircle_strokeOpacity}").value.split("~~");	
+	var valueStrokeWeight = document.getElementById("#{id:hdnCircle_strokeWeight}").value.split("~~");
+	var valueVisible = document.getElementById("#{id:hdnCircle_visible}").value.split("~~");
+	var valueZIndex = document.getElementById("#{id:hdnCircle_zIndex}").value.split("~~");
+	for (var i=0 ; i<valueCenter_type.length ; i++){
+		showCircle(valueCenter_type[i], valueCenter_address[i], valueCenter_latitude[i], valueCenter_longitude[i], valueRadius[i], valueFillColor[i], valueFillOpacity[i], valueStrokeColor[i], valueStrokeOpacity[i], valueStrokeWeight[i], valueVisible[i], valueZIndex[i]);
+	};
+}
+
+function codeAddressArray(){
+	var markerarray = #{javascript: "\"" + compositeData.marker_string_array + "\""}.split(",");	
+	for (var i=0 ; i<markerarray.length ; i++) {
+	var marker_string = markerarray[i].replace("[","").replace("]","");	
+	var marker_element_array = marker_string.split("~~");	
+	var title = marker_element_array[0];
+	var layer = marker_element_array[1];
+	var infotext = marker_element_array[2];
+	var icon = marker_element_array[3];
+	var animation = marker_element_array[4];
+	var location_type = marker_element_array[5];
+	var location_address = marker_element_array[6];
+	var location_latitude = marker_element_array[7];
+	var location_longitude = marker_element_array[8];	
+	showMap(location_address, animation, layer, icon, infotext, title, location_type, location_longitude, location_latitude);
+	};
+}
+
+function showMap(address, marker_animation, marker_zindex, marker_icon, marker_infowindow_text, marker_title, marker_location_type, marker_location_longitude, marker_location_latitude) {
+	
+	
+	
+	// Create Marker
+    var marker = new google.maps.Marker({map: map});
+	if(marker_location_type=="Coordinates"){
+    	var myLatLng = new google.maps.LatLng(parseFloat(marker_location_latitude), parseFloat(marker_location_longitude));
+    	marker.setPosition(myLatLng);
+    }else{
+		geocoder.geocode( {'address': address}, function(results, status){
+      	if (status == google.maps.GeocoderStatus.OK) {    
+            	marker.setPosition(results[0].geometry.location); 
+      	} else {
+        		alert("Geocode was not successful for the following reason: " + status + " -> " + address);
+      	}            
+    });    
+    }    
+    
+    // Set the title of the marker
+    if(marker_title != ""){
+       marker.setTitle(marker_title);
+    };
+    // Set the icon of the marker
+    if(marker_icon != ""){
+       marker.setIcon(marker_icon.replace("/",""));
+    };
+	// Set the z-index of the marker
+	if(marker_zindex != ""){
+		marker.setZIndex(parseInt(marker_zindex));
+	};
+	// Set the animation of the marker
+	if(marker_animation != ""){        
+		if(marker_animation == "BOUNCE"){
+			marker.setAnimation(google.maps.Animation.BOUNCE);
+		}else if(marker_animation == "DROP"){
+			marker.setAnimation(google.maps.Animation.DROP);
+		}else{
+			// does not exist
+		};        	
+	};        
+	// Set the infowindow and text of the marker
+	if(marker_infowindow_text != ""){
+		var infowindow = new google.maps.InfoWindow({content: marker_infowindow_text});		
+		google.maps.event.addListener(marker, 'click', function() {
+			infowindow.open(map,marker);
+	});
+	};    
+}
+
+function showCircle(center_type, center_address, center_latitude, center_longitude, radius, fillColor, fillOpacity, strokeColor, strokeOpacity, strokeWeight, visible, zIndex) {
+
+	
+	if(visible == "false"){
+		visible = false;
+	}else{
+		visible = true;
+	};
+	//Create Circle	
+	var circle_options = {
+		map: map,
+		//center: center,
+		radius: parseInt(radius),
+		fillColor: fillColor.toString(),
+		fillOpacity: fillOpacity,
+		strokeColor: strokeColor.toString(),
+		strokeOpacity: strokeOpacity,
+      	strokeWeight: strokeWeight,
+      	visible: visible,
+      	zIndex: zIndex			
+	};	
+	var circle = new google.maps.Circle(circle_options); 
+	if(center_type == "Coordinates"){
+		circle.setCenter(new google.maps.LatLng(parseFloat(center_latitude), parseFloat(center_longitude)));
+	}else{
+		geocoder.geocode( {'address': center_address}, function(results, status) {
+      		if (status == google.maps.GeocoderStatus.OK) {
+     			circle.setCenter(results[0].geometry.location);   	
+  			} else {
+   				alert("Geocode of the circle was not successful for the following reason: " + status + " -> " + address);
+  			}
+ 		});
+
+	};
+	
+}
+
+initialize();
+
+  ]]></xp:this.script>
+	</xp:eventHandler>
+	
+	<xp:inputHidden id="hdnMapCenterLatitude"
+		defaultValue="#{javascript:compositeData.map_center_latitude;}">
+	</xp:inputHidden>
+
+	<xp:inputHidden id="hdnMapCenterLongitude"
+		defaultValue="#{javascript:compositeData.map_center_longitude;}">
+	</xp:inputHidden>
+
+
+	<xp:inputHidden id="hdnTitle">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.marker != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.marker.length ; i++) {
+    	value.push(compositeData.marker[i].title);
+	}
+	return @Implode(value, "~~");
+}
+}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+
+	<xp:inputHidden id="hdnLayer">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.marker != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.marker.length ; i++) {
+    	value.push(compositeData.marker[i].layer);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+
+	<xp:inputHidden id="hdnInfotext">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.marker != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.marker.length ; i++) {
+    	value.push(compositeData.marker[i].infotext);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+
+	<xp:inputHidden id="hdnIcon">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.marker != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.marker.length ; i++) {
+    	value.push(compositeData.marker[i].icon);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+
+
+
+	<xp:inputHidden id="hdnAddress">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.marker != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.marker.length ; i++) {
+    	value.push(compositeData.marker[i].location_address);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+
+	<xp:inputHidden id="hdnAnimation">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.marker != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.marker.length ; i++) {
+    	value.push(compositeData.marker[i].animation);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+
+	<xp:inputHidden id="hdnLocation_type">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.marker != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.marker.length ; i++) {
+    	value.push(compositeData.marker[i].location_type);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+
+	<xp:inputHidden id="hdnLocation_latitude">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.marker != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.marker.length ; i++) {
+    	value.push(compositeData.marker[i].location_latitude);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+
+	<xp:inputHidden id="hdnLocation_longitude">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.marker != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.marker.length ; i++) {
+    	value.push(compositeData.marker[i].location_longitude);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+
+
+	<xp:inputHidden id="hdnCircle_center_type">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.circle != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.circle.length ; i++) {
+    	value.push(compositeData.circle[i].center_type);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+
+	<xp:inputHidden id="hdnCircle_center_address">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.circle != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.circle.length ; i++) {
+    	value.push(compositeData.circle[i].center_address);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+	
+	<xp:inputHidden id="hdnCircle_center_latitude">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.circle != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.circle.length ; i++) {
+    	value.push(compositeData.circle[i].center_latitude);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>	
+	
+	<xp:inputHidden id="hdnCircle_center_longitude">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.circle != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.circle.length ; i++) {
+    	value.push(compositeData.circle[i].center_longitude);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+	
+	<xp:inputHidden id="hdnCircle_radius">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.circle != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.circle.length ; i++) {
+    	value.push(compositeData.circle[i].radius);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+	
+	<xp:inputHidden id="hdnCircle_fillColor">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.circle != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.circle.length ; i++) {
+    	value.push(compositeData.circle[i].fillColor);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+	
+	<xp:inputHidden id="hdnCircle_fillOpacity">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.circle != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.circle.length ; i++) {
+    	value.push(compositeData.circle[i].fillOpacity);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+	
+	<xp:inputHidden id="hdnCircle_strokeColor">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.circle != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.circle.length ; i++) {
+    	value.push(compositeData.circle[i].strokeColor);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+	
+	<xp:inputHidden id="hdnCircle_strokeOpacity">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.circle != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.circle.length ; i++) {
+    	value.push(compositeData.circle[i].strokeOpacity);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+	
+	<xp:inputHidden id="hdnCircle_strokeWeight">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.circle != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.circle.length ; i++) {
+    	value.push(compositeData.circle[i].strokeWeight);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+	
+	<xp:inputHidden id="hdnCircle_visible">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.circle != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.circle.length ; i++) {
+    	value.push(compositeData.circle[i].visible);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+	
+	<xp:inputHidden id="hdnCircle_zIndex">
+		<xp:this.defaultValue><![CDATA[#{javascript:if(compositeData.circle != null){
+	var value = new Array();
+	for (var i=0 ; i<compositeData.circle.length ; i++) {
+    	value.push(compositeData.circle[i].zIndex);
+	}
+	return @Implode(value, "~~");
+}}]]></xp:this.defaultValue>
+	</xp:inputHidden>
+
+	<div id="map_canvas"
+		style="width:#{javascript:compositeData.map_width}#{javascript:compositeData.map_width_measurement}; height:#{javascript:compositeData.map_height}#{javascript:compositeData.map_height_measurement}"></div>
+</xp:view>

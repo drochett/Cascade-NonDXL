@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex"
+	styleClass="downloads-careers .table.dataview img">
+
+	
+	<xp:panel id="panel2" rendered="${viewScope.viewNoDisplay}">
+
+		<xp:label value="${langBean.mtCareersNoPositions}" id="label2"
+			styleClass="subheading2">
+		</xp:label>
+
+	</xp:panel>
+
+	<xp:panel id="panel1" rendered="${viewScope.viewDisplay}">
+
+		<xp:label value="${langBean.mtCareers}" id="label1"
+			styleClass="subheading2">
+		</xp:label>
+
+	</xp:panel>
+	<xp:panel>
+		<xe:dataView id="dataView1" expandedDetail="true" var="viewEntry"
+			rows="200" collapsibleCategory="true" styleClass="subheading3">
+			<xe:this.categoryColumn>
+				<xe:viewCategoryColumn columnName="ProductFamily"></xe:viewCategoryColumn>
+			</xe:this.categoryColumn>
+			<xp:this.facets>
+				<xp:panel xp:key="detail" id="panelDetail1">
+					<xp:link escape="true" text="#{viewEntry.Description}" id="link1"
+						value="#{configBean.HostURL}#{configBean.HRURL}#{viewEntry.linkURL}"
+						target="_blank">
+						<xp:image id="image1" url="/pdf.gif"></xp:image>
+					</xp:link>
+				</xp:panel>
+			</xp:this.facets>
+			<xe:this.data>
+				<xp:dominoView var="view1" databaseName="${configBean.HRDbPath}"
+					viewName="links3"
+					categoryFilter="${sessionScope.LanguageP}~${document1.DocumentURL}~${compositeData.MediaType}">
+				</xp:dominoView>
+			</xe:this.data>
+		</xe:dataView>
+	</xp:panel>
+</xp:view>

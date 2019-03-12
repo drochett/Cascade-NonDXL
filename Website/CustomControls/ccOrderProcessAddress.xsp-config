@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config>
+  <faces-config-extension>
+    <namespace-uri>http://www.ibm.com/xsp/custom</namespace-uri>
+    <default-prefix>xc</default-prefix>
+  </faces-config-extension>
+  <composite-component>
+    <component-type>ccOrderProcessAddress</component-type>
+    <composite-name>ccOrderProcessAddress</composite-name>
+    <composite-file>/ccOrderProcessAddress.xsp</composite-file>
+    <composite-extension>
+      <designer-extension>
+        <in-palette>true</in-palette>
+        <render-markup>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&#xd;
+&lt;xp:view xmlns:xp="http://www.ibm.com/xsp/core"&gt;&#xd;
+	&lt;xp:panel style="background-color:rgb(255,193,132)"&gt;&#xd;
+		&lt;xp:label value="ccOrderProcessAddress" id="label1"&gt;&#xd;
+		&lt;/xp:label&gt;&#xd;
+	&lt;/xp:panel&gt;&#xd;
+&lt;/xp:view&gt;</render-markup>
+      </designer-extension>
+    </composite-extension>
+  </composite-component>
+</faces-config>

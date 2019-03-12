@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xp:panel id="widgetContainer1" styleClass="panel login-panel ServiceLitInputBox">
+		<div class="panel-body">
+			<div class="form-group">
+				<div class="row">
+					<div class="col-sm-3 col-md-2">
+						<xp:text tagName="label" value="${langBean.labelProductFamily}: "
+							id="SearchProductFamilyLabel" styleClass="control-label">
+						</xp:text>
+					</div>
+					<div class="col-sm-9">
+						<xp:comboBox id="selProdFamilyParts"
+							value="#{searchLiteratureBean.productFamilyParts}" styleClass="auto-width">
+							<xp:selectItems>
+								<xp:this.value><![CDATA[${langBean.selProductFamily}]]></xp:this.value>
+							</xp:selectItems>
+						</xp:comboBox>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-sm-3 col-md-2">
+						<xp:text tagName="label" value="${langBean.labelModel}: "
+							id="inputModel" styleClass="control-label">
+						</xp:text>
+					</div>
+					<div class="col-sm-4">
+						<xp:inputText id="searchInputProdFamily"
+							value="#{searchLiteratureBean.searchInputParts}">
+						</xp:inputText>
+						<xp:label value="${langBean.labelExamples}" id="examplesText"
+							style="cursor:help;">
+						</xp:label>
+<xp:br></xp:br>
+						<xe:tooltip id="tooltip1" for="examplesText"
+							dynamicContent="true" position="below" showDelay="0">
+							<xp:text escape="false" id="computedField1"
+								style="color:rgb(0,0,0)">
+
+								<xp:this.value><![CDATA[${javascript:var list = langBean.listExamples;
+rtnString = "";
+if (!!list){
+	for (val in list){
+		rtnString = rtnString + val + "<BR>";
+	}
+}
+
+return rtnString;}]]></xp:this.value>
+							</xp:text>
+
+						</xe:tooltip>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+
+				<p class="ServiceLitText">
+
+					<xp:text escape="false" id="computedField2" tagName="span"
+						style="font-weight:bold;" value="${langBean.labelServiceLitImportant}&#160; ">
+
+					</xp:text>
+
+					<xp:text escape="true" id="computedField3"
+						value=" ${langBean.labelServiceLitImportant2}" tagName="span">
+					</xp:text>
+				</p>
+
+				<p class="ServiceLitText">
+					<xp:text escape="true" id="computedField6" tagName="span"
+						value="${langBean.labelNotSeeingAttach}">
+					</xp:text>
+
+					<xp:link escape="true" text="${langBean.linkRegisterAttachment}"
+						id="link1"
+						value="${configBean.HostURL}${sessionScope.LanguageURL}productregistration"
+						style="margin-left:5px;">
+					</xp:link>
+				</p>
+			</div>
+		</div>
+		<div class="panel-footer clearfix">
+			<xp:link escape="true" text="${langBean.BtnSiteSearch}" id="SearchButton1"
+				styleClass="btn btn-primary pull-right">
+
+				<xp:eventHandler event="onclick" submit="true"
+					onStart="requestStarted()" onComplete="requestCompleted()"
+					refreshMode="partial" refreshId="main">
+
+					<xp:this.action><![CDATA[#{javascript://reset the pagers
+//println("=+=+=+=+=+=+=+=+=")
+//println("Searching Parts Manual");
+var searchInput1 = getComponent("selProdFamilyParts").getValue();
+var searchInput2 = getComponent("searchInputProdFamily").getValue();
+if(searchInput1!==null){
+	println("Product Family:  " + searchInput1);
+}else{
+	println("Product Family search term is NULL");
+}
+if(searchInput2!==null){
+	println("Model:  " + searchInput2);
+}else{
+	println("Model search term is NULL")
+}
+try{
+	var pager1:com.ibm.xsp.component.xp.XspPager = getComponent("pager1");
+	if(pager1!==null){
+		println("pager1 NOT NULL");
+		pager1.gotoFirst();
+	}else{
+		println("pager1 NULL");
+	}
+	searchLiteratureBean.processSearch1();
+}catch(e){
+	println("ERROR Searching Parts Manual");
+}
+//println("=+=+=+=+=+=+=+=+=")}]]></xp:this.action>
+				</xp:eventHandler>
+			</xp:link>
+		</div>
+
+	</xp:panel>
+</xp:view>

@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	styleClass="newsfeedtitle"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<xp:this.resources>
+		<xp:styleSheet href="/cascade.css"></xp:styleSheet>
+		<xp:styleSheet href="/other_websites.css"></xp:styleSheet>
+	</xp:this.resources>
+
+	<xp:this.data>
+		<xe:jdbcQuery
+			connectionName="db2"
+			sqlQuery="CASPYDTA.F5530003"
+			var="jdbcQuery0">
+		</xe:jdbcQuery>
+		<xe:jdbcQuery
+			sqlTable="CASPYDTA.F553005"
+			var="jdbcQuery1"></xe:jdbcQuery>
+
+	</xp:this.data>
+	<xp:this.beforePageLoad><![CDATA[#{javascript:viewScope.tabNbr = "tab1";
+var table = configBean.Schema_Americas_History + configBean.JdbcTable_04;
+sessionScope.jdbcSNtable = table;
+table = configBean.JdbcTable_02;
+sessionScope.jdbcTable = "casprddta"+ table;
+}]]></xp:this.beforePageLoad>
+	<xp:panel id="dataUpdate">
+
+		<xp:panel styleClass="textmhplabelcenter">
+
+			<xe:widgetContainer
+				id="widgetContainer2"
+				styleClass="login-panel"
+				titleBar="false">
+				<div class="panel-body">
+					<div class="form-group">
+						<xp:table>
+							<xp:tr>
+								<xp:td styleClass="no-border">
+									<xp:image id="image1">
+										<xp:this.url><![CDATA[#{javascript:importPackage (com.cascorp);
+//dBar.info("entering image code");
+var imageFile
+var iconName
+var url;
+//need to get url for image to be displayed
+	var mhpItem = sessionScope.mhpItem;
+	var funct= mhpItem.slice(mhpItem.indexOf("-")+1,mhpItem.indexOf("-")+4);
+	var sizeGen = mhpItem.slice(0,mhpItem.indexOf("-"));
+	iconName=funct+sizeGen;
+	dBar.info("++++++++++icon Name: "+iconName+"++++++++++++++++++++")
+	var whURL = configBean.getValue("WorkHorseURL");
+	var whDbPath = configBean.getValue("WorkHorseDbPath");
+	var hostURL = configBean.HostURL;
+	var db: NotesDatabase = session.getDatabase("",whDbPath, false);
+	//get document in whdb
+	var v1:NotesView = db.getView("fsLglu");
+	var v2:NotesView = db.getView("attachmentImagesBig");
+	var whDoc:NotesDocument = v1.getDocumentByKey(iconName);
+	if(whDoc == null){
+		dBar.info("whDoc is null");
+		imageFile="CASCLogo_b.jpg";
+	} else {
+		//dBar.info("found whDoc");
+		imageFile = whDoc.getItemValueString("lgKey");
+		//dBar.info("imageFileName="+imageFile)
+		if(imageFile==""){
+			imageFile="CASCLogo_b.jpg";
+		}
+	}
+	//dBar.info("Attachment Name: "+rowData.getDocument().getItemValue("attachmentIdentifier"));	
+	//dBar.info("Done with getting photo data");
+	url=hostURL+whURL+"/attachmentImages/"+imageFile+"/$File/"+imageFile
+	//dBar.info("URL >>> " +url);
+	return url;
+}]]></xp:this.url>
+									</xp:image>
+								</xp:td>
+								<xp:td styleClass="no-border">
+									<div
+										style="text-align:left"
+										class="col-sm-3">
+										<xp:label
+											value="#{langBean.mhp_PrintSerialNbr}"
+											id="label1"
+											styleClass="textmhplabel"></xp:label>
+									</div>
+									<div
+										class="col-sm-8"
+										style="text-align:left">
+										<xp:inputText
+											id="pssrl11"
+											style="height:30.0px;width:200px"
+											disableClientSideValidation="true"
+											readonly="true"
+											value="#{sessionScope.serialNbr}">
+										</xp:inputText>
+										&#160;&#160;
+									</div>
+									<br></br>
+									<br></br>
+									<div
+										style="text-align:left"
+										class="col-sm-3">
+										<xp:label
+											value="#{langBean.mhp_PrintModelNbr}"
+											id="label2"
+											styleClass="textmhplabel"></xp:label>
+										&#160;&#160;
+									</div>
+									<div
+										class="col-sm-8"
+										style="text-align:left">
+										<xp:inputText
+											id="pdlitm1"
+											style="height:30.0px;width:200px;text-align:left"
+											disableClientSideValidation="true"
+											readonly="true"
+											value="#{sessionScope.mhpItem}">
+
+										</xp:inputText>
+										&#160;&#160;
+									</div>
+									<xp:br></xp:br>
+									<xp:br></xp:br>
+									<div
+										style="text-align:left"
+										class="col-sm-3">
+										<xp:label
+											value="#{langBean.mhp_PrintRevisionNbr}"
+											id="label3"
+											styleClass="textmhplabel"></xp:label>
+									</div>
+									<div
+										class="col-sm-8"
+										style="text-align:left">
+										<xp:inputText
+											style="width:44.0px;height:30.0px"
+											id="pdmerl1"
+											disableClientSideValidation="true"
+											readonly="true"
+											value="#{sessionScope.mhpRev}">
+										</xp:inputText>
+									</div>
+								</xp:td>
+							</xp:tr>
+						</xp:table>
+					</div>
+				</div>
+			</xe:widgetContainer>
+		</xp:panel>
+		<xp:panel styleClass="textmhplabelcenter">
+			<div Class="panel-body">
+				<div class="form-group">
+					<div class="row">
+						<div>
+							<xp:text escape="true" id="computedField1"
+								rendered="#{javascript:sessionScope.newAttachment !=true}">
+								<xp:this.value><![CDATA[${langBean.msgRegisterNewAttachment}]]></xp:this.value>
+							</xp:text>
+						</div>
+						<div class="col-sm-8"></div>
+						<div>
+							<xp:messages
+								id="messages1"
+								style="text-align:left">
+							</xp:messages>
+							<xp:br></xp:br>
+							&#160;&#160;
+							&#160;
+							&#160;
+							<xp:button
+								value="${langBean.btnAddAttachment}"
+								id="Add"
+								styleClass="btn btn-primary pull-left">
+
+
+								<xp:this.rendered><![CDATA[#{javascript:@Name('[CN]', session.getEffectiveUserName()) != "Anonymous" && 
+ sessionScope.hideAdd != true}]]></xp:this.rendered>
+								<xp:eventHandler
+									event="onclick"
+									submit="true"
+									refreshMode="complete">
+									<xp:this.action><![CDATA[#{javascript:importPackage(com.cascorp);
+sessionScope.newAttachment=true
+sessionScope.mhpItem = getComponent("pdlitm1").getValue().toUpperCase();
+sessionScope.mhpRev = getComponent("pdmerl1").getValue().toUpperCase();
+//sessionScope.mhpSerial = getComponent("pssrl11").getValue().toUpperCase();
+dBar.info("sessionScope.mhpItem:  "+sessionScope.mhpItem)
+dBar.info("sessionScope.mhpRev:  "+sessionScope.mhpRev)
+dBar.info("sessionScope.SerialNbr:  "+sessionScope.SerialNbr)  //set beforPageLoad
+try{
+var hostURL = configBean.getValue("HostURL")
+dBar.info("hostURL:  "+ hostURL)
+var webURL = configBean.getValue("WebsiteURL")
+dBar.info("webURL:  " + webURL)
+//var webPage = "/MyProfileAttachment_QR"
+var webPage = "/MyProfileAttachment.xsp"
+dBar.info("webPage:  "+webPage)
+var redirectURL = hostURL+webURL+webPage
+dBar.info("redirectURL:  " + redirectURL);
+facesContext.getExternalContext().redirect(redirectURL);
+} catch (e) {
+	dBar.error("Error in Add button: " + e.toString());
+}
+
+}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+							<xp:button
+								id="Login"
+								styleClass="btn btn-primary pull-left"
+								value="${langBean.btnAddAttachmentLogin}">
+
+								<xp:this.rendered><![CDATA[#{javascript:@Name('[CN]', session.getEffectiveUserName()) == "Anonymous"}]]></xp:this.rendered>
+
+
+								<xp:eventHandler
+									event="onclick"
+									submit="true"
+									refreshMode="complete">
+									<xp:this.action>
+										<xp:openPage name="/login.xsp"></xp:openPage>
+									</xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+
+							<xp:button
+								value="#{langBean.btnBack}"
+								id="MyCascade"
+								styleClass="btn btn-primary pull-left">
+								<xp:this.rendered><![CDATA[#{javascript:@Name('[CN]', session.getEffectiveUserName()) != "Anonymous"}]]></xp:this.rendered>
+								<xp:eventHandler
+									event="onclick"
+									submit="true"
+									refreshMode="complete">
+									<xp:this.action>
+
+										<xp:actionGroup>
+
+											<xp:executeScript>
+												<xp:this.script><![CDATA[#{javascript:sessionScope.newAttachment=true
+sessionScope.editAttachment=null
+sessionScope.mhpItem=null
+sessionScope.serialNbr=null
+sessionScope.hideAdd=null}]]></xp:this.script>
+											</xp:executeScript>
+											<xp:openPage name="/MyCascade.xsp"></xp:openPage>
+										</xp:actionGroup>
+									</xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+			</div>
+		</xp:panel>
+
+		<xp:panel
+			styleClass="row.cascade-homepage-content"
+			id="dataError"
+			tagName="div">
+						
+			<xp:div style="text-align:left, text-color:rgb(255,0,0)">
+				<xc:ccDataError></xc:ccDataError>
+				<xc:ccMHP_SpecSheetTitle />
+			</xp:div>
+										
+		</xp:panel>
+
+		<xp:panel
+			styleClass="row"
+			id="mhpData"
+			tagName="div">
+			
+			<xp:panel
+				id="left"
+				styleClass="col-sm-6">
+				<xc:ccMHP_SpecData_Left />
+			</xp:panel>
+			<xp:panel
+				id="panel2"
+				styleClass="col-sm-6"
+				tagName="div">
+				<xc:ccMHP_SpecData_Right />
+			</xp:panel>
+			<xp:panel
+				id="panel4"
+				styleClass="col-sm-6"
+				tagName="div">
+				<xc:ccMHP_SpecData_Left_Btm />
+			</xp:panel>
+			<xp:panel
+				id="panel5"
+				styleClass="col-sm-6"
+				tagName="div">
+				<xc:ccMHP_SpecData_Right_Btm />
+			</xp:panel>
+		</xp:panel>
+
+		<xp:eventHandler
+			event="onClientLoad"
+			submit="false">
+			<xp:this.script><![CDATA[var modelNbrInput = document.getElementById("#{id:pdlitm}");
+if(!!modelNbrInput){modelNbrInput.focus()};
+]]></xp:this.script>
+
+		</xp:eventHandler>
+
+	</xp:panel>
+
+</xp:view>

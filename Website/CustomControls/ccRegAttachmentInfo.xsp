@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<xp:table styleClass="address-table">
+		<xp:tr>
+			<xp:panel styleClass="tableHeading" tagName="th">
+				<xp:this.attrs>
+					<xp:attr name="colspan" value="2"></xp:attr>
+				</xp:this.attrs>
+				<xp:label value="${langBean.titleAttachmentInfo}" id="label12"
+					style="font-weight:bold;color:rgb(255,255,255)">
+				</xp:label>
+			</xp:panel>
+		</xp:tr>
+		<xp:tr>
+			<xp:td style="width:30%">
+				<xp:label value="${langBean.labelSerialNumber}: " id="serialNumber_Label1"
+					for="serialNumber1">
+				</xp:label>
+			</xp:td>
+			<xp:td style="width:70%">
+				<xp:inputText value="#{document1.SerialNumber}" id="serialNumber1">
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelCatalogNumber}: " id="catalogNumber_Label1"
+					for="catalogNumber1">
+				</xp:label>
+			</xp:td>
+			<xp:td>
+				<xp:inputText value="#{document1.CatalogNumber}" id="catalogNumber1">
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelInstallationDate}: " id="installationDate_Label1"
+					for="installationDate1">
+				</xp:label>
+			</xp:td>
+			<xp:td>
+				<xp:inputText value="#{document1.InstallationDate}" id="installationDate1">
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+		<xp:tr>
+			<xp:td>
+				<xp:label value="${langBean.labelTodayDate}: " id="todayDate_Label1"
+					for="todayDate1">
+				</xp:label>
+			</xp:td>
+			<xp:td>
+				<xp:inputText value="#{document1.TodayDate}" id="todayDate1"
+					disabled="true" showReadonlyAsDisabled="true">
+					<xp:this.defaultValue><![CDATA[#{javascript:
+@Now()}]]></xp:this.defaultValue>
+					<xp:this.converter>
+						<xp:convertDateTime type="date" dateStyle="short">
+						</xp:convertDateTime>
+					</xp:this.converter>
+				</xp:inputText>
+			</xp:td>
+		</xp:tr>
+	</xp:table>
+
+</xp:view>

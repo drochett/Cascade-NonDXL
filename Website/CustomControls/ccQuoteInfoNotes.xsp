@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+  <!-- START Notes-->
+  <xp:table styleClass="address-table">
+    <xp:tr>
+      <xp:panel styleClass="tableHeading" tagName="th">
+        <xp:label value="${langBean.titleNotes}" id="label6"
+          style="font-weight:bold;color:rgb(255,255,255)">
+        </xp:label>
+      </xp:panel>
+    </xp:tr>
+    <xp:tr>
+      <xp:td>
+        <xp:text escape="true" value="#{document1.rtf_Notes}" id="computedField1"></xp:text>
+      </xp:td>
+    </xp:tr>
+  </xp:table>
+  <!-- END Notes-->
+
+</xp:view>

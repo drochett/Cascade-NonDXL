@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom"> 
+	<xe:widgetContainer id="companyAddressWidget"
+		titleBarText="${langBean.myprofile}" styleClass="portal-panel">
+
+		
+
+		<xp:panel tagName="Div"
+			styleClass="portal-panel-edit pull-right">
+			<xp:link escape="true" text="Edit" id="link1"
+				value="updateRegistration">
+			</xp:link>
+			<xp:this.attrs>
+				<xp:attr
+					value="window.location='updateRegistration.xsp';" name="onClick">
+				</xp:attr>
+			</xp:this.attrs>
+		</xp:panel>
+
+		<div class="panel-body">
+			<div class="form-group">
+				<div class="row">
+					<div class="col-sm-12">
+						<xp:text escape="true" id="nameFielde"
+							value="${orderStatusBean.firstName} ${orderStatusBean.lastName}">
+						</xp:text>
+						<xp:br></xp:br>
+						<xp:text escape="true" id="CompanyNameField"
+							value="${orderStatusBean.companyName}">
+						</xp:text>
+						<xp:br></xp:br>
+						<xp:text escape="false"
+							id="CompanyAddressField">
+							<xp:this.value><![CDATA[#{javascript:var rtnString = "";
+addressArray = orderStatusBean.getCompanyAddressArray();
+dBar.info( addressArray.length);
+rtnString = addressArray[0];
+if (addressArray.length >=2) {
+	rtnString = rtnString + "<BR>" + addressArray[1];
+}
+if (addressArray.length == 3){
+	rtnString = rtnString + "<BR>" + addressArray[2];
+}
+return rtnString;
+}]]></xp:this.value>
+						</xp:text>
+						<xp:br></xp:br>
+						<xp:text escape="true" id="CompanyCityField"
+							value="${orderStatusBean.city}">
+						</xp:text>
+						,
+
+						&#160;
+						<xp:text escape="true" id="CompanyStateField"
+							value="${orderStatusBean.state}">
+						</xp:text>
+						&#160;&#160;
+						<xp:text escape="true" id="CompanyAddressZip"
+							value="${orderStatusBean.zip}">
+						</xp:text>
+						<xp:text escape="true" id="CompanyCountryField"
+							value="${orderStatusBean.countryCode}">
+						</xp:text>
+						<xp:br></xp:br>
+						<xp:text escape="true" id="OfficePhoneNumber"
+							value="${orderStatusBean.phoneNbr}">
+						</xp:text>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</xe:widgetContainer>
+
+</xp:view>

@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+
+	<xp:panel styleClass="row" id="panelStep2">
+		<xp:table styleClass="address-table">
+			<xp:panel>
+				<xp:this.attrs>
+					<xp:attr name="colspan" value="2"></xp:attr>
+				</xp:this.attrs>
+				<xp:text tagName="label" value="${langBean.labelTruckInfoNeeded}"
+					id="computedField17" styleClass="control-label">
+				</xp:text>
+			</xp:panel>
+		</xp:table>
+		<!--   ===============Body panel ============== -->
+		<xp:panel styleClass="col-xs-12 col-md-10" id="panel1">
+			<xp:panel styleClass="row" id="panel4">
+				<xp:panel id="panelService-Attachment" styleClass="col-xs-12 col-md-6">
+					<!-- Enter Service Information -->
+					<xp:table styleClass="address-table">
+						<xp:tr>
+							<xp:panel styleClass="tableHeading" tagName="th">
+								<xp:this.attrs>
+									<xp:attr name="colspan" value="2"></xp:attr>
+								</xp:this.attrs>
+								<xp:text tagName="label" value="${langBean.titleServiceInformation}"
+									id="computedField15" styleClass="control-label">
+								</xp:text>
+							</xp:panel>
+						</xp:tr>
+						<xp:table styleClass="address-table">
+							<xp:tr>
+								<xp:td style="width:50%">
+									<xp:text tagName="label" value="${langBean.labelServiceContract}:"
+										id="computedField16" styleClass="control-label">
+									</xp:text>
+									<span class="required-icon glyphicon glyphicon-asterisk"
+										aria-hidden="true">
+									</span>
+								</xp:td>
+								<xp:td style="width:50%">
+									<xp:inputText id="serviceContract">
+										<xp:this.validators>
+											<xp:validateRequired message="Service contact is required">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+
+
+							<!-- 			 -->
+							<!--		<xp:table styleClass="address-table"> -->
+							<xp:tr>
+								<xp:panel styleClass="tableHeading" tagName="th">
+									<xp:this.attrs>
+										<xp:attr name="colspan" value="2"></xp:attr>
+									</xp:this.attrs>
+									<xp:text tagName="label"
+										value="${langBean.titleAttachmentInformation}" id="computedField2"
+										styleClass="control-label">
+									</xp:text>
+								</xp:panel>
+							</xp:tr>
+
+							<xp:tr>
+								<xp:td style="width:25%">
+									<xp:text tagName="label" value="${langBean.labelModelCatalog}:"
+										id="computedField1" styleClass="control-label">
+									</xp:text>
+									<span class="required-icon glyphicon glyphicon-asterisk"
+										aria-hidden="true">
+									</span>
+								</xp:td>
+								<xp:td>
+									<xp:inputText id="modelCatalog">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="Attachment Information - Model/Catalog Number is required">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:text tagName="label" value="${langBean.labelSerialNumber}:"
+										id="computedField3" styleClass="control-label">
+									</xp:text>
+									<span class="required-icon glyphicon glyphicon-asterisk"
+										aria-hidden="true">
+									</span>
+								</xp:td>
+								<xp:td>
+									<xp:inputText id="serialNbr">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="Attachment Information - Serial Number is required">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:text tagName="label" value="${langBean.labelInstallationDate}:"
+										id="computedField4" styleClass="control-label">
+									</xp:text>
+									<span class="required-icon glyphicon glyphicon-asterisk"
+										aria-hidden="true">
+									</span>
+								</xp:td>
+								<xp:td>
+									<xp:inputText id="dateInstall">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="Attachment Information - Installation Date is required">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:text tagName="label" value="${langBean.labelPressure}:"
+										id="computedField5" styleClass="control-label">
+									</xp:text>
+									<span class="required-icon glyphicon glyphicon-asterisk"
+										aria-hidden="true">
+									</span>
+								</xp:td>
+								<xp:td>
+									<xp:inputText id="pressure">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="Attachment Information - Pressure is required">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:text tagName="label" value="${langBean.labelFlow}:"
+										id="computedField6" styleClass="control-label">
+									</xp:text>
+
+									<span class="required-icon glyphicon glyphicon-asterisk"
+										aria-hidden="true">
+									</span>
+								</xp:td>
+								<xp:td>
+									<xp:inputText id="flow">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="Flow Information - Flow Data is required">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:text tagName="label" value="${langBean.labelDateDealer}:"
+										id="computedField7" styleClass="control-label">
+									</xp:text>
+									<span class="required-icon glyphicon glyphicon-asterisk"
+										aria-hidden="true">
+									</span>
+								</xp:td>
+								<xp:td>
+									<xp:inputText id="dateComplete">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="Attachment Information - Date Dealer Completed Repair is required">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+						</xp:table>
+					</xp:table>
+				</xp:panel>
+
+				<xp:panel id="panel3" styleClass="col-md-6">
+					<xp:panel id="panel2">
+						<xp:table styleClass="address-table">
+							<xp:tr>
+								<xp:panel styleClass="tableHeading" tagName="th">
+									<xp:this.attrs>
+										<xp:attr name="colspan" value="2"></xp:attr>
+									</xp:this.attrs>
+									<xp:text tagName="label" value="${langBean.titleAccessories}"
+										id="computedField8" styleClass="control-label">
+									</xp:text>
+								</xp:panel>
+								<xp:td></xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:text tagName="label" value="${langBean.labelHFC}:"
+										id="computedField13" styleClass="control-label">
+									</xp:text>
+									<span class="required-icon glyphicon glyphicon-asterisk"
+										aria-hidden="true">
+									</span>
+								</xp:td>
+								<xp:td>
+									<xp:radioGroup id="hfc">
+										<xp:this.validators>
+											<xp:validateRequired message="HFC - Yes or No is required.">
+
+											</xp:validateRequired>
+										</xp:this.validators>
+										<xp:selectItem itemLabel="Yes"></xp:selectItem>
+										<xp:selectItem itemLabel="No"></xp:selectItem>
+									</xp:radioGroup>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:text tagName="label" value="${langBean.labelLoadCushion}:"
+										id="computedField9" styleClass="control-label">
+									</xp:text>
+									<span class="required-icon glyphicon glyphicon-asterisk"
+										aria-hidden="true">
+									</span>
+								</xp:td>
+								<xp:td>
+									<xp:radioGroup id="load">
+										<xp:this.validators>
+											<xp:validateRequired message="Load Cushion - Yes or No is required.">
+											</xp:validateRequired>
+										</xp:this.validators>
+										<xp:selectItem itemLabel="Yes"></xp:selectItem>
+										<xp:selectItem itemLabel="No"></xp:selectItem>
+									</xp:radioGroup>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:text tagName="label" value="${langBean.labelDigitalTilt}:"
+										id="computedField14" styleClass="control-label">
+									</xp:text>
+									<span class="required-icon glyphicon glyphicon-asterisk"
+										aria-hidden="true">
+									</span>
+								</xp:td>
+								<xp:td>
+
+									<xp:radioGroup id="digital">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="Digital Tilt Indicator - Yes or No is required.">
+											</xp:validateRequired>
+										</xp:this.validators>
+										<xp:selectItem itemLabel="Yes"></xp:selectItem>
+										<xp:selectItem itemLabel="No"></xp:selectItem>
+									</xp:radioGroup>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td></xp:td>
+								<xp:td></xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:panel styleClass="tableHeading" tagName="th">
+									<xp:this.attrs>
+										<xp:attr name="colspan" value="2"></xp:attr>
+									</xp:this.attrs>
+									<xp:text tagName="label" value="${langBean.titleTruckInformation}"
+										id="computedField10" styleClass="control-label">
+									</xp:text>
+								</xp:panel>
+
+								<xp:td></xp:td>
+							</xp:tr>
+
+							<xp:tr>
+								<xp:td></xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:text tagName="label" value="${langBean.labelTruckMakeModel}:"
+										id="computedField11" styleClass="control-label">
+									</xp:text>
+									<span class="required-icon glyphicon glyphicon-asterisk"
+										aria-hidden="true">
+									</span>
+								</xp:td>
+								<xp:td>
+									<xp:inputText id="truckModel">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="Truck Information - Truck Make and Model is required">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+									<xp:text tagName="label" value="${langBean.labelTruckSerial}:"
+										id="computedField12" styleClass="control-label">
+									</xp:text>
+									<span class="required-icon glyphicon glyphicon-asterisk"
+										aria-hidden="true">
+									</span>
+								</xp:td>
+								<xp:td>
+									<xp:inputText id="truckSerial">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="Truck Information - Truck Serial Number is required">
+											</xp:validateRequired>
+										</xp:this.validators>
+									</xp:inputText>
+								</xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td></xp:td>
+								<xp:td></xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td></xp:td>
+								<xp:td></xp:td>
+							</xp:tr>
+
+							<xp:table>
+								<xp:tr>
+								</xp:tr>
+							</xp:table>
+						</xp:table>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+		<!-- Start panelButtons-->
+		<xp:panel>
+			<xp:table styleClass="address-table">
+				<xp:tr>
+					<xp:button value="${langBean.btnPrevStep}" id="buttonPrevious1"
+						styleClass="btn btn-primary">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true">
+						</span>
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="main" disableValidators="true">
+							<xp:this.action><![CDATA[#{javascript:
+		viewScope.claimStep = "step_1";
+		sessionScope.claimStep = "step_1";
+		var dc = getComponent("dcClaimStep");
+		dc.show("step_1")
+		}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button value="${langBean.btnNextStep}" id="button1"
+						styleClass="btn btn-primary pull-right">
+						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="main">
+							<xp:this.action><![CDATA[#{javascript://set order email to ship email
+dBar.info("starting Next button on ccDealerClaimAttachment: ship email is " + salesOrderBean.getShipAddress().getEmail());
+//println("starting Next button on ccDealerClaimAttachment: ship email is " + salesOrderBean.getShipAddress().getEmail());
+try{
+	if (salesOrderBean.getOrderEmail()=="" || salesOrderBean.getOrderEmail() == null){
+		salesOrderBean.setOrderEmail(salesOrderBean.getShipAddress().getEmail());
+	}
+	// add logic to push variables into requestScope
+	requestScope.contract = getComponent("serviceContract").getValue();
+	requestScope.model = getComponent("modelCatalog").getValue();
+	requestScope.serial = getComponent("serialNbr").getValue();
+	requestScope.install = getComponent("dateInstall").getValue();
+	requestScope.pressure = getComponent("pressure").getValue();
+	requestScope.flow = getComponent("flow").getValue();
+	requestScope.complete = getComponent("dateComplete").getValue();
+	requestScope.hfc = getComponent("hfc").getValue();
+	requestScope.load = getComponent("load").getValue();
+	requestScope.digital = getComponent("digital").getValue();
+	requestScope.truckModel = getComponent("truckModel").getValue();
+	requestScope.truckSerial = getComponent("truckSerial").getValue();
+	// add logic to push variables into requestScope
+	sessionScope.contract = getComponent("serviceContract").getValue();
+	sessionScope.model = getComponent("modelCatalog").getValue();
+	sessionScope.serial = getComponent("serialNbr").getValue();
+	sessionScope.install = getComponent("dateInstall").getValue();
+	sessionScope.pressure = getComponent("pressure").getValue();
+	sessionScope.flow = getComponent("flow").getValue();
+	sessionScope.complete = getComponent("dateComplete").getValue();
+	sessionScope.hfc = getComponent("hfc").getValue();
+	sessionScope.load = getComponent("load").getValue();
+	sessionScope.digital = getComponent("digital").getValue();
+	sessionScope.truckModel = getComponent("truckModel").getValue();
+	sessionScope.truckSerial = getComponent("truckSerial").getValue();
+	
+	
+			// add logic to validate step 1 input first
+	viewScope.claimStep = "step_3";
+	var dc = getComponent("dcClaimStep");
+	dc.show("step_3");
+} catch(e) {
+	dBar.error("Error in ccDealerClaimAttachment Next button: " + e.toString());
+	println("ccWarrantyAddress---username " + session.getEffectiveUserName() + "--> Error in Next button: " + e.toString());
+	}
+//println("=+=+=+=+=+=+=");
+//println("Finished Order Address input");
+//println("=+=+=+=+=+=+=");	}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+				</xp:tr>
+					<xp:tr>
+					<xp:td></xp:td>
+					</xp:tr>
+			</xp:table>
+		</xp:panel>
+		<xp:eventHandler event="onClientLoad" submit="false">
+			<xp:this.script><![CDATA[dojo.query("input[id$='serviceContract']")[0].focus();]]></xp:this.script>
+		</xp:eventHandler>
+	</xp:panel>
+		</xp:panel>
+</xp:view>

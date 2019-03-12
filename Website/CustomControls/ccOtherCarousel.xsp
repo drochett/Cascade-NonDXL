@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+
+	<div class="carousel slide xspCarousel" data-ride="carousel"
+		data-interval="4000" id="carousel1" role="presentation"
+		style="cursor:pointer;">
+		<style type="text/css">
+			.carousel.xspCarousel {height:500px;} .carousel
+			.xspCarouselItem {height:500px;} @media (max-width: 1200px)
+			{.carousel.xspCarousel{height:400px;}} @media (max-width:
+			1200px) {.xspCarousel .xspCarouselItem{height:400px;}}
+			@media (max-width: 992px)
+			{.carousel.xspCarousel{height:300px;}} @media (max-width:
+			992px) {.xspCarousel .xspCarouselItem{height:300px;}} @media
+			(max-width: 768px) {.carousel.xspCarousel{height:300px;}}
+			@media (max-width: 768px) {.xspCarousel
+			.xspCarouselItem{height:300px;}}
+		</style>
+		<script type="text/javascript">
+			$(document).ready(function(){ var carousel =
+			x$('carousel1'); console.log(carousel);
+			carousel.carousel({}); });
+		</script>
+
+		<ol class="carousel-indicators">
+			<li data-target="div[id$=carousel1]" data-slide-to="0"
+				class="active"
+				style="${(viewScope.images[1] eq null) ? 'display:none' : ''}">
+			</li>
+			<li data-target="div[id$=carousel1]" data-slide-to="1"
+				style="${(viewScope.images[1] eq null) ? 'display:none' : ''}">
+			</li>
+			<li data-target="div[id$=carousel1]" data-slide-to="2"
+				style="${(viewScope.images[2] eq null) ? 'display:none' : ''}">
+			</li>
+			<li data-target="div[id$=carousel1]" data-slide-to="3"
+				style="${(viewScope.images[3] eq null) ? 'display:none' : ''}">
+			</li>
+			<li data-target="div[id$=carousel1]" data-slide-to="4"
+				style="${(viewScope.images[4] eq null) ? 'display:none' : ''}">
+			</li>
+			<li data-target="div[id$=carousel1]" data-slide-to="5"
+				style="${(viewScope.images[5] eq null) ? 'display:none' : ''}">
+			</li>
+			<li data-target="div[id$=carousel1]" data-slide-to="6"
+				style="${(viewScope.images[6] eq null) ? 'display:none' : ''}">
+			</li>
+			<li data-target="div[id$=carousel1]" data-slide-to="7"
+				style="${(viewScope.images[7] eq null) ? 'display:none' : ''}">
+			</li>
+			<li data-target="div[id$=carousel1]" data-slide-to="8"
+				style="${(viewScope.images[8] eq null) ? 'display:none' : ''}">
+			</li>
+			<li data-target="div[id$=carousel1]" data-slide-to="9"
+				style="${(viewScope.images[9] eq null) ? 'display:none' : ''}">
+			</li>
+		</ol>
+
+
+		<xp:panel styleClass="carousel-inner">
+			<xp:panel styleClass="item xspCarouselItem active">
+				<xp:this.loaded><![CDATA[${viewScope.images[0] ne null}]]></xp:this.loaded>
+				<xp:image id="image1" styleClass="d-block w-100">
+					<xp:this.url><![CDATA[#{javascript:viewScope.images[0].url}]]></xp:this.url>
+					<xp:this.alt><![CDATA[#{javascript:viewScope.images[0].alt}]]></xp:this.alt>
+					<xp:this.title><![CDATA[#{javascript:viewScope.images[0].title}]]></xp:this.title>
+				</xp:image>
+			</xp:panel>
+
+			<xp:panel styleClass="item xspCarouselItem">
+				<xp:this.loaded><![CDATA[${viewScope.images[1] ne null}]]></xp:this.loaded>
+				<xp:image id="image2" styleClass="d-block w-100">
+					<xp:this.url><![CDATA[#{javascript:viewScope.images[1].url}]]></xp:this.url>
+					<xp:this.alt><![CDATA[#{javascript:viewScope.images[1].alt}]]></xp:this.alt>
+					<xp:this.title><![CDATA[#{javascript:viewScope.images[1].title}]]></xp:this.title>
+				</xp:image>
+			</xp:panel>
+
+			<xp:panel styleClass="item xspCarouselItem active">
+				<xp:this.loaded><![CDATA[${viewScope.images[2] ne null}]]></xp:this.loaded>
+				<xp:image id="image3" styleClass="d-block w-100">
+					<xp:this.url><![CDATA[#{javascript:viewScope.images[2].url}]]></xp:this.url>
+					<xp:this.alt><![CDATA[#{javascript:viewScope.images[2].alt}]]></xp:this.alt>
+					<xp:this.title><![CDATA[#{javascript:viewScope.images[2].title}]]></xp:this.title>
+				</xp:image>
+			</xp:panel>
+
+			<xp:panel styleClass="item xspCarouselItem active">
+				<xp:this.loaded><![CDATA[${viewScope.images[3] ne null}]]></xp:this.loaded>
+				<xp:image id="image4" styleClass="d-block w-100">
+					<xp:this.url><![CDATA[#{javascript:viewScope.images[3].url}]]></xp:this.url>
+					<xp:this.alt><![CDATA[#{javascript:viewScope.images[3].alt}]]></xp:this.alt>
+					<xp:this.title><![CDATA[#{javascript:viewScope.images[3].title}]]></xp:this.title>
+				</xp:image>
+			</xp:panel>
+
+			<xp:panel styleClass="item xspCarouselItem active">
+				<xp:this.loaded><![CDATA[${viewScope.images[4] ne null}]]></xp:this.loaded>
+				<xp:image id="image5" styleClass="d-block w-100">
+					<xp:this.url><![CDATA[#{javascript:viewScope.images[4].url}]]></xp:this.url>
+					<xp:this.alt><![CDATA[#{javascript:viewScope.images[4].alt}]]></xp:this.alt>
+					<xp:this.title><![CDATA[#{javascript:viewScope.images[4].title}]]></xp:this.title>
+				</xp:image>
+			</xp:panel>
+
+			<xp:panel styleClass="item xspCarouselItem active">
+				<xp:this.loaded><![CDATA[${viewScope.images[5] ne null}]]></xp:this.loaded>
+				<xp:image id="image6" styleClass="d-block w-100">
+					<xp:this.url><![CDATA[#{javascript:viewScope.images[5].url}]]></xp:this.url>
+					<xp:this.alt><![CDATA[#{javascript:viewScope.images[5].alt}]]></xp:this.alt>
+					<xp:this.title><![CDATA[#{javascript:viewScope.images[5].title}]]></xp:this.title>
+				</xp:image>
+			</xp:panel>
+
+			<xp:panel styleClass="item xspCarouselItem active">
+				<xp:this.loaded><![CDATA[${viewScope.images[6] ne null}]]></xp:this.loaded>
+				<xp:image id="image7" styleClass="d-block w-100">
+					<xp:this.url><![CDATA[#{javascript:viewScope.images[6].url}]]></xp:this.url>
+					<xp:this.alt><![CDATA[#{javascript:viewScope.images[6].alt}]]></xp:this.alt>
+					<xp:this.title><![CDATA[#{javascript:viewScope.images[6].title}]]></xp:this.title>
+				</xp:image>
+			</xp:panel>
+
+			<xp:panel styleClass="item xspCarouselItem active">
+				<xp:this.loaded><![CDATA[${viewScope.images[7] ne null}]]></xp:this.loaded>
+				<xp:image id="image8" styleClass="d-block w-100">
+					<xp:this.url><![CDATA[#{javascript:viewScope.images[7].url}]]></xp:this.url>
+					<xp:this.alt><![CDATA[#{javascript:viewScope.images[7].alt}]]></xp:this.alt>
+					<xp:this.title><![CDATA[#{javascript:viewScope.images[7].title}]]></xp:this.title>
+				</xp:image>
+			</xp:panel>
+
+			<xp:panel styleClass="item xspCarouselItem active">
+				<xp:this.loaded><![CDATA[${viewScope.images[8] ne null}]]></xp:this.loaded>
+				<xp:image id="image9" styleClass="d-block w-100">
+					<xp:this.url><![CDATA[#{javascript:viewScope.images[8].url}]]></xp:this.url>
+					<xp:this.alt><![CDATA[#{javascript:viewScope.images[8].alt}]]></xp:this.alt>
+					<xp:this.title><![CDATA[#{javascript:viewScope.images[8].title}]]></xp:this.title>
+				</xp:image>
+			</xp:panel>
+
+			<xp:panel styleClass="item xspCarouselItem active">
+				<xp:this.loaded><![CDATA[${viewScope.images[9] ne null}]]></xp:this.loaded>
+				<xp:image id="image10" styleClass="d-block w-100">
+					<xp:this.url><![CDATA[#{javascript:viewScope.images[9].url}]]></xp:this.url>
+					<xp:this.alt><![CDATA[#{javascript:viewScope.images[9].alt}]]></xp:this.alt>
+					<xp:this.title><![CDATA[#{javascript:viewScope.images[9].title}]]></xp:this.title>
+				</xp:image>
+			</xp:panel>
+
+
+			<a class="carousel-control left prev-slide"
+				href="div[id$=carousel1]" data-slide="prev"
+				style="${(viewScope.images[1] eq null) ? 'display:none' : ''}">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+			</a>
+			<a class="carousel-control right next-slide"
+				href="div[id$=carousel1]" data-slide="next"
+				style="${(viewScope.images[1] eq null) ? 'display:none' : ''}">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+			</a>
+		</xp:panel>
+	</div>
+
+</xp:view>

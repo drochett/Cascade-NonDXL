@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+  <!-- START 1 row 1 column -->
+  <xp:panel styleClass="row" id="panelColumns1">
+    <xp:panel styleClass="col-xs-12" id="panel3">
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:this.attrs>
+              <xp:attr name="colspan" value="2"></xp:attr>
+            </xp:this.attrs>
+            <xp:label value="${langBean.titleBasicForkInformation}" id="label2"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+      </xp:table>
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelForkType}:" id="fork_Type_Label1" for="fork_Type1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:text escape="true" value="#{document1.Fork_Type}" id="computedField1"></xp:text>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelForkQuantity}:" id="fork_Quantity_Label1" for="fork_Quantity1"></xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.Fork_Quantity}" id="fork_Quantity1" readonly="true"></xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:this.rendered><![CDATA[#{javascript:
+return (currentDocument.getItemValueString("Fork_Production_Number") != "" && currentDocument.getItemValueString("Fork_Production_Number") != null )}]]></xp:this.rendered>
+          <xp:td>
+            <xp:label value="${langBean.labelForkProductionNumber}:"
+              id="fork_Production_Number_Label1" for="fork_Production_Number1">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.Fork_Production_Number}" id="fork_Production_Number1"
+              readonly="true">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+    </xp:panel>
+  </xp:panel>
+  <!-- END 1 row 1 column -->
+</xp:view>

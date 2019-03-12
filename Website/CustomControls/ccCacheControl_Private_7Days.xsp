@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<!-- Meta tags -->
+	<xp:this.resources>
+		<xp:metaData name="Cache-Control" content="private, max-age=604800"></xp:metaData>
+	</xp:this.resources>
+
+	<!-- The page title -->	
+	<xp:this.beforePageLoad><![CDATA[#{javascript:if (compositeData.pageTitle != "") { 
+	view.setPageTitle(compositeData.pageTitle);	
+}}]]></xp:this.beforePageLoad>
+</xp:view>

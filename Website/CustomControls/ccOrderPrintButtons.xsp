@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+  <xp:this.navigationRules>
+    <xp:navigationRule outcome="OrderProcessing" viewId="/OrderProcessing.xsp"></xp:navigationRule>
+    <xp:navigationRule outcome="MyOrders" viewId="/MyOrders.xsp"></xp:navigationRule>
+  </xp:this.navigationRules>
+  
+  <hr></hr>
+  <xp:panel>
+  	<xp:button value="Print Friendly Page" id="button2"
+  		styleClass="btn btn-primary pull-left">
+
+  		<xp:this.rendered><![CDATA[#{javascript:viewScope.orderType == "Parts" || viewScope.orderType == "Forks"}]]></xp:this.rendered>
+
+  		<xp:eventHandler event="onclick" submit="false">
+  			<xp:this.script><![CDATA[var host = window.location.href;
+var url = host.replace("ProcessOrders", "ProcessParts_Print");
+window.open(url,"_blank");]]></xp:this.script>
+
+
+  		</xp:eventHandler>
+  	</xp:button>
+  	<xp:br></xp:br><xp:br></xp:br>
+  	<xp:button value="#{langBean.btnReturnToMyOrders}" id="button4" styleClass="btn btn-primary pull-left">
+      <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+      <xp:eventHandler event="onclick" submit="true" refreshMode="complete" immediate="false" save="false">
+        <xp:this.action><![CDATA[#{javascript:
+viewStateBean.restoreState = true ;
+return "MyOrders" ;}]]></xp:this.action>
+      </xp:eventHandler>
+    </xp:button><xp:br></xp:br>
+  	
+
+  </xp:panel>
+  <!--  MyOrder buttons-->
+  <xp:panel id="panel1">
+    <xp:this.rendered><![CDATA[#{javascript:(sessionScope.isEditRole != true) && !@IsNewDoc()}]]></xp:this.rendered>
+    
+  </xp:panel>
+  </xp:view>

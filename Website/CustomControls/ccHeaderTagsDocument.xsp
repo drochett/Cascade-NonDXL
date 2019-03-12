@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xc:ccHeaderTagsDocument></xc:ccHeaderTagsDocument>
+
+	<!--
+		*********** Create heasder tags for mobile icons
+		**********************
+	-->
+	<xp:this.resources>
+		
+		<!--
+			+++++ the following links are he Cascade icons used for adding icon
+			++++ +++++ to home page on mobile devices ++++++
+		-->
+
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="apple-touch-icon">
+				</xp:parameter>
+				<!-- <xp:parameter name="sizes" value="120x120"></xp:parameter>  -->
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/apple-touch-icon.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+		<!--  ************* Removed this code because icon is duplicate ***************
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="apple-touch-icon">
+				</xp:parameter>
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/apple-touch-icon.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+		********** End of code removed ************* -->
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="apple-touch-icon">
+				</xp:parameter>
+				<xp:parameter name="sizes" value="76x76"></xp:parameter>
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/apple-touch-icon-76x76.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="apple-touch-icon">
+				</xp:parameter>
+				<xp:parameter name="sizes" value="152x152"></xp:parameter>
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/apple-touch-icon-152x152.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="apple-touch-icon">
+				</xp:parameter>
+				<xp:parameter name="sizes" value="180x180"></xp:parameter>
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/apple-touch-icon-180x180.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="icon-hires">
+				</xp:parameter>
+				<xp:parameter name="sizes" value="192x192"></xp:parameter>
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/icon-hires.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="icon-normal">
+				</xp:parameter>
+				<xp:parameter name="sizes" value="128x128"></xp:parameter>
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/icon-normal.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag><!-- 
+	+++++the following is added for addToHomePage feature++++++
+	 -->
+
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="action-icon-android">
+				</xp:parameter>
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/action-icon-android.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="action-icon-ios6">
+				</xp:parameter>
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/action-icon-ios6.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+
+		<xp:headTag tagName="link" rendered="true" loaded="true">
+			<xp:this.attributes>
+				<xp:parameter name="rel" value="action-icon-ios7">
+				</xp:parameter>
+				<xp:parameter name="href"
+					value="${configBean.HostURL}${configBean.WebsiteURL}/action-icon-ios7.png">
+				</xp:parameter>
+			</xp:this.attributes>
+		</xp:headTag>
+
+
+	</xp:this.resources>
+</xp:view>

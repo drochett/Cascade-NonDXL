@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"> 
+
+	
+	<xp:panel styleClass="blog-header">
+		<xp:image id="image1" url="Blog_banner.png"
+			style="margin-top:-10px;">
+		</xp:image>
+		<xp:panel styleClass="blog-heading">
+
+			<xp:label id="label1">
+				<xp:this.style><![CDATA[#{javascript:var temp = configBean.BlogTitleFontStyle;
+var retString = "";
+for (var i = 0; i < temp.length; i++) {
+	retString = retString + ";" + temp[i];
+}
+return retString}]]></xp:this.style>
+				<xp:this.value><![CDATA[#{javascript:try {
+	return langBean.blog_title
+} catch(e) {
+	return "Cascade News"
+}}]]></xp:this.value>
+			</xp:label>
+
+			<xp:label id="label3">
+				<xp:this.style><![CDATA[#{javascript:var temp = configBean.BlogSubTitleFontStyle;
+var retString = "";
+for (var i = 0; i < temp.length; i++) {
+	retString = retString + ";" + temp[i];
+}
+return retString}]]></xp:this.style>
+				<xp:this.value><![CDATA[#{javascript:try { 
+	return langBean.blog_subtitle + ' - Admin View';
+} catch(e) {
+	return " - Admin View";
+}}]]></xp:this.value>
+			</xp:label>
+
+			<xp:panel styleClass="col-sm-12 blog-menu">
+				<xp:link escape="true" id="link1" value="/BlogAdmin.xsp"
+					text="Blog Posts">
+				</xp:link>
+				&#160;&#160;|&#160;&#160;
+				<xp:link escape="true" id="link2"
+					value="/BlogModeration.xsp" text="Moderate Comments">
+				</xp:link>
+			</xp:panel>
+
+		</xp:panel>
+
+
+	</xp:panel>
+
+
+</xp:view>

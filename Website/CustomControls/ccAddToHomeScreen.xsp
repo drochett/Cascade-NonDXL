@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<xp:this.resources>
+		<xp:script src="/addtohome/addtohomescreen.js"
+			clientSide="true">
+		</xp:script>
+		<xp:styleSheet href="/addtohome/addtohomescreen.css"></xp:styleSheet>
+		<xp:metaData name="apple-mobile-web-app-title">
+			<xp:this.content><![CDATA[${javascript:var homeTitle =  compositeData.homeTitle;
+dBar.info("page title is " + view.getPageTitle() + " and homeTitle is " + homeTitle);
+return (!!homeTitle) ? homeTitle : view.getPageTitle();}]]></xp:this.content>
+		</xp:metaData>
+	</xp:this.resources>
+
+	<xp:eventHandler event="onClientLoad" submit="false">
+		<xp:this.script><![CDATA[addToHomescreen({debug: false });
+]]></xp:this.script>
+	</xp:eventHandler>
+	</xp:view>

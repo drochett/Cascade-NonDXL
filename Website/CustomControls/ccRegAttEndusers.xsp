@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom">
+
+  <!--panel Shipping Address -->
+  <xp:panel styleClass="row" id="panel1">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel5">
+      <!--  MyOrder button block -->
+      <xc:ccOrderQuoteMyOrderButton></xc:ccOrderQuoteMyOrderButton>
+      <xp:br></xp:br>
+      <!--Table Heading End Users -->
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:panel styleClass="tableHeading" tagName="th">
+            <xp:this.attrs>
+              <xp:attr name="colspan" value="2"></xp:attr>
+            </xp:this.attrs>
+            <xp:label value="${langBean.titleEndUserContactInfo}" id="label33"
+              style="font-weight:bold;color:rgb(255,255,255)">
+            </xp:label>
+          </xp:panel>
+        </xp:tr>
+      </xp:table>
+      <!--Table ShippingFields -->
+      <xc:ccAddressShipping></xc:ccAddressShipping>
+
+      <!--Table Dealer Fields -->
+      <xp:br></xp:br>
+      <xp:table styleClass="address-table">
+        <xp:tr>
+          <xp:td style="width:30%">
+            <xp:label value="${langBean.labelDealerName}: " id="dealerName_Label1" for="dealerName1">
+            </xp:label>
+          </xp:td>
+          <xp:td style="width:70%">
+            <xp:inputText value="#{document1.DealerName}" id="dealerName1">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelDealerCity}: " id="dealerCity_Label1" for="dealerCity1">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.DealerCity}" id="dealerCity1">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+        <xp:tr>
+          <xp:td>
+            <xp:label value="${langBean.labelDealerState}: " id="dealerState_Label1" for="dealerState1">
+            </xp:label>
+          </xp:td>
+          <xp:td>
+            <xp:inputText value="#{document1.DealerState}" id="dealerState1">
+            </xp:inputText>
+          </xp:td>
+        </xp:tr>
+      </xp:table>
+      <!--Table Heading Attachment Info -->
+      <xp:br></xp:br>
+      <xc:ccRegAttachmentInfo></xc:ccRegAttachmentInfo>
+    </xp:panel>
+  </xp:panel>
+
+
+  <!--panel buttons-->
+  <xp:panel styleClass="row" id="panel2">
+    <xp:panel styleClass="col-xs-12 col-md-10" id="panel3">
+      <hr></hr>
+      <!-- submit button && full update (or include data source in partial update) -->
+      <xp:button value="${langBean.btnLabelSubmit}" id="button3" styleClass="btn btn-primary pull-right"
+        rendered="#{javascript:@IsNewDoc()}">
+        <xp:eventHandler event="onclick" submit="true" refreshMode="partial"
+          immediate="false" save="true" refreshId="main">
+          <xp:this.action><![CDATA[#{javascript:
+viewScope.orderPlaced = "1";
+viewScope.orderStep = "step_2";
+var dc = getComponent("dcOrderStep");
+dc.show("step_2")
+}]]></xp:this.action>
+        </xp:eventHandler>
+      </xp:button>
+      <!--processing buttons -->
+      <xp:panel rendered="#{javascript:!@IsNewDoc()}">
+        <xc:ccOrderQuoteProcessButtons></xc:ccOrderQuoteProcessButtons>
+      </xp:panel>
+
+    </xp:panel>
+  </xp:panel>
+</xp:view>
+
+
+

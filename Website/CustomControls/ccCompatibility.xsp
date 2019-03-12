@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+<xp:this.beforeRenderResponse><![CDATA[#{javascript:if (context.getUserAgent().isIE(7,11)) {
+var exCon = facesContext.getExternalContext();
+var response = exCon.getResponse();
+response.setHeader("X-UA-Compatible", "IE=edge");
+}}]]></xp:this.beforeRenderResponse>
+</xp:view>

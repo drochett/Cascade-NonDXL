@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex" dojoParseOnLoad="true"
+	dojoTheme="true">
+	<xp:this.resources>
+		<xp:dojoModule name="dojox.widget.Standby"></xp:dojoModule>
+		<xp:script src="/waitFunctions.js" clientSide="true"></xp:script>
+	</xp:this.resources>
+	<xp:this.afterPageLoad><![CDATA[#{javascript:var searchTerm = viewScope.mhpItem;
+dBar.info("searchTerm is " + searchTerm);
+if (!!searchTerm){
+	//set search term
+	searchSiteBean.setSearchPhrase(searchTerm);
+	dBar.info("Set searchSiteBean to " + searchTerm)
+	
+	//do the search
+	searchSiteBean.doSearch();
+	//redirect back to page with no parameters
+	//context.getUrl().removeAllParameters();
+	//context.redirectToPage(view.getPageName(),true);	
+}
+}]]></xp:this.afterPageLoad>
+	<xp:panel styleClass="textmhplabelcenter">
+
+			<!-- enter search results -->
+			<xp:panel styleClass="row" id="SearchEntryRow" tagName="div">
+				<xp:panel id="SearchEntryWidget" styleClass="col-md-10"
+					tagName="div">
+					<xp:eventHandler event="onClientLoad" submit="false">
+						<xp:this.script><![CDATA[try {
+        $('document').ready(function(){
+           // alert("#{id:searchEntry}");
+            x$("#{id:searchEntry}").focus();
+        })
+    
+ }  catch (e) {
+ 
+ } ;
+ 
+ function x$(idTag, param){ //Updated 18 Feb 2012
+ idTag=idTag.replace(/:/gi, "\\:")+(param ? param : "");
+ return($("#"+idTag));
+}
+]]></xp:this.script>
+					</xp:eventHandler>
+
+
+				</xp:panel>
+			</xp:panel>
+
+			<xp:panel styleClass="row" id="SearchResultsPanel" tagName="div">
+				<xp:panel id="panel2" styleClass="col-md-10" tagName="div">
+
+					<xe:widgetContainer id="widgetResultsContainer"
+						titleBarText="${langBean.SiteSearchResultsWidgetHeading}"
+						styleClass="login-panel">
+						<!-- Panel if no results -->
+						<xp:panel rendered="#{javascript:return !searchSiteBean.hasResults();}">
+							<div class="panel-body">
+								<div class="form-group">
+									<div class="row">
+										<div class="col-sm-12">
+											<xp:text tagName="label" id="NoResultsTextControl"
+												styleClass="control-label" value="${langBean.SiteSearchNoResultsMsg}">
+
+											</xp:text>
+										</div>
+									</div>
+								</div>
+							</div>
+						</xp:panel>
+						<!-- Panel for results -->
+						<xp:panel id="showResults" rendered="#{javascript:searchSiteBean.hasResults();}">
+							<div class="panel-body">
+								<div class="form-group">
+									<!-- Show pager controls at top-->
+									<xp:panel id="topControls" styleClass="row topPager">
+										<div class="col-sm-5">
+											<!-- show result counts here -->
+											<xp:text escape="true" id="searchResultsMsg" tagName="label">
+												<xp:this.value><![CDATA[#{javascript:var found  = searchSiteBean.getTotalResultsDisplay();
+var searchTerm = searchSiteBean.getSearchPhrase();
+var max = searchSiteBean.getMaxResultsDisplay();
+var firstPart = langBean.getValue("SearchSiteResults1");
+var secondPart = langBean.getValue("SearchSiteResults2");
+rtnString = firstPart  + " "    + found + " "  + secondPart + " " + searchTerm;
+return rtnString;}]]></xp:this.value>
+											</xp:text>
+										</div>
+										<div class="col-sm-7">
+											<xp:pager layout="Previous Group Next"
+												partialRefresh="true" id="pager2" for="repeat1" styleClass="pull-right">
+											</xp:pager>
+										</div>
+									</xp:panel>
+
+
+									<!-- Show table with Data -->
+									<div id="resultsDiv" class="table-responsive">
+										<table class="table table-condensed">
+											<thead>
+												<tr>
+													<th style="width: 5%;">
+														<!-- icon heading column-->
+													</th>
+													<th style="width: 55%;">
+														<xp:text escape="true" id="computedField18"
+															tagName="label" value="${langBean.SiteSearchHeadingSubject}">
+														</xp:text>
+													</th>
+													<th style="width: 10%;">
+														<xp:text escape="true" id="computedField19"
+															tagName="label" value="${langBean.SiteSearchHeadingLanguage}">
+														</xp:text>
+
+													</th>
+													<th style="width: 25%;">
+														<xp:text escape="true" id="computedField1"
+															tagName="label" value="${langBean.SiteSearchHeadingDate}">
+														</xp:text>
+
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<xp:repeat id="repeat1"
+													rows="${searchSiteBean.maxResultsPerPage}"
+													value="#{javascript:return searchSiteBean.getSearchResults();}"
+													var="col" indexVar="ind">
+													<tr>
+														<td>
+															<xp:image url="#{col.iconURL}" id="image1"
+																alt="#{col.mediaType}">
+															</xp:image>
+															<xe:tooltip id="tooltip1" for="image1"
+																label="#{col.mediaType}">
+															</xe:tooltip>
+
+														</td>
+														<td>
+															<xp:link escape="true" text="#{col.subject}" id="link1"
+																value="#{col.url}">
+																<xp:this.target><![CDATA[#{javascript:return (col.isHomeDoc()? "" : "_blank");}]]></xp:this.target>
+															</xp:link>
+														</td>
+														<td>
+															<xp:text escape="true" id="computedField2" value="#{col.language}">
+															</xp:text>
+														</td>
+														<td>
+															<xp:text escape="true" id="computedField3" value="#{col.lastModified}">
+																<xp:this.converter>
+																	<xp:convertDateTime type="date">
+																	</xp:convertDateTime>
+																</xp:this.converter>
+															</xp:text>
+														</td>
+
+													</tr>
+												</xp:repeat>
+											</tbody>
+
+										</table>
+									</div>
+
+
+									<!-- Footer row with pager -->
+									<xp:panel id="panel1" styleClass="row">
+										<div class="col-sm-12">
+
+
+											<xp:pager layout="Previous Group Next"
+												partialRefresh="true" id="pager1" for="repeat1" styleClass="pull-right">
+											</xp:pager>
+										</div>
+									</xp:panel>
+
+								</div>
+							</div>
+						</xp:panel>
+					</xe:widgetContainer>
+
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+</xp:view>

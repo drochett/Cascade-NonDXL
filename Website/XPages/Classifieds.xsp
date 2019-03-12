@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xc:ccLayout>
+		<xp:panel id="main" styleClass="container">
+			<!--	new	banner row-->
+			<xp:panel styleClass="blue-header">
+				<xp:panel styleClass="row">
+					<xp:panel styleClass="col-xs-12">
+						<xp:text escape="false" id="computedField7" value="Attachment Classifieds"
+							styleClass="carousel-heading">
+						</xp:text>
+						<xp:text escape="false" id="computedField8"
+							value="Look through these classified ads or create your own. It's free!"
+							styleClass="carousel-text">
+						</xp:text>
+						<xp:br></xp:br>
+						<xp:text escape="false" id="computedField1"
+							value="(Classified Ads are for Cascade dealers and end users only.)"
+							styleClass="carousel-text">
+						</xp:text>
+					</xp:panel>
+				</xp:panel>
+			</xp:panel>
+			<!--			MAIN CONTENT-->
+			<!-- Create New Ad row -->
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-sm-6">
+					<xp:button value="Create a classified ad" id="button1">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="complete">
+							<xp:this.action>
+								<xp:openPage name="/ClassidiedAd.xsp" target="newDocument"></xp:openPage>
+							</xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+				</xp:panel>
+				<xp:panel styleClass="col-sm-6">
+					<xp:label value="Important: Please read Cascade's " id="label1"></xp:label>
+					<xp:link escape="true" text="Classified Ad Policy" id="link1"
+						value="${configBean.HostURL}americas/en/classifiedpolicy">
+					</xp:link>
+				</xp:panel>
+			</xp:panel>
+			<!-- Classifieds View -->
+			<xp:panel styleClass="row">
+				<xp:panel styleClass="col-xs-12">
+					<xe:dataView id="dataView1" var="viewEntry"
+						rows="30" pageName="/ClassidiedAd.xsp" openDocAsReadonly="true"
+						expandedDetail="true">
+
+						
+						<xp:this.facets>
+							<xp:panel xp:key="detail"
+								id="panelDetail1">
+								<xp:text escape="true"
+									id="computedField2" value="#{viewEntry.txt_ShortDesc}">
+								</xp:text>
+							</xp:panel>
+							<xp:panel xp:key="icon" id="panelIcon1">
+								<xp:this.rendered><![CDATA[#{javascript:
+var ve:NotesXspViewEntry = viewEntry ;
+var iconNum = ve.getColumnValue("Picture") ;
+return (iconNum > 0 ) ? true : false ;}]]></xp:this.rendered>
+								<xp:label id="label4">
+									<span
+										class="glyphicon glyphicon-picture" aria-hidden="true">
+									</span>
+								</xp:label>
+							</xp:panel>
+							<xe:pagerSaveState id="pagerSaveState1"
+								xp:key="pagerBottom">
+							</xe:pagerSaveState>
+							<xp:pager layout="Previous Group Next"
+								partialRefresh="true" id="pager1" xp:key="pagerTopRight">
+							</xp:pager>
+							<xe:pagerExpand id="pagerExpand1"
+								xp:key="pagerTopLeft">
+							</xe:pagerExpand>
+						</xp:this.facets>
+						<xe:this.data>
+							<xp:dominoView var="view1"
+								databaseName="${configBean.ClassifiedsDBPath}"
+								viewName="classifiedads" expandLevel="1">
+							</xp:dominoView>
+						</xe:this.data>
+						<xe:this.categoryColumn>
+							<xe:viewCategoryColumn
+								columnName="txt_ProductCategory">
+							</xe:viewCategoryColumn>
+						</xe:this.categoryColumn>
+						<xe:this.summaryColumn>
+							<xe:viewSummaryColumn
+								columnName="txt_ModelNumber">
+							</xe:viewSummaryColumn>
+						</xe:this.summaryColumn>
+					</xe:dataView>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+	</xc:ccLayout>
+</xp:view>

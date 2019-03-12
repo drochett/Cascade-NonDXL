@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="0. Americas FR/CA Rollout" hide="v3" publicaccess="false">
+  <trigger type="actionsmenu"/>
+  <documentset type="selected"/>
+  <code event="action">
+    <simpleaction action="runformula">
+      <formula>FIELD val_americas_ca := val_americas_en ;
+FIELD val_americas_fr := val_eme_fr ;
+SELECT @All</formula>
+    </simpleaction>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101950,34-08</datetime>
+  </item>
+</agent>

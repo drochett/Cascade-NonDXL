@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="(Set_Translated)" hide="v3" publicaccess="false" restrictions="unrestricted">
+  <trigger type="agentlist"/>
+  <documentset type="runonce"/>
+  <code event="options">
+    <lotusscript>%REM
+	Agent Set_Translated
+	Created Jun 16, 2016 by Cascade Corp/CASCADE
+	Description: This agent goes through documents and add the trans_* fields based on
+	"processed_*" fields.  It then removes the "Processed_* field from the document since
+	they are no longer needed.  It also removes the "processed" field if the document
+	has one.
+%END REM
+Option Public
+Option Declare
+
+
+</lotusscript>
+  </code>
+  <code event="initialize">
+    <lotusscript>Sub Initialize
+	Dim key As String
+	Dim docChanged As Boolean
+	Dim item As NotesItem
+	Dim doc As NotesDocument
+	Dim s As New NotesSession
+	Dim db As NotesDatabase
+	Dim v As NotesView
+	Dim x As Integer, y As Integer
+	Dim langVals(6) As String
+	Dim val_americas_en As String
+	
+	
+	langVals(0) = "de"
+	langVals(1) = "es"
+	langVals(2) = "fi"
+	langVals(3) = "fr"
+	langVals(4) = "it"
+	langVals(5) = "nl"
+	langVals(6) = "se"
+	
+	Set db = s.Currentdatabase
+	Set v = db.getView("AllLabelValues2")
+	
+	Set doc = v.Getfirstdocument()
+	
+	Do Until doc Is Nothing
+		key = doc.getItemValue("key")(0)
+		'do not process if multi value
+		If doc.isMultiValue(0) = "Yes" Then
+			'write it to a log document
+			
+			'Get the Next document
+			Goto Nextdocument
+		End If
+			
+		val_americas_en = doc.getItemValue("val_americas_en")(0)
+		Forall l In LangVals
+			Set item = doc.getFirstItem("val_eme_" + l)
+			If Not item Is Nothing Then
+				If item.values(0) &lt;&gt; val_americas_en Then
+					Call doc.replaceItemValue("trans_" + l, "translated")
+					Call item.Remove()
+					docChanged = 1
+				Else
+					'do something here???
+				End If
+			End If
+		End Forall
+		If doc.hasItem("processed") Then 
+			Call doc.removeItem("processed")
+			docChanged = 1
+		End If
+	If docChanged Then
+			Call doc.Save(True,False)
+	End If
+		docChanged = 0
+NEXTDOCUMENT:
+		Set doc = v.Getnextdocument(doc)
+	Loop
+	
+	
+	
+	
+End Sub</lotusscript>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101934,83-08</datetime>
+  </item>
+</agent>

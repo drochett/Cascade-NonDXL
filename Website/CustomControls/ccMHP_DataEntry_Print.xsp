@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex"
+	styleClass="newsfeedtitle">
+
+	<xp:this.resources>
+		<xp:styleSheet href="/cascade.css"></xp:styleSheet>
+		<xp:styleSheet href="/other_websites.css"></xp:styleSheet>
+	</xp:this.resources>
+
+	<xp:panel styleClass="textmhplabel">
+			<div class="panel-body">
+				<div class="form-group">
+				<div style="text-align:left">
+					<xp:button value="${javascript:langBean.labelPrint}" id="button1" >
+						<xp:eventHandler event="onclick"
+							submit="false">
+							<xp:this.script><![CDATA[window.print()]]></xp:this.script>
+						</xp:eventHandler></xp:button>
+					&#160;<xp:button id="printBtn" value="Back">
+								
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="complete" immediate="true">
+
+
+									<xp:this.action><![CDATA[#{javascript://println("Printing MHP ITEM SPECIFICATION PAGE");
+context.redirectToPrevious();
+//target="_blank";
+/*var host = window.location.href;
+var url = host.replace("xpMHP_Specifications", "xpMHP_Specifications_Print");
+println(url);
+window.open(url,"_blank");*/}]]></xp:this.action>
+								</xp:eventHandler>
+</xp:button></div>
+					<br></br>
+					<xp:table cellspacing="0" cellpadding="1"
+						style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+						<xp:tr></xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+						</xp:tr>
+						<xp:tr>
+							<xp:td
+								style="width:20.0%;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+							
+								<xp:label
+									value="${langBean.mhp_PrintModelNbr}" id="label2"
+									style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;color:rgb(0,0,0)">
+									
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="text-align: left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								
+								<xp:inputText id="modelNbr"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px" readonly="true" value="#{javascript:sessionScope.mhpItem;}">
+																		
+								</xp:inputText>
+							</xp:td>
+							<xp:td style="width:50%; text-align:left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td
+								style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label
+									value="${langBean.mhp_PrintRevisionNbr}" id="label5"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;color:rgb(0,0,0)">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="text-align: left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText
+									id="inputText5"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px" readonly="true" value="#{javascript:sessionScope.mhpRev;}">
+								</xp:inputText>
+							</xp:td>
+							<xp:td style="width:50%; text-align:left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+							</xp:td>
+						</xp:tr>
+						<xp:tr
+							style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px">
+							<xp:td
+								style="font-weight:bold;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:label
+									value="${langBean.mhp_PrintSerialNbr}" id="label6"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;color:rgb(0,0,0)">
+								</xp:label>
+							</xp:td>
+							<xp:td
+								style="text-align: left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+								<xp:inputText
+									id="inputText6"
+									style="padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px" readonly="true" value="#{javascript:sessionScope.mhpSerial;}">
+								</xp:inputText>
+							</xp:td>
+							<xp:td style="width:50%; text-align:left;padding-top:0.0px;padding-bottom:0.0px;margin-top:0.0px;margin-bottom:0.0px;height:15px;font-size:9pt">
+							</xp:td>
+						</xp:tr>
+					</xp:table>
+				</div>
+			<div>
+			
+			</div>
+			</div>
+		<div>
+		</div>
+	</xp:panel>
+</xp:view>

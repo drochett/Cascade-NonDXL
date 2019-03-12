@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.lotus.com/dxl" name="Development\Labels by ModDate" showinmenu="false" publicaccess="false" unreadmarks="none" onopengoto="lastopened" onrefresh="displayindicator" headers="beveled" opencollapsed="false" showresponsehierarchy="true" showmargin="true" shrinkrows="false" extendlastcolumn="true" showhierarchies="false" unreadcolor="black" rowlinecount="1" headerlinecount="1" rowspacing="1" bgcolor="white" totalscolor="black" headerbgcolor="white" boldunreadrows="false" evaluateactions="false" allownewdocuments="false" allowcustomizations="false" hidemarginborder="false" marginwidth="0px" marginbgcolor="white" uniquekeys="false">
+  <code event="selection">
+    <formula>SELECT Form = "LabelForm" &amp; Status = "Active" &amp; isMultiValue = "No"</formula>
+  </code>
+  <actionbar bgcolor="#f0f0f0" bordercolor="black">
+    <actionbuttonstyle bgcolor="#f0f0f0"/>
+    <font color="system"/>
+    <border style="solid" width="0px 0px 1px"/>
+    <action title="Categori_ze" showinbar="false" systemcommand="categorize"/>
+    <action title="_Edit Document" showinbar="false" systemcommand="edit"/>
+    <action title="_Send Document" showinbar="false" systemcommand="send"/>
+    <action title="_Forward" showinbar="false" systemcommand="forward"/>
+    <action title="_Move To Folder..." showinbar="false" systemcommand="movetofolder"/>
+    <action title="_Remove From Folder" showinbar="false" systemcommand="removefromfolder"/>
+    <action title="_Read" showinbar="false" systemcommand="markread"/>
+    <action title="_Unread" showinbar="false" systemcommand="markunread"/>
+    <action title="_Open in New Window" showinbar="false" systemcommand="openinnewwindow"/>
+    <action title="_Print..." showinbar="false" systemcommand="print"/>
+    <action title="_Delete" showinbar="false" systemcommand="delete"/>
+    <action title="_Document Properties" showinbar="false" systemcommand="properties"/>
+    <action title="C_ut" showinbar="false" systemcommand="cut"/>
+    <action title="_Copy" showinbar="false" systemcommand="copy"/>
+    <action title="Copy as Document _Link" showinbar="false" systemcommand="copyasdoclink"/>
+    <action title="Copy as _Table" showinbar="false" systemcommand="copyastable"/>
+    <action title="P_aste" showinbar="false" systemcommand="paste"/>
+    <action title="_Open" showinbar="false" systemcommand="open"/>
+    <action title="Bookmark" showinbar="false" systemcommand="bookmark"/>
+    <action title="Create LabelForm">
+      <code event="click">
+        <formula>@Command([Compose];"LabelForm")</formula>
+      </code>
+    </action>
+    <action title="Generate other Language labels">
+      <code event="action">
+        <simpleaction action="runagent" agent="(generateLabels)"/>
+      </code>
+    </action>
+    <action title="Used in ...\setLocationUsed">
+      <code event="action">
+        <simpleaction action="runagent" agent="(setWhereUsed)"/>
+      </code>
+    </action>
+    <action title="Used in ...\setCCused">
+      <code event="action">
+        <simpleaction action="runagent" agent="(setCCused)"/>
+      </code>
+    </action>
+    <action title="Used in ...\setXPageUsed">
+      <code event="action">
+        <simpleaction action="runagent" agent="(setXpageUsed)"/>
+      </code>
+    </action>
+  </actionbar>
+  <column align="center" hidedetailrows="false" itemname="$18" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(processed = "Yes"; 0:0:0;0:0:255)</formula>
+    </code>
+  </column>
+  <column sort="ascending" hidedetailrows="false" itemname="key" width="16.3750" resizable="true" separatemultiplevalues="false" sortnoaccent="true" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader title="Key">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+  </column>
+  <column align="center" resort="both" hidedetailrows="false" itemname="$52" width="7.6250" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader title="Processed">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>transde := @If(val_eme_de != val_americas_en;1;0);
+transes := @If(val_eme_es != val_americas_en;1;0);
+transfi := @If(val_eme_fi != val_americas_en;1;0);
+transfr := @If(val_eme_fr != val_americas_en;1;0);
+transit := @If(val_eme_it != val_americas_en;1;0);
+transnl := @If(val_eme_nl != val_americas_en;1;0);
+transse := @If(val_eme_se != val_americas_en;1;0);
+transam_es := @If(val_americas_es != val_americas_en;1;0);
+transam_ca := @If(val_americas_es != val_americas_ca;1;0);
+transam_fr := @If(val_americas_es != val_americas_fr;1;0);
+
+@If(transde =1 &amp; transes = 1 &amp; transfi = 1 &amp; transfr = 1 &amp; transit = 1 &amp; transnl =1 &amp; transse = 1 &amp; transam_es = 1 &amp; transam_ca = 1 &amp; transam_fr = 1;"Yes";"No")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$44" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_eme_de != val_americas_en; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$51" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="de">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_eme_de != val_americas_en; "T";"F")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$46" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_eme_es != val_americas_en; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$53" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="es">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_eme_es != val_americas_en; "T";"F")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$47" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_eme_fi != val_americas_en; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$54" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="fi">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_eme_fi != val_americas_en; "T";"F")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$48" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_eme_fr != val_americas_en; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$55" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="fr">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_eme_fr != val_americas_en; "T";"F")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$49" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_eme_it != val_americas_en; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$56" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="it">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_eme_it != val_americas_en; "T";"F")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$50" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_eme_nl != val_americas_en; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$57" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="nl">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_eme_nl != val_americas_en; "T";"F")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$45" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_eme_se != val_americas_en; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$58" width="5.5000" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="se">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_eme_se != val_americas_en; "T";"F")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$60" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_americas_es != val_americas_en; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$64" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="am_es">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_americas_es != val_americas_en; "T";"F")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$63" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_americas_ca != val_americas_en; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$62" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="am_ca">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_americas_ca != val_americas_en; "T";"F")</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$61" width="1" resizable="false" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false" showascolor="true" hidden="true">
+    <font size="8pt"/>
+    <columnheader>
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_americas_fr != val_americas_en; 0:0:0;255:0:0)</formula>
+    </code>
+  </column>
+  <column align="center" hidedetailrows="false" itemname="$59" width="5" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader align="center" title="am_fr">
+      <font size="9pt" color="blue" style="bold"/>
+    </columnheader>
+    <code event="value">
+      <formula>@If(val_americas_fr != val_americas_en; "T";"F")</formula>
+    </code>
+  </column>
+  <column resort="both" hidedetailrows="false" itemname="$16" width="25.7500" resizable="true" separatemultiplevalues="false" sortnoaccent="false" sortnocase="true" showaslinks="false">
+    <font size="8pt"/>
+    <columnheader title="Modified Date">
+      <font size="9pt" style="bold"/>
+    </columnheader>
+    <datetimeformat show="datetime" date="yearmonthday" fourdigityearfor21stcentury="true" time="hourminutesecond" zone="never" dateformat="weekdaymonthdayyear" dayformat="twodigitday" monthformat="twodigitmonth" yearformat="fourdigityear" weekdayformat="shortname" dateseparator1=" " dateseparator2="/" dateseparator3="/" timeseparator=":" preference="usersetting"/>
+    <code event="value">
+      <formula>@Modified</formula>
+    </code>
+  </column>
+</view>

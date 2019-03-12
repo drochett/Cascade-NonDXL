@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.lotus.com/dxl" name="Import Log" alias="ImportLog" publicaccess="false" renderpassthrough="true" conflictaction="mergeconflicts">
+  <code event="windowtitle">
+    <formula>"Import Log"</formula>
+  </code>
+  <actionbar bgcolor="#efefef" bordercolor="black">
+    <actionbarstyle repeat="hrepeat">
+      <imageref name="actionbarbg.gif"/>
+    </actionbarstyle>
+    <actionbuttonstyle bgcolor="none">
+      <imageref name="actionbarmouseover.gif"/>
+    </actionbuttonstyle>
+    <font color="system"/>
+    <border style="solid" width="0px 0px 1px"/>
+    <action title="Close" icon="27" showinmenu="false" hide="preview edit previewedit">
+      <code event="click">
+        <formula>@Command([FileCloseWindow])</formula>
+      </code>
+    </action>
+  </actionbar>
+  <body>
+    <richtext>
+      <pardef id="1" hide="notes web mobile"/>
+      <par def="1"/>
+      <pardef id="2"/>
+      <par def="2"/>
+      <table htmlclass="Fieldset" widthtype="fixedleft" refwidth="7.0042in">
+        <tablecolumn width="7.0042in"/>
+        <tablerow>
+          <tablecell colorstyle="vgradient" borderwidth="0px" bgcolor="white" altbgcolor="#f7f7f7">
+            <pardef id="4" keepwithnext="true" keeptogether="true"/>
+            <par def="4">
+              <layer htmlid="Layer" htmlclass="Header" zindex="0" topunittype="auto" top="0.0000" leftunittype="auto" left="0.0000" widthunittype="auto" width="0.0000" heightunittype="auto" height="0.0000">
+                <pardef id="5"/>
+                <par def="5">Import Log</par>
+              </layer>
+            </par>
+            <table cellbordercolor="#e1e1e1" leftmargin="0.0104in" widthtype="fixedleft" rowspacing="0.0299in" refwidth="7.0042in">
+              <tablecolumn width="2.1250in"/>
+              <tablecolumn width="4.8792in"/>
+              <tablerow>
+                <tablecell valign="center" borderwidth="0px 0px 1px" htmlclass="label">
+                  <pardef id="7" align="right" keepwithnext="true" keeptogether="true"/>
+                  <par def="7">Name:</par>
+                </tablecell>
+                <tablecell borderwidth="0px 0px 1px">
+                  <pardef id="8" keepwithnext="true" keeptogether="true"/>
+                  <par def="8">
+                    <field type="text" kind="computedfordisplay" name="dispName">
+                      <code event="defaultvalue">
+                        <formula>Name</formula>
+                      </code>
+                    </field>
+                    <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="7" containertype="65418" aftercontainercount="1" afterbegincount="3">
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata>
+                  </par>
+                </tablecell>
+              </tablerow>
+              <tablerow>
+                <tablecell borderwidth="1px 0px" htmlclass="label">
+                  <par def="7">Server:</par>
+                </tablecell>
+                <tablecell borderwidth="1px 0px">
+                  <par def="8">
+                    <field type="text" kind="computedfordisplay" name="dispServer">
+                      <code event="defaultvalue">
+                        <formula>Server</formula>
+                      </code>
+                    </field>
+                    <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata>
+                  </par>
+                </tablecell>
+              </tablerow>
+              <tablerow>
+                <tablecell valign="center" borderwidth="1px 0px" htmlclass="label">
+                  <par def="7">Start Date/Time:</par>
+                </tablecell>
+                <tablecell borderwidth="1px 0px">
+                  <par def="8">
+                    <field type="datetime" kind="computedfordisplay" name="dispStartDate">
+                      <datetimeformat show="datetime" date="yearmonthday" fourdigityearfor21stcentury="true" time="hourminute" zone="never" dateformat="weekdaymonthdayyear" dayformat="twodigitday" monthformat="twodigitmonth" yearformat="fourdigityear" weekdayformat="shortname" dateseparator1=" " dateseparator2="/" dateseparator3="/" timeseparator=":" preference="usersetting"/>
+                      <code event="defaultvalue">
+                        <formula>StartDate</formula>
+                      </code>
+                    </field>
+                  </par>
+                </tablecell>
+              </tablerow>
+              <tablerow>
+                <tablecell borderwidth="1px 0px" htmlclass="label">
+                  <par def="7">End Date/Time:</par>
+                </tablecell>
+                <tablecell borderwidth="1px 0px">
+                  <par def="8">
+                    <field type="datetime" kind="computedfordisplay" name="dispEndDate">
+                      <datetimeformat show="datetime" date="yearmonthday" fourdigityearfor21stcentury="true" time="hourminute" zone="never" dateformat="weekdaymonthdayyear" dayformat="twodigitday" monthformat="twodigitmonth" yearformat="fourdigityear" weekdayformat="shortname" dateseparator1=" " dateseparator2="/" dateseparator3="/" timeseparator=":" preference="usersetting"/>
+                      <code event="defaultvalue">
+                        <formula>EndDate</formula>
+                      </code>
+                    </field>
+                  </par>
+                </tablecell>
+              </tablerow>
+              <tablerow>
+                <tablecell borderwidth="1px 0px">
+                  <par def="7">Server:</par>
+                </tablecell>
+                <tablecell borderwidth="1px 0px">
+                  <par def="8">
+                    <field type="text" kind="computedfordisplay" name="dspServer">
+                      <code event="defaultvalue">
+                        <formula>@Name([CN];Server)</formula>
+                      </code>
+                    </field>
+                    <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata>
+                  </par>
+                </tablecell>
+              </tablerow>
+              <tablerow>
+                <tablecell columnspan="2" borderwidth="1px 0px">
+                  <pardef id="10" leftmargin="0" keepwithnext="true" keeptogether="true">
+                    <code event="hidewhen">
+                      <formula> !@IsAvailable(errorCount)|errorCount = ""|errorCount = 0</formula>
+                    </code>
+                  </pardef>
+                  <section onread="collapse" onpreview="expand" onedit="collapse">
+                    <sectiontitle pardef="10" borderstyle="shadow" color="red">
+                      <font color="red"/>
+                      <code event="value">
+                        <formula>"Errors:  " + @Text(errorCount)</formula>
+                      </code>
+                    </sectiontitle>
+                    <table leftmargin="0" widthtype="fixedleft" refwidth="6.9250in">
+                      <tablecolumn width="2.1250in"/>
+                      <tablecolumn width="4.8000in"/>
+                      <tablerow>
+                        <tablecell borderwidth="0px">
+                          <pardef id="12" align="right" keepwithnext="true" keeptogether="true">
+                            <code event="hidewhen">
+                              <formula> !@IsAvailable(errorCount)|errorCount = ""|errorCount = 0</formula>
+                            </code>
+                          </pardef>
+                          <par def="12">
+                            <run>
+                              <font color="red"/>Number Errors: </run>
+                          </par>
+                          <par def="12">
+                            <run>
+                              <font color="red"/>Errors: </run>
+                          </par>
+                        </tablecell>
+                        <tablecell borderwidth="0px">
+                          <pardef id="13" keepwithnext="true" keeptogether="true">
+                            <code event="hidewhen">
+                              <formula> !@IsAvailable(errorCount)|errorCount = ""|errorCount = 0</formula>
+                            </code>
+                          </pardef>
+                          <par def="13">
+                            <run>
+                              <font color="red"/>
+                            </run>
+                            <run>
+                              <font color="red"/>
+                              <field type="number" kind="computedfordisplay" name="ErrorCount">
+                                <numberformat format="general" digits="2" punctuated="false" parens="false" percent="false" bytes="false"/>
+                                <code event="defaultvalue">
+                                  <formula>ErrorCount</formula>
+                                </code>
+                              </field>
+                            </run>
+                            <run>
+                              <font color="red"/>
+                            </run>
+                          </par>
+                          <par def="13">
+                            <run>
+                              <font color="red"/>
+                            </run>
+                            <run>
+                              <font color="red"/>
+                              <field type="richtext" kind="computed" name="Errors">
+                                <code event="defaultvalue">
+                                  <formula>Errors</formula>
+                                </code>
+                              </field>
+                            </run>
+                            <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="10" containertype="65418" aftercontainercount="1" afterbegincount="3">
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata>
+                          </par>
+                        </tablecell>
+                      </tablerow>
+                    </table>
+                    <pardef id="14" keepwithnext="true" keeptogether="true"/>
+                    <par def="14"/>
+                  </section>
+                  <pardef id="15" keepwithnext="true" keeptogether="true">
+                    <code event="hidewhen">
+                      <formula> !@IsAvailable(errorCount)|errorCount = ""|@Text(errorCount)="0"</formula>
+                    </code>
+                  </pardef>
+                  <par def="15"/>
+                </tablecell>
+              </tablerow>
+              <tablerow>
+                <tablecell columnspan="2" borderwidth="1px 0px">
+                  <pardef id="17" leftmargin="0" keepwithnext="true" keeptogether="true">
+                    <code event="hidewhen">
+                      <formula>!@IsAvailable(warningCount) | warningcount = 0|warningCount = ""</formula>
+                    </code>
+                  </pardef>
+                  <section onread="collapse" onpreview="collapse" onedit="collapse">
+                    <sectiontitle pardef="17" borderstyle="shadow" color="purple">
+                      <font color="purple"/>
+                      <text>Warnings</text>
+                    </sectiontitle>
+                    <table leftmargin="0" widthtype="fixedleft" refwidth="6.9250in">
+                      <tablecolumn width="2.1250in"/>
+                      <tablecolumn width="4.8000in"/>
+                      <tablerow>
+                        <tablecell borderwidth="0px">
+                          <pardef id="18" align="right" keepwithnext="true" keeptogether="true">
+                            <code event="hidewhen">
+                              <formula>!@IsAvailable(warningCount) | warningcount = 0|warningCount = ""</formula>
+                            </code>
+                          </pardef>
+                          <par def="18">
+                            <run>
+                              <font color="purple"/>Warning Count:  </run>
+                          </par>
+                          <par def="18">
+                            <run>
+                              <font color="purple"/>Warning Messages:   </run>
+                          </par>
+                        </tablecell>
+                        <tablecell borderwidth="0px">
+                          <pardef id="19" keepwithnext="true" keeptogether="true">
+                            <code event="hidewhen">
+                              <formula>!@IsAvailable(warningCount) | warningcount = 0|warningCount = ""</formula>
+                            </code>
+                          </pardef>
+                          <par def="19">
+                            <run>
+                              <font color="purple"/>
+                              <field type="text" kind="computedfordisplay" name="dspWarningCount">
+                                <code event="defaultvalue">
+                                  <formula>@Text(warningCount)</formula>
+                                </code>
+                              </field>
+                            </run>
+                            <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="8" containertype="65418" aftercontainercount="1" afterbegincount="3">
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata>
+                          </par>
+                          <par def="19">
+                            <run>
+                              <font color="purple"/>
+                              <field type="richtext" kind="computed" name="warnings">
+                                <code event="defaultvalue">
+                                  <formula>warnings</formula>
+                                </code>
+                              </field>
+                            </run>
+                            <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="7" containertype="65418" aftercontainercount="1" afterbegincount="3">
+Yg4BAIQAAAAAAAEAAAA=
+</compositedata>
+                          </par>
+                        </tablecell>
+                      </tablerow>
+                    </table>
+                    <pardef id="20" keepwithnext="true" keeptogether="true">
+                      <code event="hidewhen">
+                        <formula>!@IsAvailable(warningCount) | warningcount = 0|warningCount = ""</formula>
+                      </code>
+                    </pardef>
+                    <par def="20"/>
+                  </section>
+                  <par def="20"/>
+                </tablecell>
+              </tablerow>
+              <tablerow>
+                <tablecell columnspan="2" borderwidth="1px 0px">
+                  <pardef id="21" leftmargin="0" keepwithnext="true" keeptogether="true">
+                    <code event="hidewhen">
+                      <formula>!@IsAvailable(Info) | info = "" | infoCount = 0</formula>
+                    </code>
+                  </pardef>
+                  <section onread="collapse" onpreview="collapse" onedit="collapse">
+                    <sectiontitle pardef="21" borderstyle="shadow" color="blue">
+                      <font color="blue"/>
+                      <text>Information</text>
+                    </sectiontitle>
+                    <table leftmargin="0" widthtype="fixedleft" refwidth="6.9250in">
+                      <tablecolumn width="2.1250in"/>
+                      <tablecolumn width="4.8000in"/>
+                      <tablerow>
+                        <tablecell borderwidth="0px">
+                          <pardef id="23" align="right" keepwithnext="true" keeptogether="true">
+                            <code event="hidewhen">
+                              <formula>!@IsAvailable(Info) | info = "" | infoCount = 0</formula>
+                            </code>
+                          </pardef>
+                          <par def="23">
+                            <run>
+                              <font color="blue"/>Info Messages: </run>
+                          </par>
+                        </tablecell>
+                        <tablecell borderwidth="0px">
+                          <pardef id="24" keepwithnext="true" keeptogether="true">
+                            <code event="hidewhen">
+                              <formula>!@IsAvailable(Info) | info = "" | infoCount = 0</formula>
+                            </code>
+                          </pardef>
+                          <par def="24">
+                            <run>
+                              <font color="blue"/>
+                              <field type="richtext" kind="computed" name="Info">
+                                <code event="defaultvalue">
+                                  <formula>Info</formula>
+                                </code>
+                              </field>
+                            </run>
+                            <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="8" containertype="65418" aftercontainercount="1" afterbegincount="3">
+Yg4BAIQAAAAAAAEAAAA=
+</compositedata>
+                          </par>
+                        </tablecell>
+                      </tablerow>
+                    </table>
+                    <pardef id="25" keepwithnext="true" keeptogether="true">
+                      <code event="hidewhen">
+                        <formula>!@IsAvailable(Info) | info = "" | infoCount = 0</formula>
+                      </code>
+                    </pardef>
+                    <par def="25"/>
+                  </section>
+                  <par def="25"/>
+                </tablecell>
+              </tablerow>
+              <tablerow>
+                <tablecell borderwidth="1px 0px" htmlclass="label">
+                  <par def="7">Total Count:</par>
+                </tablecell>
+                <tablecell borderwidth="1px 0px">
+                  <par def="8">
+                    <field type="text" kind="computedfordisplay" name="dispTotalCount">
+                      <code event="defaultvalue">
+                        <formula>TotalCount</formula>
+                      </code>
+                    </field>
+                    <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata>
+                  </par>
+                </tablecell>
+              </tablerow>
+              <tablerow>
+                <tablecell borderwidth="1px 0px" htmlclass="label">
+                  <pardef id="26" align="right" keepwithnext="true" keeptogether="true">
+                    <code event="hidewhen">
+                      <formula>var1 := @If( Name = "DeleteDeactivatedCascwebAddressDocs";"1";"0");
+var1 = "1"</formula>
+                    </code>
+                  </pardef>
+                  <par def="26">Change Count:</par>
+                </tablecell>
+                <tablecell borderwidth="1px 0px">
+                  <pardef id="27" keepwithnext="true" keeptogether="true">
+                    <code event="hidewhen">
+                      <formula>var1 := @If( Name = "DeleteDeactivatedCascwebAddressDocs";"1";"0");
+var1 = "1"</formula>
+                    </code>
+                  </pardef>
+                  <par def="27">
+                    <field type="text" kind="computedfordisplay" name="dispChangeCount">
+                      <code event="defaultvalue">
+                        <formula>ChangeCount</formula>
+                      </code>
+                    </field>
+                    <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="8" containertype="65418" aftercontainercount="1" afterbegincount="3">
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata>
+                  </par>
+                </tablecell>
+              </tablerow>
+              <tablerow>
+                <tablecell borderwidth="1px 0px" htmlclass="label">
+                  <pardef id="28" align="right" keepwithnext="true" keeptogether="true">
+                    <code event="hidewhen">
+                      <formula>var1 := @If(Name = "Populate AccessType Field";"1";@If( Name = "DeleteDeactivatedCascwebAddressDocs";"1";"0"));
+var1 = "0"</formula>
+                    </code>
+                  </pardef>
+                  <par def="28">Unchanged Count:</par>
+                </tablecell>
+                <tablecell borderwidth="1px 0px">
+                  <pardef id="29" keepwithnext="true" keeptogether="true">
+                    <code event="hidewhen">
+                      <formula>var1 := @If(Name = "Populate AccessType Field";"1";@If( Name = "DeleteDeactivatedCascwebAddressDocs";"1";"0"));
+var1 = "0"</formula>
+                    </code>
+                  </pardef>
+                  <par def="29">
+                    <field type="text" kind="computedfordisplay" name="dispUnchangedCount">
+                      <code event="defaultvalue">
+                        <formula>unchangedCount</formula>
+                      </code>
+                    </field>
+                    <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="8" containertype="65418" aftercontainercount="1" afterbegincount="3">
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata>
+                  </par>
+                </tablecell>
+              </tablerow>
+              <tablerow>
+                <tablecell borderwidth="1px 0px" htmlclass="label">
+                  <pardef id="30" align="right" keepwithnext="true" keeptogether="true">
+                    <code event="hidewhen">
+                      <formula>var1 := @If(Name = "Populate AccessType Field";"1";@If( Name = "DeleteDeactivatedCascwebAddressDocs";"1";@If(Name="Notification_Of_Registration_Deletion";"1";"0")));
+var1 = "1"</formula>
+                    </code>
+                  </pardef>
+                  <par def="30">New Count:</par>
+                </tablecell>
+                <tablecell borderwidth="1px 0px">
+                  <pardef id="31" keepwithnext="true" keeptogether="true">
+                    <code event="hidewhen">
+                      <formula>var1 := @If(Name = "Populate AccessType Field";"1";@If( Name = "DeleteDeactivatedCascwebAddressDocs";"1";@If(Name="Notification_Of_Registration_Deletion";"1";"0")));
+var1 = "1"</formula>
+                    </code>
+                  </pardef>
+                  <par def="31">
+                    <field type="text" kind="computedfordisplay" name="dispNewCount">
+                      <code event="defaultvalue">
+                        <formula>NewCount</formula>
+                      </code>
+                    </field>
+                    <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="8" containertype="65418" aftercontainercount="1" afterbegincount="3">
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata>
+                  </par>
+                </tablecell>
+              </tablerow>
+              <tablerow>
+                <tablecell borderwidth="1px 0px" htmlclass="label">
+                  <pardef id="32" align="right" keepwithnext="true" keeptogether="true">
+                    <code event="hidewhen">
+                      <formula>Name != "DeleteDeactivatedCascwebAddressDocs"</formula>
+                    </code>
+                  </pardef>
+                  <par def="32">Delete Count:</par>
+                </tablecell>
+                <tablecell borderwidth="1px 0px">
+                  <pardef id="33" keepwithnext="true" keeptogether="true">
+                    <code event="hidewhen">
+                      <formula>Name = ""</formula>
+                    </code>
+                  </pardef>
+                  <par def="33">
+                    <field type="text" kind="computedfordisplay" name="dispDeleteCount">
+                      <code event="defaultvalue">
+                        <formula>DeleteCount</formula>
+                      </code>
+                    </field>
+                    <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="8" containertype="65418" aftercontainercount="1" afterbegincount="3">
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata>
+                  </par>
+                </tablecell>
+              </tablerow>
+              <tablerow>
+                <tablecell borderwidth="1px 0px">
+                  <par def="7">Message:</par>
+                </tablecell>
+                <tablecell borderwidth="1px 0px">
+                  <par def="8"/>
+                </tablecell>
+              </tablerow>
+              <tablerow>
+                <tablecell columnspan="2" borderwidth="1px 0px">
+                  <par def="14">
+                    <field type="richtext" kind="computed" name="Message">
+                      <code event="defaultvalue">
+                        <formula>Message</formula>
+                      </code>
+                    </field>
+                    <compositedata type="98" prevtype="65418" nexttype="222" afterparcount="6" containertype="65418" aftercontainercount="1" afterbegincount="3">
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata>
+                  </par>
+                </tablecell>
+              </tablerow>
+            </table>
+          </tablecell>
+        </tablerow>
+      </table>
+      <pardef id="34">
+        <code event="hidewhen">
+          <formula>!@IsAvailable(warningCount) | warningcount = 0|warningCount = ""</formula>
+        </code>
+      </pardef>
+      <par def="34"/>
+    </richtext>
+  </body>
+  <item name="NonCompHour" summary="false" sign="true">
+    <number>0</number>
+  </item>
+  <item name="Quantity" summary="false" sign="true">
+    <number>0</number>
+  </item>
+  <item name="NonCompHours" summary="false" sign="true">
+    <number>0</number>
+  </item>
+  <item name="CloseDate" summary="false" sign="true">
+    <rawitemdata type="400">
+AAAAAAAAAAA=
+</rawitemdata>
+  </item>
+  <item name="ServiceCallStartDate" summary="false" sign="true">
+    <rawitemdata type="400">
+AAAAAAAAAAA=
+</rawitemdata>
+  </item>
+  <item name="SCRDate" summary="false" sign="true">
+    <rawitemdata type="400">
+AAAAAAAAAAA=
+</rawitemdata>
+  </item>
+  <item name="InstallDate" summary="false" sign="true">
+    <rawitemdata type="400">
+AAAAAAAAAAA=
+</rawitemdata>
+  </item>
+  <item name="Discout" summary="false" sign="true">
+    <number>0</number>
+  </item>
+  <item name="dispDiscount" summary="false" sign="true">
+    <number>0</number>
+  </item>
+  <item name="Price" summary="false" sign="true">
+    <number>0</number>
+  </item>
+  <item name="Discount" summary="false" sign="true">
+    <number>0</number>
+  </item>
+  <item name="$SubForm_RepIDs" sign="true">
+    <text>0000000000000000</text>
+  </item>
+  <item name="warningCount" summary="false" sign="true">
+    <number>0</number>
+  </item>
+  <item name="$StyleSheetList" sign="true">
+    <rawitemdata type="1">
+9v8yAAAAAAADACEAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAEdlbmVyYWxOb3Rlcy5jc3M=
+</rawitemdata>
+  </item>
+</form>

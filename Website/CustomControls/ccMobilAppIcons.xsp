@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<xp:image id="image1" url="/apple-touch-icon-76x76.png"
+		styleClass="display:inline-block; padding-right:0;">
+	</xp:image>
+</xp:view>

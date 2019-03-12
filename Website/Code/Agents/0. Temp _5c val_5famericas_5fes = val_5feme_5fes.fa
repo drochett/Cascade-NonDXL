@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent xmlns="http://www.lotus.com/dxl" name="0. Temp \ val_americas_es = val_eme_es" hide="v3" publicaccess="false">
+  <trigger type="actionsmenu"/>
+  <documentset type="selected"/>
+  <code event="action">
+    <simpleaction action="runformula">
+      <formula>FIELD val_americas_es := val_eme_es ;
+SELECT @All</formula>
+    </simpleaction>
+  </code>
+  <item name="$POID">
+    <datetime>20190124T101945,24-08</datetime>
+  </item>
+</agent>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<xp:panel styleClass="blog-header">
+		<xp:image id="image1" style="margin-top:-10px;border-bottom:3px solid #69be28;">
+			<xp:this.url><![CDATA[#{javascript:try {
+	configBean.HostURL + configBean.BlogHeaderImage
+} catch (e) {
+	return "Blog_Banner.png"
+}}]]></xp:this.url>
+		</xp:image>
+		<xp:panel styleClass="blog-heading">
+			<xp:this.style><![CDATA[#{javascript:try {
+	configBean.BlogHeaderStyle; }
+catch (e) {
+	return "";
+}}]]></xp:this.style>
+			<xp:label id="label1">
+				<xp:this.style><![CDATA[#{javascript:try {
+	var temp = configBean.BlogTitleFontStyle;
+	var retString = "";
+	for (var i = 0; i < temp.length; i++) {
+		retString = retString + ";" + temp[i];
+	}
+	return retString
+} catch(e) {
+	return "";
+}}]]></xp:this.style>
+				<xp:this.value><![CDATA[#{javascript:try {
+	return langBean.blog_title
+} catch(e) {
+	return "Cascade News"
+}}]]></xp:this.value>
+			</xp:label>
+
+			<xp:label id="label2">
+				<xp:this.style><![CDATA[#{javascript:try {
+	var temp = configBean.BlogSubTitleFontStyle;
+	var retString = "";
+	for (var i = 0; i < temp.length; i++) {
+		retString = retString + ";" + temp[i];
+	}
+	return retString
+} catch(e) {
+	return "margin-left:10px;"
+}}]]></xp:this.style>
+				<xp:this.value><![CDATA[#{javascript:try { 
+	return langBean.blog_subtitle 
+} catch(e) {
+	return ""
+}}]]></xp:this.value>
+			</xp:label>
+
+		</xp:panel>
+	</xp:panel>
+</xp:view>

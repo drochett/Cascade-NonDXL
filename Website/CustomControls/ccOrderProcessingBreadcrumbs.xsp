@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xe:breadCrumbs id="breadCrumbs1">
+		<xe:this.treeNodes>
+			<xe:basicLeafNode label="${langBean.home}"
+				href="${configBean.HostURL}${sessionScope.LanguageURL}home">
+			</xe:basicLeafNode>
+			<xe:basicLeafNode label="${langBean.order}"
+				href="${configBean.HostURL}${sessionScope.LanguageURL}order">
+			</xe:basicLeafNode>
+			<xe:basicLeafNode>
+			  <xe:this.label><![CDATA[#{javascript:
+if (!!sessionScope.viewName) {
+	var viewName = getComponent("dynamicViewPanel1").getDataSource().getView().getName() ;
+	return @Right(viewName,"\\") ;
+	} else {
+	return "Parts"
+	}}]]></xe:this.label>
+			</xe:basicLeafNode>
+		</xe:this.treeNodes>
+	</xe:breadCrumbs>
+</xp:view>
